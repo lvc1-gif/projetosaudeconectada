@@ -1,0 +1,2806 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saúde Conectada - IFAL Campus Benedito Bentes</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome 6 Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        ifal: {
+                            green: '#059669',
+                            greenDark: '#047857',
+                            navy: '#0f3764',
+                            navyDark: '#0a2544',
+                            red: '#dc2626',
+                            lightBg: '#f8fafc'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        @media print {
+            body * { visibility: hidden !important; }
+            #printableArea, #printableArea * { visibility: visible !important; }
+            #printableArea { position: absolute; left: 0; top: 0; width: 100%; padding: 25px; background: white; color: black; }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100 h-full flex flex-col font-sans transition-colors duration-200">
+    
+    <!-- BANNER DE MANUTENÇÃO PREVENTIVA -->
+    <div id="maintenanceBanner" class="hidden fixed inset-0 z-50 bg-slate-900/95 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center text-white space-y-4">
+        <div class="w-16 h-16 rounded-3xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-3xl mb-2">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h2 class="text-2xl font-extrabold">Saúde Conectada em Manutenção</h2>
+        <p class="text-slate-300 text-sm max-w-md leading-relaxed">
+            O sistema está temporariamente em manutenção preventiva no IFAL Campus Benedito Bentes.
+        </p>
+        <button onclick="openModal('modalLogin')" class="px-5 py-2.5 bg-ifal-green text-white font-bold text-xs rounded-xl shadow-lg hover:bg-ifal-greenDark transition">
+            Acesso Administrativo
+        </button>
+    </div>
+
+    <div id="app" class="flex h-screen overflow-hidden">
+        
+        <!-- SIDEBAR DE NAVEGAÇÃO INSTITUCIONAL -->
+        <aside id="sidebar" class="w-72 bg-white dark:bg-slate-800 border-r border-slate-200 dark:border-slate-700 flex flex-col z-30 transition-all duration-300 fixed md:relative h-full -translate-x-full md:translate-x-0 shadow-xl md:shadow-none">
+            
+            <!-- Cabeçalho do Campus -->
+            <div class="p-4 border-b border-slate-100 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/50 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-ifal-navy flex items-center justify-center text-white shadow-md">
+                        <i class="fa-solid fa-graduation-cap text-xl text-emerald-400"></i>
+                    </div>
+                    <div>
+                        <div class="flex items-center space-x-1">
+                            <span class="text-[9px] font-bold tracking-widest uppercase bg-ifal-green text-white px-1.5 py-0.5 rounded">IFAL</span>
+                            <span class="text-[9px] text-slate-500 dark:text-slate-400 font-semibold uppercase">Benedito Bentes</span>
+                        </div>
+                        <h1 class="font-extrabold text-base leading-tight text-ifal-navy dark:text-white">Saúde<span class="text-ifal-green">Conectada</span></h1>
+                        <p class="text-[10px] text-slate-500 dark:text-slate-400">Empreendedorismo e Inovação</p>
+                    </div>
+                </div>
+                <button id="closeSidebarMobile" aria-label="Fechar menu lateral" class="md:hidden text-slate-400 hover:text-slate-600 dark:hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            
+            <!-- Card de Usuário Dinâmico -->
+            <div id="sidebarUserBox" class="p-3.5 mx-3 my-3 bg-gradient-to-r from-slate-900 to-ifal-navy text-white rounded-2xl shadow-sm border border-slate-700 relative overflow-hidden">
+                <div class="relative z-10 flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-emerald-500/20 border-2 border-emerald-400 flex items-center justify-center text-white font-bold text-sm">
+                        <i id="sidebarUserIcon" class="fa-solid fa-user-graduate"></i>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <p id="sidebarUserName" class="text-xs font-bold truncate">Visitante</p>
+                        <p id="sidebarUserRole" class="text-[10px] text-emerald-300 font-mono tracking-wider">Não Autenticado</p>
+                        <p id="sidebarUserSector" class="text-[9px] text-slate-300 truncate">IFAL Campus Benedito Bentes</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navegação Principal -->
+            <nav class="flex-1 px-3 py-2 space-y-1 overflow-y-auto">
+                <a href="#dashboard" data-view="dashboard" class="nav-btn active flex items-center space-x-3 px-3.5 py-2.5 rounded-xl font-semibold text-xs transition-all bg-ifal-navy text-white shadow-sm">
+                    <i class="fa-solid fa-house w-5 text-center"></i>
+                    <span>Início</span>
+                </a>
+                <a href="#servicos" data-view="servicos" class="nav-btn flex items-center space-x-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-all">
+                    <i class="fa-solid fa-notes-medical w-5 text-center text-emerald-600"></i>
+                    <span>Serviços</span>
+                </a>
+                <a href="#solicitacoes" data-view="solicitacoes" class="nav-btn flex items-center space-x-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-all">
+                    <i class="fa-solid fa-paper-plane w-5 text-center text-blue-600"></i>
+                    <span>Solicitar Atendimento</span>
+                </a>
+                <a href="#acompanhamento" data-view="acompanhamento" class="nav-btn flex items-center space-x-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-all">
+                    <i class="fa-solid fa-list-check w-5 text-center text-amber-600"></i>
+                    <span>Minhas Solicitações</span>
+                    <span id="badgeSolCount" class="ml-auto text-[10px] bg-amber-600 text-white font-bold px-2 py-0.5 rounded-full">0</span>
+                </a>
+                <a href="#agendamentos" data-view="agendamentos" class="nav-btn flex items-center space-x-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-all">
+                    <i class="fa-solid fa-calendar-check w-5 text-center text-purple-600"></i>
+                    <span>Agendamentos</span>
+                </a>
+                <a href="#triagem" data-view="triagem" class="nav-btn flex items-center space-x-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-all">
+                    <i class="fa-solid fa-brain w-5 text-center text-rose-600"></i>
+                    <span>Triagem Digital</span>
+                </a>
+                <a href="#avisos" data-view="avisos" class="nav-btn flex items-center space-x-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-all">
+                    <i class="fa-solid fa-bullhorn w-5 text-center text-sky-600"></i>
+                    <span>Mural de Avisos</span>
+                </a>
+                <a href="#comunicacao" data-view="comunicacao" class="nav-btn flex items-center space-x-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-all">
+                    <i class="fa-solid fa-comments w-5 text-center text-indigo-600"></i>
+                    <span>Comunicação entre Setores</span>
+                </a>
+                <a href="#locais" data-view="locais" class="nav-btn flex items-center space-x-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-all">
+                    <i class="fa-solid fa-location-dot w-5 text-center text-teal-600"></i>
+                    <span>Unidades & Setores</span>
+                </a>
+                <a href="#informacoes" data-view="informacoes" class="nav-btn flex items-center space-x-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-all">
+                    <i class="fa-solid fa-circle-info w-5 text-center text-slate-500"></i>
+                    <span>Informações & FAQ</span>
+                </a>
+                <a href="#emergencia" data-view="emergencia" class="nav-btn flex items-center space-x-3 px-3.5 py-2.5 rounded-xl font-semibold text-xs text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-all">
+                    <i class="fa-solid fa-triangle-exclamation w-5 text-center"></i>
+                    <span>Emergência</span>
+                </a>
+                <a href="#perfil" data-view="perfil" class="nav-btn flex items-center space-x-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-all">
+                    <i class="fa-solid fa-id-card w-5 text-center text-cyan-600"></i>
+                    <span>Meu Perfil</span>
+                </a>
+                <a href="#notificacoes" data-view="notificacoes" class="nav-btn flex items-center space-x-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-all">
+                    <i class="fa-solid fa-bell w-5 text-center text-amber-500"></i>
+                    <span>Notificações</span>
+                </a>
+                <a href="#ajuda" data-view="ajuda" class="nav-btn flex items-center space-x-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-all">
+                    <i class="fa-solid fa-circle-question w-5 text-center text-emerald-500"></i>
+                    <span>Central de Ajuda</span>
+                </a>
+
+                <!-- SEÇÃO EXCLUSIVA DE ADMIN -->
+                <div id="adminNavSection" class="pt-3 mt-3 border-t border-slate-100 dark:border-slate-700/50 hidden">
+                    <a href="#admin" data-view="admin" class="nav-btn flex items-center space-x-3 px-3.5 py-2.5 rounded-xl font-semibold text-xs text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-all">
+                        <i class="fa-solid fa-user-shield w-5 text-center"></i>
+                        <span>Painel Administrativo</span>
+                        <span class="ml-auto text-[9px] bg-rose-600 text-white px-1.5 py-0.5 rounded font-bold uppercase">ADMIN</span>
+                    </a>
+                </div>
+            </nav>
+
+            <div class="p-3.5 border-t border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 flex items-center justify-between">
+                <button id="themeToggleBtn" class="flex items-center space-x-2 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 transition">
+                    <i id="themeIcon" class="fa-solid fa-moon"></i>
+                    <span id="themeLabel">Tema Escuro</span>
+                </button>
+                <button onclick="resetDemoData()" class="text-[10px] text-slate-400 hover:text-rose-600 font-semibold underline transition">
+                    Resetar Banco
+                </button>
+            </div>
+        </aside>
+
+        <!-- ÁREA CENTRAL -->
+        <div class="flex-1 flex flex-col min-w-0 overflow-hidden bg-slate-50 dark:bg-slate-900">
+            
+            <header class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 h-16 flex items-center justify-between px-4 sm:px-6 sticky top-0 z-20 shadow-sm">
+                <div class="flex items-center space-x-3">
+                    <button id="openSidebarMobile" aria-label="Abrir menu lateral" class="md:hidden text-slate-600 dark:text-slate-300 p-2 rounded-lg">
+                        <i class="fa-solid fa-bars text-lg"></i>
+                    </button>
+                    <button id="headerBackBtn" onclick="goBack()" class="hidden sm:flex items-center space-x-1 text-xs font-semibold text-slate-500 hover:text-ifal-navy dark:hover:text-emerald-400 transition bg-slate-100 dark:bg-slate-700 px-2.5 py-1.5 rounded-lg">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>Voltar</span>
+                    </button>
+                    <div>
+                        <h2 id="currentViewTitle" class="text-base sm:text-lg font-bold text-slate-800 dark:text-white leading-tight">Saúde Conectada</h2>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 hidden sm:block">IFAL Campus Benedito Bentes • Projeto Institucional</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-3">
+                    <!-- BUSCA GLOBAL REAL -->
+                    <div class="relative hidden sm:block w-48 md:w-64">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+                        <input type="text" id="globalSearchInput" onkeyup="handleGlobalSearch(this.value)" placeholder="Buscar serviços, avisos..." class="w-full bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-100 text-xs rounded-xl pl-8 pr-3 py-2 border border-transparent focus:border-ifal-navy outline-none">
+                        <div id="searchResultsBox" class="hidden absolute left-0 right-0 mt-2 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-2 z-50 max-h-60 overflow-y-auto text-xs space-y-1"></div>
+                    </div>
+
+                    <div id="headerAuthArea">
+                        <!-- Renderizado via JS -->
+                    </div>
+
+                    <div class="relative">
+                        <button id="notifBtn" aria-label="Abrir notificações" onclick="toggleNotifMenu()" class="relative p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition">
+                            <i class="fa-solid fa-bell text-base"></i>
+                            <span id="notifBadgeDot" class="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full bg-rose-600 hidden"></span>
+                        </button>
+                        
+                        <div id="notifMenu" class="hidden absolute right-0 mt-2 w-80 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-4 z-50">
+                            <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-2 mb-3">
+                                <h4 class="font-bold text-xs text-slate-800 dark:text-white">Notificações</h4>
+                                <button onclick="markAllNotificationsRead()" class="text-[10px] text-blue-600 hover:underline">Marcar lidas</button>
+                            </div>
+                            <div id="notifList" class="space-y-2 text-xs max-h-64 overflow-y-auto">
+                                <!-- Notificações dinâmicas -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 space-y-6">
+                
+                <!-- VIEW 1: DASHBOARD / PÁGINA INICIAL -->
+                <section id="view-dashboard" class="view-section space-y-6">
+                    <div class="relative bg-gradient-to-r from-ifal-navy via-slate-900 to-ifal-green rounded-3xl p-6 sm:p-8 text-white shadow-xl overflow-hidden border border-slate-700">
+                        <div class="relative z-10 max-w-3xl space-y-3">
+                            <div class="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full text-xs font-semibold border border-white/20">
+                                <i class="fa-solid fa-graduation-cap text-emerald-400"></i>
+                                <span>IFAL Campus Benedito Bentes • Projeto Institucional</span>
+                            </div>
+                            <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Informação, comunicação e cuidado dentro do IFAL</h2>
+                            <p class="text-slate-200 text-xs sm:text-sm leading-relaxed">
+                                Plataforma digital desenvolvida para facilitar o acesso às informações do setor de saúde e otimizar a comunicação integrada com os demais setores do campus.
+                            </p>
+                            
+                            <!-- HIERARQUIA DE AÇÕES DO BANNER -->
+                            <div class="pt-3 space-y-2">
+                                <p class="text-[10px] font-bold uppercase tracking-wider text-emerald-300">Ações Principais:</p>
+                                <div class="flex flex-wrap gap-2.5">
+                                    <button onclick="switchTab('servicos')" class="bg-white hover:bg-slate-100 text-ifal-navy px-4 py-2 rounded-xl text-xs font-bold shadow-md transition flex items-center space-x-1.5">
+                                        <i class="fa-solid fa-notes-medical"></i><span>Conhecer os Serviços</span>
+                                    </button>
+                                    <button onclick="switchTab('solicitacoes')" class="bg-ifal-green hover:bg-ifal-greenDark text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md transition flex items-center space-x-1.5">
+                                        <i class="fa-solid fa-paper-plane"></i><span>Solicitar Atendimento</span>
+                                    </button>
+                                    <button onclick="switchTab('agendamentos')" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md transition flex items-center space-x-1.5">
+                                        <i class="fa-solid fa-calendar-check"></i><span>Fazer Agendamento</span>
+                                    </button>
+                                </div>
+
+                                <p class="text-[10px] font-bold uppercase tracking-wider text-slate-300 pt-1">Acesso Rápido:</p>
+                                <div class="flex flex-wrap gap-2">
+                                    <button onclick="switchTab('acompanhamento')" class="bg-white/15 hover:bg-white/25 text-white px-3 py-1.5 rounded-lg text-xs font-semibold backdrop-blur-md border border-white/20 transition">
+                                        Meus Atendimentos / Solicitações
+                                    </button>
+                                    <button onclick="switchTab('locais')" class="bg-white/15 hover:bg-white/25 text-white px-3 py-1.5 rounded-lg text-xs font-semibold backdrop-blur-md border border-white/20 transition">
+                                        Unidades e Setores
+                                    </button>
+                                    <button onclick="switchTab('informacoes')" class="bg-white/15 hover:bg-white/25 text-white px-3 py-1.5 rounded-lg text-xs font-semibold backdrop-blur-md border border-white/20 transition">
+                                        Informações e FAQ
+                                    </button>
+                                    <button onclick="switchTab('emergencia')" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-lg text-xs font-bold transition">
+                                        Preciso de Ajuda Urgente
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CARDS DE INDICADORES DINÂMICOS -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+                        <div onclick="switchTab('solicitacoes')" class="cursor-pointer bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-ifal-green transition space-y-1">
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">Solicitações</p>
+                            <h4 id="dashUserSolCount" class="text-xl font-extrabold text-slate-800 dark:text-white">0</h4>
+                            <p id="dashUserSolDetail" class="text-[10px] text-emerald-600 font-semibold">Em análise: 0 | Atendidas: 0</p>
+                        </div>
+                        <div onclick="switchTab('agendamentos')" class="cursor-pointer bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-ifal-green transition space-y-1">
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">Agendamentos</p>
+                            <h4 id="dashUserAgendaCount" class="text-xl font-extrabold text-slate-800 dark:text-white">0</h4>
+                            <p id="dashUserAgendaDetail" class="text-[10px] text-purple-600 font-semibold">Sem horários</p>
+                        </div>
+                        <div onclick="switchTab('notificacoes')" class="cursor-pointer bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-ifal-green transition space-y-1">
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">Notificações</p>
+                            <h4 id="dashUserNotifCount" class="text-xl font-extrabold text-slate-800 dark:text-white">0</h4>
+                            <p id="dashUserNotifDetail" class="text-[10px] text-amber-600 font-semibold">0 não lidas</p>
+                        </div>
+                        <div onclick="switchTab('comunicacao')" class="cursor-pointer bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-ifal-green transition space-y-1">
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">Mensagens</p>
+                            <h4 id="dashUserMsgCount" class="text-xl font-extrabold text-slate-800 dark:text-white">0</h4>
+                            <p class="text-[10px] text-indigo-600 font-semibold">Intersetoriais</p>
+                        </div>
+                        <div onclick="switchTab('servicos')" class="cursor-pointer bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm hover:border-ifal-green transition space-y-1">
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">Atendimentos</p>
+                            <h4 class="text-xl font-extrabold text-slate-800 dark:text-white">7</h4>
+                            <p class="text-[10px] text-sky-600 font-semibold">Disponíveis</p>
+                        </div>
+                    </div>
+
+                    <!-- ESTATÍSTICAS REAIS DE ATENDIMENTOS -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="lg:col-span-2 bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-3 gap-2">
+                                <div>
+                                    <h3 class="font-bold text-slate-800 dark:text-white text-sm">Estatísticas de Atendimentos</h3>
+                                    <p class="text-xs text-slate-500">Distribuição das solicitações pelas áreas</p>
+                                </div>
+                                <div class="flex items-center space-x-2 text-xs">
+                                    <select id="chartFilterCat" onchange="renderDashboardChart()" aria-label="Filtrar especialidade no gráfico" class="bg-slate-100 dark:bg-slate-700 p-1.5 rounded-lg border border-slate-200 text-xs font-semibold">
+                                        <option value="TODOS">Todas as Especialidades</option>
+                                        <option value="Psicologia">Psicologia</option>
+                                        <option value="Pedagogia">Pedagogia</option>
+                                        <option value="Serviço Social">Serviço Social</option>
+                                        <option value="Enfermagem">Enfermagem</option>
+                                        <option value="Coordenação Geral">Coordenação Geral</option>
+                                        <option value="Odontologia">Odontologia</option>
+                                        <option value="Nutrição">Nutrição</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="h-64 relative" id="chartWrapper">
+                                <canvas id="dashboardChart"></canvas>
+                            </div>
+                        </div>
+
+                        <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4">
+                            <h3 class="font-bold text-slate-800 dark:text-white text-sm border-b border-slate-100 dark:border-slate-700 pb-2">Últimos Avisos do Campus</h3>
+                            <div id="dashNoticesWidget" class="space-y-3 text-xs">
+                                <!-- Avisos em destaque -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 2: SERVIÇOS (OS 7 ATENDIMENTOS OFICIAIS) -->
+                <section id="view-servicos" class="view-section hidden space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <div>
+                            <h3 class="text-base font-bold text-slate-800 dark:text-white">Atendimentos Ofertados no IFAL Campus Benedito Bentes</h3>
+                            <p class="text-xs text-slate-500">Conheça as 7 áreas oficiais de atendimento e suporte integradas à plataforma</p>
+                        </div>
+                        <button onclick="goBack()" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl text-xs font-bold">
+                            ← Voltar
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="servicesGrid">
+                        <!-- Renderizado via JS -->
+                    </div>
+                </section>
+
+                <!-- VIEW 3: SOLICITAÇÃO DE ATENDIMENTO -->
+                <section id="view-solicitacoes" class="view-section hidden space-y-6">
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm max-w-2xl mx-auto space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-3">
+                            <div>
+                                <h3 class="text-base font-bold text-slate-800 dark:text-white">Enviar Nova Solicitação de Atendimento</h3>
+                                <p class="text-xs text-slate-500">Preencha os dados abaixo. Sua demanda gerará um protocolo oficial.</p>
+                            </div>
+                            <button onclick="switchTab('servicos')" class="text-xs font-bold text-slate-500 hover:underline">Voltar aos Serviços</button>
+                        </div>
+
+                        <form id="formNovaSolicitacao" onsubmit="handleNovaSolicitacao(event)" class="space-y-4 text-xs">
+                            <div>
+                                <label for="solEspecialidade" class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Selecione o Atendimento (7 Opções Oficiais)</label>
+                                <select id="solEspecialidade" required class="w-full bg-slate-50 dark:bg-slate-700 p-2.5 rounded-xl border border-slate-200 dark:border-slate-600 outline-none focus:border-ifal-navy">
+                                    <option value="">Escolha um atendimento...</option>
+                                    <option value="Psicologia">Psicologia</option>
+                                    <option value="Pedagogia">Pedagogia</option>
+                                    <option value="Serviço Social">Serviço Social</option>
+                                    <option value="Enfermagem">Enfermagem</option>
+                                    <option value="Coordenação Geral">Coordenação Geral</option>
+                                    <option value="Odontologia">Odontologia</option>
+                                    <option value="Nutrição">Nutrição</option>
+                                </select>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="solMotivo" class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Assunto / Motivo Resumido</label>
+                                    <input type="text" id="solMotivo" required placeholder="Ex: Orientação acadêmica / Apoio inicial" class="w-full bg-slate-50 dark:bg-slate-700 p-2.5 rounded-xl border border-slate-200 dark:border-slate-600 outline-none">
+                                </div>
+                                <div>
+                                    <label for="solPreferência" class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Preferência de Modalidade</label>
+                                    <select id="solPreferência" class="w-full bg-slate-50 dark:bg-slate-700 p-2.5 rounded-xl border border-slate-200 dark:border-slate-600 outline-none">
+                                        <option value="Presencial">Presencial no Campus</option>
+                                        <option value="Online">Online / Remoto</option>
+                                        <option value="Indiferente">Indiferente</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="solDescricao" class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Descrição detalhada da solicitação</label>
+                                <textarea id="solDescricao" rows="4" required placeholder="Descreva detalhadamente sua demanda para o setor..." class="w-full bg-slate-50 dark:bg-slate-700 p-3 rounded-xl border border-slate-200 dark:border-slate-600 outline-none focus:border-ifal-navy"></textarea>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="solDataPref" class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Data de Preferência (Opcional)</label>
+                                    <input type="date" id="solDataPref" class="w-full bg-slate-50 dark:bg-slate-700 p-2.5 rounded-xl border border-slate-200 dark:border-slate-600 outline-none">
+                                </div>
+                                <div>
+                                    <label for="solSetor" class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Seu Curso / Setor no IFAL</label>
+                                    <input type="text" id="solSetor" placeholder="Ex: Logística / TADS / Servidor" required class="w-full bg-slate-50 dark:bg-slate-700 p-2.5 rounded-xl border border-slate-200 dark:border-slate-600 outline-none">
+                                </div>
+                            </div>
+
+                            <div class="pt-2 flex justify-end space-x-2">
+                                <button type="button" onclick="switchTab('servicos')" class="px-4 py-2 text-slate-500 font-semibold">Cancelar</button>
+                                <button type="submit" id="btnSubmitSol" class="bg-ifal-green hover:bg-ifal-greenDark text-white px-6 py-2.5 rounded-xl font-bold shadow-md transition flex items-center space-x-2">
+                                    <i class="fa-solid fa-paper-plane"></i>
+                                    <span>Enviar Solicitação</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- VIEW 4: MINHAS SOLICITAÇÕES / ACOMPANHAMENTO -->
+                <section id="view-acompanhamento" class="view-section hidden space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <div>
+                            <h3 class="text-base font-bold text-slate-800 dark:text-white">Minhas Solicitações</h3>
+                            <p class="text-xs text-slate-500">Acompanhe suas solicitações e consulte o histórico de atendimentos.</p>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2 text-xs">
+                            <button onclick="switchTab('solicitacoes')" class="bg-ifal-green text-white px-3 py-1.5 rounded-xl font-bold shadow-sm">+ Nova Solicitação</button>
+                            <select id="solFilterStatus" onchange="renderSolicitacoes()" aria-label="Filtrar solicitações por status" class="bg-slate-100 dark:bg-slate-700 p-1.5 rounded-xl font-semibold border border-slate-200 dark:border-slate-600">
+                                <option value="TODAS">Todos os Status</option>
+                                <option value="Em análise">Em análise</option>
+                                <option value="Em andamento">Em andamento</option>
+                                <option value="Atendida">Atendida</option>
+                                <option value="Cancelada">Cancelada</option>
+                                <option value="Concluída">Concluída</option>
+                                <option value="Agendada">Agendada</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- BUSCA POR PROTOCOLO OU DESCRIÇÃO -->
+                    <div class="bg-white dark:bg-slate-800 p-3 rounded-xl border border-slate-200 dark:border-slate-700 flex items-center space-x-2 text-xs">
+                        <i class="fa-solid fa-search text-slate-400"></i>
+                        <input type="text" id="solSearchInput" onkeyup="renderSolicitacoes()" placeholder="Pesquisar por protocolo, atendimento ou descrição..." class="w-full bg-transparent outline-none">
+                    </div>
+
+                    <!-- TABELA DESKTOP / CARDS MOBILE -->
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                        <!-- Desktop Table -->
+                        <div class="hidden md:block overflow-x-auto">
+                            <table class="w-full text-left text-xs">
+                                <thead class="bg-slate-50 dark:bg-slate-700/50 text-slate-600 dark:text-slate-300 uppercase tracking-wider font-bold border-b border-slate-200 dark:border-slate-700">
+                                    <tr>
+                                        <th class="p-4">Protocolo</th>
+                                        <th class="p-4">Atendimento</th>
+                                        <th class="p-4">Descrição</th>
+                                        <th class="p-4">Data</th>
+                                        <th class="p-4">Status</th>
+                                        <th class="p-4 text-right">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="solicitacoesTableBody" class="divide-y divide-slate-100 dark:divide-slate-700">
+                                    <!-- Rows -->
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- Mobile Cards Container -->
+                        <div id="solicitacoesMobileCards" class="md:hidden divide-y divide-slate-100 dark:divide-slate-700 p-2">
+                            <!-- Cards -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 5: AGENDAMENTOS -->
+                <section id="view-agendamentos" class="view-section hidden space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <div>
+                            <h3 class="text-base font-bold text-slate-800 dark:text-white">Meus Agendamentos</h3>
+                            <p class="text-xs text-slate-500">Consulte horários presenciais e consultas agendadas no campus</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="goBack()" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl text-xs font-bold">← Voltar</button>
+                            <button onclick="openModal('modalNovoAgendamento')" class="bg-ifal-green text-white px-4 py-2 rounded-xl text-xs font-bold shadow-sm">+ Novo Agendamento</button>
+                        </div>
+                    </div>
+
+                    <div id="agendamentosContainer">
+                        <!-- Dynamic content -->
+                    </div>
+                </section>
+
+                <!-- VIEW 6: TRIAGEM DIGITAL ORIENTATIVA -->
+                <section id="view-triagem" class="view-section hidden space-y-6">
+                    <div class="bg-gradient-to-r from-ifal-navy to-ifal-green p-6 rounded-3xl text-white shadow-xl space-y-2">
+                        <div class="flex items-center space-x-2 font-bold text-sm">
+                            <i class="fa-solid fa-brain text-xl text-emerald-300"></i>
+                            <span>Triagem Digital Orientativa de Saúde</span>
+                        </div>
+                        <p class="text-xs text-slate-200 leading-relaxed">
+                            Esta triagem é apenas orientativa e <u>não substitui avaliação profissional ou médica</u>.
+                        </p>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-4 max-w-2xl mx-auto">
+                        <h4 class="font-bold text-sm text-slate-800 dark:text-white">Qual a sua necessidade principal hoje?</h4>
+                        
+                        <div class="space-y-2 text-xs">
+                            <button onclick="execTriagem('Psicologia')" class="w-full p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-ifal-green text-left transition bg-slate-50 dark:bg-slate-700/30">
+                                <p class="font-bold text-slate-800 dark:text-slate-100">1. Apoio emocional, ansiedade ou escuta qualificada</p>
+                                <p class="text-slate-500 text-[11px]">Direcionamento: Setor de Psicologia</p>
+                            </button>
+                            <button onclick="execTriagem('Pedagogia')" class="w-full p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-ifal-green text-left transition bg-slate-50 dark:bg-slate-700/30">
+                                <p class="font-bold text-slate-800 dark:text-slate-100">2. Dificuldade de estudo, organização acadêmica ou aprendizagem</p>
+                                <p class="text-slate-500 text-[11px]">Direcionamento: Setor Pedagógico</p>
+                            </button>
+                            <button onclick="execTriagem('Serviço Social')" class="w-full p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-ifal-green text-left transition bg-slate-50 dark:bg-slate-700/30">
+                                <p class="font-bold text-slate-800 dark:text-slate-100">3. Informações sobre auxílio estudantil ou apoio social</p>
+                                <p class="text-slate-500 text-[11px]">Direcionamento: Serviço Social</p>
+                            </button>
+                            <button onclick="execTriagem('Enfermagem')" class="w-full p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-ifal-green text-left transition bg-slate-50 dark:bg-slate-700/30">
+                                <p class="font-bold text-slate-800 dark:text-slate-100">4. Aferição de sinais vitais, curativo ou mal-estar no campus</p>
+                                <p class="text-slate-500 text-[11px]">Direcionamento: Enfermagem do Campus</p>
+                            </button>
+                        </div>
+
+                        <div id="triagemResultArea" class="hidden p-4 rounded-xl bg-emerald-50 text-emerald-900 border border-emerald-200 space-y-2 text-xs">
+                            <!-- Dynamic triage output -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 7: MURAL DE AVISOS -->
+                <section id="view-avisos" class="view-section hidden space-y-6">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div>
+                            <h3 class="text-base font-bold text-slate-800 dark:text-white">Mural de Avisos & Comunicados</h3>
+                            <p class="text-xs text-slate-500">Informativos oficiais do setor de saúde e coordenação do campus</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="switchTab('dashboard')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-xl text-xs font-bold">← Voltar para Início</button>
+                            <div id="adminNoticeBtnArea"></div>
+                        </div>
+                    </div>
+
+                    <div id="avisosGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Rendered via JS -->
+                    </div>
+                </section>
+
+                <!-- VIEW 8: COMUNICAÇÃO ENTRE SETORES -->
+                <section id="view-comunicacao" class="view-section hidden h-[calc(100vh-8.5rem)] flex flex-col bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                    <div class="p-4 border-b border-slate-100 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/80 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 rounded-xl bg-ifal-navy text-white flex items-center justify-center font-bold">
+                                <i class="fa-solid fa-comments text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-xs text-slate-800 dark:text-white">Canal Integrado de Comunicação Intersetorial</h4>
+                                <p class="text-[10px] text-emerald-600 font-semibold">IFAL Campus Benedito Bentes</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-2 text-xs">
+                            <span class="font-semibold text-slate-500">Enviar para:</span>
+                            <select id="chatTargetSector" aria-label="Selecione o setor de destino" class="bg-slate-100 dark:bg-slate-700 p-1.5 rounded-lg font-bold border border-slate-200 dark:border-slate-600">
+                                <option value="Coordenação Geral">Coordenação Geral</option>
+                                <option value="Setor de Psicologia">Setor de Psicologia</option>
+                                <option value="Setor Pedagógico">Setor Pedagógico</option>
+                                <option value="Serviço Social">Serviço Social</option>
+                                <option value="Posto de Enfermagem">Posto de Enfermagem</option>
+                                <option value="Odontologia">Odontologia</option>
+                                <option value="Nutrição">Nutrição</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-3 bg-slate-50/50 dark:bg-slate-900/40">
+                        <!-- Chat messages -->
+                    </div>
+
+                    <form id="chatForm" onsubmit="handleSendChatMessage(event)" class="p-3 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center space-x-2">
+                        <input type="text" id="chatInput" placeholder="Escreva sua mensagem para o setor selecionado..." class="flex-1 bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-100 text-xs rounded-xl px-4 py-2.5 border border-transparent focus:border-ifal-navy outline-none">
+                        <button type="submit" aria-label="Enviar mensagem" class="bg-ifal-navy hover:bg-slate-900 text-white p-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center w-10 h-10">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </section>
+
+                <!-- VIEW 9: UNIDADES / LOCAIS DO CAMPUS -->
+                <section id="view-locais" class="view-section hidden space-y-6">
+                    <div class="flex items-center justify-between bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <div>
+                            <h3 class="text-base font-bold text-slate-800 dark:text-white">Locais de Atendimento no Campus</h3>
+                            <p class="text-xs text-slate-500">Espaços físicos cadastrados no IFAL Campus Benedito Bentes</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button onclick="switchTab('servicos')" class="px-3 py-1.5 bg-ifal-green text-white rounded-xl text-xs font-bold">Ver Serviços</button>
+                            <button onclick="switchTab('comunicacao')" class="px-3 py-1.5 bg-ifal-navy text-white rounded-xl text-xs font-bold">Entrar em Contato</button>
+                        </div>
+                    </div>
+
+                    <div id="locaisGrid" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <!-- Rendered via JS -->
+                    </div>
+                </section>
+
+                <!-- VIEW 10: INFORMAÇÕES ÚTEIS & FAQ -->
+                <section id="view-informacoes" class="view-section hidden space-y-6">
+                    <div class="flex items-center justify-between bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <div>
+                            <h3 class="text-base font-bold text-slate-800 dark:text-white">Informações Institucionais & Dúvidas Frequentes</h3>
+                            <p class="text-xs text-slate-500">Centralização de orientações para solucionar dúvidas no campus</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button onclick="switchTab('solicitacoes')" class="px-3 py-1.5 bg-ifal-green text-white rounded-xl text-xs font-bold">Solicitar Atendimento</button>
+                            <button onclick="switchTab('comunicacao')" class="px-3 py-1.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl text-xs font-bold">Entrar em Contato</button>
+                        </div>
+                    </div>
+
+                    <div class="space-y-3 text-xs" id="faqAccordionArea">
+                        <!-- FAQ items -->
+                    </div>
+                </section>
+
+                <!-- VIEW 11: ORIENTAÇÕES DE EMERGÊNCIA -->
+                <section id="view-emergencia" class="view-section hidden space-y-6">
+                    <div class="bg-rose-600 text-white p-6 rounded-3xl shadow-xl space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <i class="fa-solid fa-triangle-exclamation text-3xl"></i>
+                                <div>
+                                    <h3 class="text-lg font-extrabold">Canais de Emergência e Pronto Atendimento</h3>
+                                    <p class="text-xs text-rose-100">Para situações de risco imediato que ultrapassam o suporte institucional</p>
+                                </div>
+                            </div>
+                            <button onclick="switchTab('dashboard')" class="bg-white/20 hover:bg-white/30 text-white px-3 py-1.5 rounded-xl text-xs font-bold">Voltar para Início</button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                        <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-rose-200 dark:border-rose-900 shadow-sm space-y-2">
+                            <span class="px-2 py-0.5 bg-rose-100 text-rose-800 font-bold rounded text-[10px]">SERVIÇO PÚBLICO URGENTE</span>
+                            <h4 class="font-bold text-sm text-slate-800 dark:text-white">SAMU - Urgência Médica</h4>
+                            <p class="text-slate-500">Telefone: <strong>192</strong></p>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-rose-200 dark:border-rose-900 shadow-sm space-y-2">
+                            <span class="px-2 py-0.5 bg-rose-100 text-rose-800 font-bold rounded text-[10px]">SERVIÇO PÚBLICO URGENTE</span>
+                            <h4 class="font-bold text-sm text-slate-800 dark:text-white">Corpo de Bombeiros</h4>
+                            <p class="text-slate-500">Telefone: <strong>193</strong></p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 12: MEU PERFIL -->
+                <section id="view-perfil" class="view-section hidden space-y-6">
+                    <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm max-w-2xl mx-auto space-y-4">
+                        <h3 class="text-base font-bold text-slate-800 dark:text-white border-b border-slate-100 dark:border-slate-700 pb-3">Perfil do Usuário Institucional</h3>
+                        <form onsubmit="handleSaveProfile(event)" class="space-y-4 text-xs">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="profName" class="block font-semibold mb-1">Nome Completo</label>
+                                    <input type="text" id="profName" required class="w-full bg-slate-50 dark:bg-slate-700 p-2.5 rounded-xl border border-slate-200 dark:border-slate-600 outline-none">
+                                </div>
+                                <div>
+                                    <label for="profEmail" class="block font-semibold mb-1">E-mail Institucional</label>
+                                    <input type="email" id="profEmail" readonly class="w-full bg-slate-100 dark:bg-slate-600 p-2.5 rounded-xl border border-slate-200 dark:border-slate-600 text-slate-500 cursor-not-allowed">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                                <div>
+                                    <label for="profRole" class="block font-semibold mb-1">Tipo de Usuário</label>
+                                    <input type="text" id="profRole" readonly class="w-full bg-slate-100 dark:bg-slate-600 p-2.5 rounded-xl border border-slate-200 text-slate-500 font-bold">
+                                </div>
+                                <div>
+                                    <label for="profPhone" class="block font-semibold mb-1">Telefone / WhatsApp</label>
+                                    <input type="text" id="profPhone" required class="w-full bg-slate-50 dark:bg-slate-700 p-2.5 rounded-xl border border-slate-200 dark:border-slate-600 outline-none">
+                                </div>
+                                <div>
+                                    <label for="profCourse" class="block font-semibold mb-1">Curso / Setor no IFAL</label>
+                                    <input type="text" id="profCourse" required class="w-full bg-slate-50 dark:bg-slate-700 p-2.5 rounded-xl border border-slate-200 dark:border-slate-600 outline-none">
+                                </div>
+                            </div>
+                            <div class="pt-2 flex justify-end">
+                                <button type="submit" class="bg-ifal-navy text-white px-5 py-2.5 rounded-xl font-bold shadow-md">Salvar Alterações</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- VIEW 13: CENTRAL DE NOTIFICAÇÕES -->
+                <section id="view-notificacoes" class="view-section hidden space-y-6">
+                    <div class="flex items-center justify-between bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm">
+                        <div>
+                            <h3 class="text-base font-bold text-slate-800 dark:text-white">Minhas Notificações</h3>
+                            <p class="text-xs text-slate-500">Histórico de alertas e novidades das suas solicitações</p>
+                        </div>
+                        <button onclick="markAllNotificationsRead()" class="bg-ifal-navy text-white px-3 py-1.5 rounded-xl text-xs font-bold">Marcar Todas como Lidas</button>
+                    </div>
+
+                    <div id="fullNotifContainer" class="space-y-3 text-xs">
+                        <!-- Dynamic full notifications list -->
+                    </div>
+                </section>
+
+                <!-- VIEW 14: CENTRAL DE AJUDA -->
+                <section id="view-ajuda" class="view-section hidden space-y-6">
+                    <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-2">
+                        <h3 class="text-base font-bold text-slate-800 dark:text-white">Central de Ajuda e Tutoriais</h3>
+                        <p class="text-xs text-slate-500">Guia passo a passo para navegação e utilização do Saúde Conectada</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-2">
+                            <h4 class="font-bold text-slate-800 dark:text-white"><i class="fa-solid fa-paper-plane text-blue-600 mr-2"></i>Como solicitar atendimento?</h4>
+                            <p class="text-slate-500">Acesse a aba 'Solicitar Atendimento', escolha um dos 7 atendimentos cadastrados, descreva seu motivo e envie. Um número de protocolo será gerado automaticamente.</p>
+                        </div>
+                        <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-2">
+                            <h4 class="font-bold text-slate-800 dark:text-white"><i class="fa-solid fa-list-check text-amber-600 mr-2"></i>Como acompanhar minhas demandas?</h4>
+                            <p class="text-slate-500">Na aba 'Minhas Solicitações', você pode visualizar o status (Em análise, Em andamento, Atendida) e imprimir o comprovante oficial com um clique.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 15: PAINEL ADMINISTRATIVO (RESTRITO AOS GESTORES) -->
+                <section id="view-admin" class="view-section hidden space-y-6">
+                    <div class="bg-gradient-to-r from-rose-900 via-slate-900 to-ifal-navy p-6 rounded-3xl text-white shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border border-slate-700">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 rounded-2xl bg-rose-600 flex items-center justify-center text-xl font-bold shadow-md">
+                                <i class="fa-solid fa-user-shield"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-extrabold">Painel Administrativo do Campus</h3>
+                                <p class="text-xs text-slate-200">Gestão global de Usuários, Demandas, Profissionais e Base de Conhecimento da IA</p>
+                            </div>
+                        </div>
+                        <button onclick="switchTab('dashboard')" class="bg-white/20 hover:bg-white/30 text-white px-3 py-1.5 rounded-xl text-xs font-bold transition">
+                            ← Voltar ao Site
+                        </button>
+                    </div>
+
+                    <!-- Tabs Admin -->
+                    <div class="flex flex-wrap items-center gap-2 border-b border-slate-200 dark:border-slate-700 pb-3 text-xs">
+                        <button onclick="switchAdminSubTab('solicitacoes')" id="adminTabBtnSolicitacoes" class="px-3.5 py-2 font-bold rounded-xl bg-ifal-navy text-white shadow-sm transition">Solicitações & Fila</button>
+                        <button onclick="switchAdminSubTab('users')" id="adminTabBtnUsers" class="px-3.5 py-2 font-semibold rounded-xl text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 transition">Usuários</button>
+                        <button onclick="switchAdminSubTab('profs')" id="adminTabBtnProfs" class="px-3.5 py-2 font-semibold rounded-xl text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 transition">Profissionais</button>
+                        <button onclick="switchAdminSubTab('aiKnowledge')" id="adminTabBtnAiKnowledge" class="px-3.5 py-2 font-semibold rounded-xl text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 transition">Conhecimento da IA (FAQ)</button>
+                    </div>
+
+                    <!-- Admin SubView: Fila de Solicitações -->
+                    <div id="adminSubViewSolicitacoes" class="space-y-4">
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm space-y-4">
+                            <h4 class="font-bold text-sm text-slate-800 dark:text-white">Gerenciamento da Fila de Atendimento</h4>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs">
+                                    <thead class="bg-slate-50 dark:bg-slate-700/50 uppercase font-bold text-slate-600 dark:text-slate-300">
+                                        <tr>
+                                            <th class="p-3">Protocolo</th>
+                                            <th class="p-3">Solicitante</th>
+                                            <th class="p-3">Atendimento</th>
+                                            <th class="p-3">Status Atual</th>
+                                            <th class="p-3 text-right">Alterar Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="adminSolTableBody" class="divide-y divide-slate-100 dark:divide-slate-700">
+                                        <!-- Dynamic -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Admin SubView: Usuários -->
+                    <div id="adminSubViewUsers" class="hidden space-y-4">
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm space-y-4">
+                            <h4 class="font-bold text-sm text-slate-800 dark:text-white">Usuários Cadastrados</h4>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs">
+                                    <thead class="bg-slate-50 dark:bg-slate-700/50 uppercase font-bold text-slate-600 dark:text-slate-300">
+                                        <tr>
+                                            <th class="p-3">Nome</th>
+                                            <th class="p-3">E-mail</th>
+                                            <th class="p-3">Tipo</th>
+                                            <th class="p-3">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="adminUsersTableBody" class="divide-y divide-slate-100 dark:divide-slate-700">
+                                        <!-- Dynamic -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Admin SubView: Profissionais -->
+                    <div id="adminSubViewProfs" class="hidden space-y-4">
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm space-y-4">
+                            <h4 class="font-bold text-sm text-slate-800 dark:text-white">Equipe de Atendimento do Campus</h4>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs">
+                                    <thead class="bg-slate-50 dark:bg-slate-700/50 uppercase font-bold text-slate-600 dark:text-slate-300">
+                                        <tr>
+                                            <th class="p-3">Profissional</th>
+                                            <th class="p-3">Especialidade</th>
+                                            <th class="p-3">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="adminProfsTableBody" class="divide-y divide-slate-100 dark:divide-slate-700">
+                                        <!-- Dynamic -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Admin SubView: Conhecimento da IA -->
+                    <div id="adminSubViewAiKnowledge" class="hidden space-y-4">
+                        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-5 shadow-sm space-y-4">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h4 class="font-bold text-sm text-slate-800 dark:text-white">Base de Conhecimento da IA Assistente</h4>
+                                    <p class="text-xs text-slate-500">Gerencie as respostas e perguntas frequentes utilizadas pela IA no campus</p>
+                                </div>
+                                <button onclick="adminAddNewFaqItem()" class="px-3 py-1.5 bg-ifal-green text-white font-bold rounded-xl text-xs">+ Nova Pergunta (FAQ)</button>
+                            </div>
+                            <div class="space-y-3" id="adminAiKnowledgeList">
+                                <!-- Dynamic FAQ items -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- VIEW 16: TELA DE ACESSO NEGADO -->
+                <section id="view-acesso-negado" class="view-section hidden space-y-6">
+                    <div class="bg-rose-50 dark:bg-rose-950/40 border border-rose-200 dark:border-rose-900 rounded-3xl p-8 text-center max-w-lg mx-auto space-y-4">
+                        <div class="w-16 h-16 bg-rose-100 text-rose-600 rounded-2xl flex items-center justify-center text-3xl mx-auto font-bold">
+                            <i class="fa-solid fa-lock"></i>
+                        </div>
+                        <h3 class="text-xl font-extrabold text-rose-700 dark:text-rose-400">ACESSO NEGADO</h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Você não possui permissão para acessar o Painel Administrativo. Esta área é restrita aos gestores cadastrados no IFAL.
+                        </p>
+                        <button onclick="switchTab('dashboard')" class="px-5 py-2.5 bg-ifal-navy text-white text-xs font-bold rounded-xl shadow-md">
+                            Voltar para o Início
+                        </button>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- WIDGET FLUTUANTE DE IA ASSISTENTE INTELIGENTE -->
+    <div id="aiFloatingWidget" class="fixed bottom-5 right-5 z-40">
+        <button id="aiToggleBtn" aria-label="Abrir assistente inteligente" onclick="toggleAiDrawer()" class="bg-gradient-to-r from-ifal-navy to-ifal-green text-white px-4 py-3 rounded-full shadow-2xl flex items-center space-x-2.5 hover:scale-105 active:scale-95 transition-all duration-200 border border-emerald-400/30">
+            <div class="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center text-emerald-300 font-bold">
+                <i class="fa-solid fa-robot text-sm"></i>
+            </div>
+            <span class="text-xs font-bold tracking-wide">Assistente Saúde Conectada</span>
+            <span class="flex h-2 w-2 relative">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+            </span>
+        </button>
+    </div>
+
+    <!-- PAINEL DE CONVERSA COM A IA -->
+    <div id="aiChatDrawer" class="hidden fixed inset-0 sm:inset-auto sm:bottom-20 sm:right-5 sm:w-[420px] sm:h-[580px] z-50 bg-white dark:bg-slate-800 sm:rounded-3xl border border-slate-200 dark:border-slate-700 shadow-2xl flex flex-col overflow-hidden transition-all duration-300">
+        
+        <!-- Cabeçalho do Chat -->
+        <div class="p-4 bg-gradient-to-r from-ifal-navy via-slate-900 to-ifal-green text-white flex items-center justify-between shadow-md">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-2xl bg-white/10 backdrop-blur-md flex items-center justify-center text-emerald-300 text-lg border border-white/20">
+                    <i class="fa-solid fa-robot"></i>
+                </div>
+                <div>
+                    <h3 class="font-extrabold text-sm leading-tight">Assistente Saúde Conectada</h3>
+                    <p class="text-[10px] text-slate-200">Seu assistente inteligente para encontrar informações e utilizar o Saúde Conectada.</p>
+                </div>
+            </div>
+            <button onclick="toggleAiDrawer()" aria-label="Fechar assistente" class="text-slate-300 hover:text-white p-1 rounded-lg transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+        </div>
+
+        <!-- Indicador de Contexto de Área -->
+        <div class="bg-slate-100 dark:bg-slate-700/50 px-4 py-1.5 flex items-center justify-between text-[10px] text-slate-500 dark:text-slate-300 border-b border-slate-200 dark:border-slate-700">
+            <span><i class="fa-solid fa-location-arrow text-emerald-600 mr-1"></i> Área Atual: <strong id="aiContextAreaName" class="text-slate-700 dark:text-white">Início</strong></span>
+            <span class="text-emerald-600 font-bold"><i class="fa-solid fa-circle text-[8px] mr-1"></i>IA Ativa</span>
+        </div>
+
+        <!-- Mensagens da IA -->
+        <div id="aiChatMessagesBox" class="flex-1 p-4 overflow-y-auto space-y-3.5 bg-slate-50/50 dark:bg-slate-900/40 text-xs">
+            <!-- Boas-Vindas da IA -->
+            <div class="flex items-start space-x-2.5">
+                <div class="w-7 h-7 rounded-xl bg-ifal-navy text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
+                    <i class="fa-solid fa-robot text-emerald-300"></i>
+                </div>
+                <div class="bg-white dark:bg-slate-700 p-3.5 rounded-2xl rounded-tl-none border border-slate-200 dark:border-slate-600 shadow-sm max-w-[88%] space-y-2">
+                    <p class="text-slate-800 dark:text-slate-100 leading-relaxed">
+                        Olá! 👋 Sou o Assistente Saúde Conectada. Como posso ajudar você hoje?
+                    </p>
+                    <p class="text-[11px] text-slate-500 dark:text-slate-300">
+                        Escolha uma sugestão ou digite sua dúvida em linguagem natural:
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sugestões Rápidas -->
+        <div id="aiQuickChipsArea" class="px-3 py-2 bg-slate-100/80 dark:bg-slate-800/80 border-t border-slate-200 dark:border-slate-700 flex items-center space-x-1.5 overflow-x-auto whitespace-nowrap text-[10px]">
+            <button onclick="handleQuickAiPrompt('Como faço uma solicitação?')" class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 font-semibold hover:border-ifal-green text-slate-700 dark:text-slate-200 transition">Como solicitar?</button>
+            <button onclick="handleQuickAiPrompt('Quero agendar atendimento')" class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 font-semibold hover:border-ifal-green text-slate-700 dark:text-slate-200 transition">Quero agendar</button>
+            <button onclick="handleQuickAiPrompt('Quais serviços existem?')" class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 font-semibold hover:border-ifal-green text-slate-700 dark:text-slate-200 transition">Quais serviços?</button>
+            <button onclick="handleQuickAiPrompt('Como acompanho minha solicitação?')" class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 font-semibold hover:border-ifal-green text-slate-700 dark:text-slate-200 transition">Acompanhar protocolo</button>
+            <button onclick="handleQuickAiPrompt('O que significa em análise?')" class="px-2.5 py-1 rounded-full bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 font-semibold hover:border-ifal-green text-slate-700 dark:text-slate-200 transition">Status 'Em análise'</button>
+            <button onclick="handleQuickAiPrompt('Preciso de ajuda urgente')" class="px-2.5 py-1 rounded-full bg-rose-50 dark:bg-rose-950 text-rose-700 border border-rose-200 font-bold hover:bg-rose-100 transition">Ajuda urgente</button>
+        </div>
+
+        <!-- Form de Mensagem para a IA -->
+        <form id="aiChatForm" onsubmit="handleSendAiMessage(event)" class="p-3 border-t border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 flex items-center space-x-2">
+            <input type="text" id="aiInputText" placeholder="Digite sua dúvida..." required class="flex-1 bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-100 text-xs rounded-xl px-3.5 py-2.5 border border-transparent focus:border-ifal-navy outline-none">
+            <button type="submit" aria-label="Enviar mensagem à IA" class="bg-ifal-green hover:bg-ifal-greenDark text-white p-2.5 rounded-xl text-xs font-bold transition flex items-center justify-center w-10 h-10 shadow-md">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </form>
+    </div>
+
+    <!-- MODAL DETALHES DA SOLICITAÇÃO -->
+    <div id="modalDetalhesSol" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-2xl w-full max-w-lg p-5 space-y-4 text-xs">
+            <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-2">
+                <h3 id="detModalTitle" class="font-bold text-sm text-slate-800 dark:text-white">Detalhes da Solicitação</h3>
+                <button onclick="closeModal('modalDetalhesSol')" aria-label="Fechar modal" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div id="detModalContent" class="space-y-3">
+                <!-- Dynamic details -->
+            </div>
+            <div class="flex justify-end pt-2">
+                <button onclick="closeModal('modalDetalhesSol')" class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL AVISO DETALHADO -->
+    <div id="modalDetAviso" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-2xl w-full max-w-md p-5 space-y-4 text-xs">
+            <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-2">
+                <h3 id="avisoDetCategory" class="font-bold text-sm text-ifal-green">Aviso Institucional</h3>
+                <button onclick="closeModal('modalDetAviso')" aria-label="Fechar aviso" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            <div class="space-y-2">
+                <h4 id="avisoDetTitle" class="font-bold text-base text-slate-800 dark:text-white"></h4>
+                <p id="avisoDetDate" class="text-[10px] text-slate-400 font-mono"></p>
+                <div id="avisoDetText" class="text-slate-600 dark:text-slate-300 leading-relaxed pt-2 border-t border-slate-100 dark:border-slate-700"></div>
+            </div>
+            <div class="flex justify-end pt-2">
+                <button onclick="closeModal('modalDetAviso')" class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL AUTH LOGIN & CADASTRO (LIMPO E SEGURO) -->
+    <div id="modalLogin" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/70 backdrop-blur-md p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-2xl w-full max-w-md p-6 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-3">
+                <h3 id="modalAuthTitle" class="font-bold text-base text-slate-800 dark:text-white">Acesso ao Saúde Conectada</h3>
+                <button onclick="closeModal('modalLogin')" aria-label="Fechar autenticação" class="text-slate-400 hover:text-slate-600 dark:hover:text-white p-1">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- FORM DE LOGIN -->
+            <form id="formAuthLogin" onsubmit="handleAuthSubmit(event)" class="space-y-4 text-xs">
+                <div>
+                    <label for="authEmail" class="block font-semibold mb-1">E-mail Institucional</label>
+                    <input type="email" id="authEmail" required placeholder="seu.email@aluno.ifal.edu.br" class="w-full bg-slate-50 dark:bg-slate-700 p-2.5 rounded-xl border border-slate-200 dark:border-slate-600 outline-none">
+                </div>
+                <div>
+                    <label for="authPassword" class="block font-semibold mb-1">Senha</label>
+                    <div class="relative">
+                        <input type="password" id="authPassword" required placeholder="••••••••" class="w-full bg-slate-50 dark:bg-slate-700 p-2.5 pr-10 rounded-xl border border-slate-200 dark:border-slate-600 outline-none">
+                        <button type="button" aria-label="Alternar visibilidade da senha" onclick="togglePasswordVisibility('authPassword', 'eyeIconAuth')" class="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition p-0.5">
+                            <i id="eyeIconAuth" class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between pt-1">
+                    <button type="button" onclick="toggleAuthMode('register')" class="text-xs text-ifal-green font-bold hover:underline">
+                        Criar nova conta
+                    </button>
+                    <button type="button" onclick="handleForgotPass()" class="text-xs text-slate-400 hover:underline">
+                        Esqueci minha senha
+                    </button>
+                </div>
+
+                <div class="flex justify-end space-x-2 pt-2">
+                    <button type="button" onclick="closeModal('modalLogin')" class="px-4 py-2 text-slate-500 font-semibold">Cancelar</button>
+                    <button type="submit" class="px-5 py-2 bg-ifal-navy text-white font-bold rounded-xl shadow-md">Entrar</button>
+                </div>
+            </form>
+
+            <!-- FORM DE CADASTRO -->
+            <form id="formAuthRegister" onsubmit="handleRegisterSubmit(event)" class="hidden space-y-3 text-xs">
+                <div>
+                    <label for="regName" class="block font-semibold mb-1">Nome Completo</label>
+                    <input type="text" id="regName" required placeholder="Ex: Nome Completo" class="w-full bg-slate-50 dark:bg-slate-700 p-2 rounded-xl border border-slate-200">
+                </div>
+                <div>
+                    <label for="regEmail" class="block font-semibold mb-1">E-mail Institucional</label>
+                    <input type="email" id="regEmail" required placeholder="aluno@aluno.ifal.edu.br" class="w-full bg-slate-50 dark:bg-slate-700 p-2 rounded-xl border border-slate-200">
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label for="regPass" class="block font-semibold mb-1">Senha</label>
+                        <div class="relative">
+                            <input type="password" id="regPass" required placeholder="••••••••" class="w-full bg-slate-50 dark:bg-slate-700 p-2 pr-8 rounded-xl border border-slate-200">
+                            <button type="button" aria-label="Alternar visibilidade da senha" onclick="togglePasswordVisibility('regPass', 'eyeIconReg')" class="absolute right-2.5 top-2 text-slate-400 hover:text-slate-600">
+                                <i id="eyeIconReg" class="fa-solid fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="regPassConfirm" class="block font-semibold mb-1">Confirmar Senha</label>
+                        <input type="password" id="regPassConfirm" required placeholder="••••••••" class="w-full bg-slate-50 dark:bg-slate-700 p-2 rounded-xl border border-slate-200">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label for="regPhone" class="block font-semibold mb-1">Telefone</label>
+                        <input type="text" id="regPhone" required placeholder="(82) 99999-9999" class="w-full bg-slate-50 dark:bg-slate-700 p-2 rounded-xl border border-slate-200">
+                    </div>
+                    <div>
+                        <label for="regCourse" class="block font-semibold mb-1">Curso / Setor</label>
+                        <input type="text" id="regCourse" required placeholder="Ex: TADS 3º Ano" class="w-full bg-slate-50 dark:bg-slate-700 p-2 rounded-xl border border-slate-200">
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between pt-1">
+                    <button type="button" onclick="toggleAuthMode('login')" class="text-xs text-ifal-navy dark:text-emerald-400 font-bold hover:underline">
+                        Já tenho conta (Entrar)
+                    </button>
+                </div>
+
+                <div class="flex justify-end space-x-2 pt-2">
+                    <button type="button" onclick="closeModal('modalLogin')" class="px-4 py-2 text-slate-500 font-semibold">Cancelar</button>
+                    <button type="submit" class="px-5 py-2 bg-ifal-green text-white font-bold rounded-xl shadow-md">Cadastrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL AVALIAÇÃO DO ATENDIMENTO -->
+    <div id="modalAvaliacao" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-2xl w-full max-w-md p-5 space-y-4 text-xs">
+            <h3 class="font-bold text-sm text-slate-800 dark:text-white border-b border-slate-100 dark:border-slate-700 pb-2">Avaliar Atendimento Concluído</h3>
+            <form onsubmit="handleSalvarAvaliacao(event)" class="space-y-3">
+                <input type="hidden" id="evalProtocolId">
+                <div>
+                    <label for="evalNota" class="block font-semibold mb-1">Nota do Atendimento (1 a 5 Estrelas)</label>
+                    <select id="evalNota" class="w-full bg-slate-50 dark:bg-slate-700 p-2 rounded-xl border border-slate-200">
+                        <option value="5">⭐⭐⭐⭐⭐ 5 - Excelente</option>
+                        <option value="4">⭐⭐⭐⭐ 4 - Muito Bom</option>
+                        <option value="3">⭐⭐⭐ 3 - Regular</option>
+                        <option value="2">⭐⭐ 2 - Ruim</option>
+                        <option value="1">⭐ 1 - Péssimo</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="evalComentario" class="block font-semibold mb-1">Conte-nos como podemos melhorar (Opcional)</label>
+                    <textarea id="evalComentario" rows="3" class="w-full bg-slate-50 dark:bg-slate-700 p-2 rounded-xl border border-slate-200" placeholder="Escreva aqui seu feedback sobre a experiência..."></textarea>
+                </div>
+                <div class="flex justify-end space-x-2 pt-2">
+                    <button type="button" onclick="closeModal('modalAvaliacao')" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-600">Cancelar</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-ifal-green text-white font-bold">Enviar Avaliação</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL NOVO AGENDAMENTO -->
+    <div id="modalNovoAgendamento" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-2xl w-full max-w-md p-5 space-y-4 text-xs">
+            <h3 class="font-bold text-sm text-slate-800 dark:text-white border-b border-slate-100 dark:border-slate-700 pb-2">Agendar Horário Presencial</h3>
+            <form onsubmit="handleNovoAgendamento(event)" class="space-y-3">
+                <div>
+                    <label for="agEspecialidade" class="block font-semibold mb-1">1. Selecione o Serviço</label>
+                    <select id="agEspecialidade" onchange="updateProfOptions(this.value)" required class="w-full bg-slate-50 dark:bg-slate-700 p-2 rounded-xl border border-slate-200">
+                        <option value="">Escolha um atendimento...</option>
+                        <option value="Psicologia">Psicologia</option>
+                        <option value="Pedagogia">Pedagogia</option>
+                        <option value="Serviço Social">Serviço Social</option>
+                        <option value="Enfermagem">Enfermagem</option>
+                        <option value="Coordenação Geral">Coordenação Geral</option>
+                        <option value="Odontologia">Odontologia</option>
+                        <option value="Nutrição">Nutrição</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="agProfissional" class="block font-semibold mb-1">2. Profissional Responsável</label>
+                    <select id="agProfissional" required class="w-full bg-slate-50 dark:bg-slate-700 p-2 rounded-xl border border-slate-200">
+                        <option value="">Selecione o serviço primeiro...</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div>
+                        <label for="agData" class="block font-semibold mb-1">3. Data</label>
+                        <input type="date" id="agData" required class="w-full bg-slate-50 dark:bg-slate-700 p-2 rounded-xl border border-slate-200">
+                    </div>
+                    <div>
+                        <label for="agHora" class="block font-semibold mb-1">4. Horário Disponível</label>
+                        <select id="agHora" required class="w-full bg-slate-50 dark:bg-slate-700 p-2 rounded-xl border border-slate-200">
+                            <option value="08:00">08:00</option>
+                            <option value="09:00">09:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-2 pt-2">
+                    <button type="button" onclick="closeModal('modalNovoAgendamento')" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-600">Cancelar</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-ifal-green text-white font-bold">Confirmar Agendamento</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL AVISO ADMIN -->
+    <div id="modalNovoAviso" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-2xl w-full max-w-lg p-5 space-y-4 text-xs">
+            <h3 class="font-bold text-sm text-slate-800 dark:text-white border-b border-slate-100 dark:border-slate-700 pb-2">Publicar Comunicado no Campus</h3>
+            <form onsubmit="handleAdminSaveNotice(event)" class="space-y-3">
+                <div>
+                    <label for="admNoticeTitle" class="block font-semibold mb-1">Título do Aviso</label>
+                    <input type="text" id="admNoticeTitle" required class="w-full bg-slate-50 dark:bg-slate-700 p-2 rounded-xl border border-slate-200">
+                </div>
+                <div>
+                    <label for="admNoticeCategory" class="block font-semibold mb-1">Categoria</label>
+                    <input type="text" id="admNoticeCategory" value="Informativo Geral" required class="w-full bg-slate-50 dark:bg-slate-700 p-2 rounded-xl border border-slate-200">
+                </div>
+                <div>
+                    <label for="admNoticeText" class="block font-semibold mb-1">Conteúdo</label>
+                    <textarea id="admNoticeText" rows="3" required class="w-full bg-slate-50 dark:bg-slate-700 p-2 rounded-xl border border-slate-200"></textarea>
+                </div>
+                <div class="flex justify-end space-x-2 pt-2">
+                    <button type="button" onclick="closeModal('modalNovoAviso')" class="px-4 py-2 rounded-xl bg-slate-100 text-slate-600">Cancelar</button>
+                    <button type="submit" class="px-5 py-2 rounded-xl bg-ifal-navy text-white font-bold">Publicar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toastContainer" class="fixed bottom-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+
+    <!-- ÁREA IMPRESSÃO COMPROVANTE -->
+    <div id="printableArea" class="hidden"></div>
+
+    <script>
+        /* -------------------------------------------------------------
+           MÓDULO DE CRIPTOGRAFIA DE SENHAS (HASH CLIENT-SIDE SHA-256)
+           ------------------------------------------------------------- */
+        async function hashPassword(str) {
+            const encoder = new TextEncoder();
+            const data = encoder.encode(str);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        /* TOGGLE VISIBILIDADE DA SENHA (👁 MOSTRAR/OCULTAR SENHA) */
+        function togglePasswordVisibility(inputId, iconId) {
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (!input || !icon) return;
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        /* -------------------------------------------------------------
+           ESTRUTURA DE DADOS CENTRAIS E CONTAS COM HASH DE SEGURANÇA
+           ------------------------------------------------------------- */
+        const ATENDIMENTOS_OFICIAIS = [
+            "Psicologia",
+            "Pedagogia",
+            "Serviço Social",
+            "Enfermagem",
+            "Coordenação Geral",
+            "Odontologia",
+            "Nutrição"
+        ];
+
+        const STATUS_PADRAO = [
+            "Em análise",
+            "Em andamento",
+            "Atendida",
+            "Cancelada",
+            "Concluída",
+            "Agendada"
+        ];
+
+        // CONTAS DE GESTÃO CADASTRADAS COM SEGURANÇA (HASH SHA-256)
+        const REQUIRED_ADMINS = [
+            { id: "admin-1", name: "Lucas Venâncio", email: "lvc1@aluno.ifal.edu.br", passHash: "b4f1782cf3b607e4979bdabc060a4ae38b7598b1c2ae456ed6163e03921e3032", role: "admin", status: "Ativo", setor: "Coordenação Geral IFAL", phone: "(82) 99999-0001" },
+            { id: "admin-2", name: "Gestão ASCL / Samily", email: "ascl2@aluno.ifal.edu.br", passHash: "11836303268d94d18934290354d1e7b987444c48a6da5eeef917a1d3efd6344c", role: "admin", status: "Ativo", setor: "Coordenação Geral IFAL", phone: "(82) 99999-0002" },
+            { id: "admin-3", name: "Isabelle Santos", email: "isac1@aluno.ifal.edu.br", passHash: "a08e5662c932d185eacd15278c97d702860d304b5965ce9680b31eeca67df242", role: "admin", status: "Ativo", setor: "Coordenação Geral IFAL", phone: "(82) 99999-0003" }
+        ];
+
+        const INITIAL_DATABASE = {
+            systemConfig: {
+                maintenanceMode: false
+            },
+            currentUser: null,
+            users: [
+                ...REQUIRED_ADMINS,
+                { id: "USR-001", name: "Mateus Silva", email: "mateus.silva@aluno.ifal.edu.br", passHash: "fd5675ae2e933b4070e682938203dcbb978966909cf03f3d9c4f271ad1b3107b", role: "paciente", status: "Ativo", setor: "TADS - 3º Ano", phone: "(82) 99888-7766" }
+            ],
+            services: [
+                { id: "SRV-1", nome: "Psicologia", descricao: "Atendimento psicológico, escuta qualificada e apoio emocional no contexto educacional.", status: "Disponível" },
+                { id: "SRV-2", nome: "Pedagogia", descricao: "Orientação pedagógica, apoio a técnicas de estudo e organização acadêmica dos estudantes.", status: "Disponível" },
+                { id: "SRV-3", nome: "Serviço Social", descricao: "Orientação e encaminhamento quanto aos auxílios estudantis, bolsas e demandas sociais.", status: "Disponível" },
+                { id: "SRV-4", nome: "Enfermagem", descricao: "Atendimento primário de enfermagem, verificação de sinais vitais e primeiros socorros.", status: "Disponível" },
+                { id: "SRV-5", nome: "Coordenação Geral", descricao: "Atendimento institucional para dúvidas gerais e encaminhamentos administrativos.", status: "Disponível" },
+                { id: "SRV-6", nome: "Odontologia", descricao: "Orientações sobre saúde bucal e atendimento odontológico prévio no campus.", status: "Disponível" },
+                { id: "SRV-7", nome: "Nutrição", descricao: "Orientações para hábitos nutricionais saudáveis e acompanhamento alimentar.", status: "Disponível" }
+            ],
+            profissionais: [
+                { id: "P-1", name: "Dra. Juliana Ramos", especialidade: "Psicologia", status: "Ativo" },
+                { id: "P-2", name: "Prof. Marcos Andrade", especialidade: "Pedagogia", status: "Ativo" },
+                { id: "P-3", name: "Assist. Soc. Clara Nunes", especialidade: "Serviço Social", status: "Ativo" },
+                { id: "P-4", name: "Enf. Roberto Santos", especialidade: "Enfermagem", status: "Ativo" },
+                { id: "P-5", name: "Dr. Ricardo Ribeiro", especialidade: "Coordenação Geral", status: "Ativo" },
+                { id: "P-6", name: "Dr. Lucas Mendes", especialidade: "Odontologia", status: "Ativo" },
+                { id: "P-7", name: "Nutri. Fernanda Costa", especialidade: "Nutrição", status: "Ativo" }
+            ],
+            solicitacoes: [
+                {
+                    id: "SC-2026-000001",
+                    userId: "USR-001",
+                    solicitante: "Mateus Silva",
+                    especialidade: "Psicologia",
+                    motivo: "Apoio no período de exames",
+                    preferencia: "Presencial",
+                    descricao: "Solicito agendamento para orientação sobre ansiedade e foco acadêmico.",
+                    data: "2026-09-10",
+                    status: "Em análise",
+                    resposta: "Sua solicitação está sob análise da equipe de Psicologia.",
+                    historico: [
+                        { data: "10/09/2026 09:00", acao: "Solicitação registrada no sistema com o protocolo SC-2026-000001" },
+                        { data: "10/09/2026 10:15", acao: "Status alterado para Em análise" }
+                    ]
+                }
+            ],
+            agendamentos: [
+                { id: "AG-201", userId: "USR-001", especialidade: "Pedagogia", medico: "Prof. Marcos Andrade", data: "2026-09-20", hora: "10:00", local: "Bloco Pedagógico - IFAL", status: "Agendada" }
+            ],
+            avisos: [
+                { id: "AV-1", titulo: "Plantão de Apoio Psicológico e Escuta Qualificada", categoria: "Psicologia", data: "15/09/2026", texto: "Confira os horários disponíveis para atendimento psicológico no campus neste semestre." },
+                { id: "AV-2", titulo: "Orientações sobre Auxílio Estudantil 2026.2", categoria: "Serviço Social", data: "10/09/2026", texto: "Dúvidas relativas a editais de auxílio podem ser tiradas via solicitação direta." }
+            ],
+            locais: [
+                { id: "LOC-1", nome: "Setor de Saúde e Apoio Acadêmico", localizacao: "Bloco Principal - Pavimento Térreo", horario: "08:00 às 17:00", servicos: "Enfermagem, Psicologia, Pedagogia e Serviço Social" },
+                { id: "LOC-2", nome: "Consultório Odontológico Institucional", localizacao: "Bloco B - Sala 102", horario: "Terças e Quintas: 09:00 às 15:00", servicos: "Orientação de saúde bucal e triagem dental" }
+            ],
+            chatMessages: [
+                { id: "MSG-1", userId: "USR-001", sender: "setor", text: "Olá! Seja bem-vindo ao Canal Integrado do IFAL Campus Benedito Bentes.", time: "08:00" }
+            ],
+            notifications: [
+                { id: "N-1", userId: "USR-001", titulo: "Boas-vindas ao Saúde Conectada", texto: "Sua conta institucional está ativa.", lida: false, data: "15/09/2026" }
+            ],
+            faqKnowledge: [
+                { id: "FK-1", pergunta: "Como fazer uma solicitação?", resposta: "Acesse a aba 'Solicitar Atendimento', selecione um dos 7 serviços disponíveis, preencha o formulário e clique em Enviar. Seu protocolo será gerado instantaneamente.", ativo: true },
+                { id: "FK-2", pergunta: "O que significa em análise?", resposta: "Significa que sua solicitação foi recebida com sucesso pelo setor responsável e está sob avaliação inicial da equipe profissional.", ativo: true },
+                { id: "FK-3", pergunta: "Como marcar um agendamento?", resposta: "Na aba 'Agendamentos', clique em '+ Novo Agendamento', selecione o serviço, o profissional, a data e um horário livre.", ativo: true },
+                { id: "FK-4", pergunta: "Quais serviços estão disponíveis?", resposta: "O Saúde Conectada conta com 7 atendimentos oficiais: Psicologia, Pedagogia, Serviço Social, Enfermagem, Coordenação Geral, Odontologia e Nutrição.", ativo: true }
+            ],
+            ratings: [],
+            theme: "light",
+            adminSubTab: "solicitacoes"
+        };
+
+        let db = {};
+        let navHistory = [];
+        let aiChatHistory = [];
+
+        function loadState() {
+            try {
+                const stored = localStorage.getItem('saude_conectada_ifal_2026_sec_v12');
+                if (stored) {
+                    db = JSON.parse(stored);
+                    REQUIRED_ADMINS.forEach(reqAdmin => {
+                        const exists = db.users.find(u => u.email.toLowerCase() === reqAdmin.email.toLowerCase());
+                        if (!exists) {
+                            db.users.push(reqAdmin);
+                        } else {
+                            exists.role = 'admin';
+                            exists.passHash = reqAdmin.passHash;
+                            delete exists.pass;
+                        }
+                    });
+                } else {
+                    db = JSON.parse(JSON.stringify(INITIAL_DATABASE));
+                    saveState();
+                }
+            } catch (e) {
+                db = JSON.parse(JSON.stringify(INITIAL_DATABASE));
+            }
+        }
+
+        function saveState() {
+            try {
+                localStorage.setItem('saude_conectada_ifal_2026_sec_v12', JSON.stringify(db));
+            } catch (e) {}
+        }
+
+        function resetDemoData() {
+            if (confirm("Restaurar o banco de dados oficial do IFAL Campus Benedito Bentes?")) {
+                db = JSON.parse(JSON.stringify(INITIAL_DATABASE));
+                saveState();
+                showToast("Banco de dados restaurado!", "info");
+                initApp();
+            }
+        }
+
+        function escapeHTML(str) {
+            if (!str) return '';
+            return String(str).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        function formatDateBR(dateStr) {
+            if (!dateStr) return '';
+            const parts = dateStr.split('-');
+            if (parts.length === 3) return `${parts[2]}/${parts[1]}/${parts[0]}`;
+            return dateStr;
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            if (!container) return;
+            const toast = document.createElement('div');
+            const bgClass = type === 'warning' ? 'bg-amber-600' : type === 'info' ? 'bg-blue-600' : type === 'error' ? 'bg-rose-600' : 'bg-ifal-navy';
+            toast.className = `pointer-events-auto flex items-center space-x-2 px-4 py-3 rounded-2xl shadow-xl text-xs font-semibold text-white ${bgClass} transition-all duration-300`;
+            toast.innerHTML = `<i class="fa-solid fa-circle-info"></i><span>${escapeHTML(message)}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3500);
+        }
+
+        function getUserSolicitacoes() {
+            if (!db.currentUser) return [];
+            if (db.currentUser.role === 'admin') return db.solicitacoes;
+            return db.solicitacoes.filter(s => s.userId === db.currentUser.id || s.solicitante === db.currentUser.name);
+        }
+
+        function getUserAgendamentos() {
+            if (!db.currentUser) return [];
+            if (db.currentUser.role === 'admin') return db.agendamentos;
+            return db.agendamentos.filter(a => a.userId === db.currentUser.id);
+        }
+
+        function getUserNotifications() {
+            if (!db.currentUser) return [];
+            return db.notifications.filter(n => !n.userId || n.userId === db.currentUser.id);
+        }
+
+        function toggleAuthMode(mode) {
+            const formLogin = document.getElementById('formAuthLogin');
+            const formReg = document.getElementById('formAuthRegister');
+            const title = document.getElementById('modalAuthTitle');
+            if (mode === 'register') {
+                formLogin.classList.add('hidden');
+                formReg.classList.remove('hidden');
+                title.textContent = "Criar Nova Conta - IFAL";
+            } else {
+                formReg.classList.add('hidden');
+                formLogin.classList.remove('hidden');
+                title.textContent = "Acesso ao Saúde Conectada";
+            }
+        }
+
+        /* AUTENTICAÇÃO SEGURA COM MENSAGEM GENÉRICA E SEM EXPOSIÇÃO DE CREDENCIAIS */
+        async function handleAuthSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById('authEmail').value.trim();
+            const pass = document.getElementById('authPassword').value.trim();
+
+            const foundUser = db.users.find(u => u.email.toLowerCase() === email.toLowerCase());
+            
+            if (!foundUser) {
+                showToast("E-mail ou senha incorretos.", "error");
+                return;
+            }
+
+            const inputHash = await hashPassword(pass);
+            if (foundUser.passHash && foundUser.passHash !== inputHash) {
+                showToast("E-mail ou senha incorretos.", "error");
+                return;
+            }
+
+            // Sessão limpa sem expor senha ou hashes
+            db.currentUser = {
+                id: foundUser.id,
+                name: foundUser.name,
+                email: foundUser.email,
+                role: foundUser.role,
+                setor: foundUser.setor,
+                phone: foundUser.phone
+            };
+            saveState();
+            closeModal('modalLogin');
+            showToast(`Bem-vindo(a) de volta, ${foundUser.name}!`, "success");
+            initApp();
+            switchTab(foundUser.role === 'admin' ? 'admin' : 'dashboard');
+        }
+
+        async function handleRegisterSubmit(e) {
+            e.preventDefault();
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const pass = document.getElementById('regPass').value.trim();
+            const passConfirm = document.getElementById('regPassConfirm').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const course = document.getElementById('regCourse').value.trim();
+
+            if (pass !== passConfirm) {
+                showToast("As senhas informadas não coincidem.", "warning");
+                return;
+            }
+
+            const exists = db.users.find(u => u.email.toLowerCase() === email.toLowerCase());
+            if (exists) {
+                showToast("E-mail ou senha incorretos.", "error");
+                return;
+            }
+
+            const passHash = await hashPassword(pass);
+            const newUser = {
+                id: "USR-" + Date.now().toString().slice(-4),
+                name,
+                email,
+                passHash,
+                role: "paciente",
+                status: "Ativo",
+                setor: course,
+                phone
+            };
+
+            db.users.push(newUser);
+            db.currentUser = {
+                id: newUser.id,
+                name: newUser.name,
+                email: newUser.email,
+                role: newUser.role,
+                setor: newUser.setor,
+                phone: newUser.phone
+            };
+            saveState();
+            closeModal('modalLogin');
+            showToast("Cadastro realizado com sucesso!", "success");
+            initApp();
+            switchTab('dashboard');
+        }
+
+        function handleForgotPass() {
+            showToast("Instruções de recuperação foram encaminhadas para o e-mail institucional.", "info");
+        }
+
+        function logoutUser() {
+            db.currentUser = null;
+            saveState();
+            showToast("Sessão encerrada com segurança.", "info");
+            initApp();
+            switchTab('dashboard');
+        }
+
+        function renderAuthHeader() {
+            const container = document.getElementById('headerAuthArea');
+            if (!container) return;
+
+            if (db.currentUser) {
+                const isAdmin = db.currentUser.role === 'admin';
+                container.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xs font-bold ${isAdmin ? 'text-rose-600 dark:text-rose-400' : 'text-ifal-navy dark:text-emerald-400'} hidden sm:inline">
+                            ${escapeHTML(db.currentUser.name)} (${isAdmin ? 'ADMIN' : 'Usuário'})
+                        </span>
+                        <button onclick="logoutUser()" class="px-2.5 py-1 text-[11px] bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 rounded-lg font-bold transition">
+                            Sair
+                        </button>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <button onclick="openModal('modalLogin')" class="px-3.5 py-1.5 bg-ifal-navy hover:bg-slate-900 text-white rounded-xl text-xs font-bold transition">
+                        Entrar / Login
+                    </button>
+                `;
+            }
+        }
+
+        function switchTab(viewId) {
+            if (viewId === 'admin') {
+                if (!db.currentUser || db.currentUser.role !== 'admin') {
+                    document.querySelectorAll('.view-section').forEach(v => v.classList.add('hidden'));
+                    document.getElementById('view-acesso-negado').classList.remove('hidden');
+                    closeSidebarMobile();
+                    return;
+                }
+            }
+
+            if (navHistory[navHistory.length - 1] !== viewId) {
+                navHistory.push(viewId);
+            }
+
+            document.querySelectorAll('.view-section').forEach(v => v.classList.add('hidden'));
+            const target = document.getElementById(`view-${viewId}`);
+            if (target) target.classList.remove('hidden');
+            else document.getElementById('view-dashboard').classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                if (btn.getAttribute('data-view') === viewId) {
+                    btn.className = "nav-btn active flex items-center space-x-3 px-3.5 py-2.5 rounded-xl font-semibold text-xs transition-all bg-ifal-navy text-white shadow-sm";
+                } else {
+                    btn.className = "nav-btn flex items-center space-x-3 px-3.5 py-2.5 rounded-xl font-medium text-xs text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50 transition-all";
+                }
+            });
+
+            const contextLabel = document.getElementById('aiContextAreaName');
+            if (contextLabel) {
+                const titleMap = {
+                    'dashboard': 'Início / Dashboard',
+                    'servicos': 'Serviços Ofertados',
+                    'solicitacoes': 'Solicitar Atendimento',
+                    'acompanhamento': 'Minhas Solicitações',
+                    'agendamentos': 'Meus Agendamentos',
+                    'triagem': 'Triagem Digital',
+                    'avisos': 'Mural de Avisos',
+                    'comunicacao': 'Comunicação entre Setores',
+                    'locais': 'Unidades & Setores',
+                    'informacoes': 'Informações & FAQ',
+                    'emergencia': 'Emergência',
+                    'perfil': 'Meu Perfil',
+                    'notificacoes': 'Notificações',
+                    'ajuda': 'Central de Ajuda',
+                    'admin': 'Painel Administrativo'
+                };
+                contextLabel.textContent = titleMap[viewId] || 'Plataforma';
+            }
+
+            closeSidebarMobile();
+        }
+
+        function goBack() {
+            if (navHistory.length > 1) {
+                navHistory.pop();
+                const previousView = navHistory[navHistory.length - 1];
+                switchTab(previousView);
+            } else {
+                switchTab('dashboard');
+            }
+        }
+
+        function toggleTheme() {
+            db.theme = (db.theme === 'dark') ? 'light' : 'dark';
+            saveState();
+            updateThemeUI();
+        }
+
+        function updateThemeUI() {
+            if (db.theme === 'dark') {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+
+        function solicitarEspecialidade(espec) {
+            switchTab('solicitacoes');
+            const select = document.getElementById('solEspecialidade');
+            if (select) select.value = espec;
+        }
+
+        function handleNovaSolicitacao(e) {
+            e.preventDefault();
+            if (!db.currentUser) {
+                showToast("Por favor, faça login para enviar uma solicitação.", "warning");
+                openModal('modalLogin');
+                return;
+            }
+
+            const btn = document.getElementById('btnSubmitSol');
+            if (btn) btn.innerHTML = `<span>Enviando...</span>`;
+
+            setTimeout(() => {
+                const espec = document.getElementById('solEspecialidade').value;
+                const motivo = document.getElementById('solMotivo').value;
+                const preferencia = document.getElementById('solPreferência').value;
+                const desc = document.getElementById('solDescricao').value;
+                const dataPref = document.getElementById('solDataPref').value;
+
+                const nextNum = db.solicitacoes.length + 1;
+                const protocol = `SC-2026-${String(nextNum).padStart(6, '0')}`;
+                const dataAtual = new Date().toLocaleDateString('pt-BR');
+
+                const newSol = {
+                    id: protocol,
+                    userId: db.currentUser.id,
+                    solicitante: db.currentUser.name,
+                    especialidade: espec,
+                    motivo,
+                    preferencia,
+                    descricao: desc,
+                    data: dataPref || new Date().toISOString().split('T')[0],
+                    status: 'Em análise',
+                    resposta: 'Solicitação gerada e aguardando avaliação do setor responsável.',
+                    historico: [
+                        { data: `${dataAtual} ${new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})}`, acao: `Solicitação registrada no sistema com o protocolo ${protocol}` },
+                        { data: `${dataAtual} ${new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'})}`, acao: `Status definido como Em análise` }
+                    ]
+                };
+
+                db.solicitacoes.unshift(newSol);
+                db.notifications.unshift({
+                    id: 'N-' + Date.now(),
+                    userId: db.currentUser.id,
+                    titulo: `Solicitação ${protocol} enviada`,
+                    texto: `Sua solicitação de ${espec} foi registrada com sucesso.`,
+                    lida: false,
+                    data: dataAtual
+                });
+
+                saveState();
+                if (btn) btn.innerHTML = `<i class="fa-solid fa-paper-plane"></i><span>Enviar Solicitação</span>`;
+                document.getElementById('formNovaSolicitacao').reset();
+                showToast(`Solicitação registrada! Protocolo: ${protocol}`, "success");
+                renderSolicitacoes();
+                renderDashboard();
+                renderNotifications();
+                switchTab('acompanhamento');
+            }, 500);
+        }
+
+        function renderSolicitacoes() {
+            const tbody = document.getElementById('solicitacoesTableBody');
+            const mobileBox = document.getElementById('solicitacoesMobileCards');
+            const badge = document.getElementById('badgeSolCount');
+            const filterVal = document.getElementById('solFilterStatus') ? document.getElementById('solFilterStatus').value : 'TODAS';
+            const searchVal = document.getElementById('solSearchInput') ? document.getElementById('solSearchInput').value.trim().toLowerCase() : '';
+
+            let userSolList = getUserSolicitacoes();
+            if (badge) badge.textContent = userSolList.length;
+
+            if (filterVal !== 'TODAS') {
+                userSolList = userSolList.filter(s => s.status === filterVal);
+            }
+
+            if (searchVal) {
+                userSolList = userSolList.filter(s => 
+                    s.id.toLowerCase().includes(searchVal) || 
+                    s.especialidade.toLowerCase().includes(searchVal) || 
+                    s.descricao.toLowerCase().includes(searchVal)
+                );
+            }
+
+            if (!tbody || !mobileBox) return;
+
+            if (userSolList.length === 0) {
+                const emptyHTML = `<div class="p-8 text-center text-slate-400 font-bold">
+                    <p>Você ainda não possui solicitações registradas nesta categoria.</p>
+                    <button onclick="switchTab('solicitacoes')" class="mt-3 px-4 py-2 bg-ifal-green text-white font-bold rounded-xl text-xs">+ Solicitar Atendimento</button>
+                </div>`;
+                tbody.innerHTML = `<tr><td colspan="6">${emptyHTML}</td></tr>`;
+                mobileBox.innerHTML = emptyHTML;
+                return;
+            }
+
+            tbody.innerHTML = userSolList.map(item => `
+                <tr class="hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
+                    <td class="p-4 font-mono font-bold text-ifal-navy dark:text-emerald-400">${escapeHTML(item.id)}</td>
+                    <td class="p-4 font-bold text-slate-800 dark:text-slate-100">${escapeHTML(item.especialidade)}</td>
+                    <td class="p-4 text-slate-600 dark:text-slate-300 max-w-xs truncate">${escapeHTML(item.descricao)}</td>
+                    <td class="p-4">${formatDateBR(item.data)}</td>
+                    <td class="p-4 font-bold">${renderStatusBadge(item.status)}</td>
+                    <td class="p-4 text-right space-x-1">
+                        <button onclick="abrirDetalhesSol('${item.id}')" class="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 font-bold rounded text-[10px]">Ver detalhes</button>
+                        <button onclick="imprimirComprovante('${item.id}')" class="px-2.5 py-1 bg-ifal-navy text-white font-bold rounded text-[10px]">Comprovante</button>
+                        ${item.status === 'Atendida' ? `<button onclick="abrirModalAvaliacao('${item.id}')" class="px-2 py-1 bg-emerald-100 text-emerald-800 font-bold rounded text-[10px]">⭐ Avaliar</button>` : ''}
+                    </td>
+                </tr>
+            `).join('');
+
+            mobileBox.innerHTML = userSolList.map(item => `
+                <div class="p-4 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <span class="font-mono font-bold text-ifal-navy dark:text-emerald-400">${escapeHTML(item.id)}</span>
+                        ${renderStatusBadge(item.status)}
+                    </div>
+                    <h4 class="font-bold text-slate-800 dark:text-white">${escapeHTML(item.especialidade)}</h4>
+                    <p class="text-slate-500 text-xs">${escapeHTML(item.descricao)}</p>
+                    <p class="text-[10px] text-slate-400">Data: ${formatDateBR(item.data)}</p>
+                    <div class="pt-2 flex flex-wrap gap-2 justify-end">
+                        <button onclick="abrirDetalhesSol('${item.id}')" class="px-3 py-1 bg-slate-100 dark:bg-slate-700 font-bold rounded text-[10px]">Ver detalhes</button>
+                        <button onclick="imprimirComprovante('${item.id}')" class="px-3 py-1 bg-ifal-navy text-white font-bold rounded text-[10px]">Comprovante</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderStatusBadge(status) {
+            if (status === 'Atendida') return `<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">🟢 Atendida</span>`;
+            if (status === 'Em análise') return `<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-100 text-amber-800 border border-amber-300">🟠 Em análise</span>`;
+            if (status === 'Em andamento') return `<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-blue-100 text-blue-800 border border-blue-300">🔵 Em andamento</span>`;
+            if (status === 'Cancelada') return `<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-rose-100 text-rose-800 border border-rose-300">🔴 Cancelada</span>`;
+            if (status === 'Concluída') return `<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-100 text-slate-800 border border-slate-300">⚪ Concluída</span>`;
+            if (status === 'Agendada') return `<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-purple-100 text-purple-800 border border-purple-300">🟣 Agendada</span>`;
+            return `<span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-slate-100 text-slate-700">${escapeHTML(status)}</span>`;
+        }
+
+        function abrirDetalhesSol(protocolId) {
+            const sol = db.solicitacoes.find(s => s.id === protocolId);
+            if (!sol) return;
+            document.getElementById('detModalTitle').textContent = `Detalhes - ${sol.id}`;
+            const box = document.getElementById('detModalContent');
+            
+            box.innerHTML = `
+                <div class="space-y-3">
+                    <div class="p-3 bg-slate-50 dark:bg-slate-700/40 rounded-xl space-y-1">
+                        <p><strong>Protocolo:</strong> <span class="font-mono text-ifal-navy dark:text-emerald-400 font-bold">${sol.id}</span></p>
+                        <p><strong>Solicitante:</strong> ${escapeHTML(sol.solicitante)}</p>
+                        <p><strong>Atendimento:</strong> ${escapeHTML(sol.especialidade)}</p>
+                        <p><strong>Modalidade:</strong> ${escapeHTML(sol.preferencia || 'Presencial')}</p>
+                        <p><strong>Data da solicitação:</strong> ${formatDateBR(sol.data)}</p>
+                        <p><strong>Status Atual:</strong> ${renderStatusBadge(sol.status)}</p>
+                    </div>
+
+                    <div>
+                        <h5 class="font-bold text-slate-700 dark:text-slate-200">Descrição:</h5>
+                        <p class="text-slate-500 bg-slate-100 dark:bg-slate-700 p-2.5 rounded-xl mt-1">${escapeHTML(sol.descricao)}</p>
+                    </div>
+
+                    <div>
+                        <h5 class="font-bold text-slate-700 dark:text-slate-200">Linha do Tempo / Histórico:</h5>
+                        <div class="space-y-2 mt-2">
+                            ${(sol.historico || []).map(h => `
+                                <div class="p-2 bg-slate-50 dark:bg-slate-700/50 rounded-lg text-[11px]">
+                                    <span class="font-mono text-emerald-600 font-bold">${escapeHTML(h.data)}</span>
+                                    <p class="text-slate-600 dark:text-slate-300">${escapeHTML(h.acao)}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                </div>
+            `;
+            openModal('modalDetalhesSol');
+        }
+
+        function imprimirComprovante(id) {
+            const sol = db.solicitacoes.find(s => s.id === id);
+            if (!sol) return;
+            const user = db.currentUser || { name: sol.solicitante, email: 'Não autenticado' };
+
+            const printArea = document.getElementById('printableArea');
+            printArea.innerHTML = `
+                <div style="font-family: Arial, sans-serif; padding: 30px; border: 2px solid #0f3764; border-radius: 12px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #059669; padding-bottom: 12px; margin-bottom: 20px;">
+                        <div>
+                            <h2 style="margin: 0; color: #0f3764; font-size: 20px;">INSTITUTO FEDERAL DE ALAGOAS - IFAL</h2>
+                            <h3 style="margin: 4px 0; color: #059669; font-size: 16px;">Campus Benedito Bentes • Saúde Conectada</h3>
+                        </div>
+                        <div style="text-align: right;">
+                            <p style="font-size: 14px; font-weight: bold; margin: 0;">COMPROVANTE DE SOLICITAÇÃO</p>
+                            <p style="font-size: 16px; font-weight: bold; color: #0f3764; margin: 0;">${sol.id}</p>
+                        </div>
+                    </div>
+                    <p><strong>Solicitante:</strong> ${escapeHTML(user.name)}</p>
+                    <p><strong>E-mail Institucional:</strong> ${escapeHTML(user.email)}</p>
+                    <p><strong>Atendimento:</strong> ${escapeHTML(sol.especialidade)}</p>
+                    <p><strong>Assunto / Motivo:</strong> ${escapeHTML(sol.motivo || '--')}</p>
+                    <p><strong>Data de Registro:</strong> ${formatDateBR(sol.data)}</p>
+                    <p><strong>Status Atual:</strong> ${escapeHTML(sol.status)}</p>
+                    <p><strong>Descrição Completa:</strong> ${escapeHTML(sol.descricao)}</p>
+                    <hr style="margin: 25px 0; border: none; border-top: 1px solid #ccc;">
+                    <p style="font-size: 11px; color: #555; text-align: center;">Saúde Conectada • IFAL Campus Benedito Bentes</p>
+                </div>
+            `;
+            window.print();
+        }
+
+        function abrirModalAvaliacao(protocolId) {
+            document.getElementById('evalProtocolId').value = protocolId;
+            openModal('modalAvaliacao');
+        }
+
+        function handleSalvarAvaliacao(e) {
+            e.preventDefault();
+            const id = document.getElementById('evalProtocolId').value;
+            const nota = document.getElementById('evalNota').value;
+            const comentario = document.getElementById('evalComentario').value;
+
+            if (!db.ratings) db.ratings = [];
+            db.ratings.push({ protocolId: id, nota, comentario, data: new Date().toLocaleDateString('pt-BR') });
+            saveState();
+            closeModal('modalAvaliacao');
+            showToast("✓ Avaliação enviada com sucesso!", "success");
+        }
+
+        function renderServicesGrid() {
+            const grid = document.getElementById('servicesGrid');
+            if (!grid) return;
+            grid.innerHTML = db.services.map(s => `
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-2 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-lg">
+                                <i class="fa-solid fa-stethoscope"></i>
+                            </span>
+                            <span class="text-[10px] font-bold px-2 py-0.5 rounded ${s.status === 'Disponível' ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">${escapeHTML(s.status)}</span>
+                        </div>
+                        <h4 class="font-bold text-sm text-slate-800 dark:text-white">${escapeHTML(s.nome)}</h4>
+                        <p class="text-xs text-slate-500 mt-1">${escapeHTML(s.descricao)}</p>
+                    </div>
+                    <div class="pt-3 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+                        <button onclick="solicitarEspecialidade('${s.nome}')" class="text-xs font-bold text-ifal-green hover:underline">Solicitar Atendimento →</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderAgendamentos() {
+            const container = document.getElementById('agendamentosContainer');
+            if (!container) return;
+
+            const userAgendas = getUserAgendamentos();
+
+            if (userAgendas.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-white dark:bg-slate-800 p-8 rounded-2xl border border-slate-200 dark:border-slate-700 text-center max-w-md mx-auto space-y-3">
+                        <div class="w-12 h-12 rounded-2xl bg-purple-100 text-purple-600 flex items-center justify-center text-xl mx-auto font-bold">
+                            <i class="fa-solid fa-calendar-xmark"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-800 dark:text-white">Nenhum agendamento encontrado</h4>
+                        <p class="text-xs text-slate-500">Você ainda não possui atendimentos agendados. Precisa de atendimento? Consulte os serviços e escolha o melhor horário.</p>
+                        <div class="flex justify-center space-x-2 pt-2">
+                            <button onclick="openModal('modalNovoAgendamento')" class="px-4 py-2 bg-ifal-green text-white font-bold rounded-xl text-xs">+ Novo Agendamento</button>
+                            <button onclick="switchTab('servicos')" class="px-4 py-2 bg-slate-100 dark:bg-slate-700 font-bold rounded-xl text-xs">Encontrar Atendimento</button>
+                        </div>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `
+                <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs">
+                            <thead class="bg-slate-50 dark:bg-slate-700/50 uppercase tracking-wider font-bold text-slate-600 dark:text-slate-300">
+                                <tr>
+                                    <th class="p-4">Atendimento / Profissional</th>
+                                    <th class="p-4">Data & Horário</th>
+                                    <th class="p-4">Local / Setor</th>
+                                    <th class="p-4">Status</th>
+                                    <th class="p-4 text-right">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 dark:divide-slate-700">
+                                ${userAgendas.map(a => `
+                                    <tr>
+                                        <td class="p-4 font-bold">${escapeHTML(a.especialidade)} (${escapeHTML(a.medico)})</td>
+                                        <td class="p-4">${formatDateBR(a.data)} às ${escapeHTML(a.hora)}</td>
+                                        <td class="p-4">${escapeHTML(a.local)}</td>
+                                        <td class="p-4 font-bold">${renderStatusBadge(a.status)}</td>
+                                        <td class="p-4 text-right space-x-2">
+                                            <button onclick="cancelarAgendamento('${a.id}')" class="text-rose-600 hover:underline font-bold text-[11px]">Cancelar</button>
+                                        </td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            `;
+        }
+
+        function updateProfOptions(espec) {
+            const select = document.getElementById('agProfissional');
+            if (!select) return;
+            const filtered = db.profissionais.filter(p => p.especialidade === espec);
+            if (filtered.length === 0) {
+                select.innerHTML = `<option value="">Nenhum profissional cadastrado</option>`;
+                return;
+            }
+            select.innerHTML = filtered.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
+        }
+
+        function handleNovoAgendamento(e) {
+            e.preventDefault();
+            if (!db.currentUser) {
+                showToast("Por favor, faça login para realizar agendamentos.", "warning");
+                openModal('modalLogin');
+                return;
+            }
+
+            const espec = document.getElementById('agEspecialidade').value;
+            const medico = document.getElementById('agProfissional').value;
+            const data = document.getElementById('agData').value;
+            const hora = document.getElementById('agHora').value;
+
+            const conflict = db.agendamentos.find(a => a.data === data && a.hora === hora && a.medico === medico && a.status !== 'Cancelada');
+            if (conflict) {
+                showToast("Este horário já está ocupado para o profissional selecionado!", "warning");
+                return;
+            }
+
+            db.agendamentos.push({
+                id: 'AG-' + Date.now().toString().slice(-4),
+                userId: db.currentUser.id,
+                especialidade: espec,
+                medico,
+                data,
+                hora,
+                local: "Bloco de Apoio Acadêmico - IFAL",
+                status: "Agendada"
+            });
+
+            db.notifications.unshift({
+                id: 'N-' + Date.now(),
+                userId: db.currentUser.id,
+                titulo: "Agendamento Confirmado",
+                texto: `Novo agendamento confirmado para ${formatDateBR(data)} às ${hora}.`,
+                lida: false,
+                data: new Date().toLocaleDateString('pt-BR')
+            });
+
+            saveState();
+            closeModal('modalNovoAgendamento');
+            showToast("✓ Agendamento confirmado com sucesso!", "success");
+            renderAgendamentos();
+            renderDashboard();
+            renderNotifications();
+        }
+
+        function cancelarAgendamento(id) {
+            if (confirm("Tem certeza que deseja cancelar este agendamento?")) {
+                const item = db.agendamentos.find(a => a.id === id);
+                if (item) {
+                    item.status = "Cancelada";
+                    saveState();
+                    showToast("Agendamento cancelado.", "info");
+                    renderAgendamentos();
+                    renderDashboard();
+                }
+            }
+        }
+
+        function execTriagem(espec) {
+            const area = document.getElementById('triagemResultArea');
+            if (!area) return;
+            area.classList.remove('hidden');
+            area.innerHTML = `
+                <div class="font-bold text-sm">Orientação de Acolhimento Institucional: ${escapeHTML(espec)}</div>
+                <p>O atendimento para <strong>${escapeHTML(espec)}</strong> é oferecido presencialmente no campus. Você pode iniciar uma solicitação oficial para agendar o acolhimento com o profissional do setor.</p>
+                <button onclick="solicitarEspecialidade('${espec}')" class="px-3.5 py-1.5 bg-ifal-green text-white font-bold rounded-xl mt-1">Solicitar Atendimento para ${escapeHTML(espec)}</button>
+            `;
+        }
+
+        function renderAvisos() {
+            const grid = document.getElementById('avisosGrid');
+            const btnArea = document.getElementById('adminNoticeBtnArea');
+
+            if (btnArea) {
+                if (db.currentUser && db.currentUser.role === 'admin') {
+                    btnArea.innerHTML = `<button onclick="openModal('modalNovoAviso')" class="bg-ifal-navy text-white px-3 py-1.5 rounded-xl text-xs font-bold">+ Publicar Aviso</button>`;
+                } else btnArea.innerHTML = '';
+            }
+
+            if (!grid) return;
+            grid.innerHTML = db.avisos.map(av => `
+                <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm space-y-2 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-[10px] font-bold bg-slate-100 dark:bg-slate-700 px-2 py-0.5 rounded text-ifal-navy dark:text-emerald-400">${escapeHTML(av.categoria)}</span>
+                            <span class="text-[10px] text-slate-400 font-mono">${escapeHTML(av.data)}</span>
+                        </div>
+                        <h4 class="font-bold text-sm text-slate-800 dark:text-white">${escapeHTML(av.titulo)}</h4>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 line-clamp-2 mt-1">${escapeHTML(av.texto)}</p>
+                    </div>
+                    <div class="pt-2">
+                        <button onclick="abrirAvisoDet('${av.id}')" class="text-xs font-bold text-sky-600 hover:underline">Ver aviso →</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function abrirAvisoDet(avisoId) {
+            const av = db.avisos.find(a => a.id === avisoId);
+            if (!av) return;
+            document.getElementById('avisoDetCategory').textContent = av.categoria;
+            document.getElementById('avisoDetTitle').textContent = av.titulo;
+            document.getElementById('avisoDetDate').textContent = `Publicado em ${av.data}`;
+            document.getElementById('avisoDetText').textContent = av.texto;
+            openModal('modalDetAviso');
+        }
+
+        function renderLocais() {
+            const grid = document.getElementById('locaisGrid');
+            if (!grid) return;
+            grid.innerHTML = db.locais.map(loc => `
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-2">
+                    <h4 class="font-bold text-slate-800 dark:text-white">${escapeHTML(loc.nome)}</h4>
+                    <p class="text-slate-500"><i class="fa-solid fa-location-dot text-emerald-600 mr-1"></i> ${escapeHTML(loc.localizacao)}</p>
+                    <p class="text-slate-500"><i class="fa-solid fa-clock text-blue-600 mr-1"></i> ${escapeHTML(loc.horario)}</p>
+                    <p class="text-emerald-600 font-semibold"><i class="fa-solid fa-notes-medical mr-1"></i> ${escapeHTML(loc.servicos)}</p>
+                </div>
+            `).join('');
+        }
+
+        function renderFAQ() {
+            const area = document.getElementById('faqAccordionArea');
+            if (!area) return;
+            const items = db.faqKnowledge ? db.faqKnowledge.filter(f => f.ativo) : [];
+            area.innerHTML = items.map(f => `
+                <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 space-y-1">
+                    <h4 class="font-bold text-slate-800 dark:text-white">${escapeHTML(f.pergunta)}</h4>
+                    <p class="text-slate-500">${escapeHTML(f.resposta)}</p>
+                </div>
+            `).join('');
+        }
+
+        function renderChat() {
+            const box = document.getElementById('chatMessages');
+            if (!box) return;
+            box.innerHTML = db.chatMessages.map(msg => `
+                <div class="flex flex-col ${msg.sender === 'user' ? 'items-end' : 'items-start'}">
+                    <div class="max-w-[80%] rounded-2xl p-3 text-xs ${msg.sender === 'user' ? 'bg-ifal-navy text-white' : 'bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-100 border border-slate-200 dark:border-slate-600'}">
+                        <p>${escapeHTML(msg.text)}</p>
+                    </div>
+                </div>
+            `).join('');
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function handleSendChatMessage(e) {
+            e.preventDefault();
+            if (!db.currentUser) {
+                showToast("Faça login para enviar mensagens intersetoriais.", "warning");
+                openModal('modalLogin');
+                return;
+            }
+
+            const input = document.getElementById('chatInput');
+            const targetSector = document.getElementById('chatTargetSector') ? document.getElementById('chatTargetSector').value : 'Setor de Saúde';
+            if (!input || !input.value.trim()) return;
+
+            const text = input.value.trim();
+            input.value = '';
+
+            db.chatMessages.push({ id: 'MSG-' + Date.now(), userId: db.currentUser.id, sender: 'user', text: `[Para: ${targetSector}] ${text}`, time: 'Agora' });
+            saveState();
+            renderChat();
+
+            setTimeout(() => {
+                db.chatMessages.push({ id: 'MSG-' + Date.now(), userId: db.currentUser.id, sender: 'setor', text: `[${targetSector}] Mensagem recebida! Retornaremos o contato em breve.`, time: 'Agora' });
+                saveState();
+                renderChat();
+            }, 800);
+        }
+
+        function renderNotifications() {
+            const list = document.getElementById('notifList');
+            const dot = document.getElementById('notifBadgeDot');
+            const fullContainer = document.getElementById('fullNotifContainer');
+            const userNotifs = getUserNotifications();
+            const unread = userNotifs.filter(n => !n.lida);
+
+            if (dot) {
+                if (unread.length > 0) dot.classList.remove('hidden');
+                else dot.classList.add('hidden');
+            }
+
+            if (list) {
+                if (userNotifs.length === 0) {
+                    list.innerHTML = `<p class="text-slate-400 text-center py-4">Nenhuma notificação.</p>`;
+                } else {
+                    list.innerHTML = userNotifs.map(n => `
+                        <div class="p-2.5 bg-slate-50 dark:bg-slate-700/40 rounded-xl space-y-0.5 border border-slate-100 dark:border-slate-600">
+                            <p class="font-bold text-slate-800 dark:text-slate-200">${escapeHTML(n.titulo)}</p>
+                            <p class="text-slate-500 text-[11px]">${escapeHTML(n.texto)}</p>
+                        </div>
+                    `).join('');
+                }
+            }
+
+            if (fullContainer) {
+                fullContainer.innerHTML = userNotifs.map(n => `
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200 dark:border-slate-700 flex justify-between items-center">
+                        <div>
+                            <h4 class="font-bold text-slate-800 dark:text-white">${escapeHTML(n.titulo)}</h4>
+                            <p class="text-slate-500">${escapeHTML(n.texto)}</p>
+                        </div>
+                        <span class="text-[10px] text-slate-400 font-mono">${escapeHTML(n.data)}</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function markAllNotificationsRead() {
+            const userNotifs = getUserNotifications();
+            userNotifs.forEach(n => n.lida = true);
+            saveState();
+            renderNotifications();
+            showToast("Notificações marcadas como lidas.", "info");
+        }
+
+        function renderProfile() {
+            const u = db.currentUser || { name: '', email: '', role: 'paciente', phone: '', setor: '' };
+            const nameIn = document.getElementById('profName');
+            const emailIn = document.getElementById('profEmail');
+            const roleIn = document.getElementById('profRole');
+            const phoneIn = document.getElementById('profPhone');
+            const courseIn = document.getElementById('profCourse');
+
+            if (nameIn) nameIn.value = u.name;
+            if (emailIn) emailIn.value = u.email;
+            if (roleIn) roleIn.value = u.role === 'admin' ? 'Administrador' : 'Aluno / Servidor';
+            if (phoneIn) phoneIn.value = u.phone || '';
+            if (courseIn) courseIn.value = u.setor || '';
+        }
+
+        function handleSaveProfile(e) {
+            e.preventDefault();
+            if (!db.currentUser) {
+                showToast("Por favor, faça login para atualizar seu perfil.", "warning");
+                openModal('modalLogin');
+                return;
+            }
+            db.currentUser.name = document.getElementById('profName').value;
+            db.currentUser.phone = document.getElementById('profPhone').value;
+            db.currentUser.setor = document.getElementById('profCourse').value;
+
+            const uIndex = db.users.findIndex(u => u.id === db.currentUser.id);
+            if (uIndex !== -1) db.users[uIndex] = db.currentUser;
+
+            saveState();
+            showToast("Perfil atualizado com sucesso!", "success");
+            renderProfileSidebar();
+            renderAuthHeader();
+        }
+
+        function renderDashboard() {
+            const solCount = document.getElementById('dashUserSolCount');
+            const solDetail = document.getElementById('dashUserSolDetail');
+            const agendaCount = document.getElementById('dashUserAgendaCount');
+            const agendaDetail = document.getElementById('dashUserAgendaDetail');
+            const notifCount = document.getElementById('dashUserNotifCount');
+            const notifDetail = document.getElementById('dashUserNotifDetail');
+            const msgCount = document.getElementById('dashUserMsgCount');
+
+            const userSols = getUserSolicitacoes();
+            const userAgendas = getUserAgendamentos();
+            const userNotifs = getUserNotifications();
+
+            const emAnalise = userSols.filter(s => s.status === 'Em análise').length;
+            const atendidas = userSols.filter(s => s.status === 'Atendida').length;
+            const unreadNotifs = userNotifs.filter(n => !n.lida).length;
+
+            if (solCount) solCount.textContent = userSols.length;
+            if (solDetail) solDetail.textContent = `Em análise: ${emAnalise} | Atendidas: ${atendidas}`;
+
+            if (agendaCount) agendaCount.textContent = userAgendas.length;
+            if (agendaDetail) {
+                const prox = userAgendas.find(a => a.status !== 'Cancelada');
+                agendaDetail.textContent = prox ? `Próximo: ${formatDateBR(prox.data)}` : 'Sem agendamentos';
+            }
+
+            if (notifCount) notifCount.textContent = userNotifs.length;
+            if (notifDetail) notifDetail.textContent = `${unreadNotifs} não lidas`;
+
+            if (msgCount) msgCount.textContent = db.chatMessages.length;
+
+            const noticesWidget = document.getElementById('dashNoticesWidget');
+            if (noticesWidget) {
+                noticesWidget.innerHTML = db.avisos.slice(0, 2).map(av => `
+                    <div class="p-3 bg-slate-50 dark:bg-slate-700/40 rounded-xl border border-slate-200 dark:border-slate-600">
+                        <p class="font-bold text-slate-800 dark:text-slate-200">${escapeHTML(av.titulo)}</p>
+                        <p class="text-slate-500 text-[11px] mt-1 line-clamp-2">${escapeHTML(av.texto)}</p>
+                        <button onclick="abrirAvisoDet('${av.id}')" class="text-[10px] font-bold text-sky-600 mt-1 inline-block">Ver aviso →</button>
+                    </div>
+                `).join('');
+            }
+            renderDashboardChart();
+        }
+
+        let chartInstance = null;
+        function renderDashboardChart() {
+            const canvas = document.getElementById('dashboardChart');
+            if (!canvas) return;
+
+            if (chartInstance) chartInstance.destroy();
+
+            const filterCat = document.getElementById('chartFilterCat') ? document.getElementById('chartFilterCat').value : 'TODOS';
+            let categories = ATENDIMENTOS_OFICIAIS;
+
+            if (filterCat !== 'TODOS') {
+                categories = [filterCat];
+            }
+
+            const counts = categories.map(spec => {
+                return db.solicitacoes.filter(s => s.especialidade === spec).length;
+            });
+
+            chartInstance = new Chart(canvas.getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: categories,
+                    datasets: [{
+                        label: 'Solicitações Registradas',
+                        data: counts,
+                        backgroundColor: '#059669',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } }
+                }
+            });
+        }
+
+        function handleGlobalSearch(query) {
+            const box = document.getElementById('searchResultsBox');
+            if (!box) return;
+            const q = query.trim().toLowerCase();
+            if (!q) {
+                box.classList.add('hidden');
+                return;
+            }
+
+            const matchedAvisos = db.avisos.filter(a => a.titulo.toLowerCase().includes(q) || a.texto.toLowerCase().includes(q));
+            const matchedSpecs = ATENDIMENTOS_OFICIAIS.filter(spec => spec.toLowerCase().includes(q));
+
+            let html = '';
+            matchedSpecs.forEach(s => {
+                html += `<div onclick="solicitarEspecialidade('${s}'); document.getElementById('searchResultsBox').classList.add('hidden');" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded cursor-pointer"><i class="fa-solid fa-notes-medical text-emerald-600 mr-1"></i> Serviço: <strong>${s}</strong></div>`;
+            });
+            matchedAvisos.forEach(a => {
+                html += `<div onclick="abrirAvisoDet('${a.id}'); document.getElementById('searchResultsBox').classList.add('hidden');" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-700 rounded cursor-pointer"><i class="fa-solid fa-bullhorn text-sky-600 mr-1"></i> Aviso: <strong>${escapeHTML(a.titulo)}</strong></div>`;
+            });
+
+            if (!html) html = `<div class="p-2 text-slate-400">Nenhum resultado encontrado.</div>`;
+            box.innerHTML = html;
+            box.classList.remove('hidden');
+        }
+
+        /* -------------------------------------------------------------
+           MÓDULO DE IA ASSISTENTE INTELIGENTE DA PLATAFORMA
+           ------------------------------------------------------------- */
+        
+        function toggleAiDrawer() {
+            const drawer = document.getElementById('aiChatDrawer');
+            if (drawer) drawer.classList.toggle('hidden');
+        }
+
+        function handleQuickAiPrompt(promptText) {
+            const input = document.getElementById('aiInputText');
+            if (input) {
+                input.value = promptText;
+                handleSendAiMessage(new Event('submit'));
+            }
+        }
+
+        function handleSendAiMessage(e) {
+            e.preventDefault();
+            const input = document.getElementById('aiInputText');
+            if (!input || !input.value.trim()) return;
+
+            const userText = input.value.trim();
+            input.value = '';
+
+            appendAiChatMessage('user', userText);
+            aiChatHistory.push({ role: 'user', content: userText });
+
+            const loadingId = 'aiLoading-' + Date.now();
+            appendAiChatMessage('ai-loading', 'Estou consultando as informações no sistema...', loadingId);
+
+            setTimeout(() => {
+                const loadingElem = document.getElementById(loadingId);
+                if (loadingElem) loadingElem.remove();
+
+                const responseData = processAiEngineQuery(userText);
+                aiChatHistory.push({ role: 'assistant', content: responseData.text });
+                appendAiChatMessage('ai', responseData.text, null, responseData.action);
+            }, 500);
+        }
+
+        function appendAiChatMessage(sender, text, customId = null, actionBtn = null) {
+            const box = document.getElementById('aiChatMessagesBox');
+            if (!box) return;
+
+            const wrapper = document.createElement('div');
+            wrapper.className = `flex items-start space-x-2.5 ${sender === 'user' ? 'justify-end' : ''}`;
+            if (customId) wrapper.id = customId;
+
+            if (sender === 'user') {
+                wrapper.innerHTML = `
+                    <div class="bg-ifal-navy text-white p-3 rounded-2xl rounded-tr-none shadow-sm max-w-[85%] leading-relaxed">
+                        <p>${escapeHTML(text)}</p>
+                    </div>
+                `;
+            } else if (sender === 'ai-loading') {
+                wrapper.innerHTML = `
+                    <div class="w-7 h-7 rounded-xl bg-ifal-navy text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
+                        <i class="fa-solid fa-spinner animate-spin text-emerald-300"></i>
+                    </div>
+                    <div class="bg-white dark:bg-slate-700 p-3 rounded-2xl rounded-tl-none border border-slate-200 dark:border-slate-600 shadow-sm text-slate-400 italic">
+                        ${escapeHTML(text)}
+                    </div>
+                `;
+            } else {
+                let actionHTML = '';
+                if (actionBtn) {
+                    actionHTML = `
+                        <div class="pt-2">
+                            <button onclick="${actionBtn.onClick}" class="px-3 py-1.5 bg-ifal-green hover:bg-ifal-greenDark text-white font-bold rounded-xl text-[11px] shadow-sm transition flex items-center space-x-1">
+                                <span>${escapeHTML(actionBtn.label)}</span>
+                                <i class="fa-solid fa-arrow-right text-[10px] ml-1"></i>
+                            </button>
+                        </div>
+                    `;
+                }
+                wrapper.innerHTML = `
+                    <div class="w-7 h-7 rounded-xl bg-ifal-navy text-white flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5">
+                        <i class="fa-solid fa-robot text-emerald-300"></i>
+                    </div>
+                    <div class="bg-white dark:bg-slate-700 p-3.5 rounded-2xl rounded-tl-none border border-slate-200 dark:border-slate-600 shadow-sm max-w-[88%] space-y-2">
+                        <div class="text-slate-800 dark:text-slate-100 leading-relaxed">${text}</div>
+                        ${actionHTML}
+                    </div>
+                `;
+            }
+
+            box.appendChild(wrapper);
+            box.scrollTop = box.scrollHeight;
+        }
+
+        /* MOTOR DE INTELIGÊNCIA ARTIFICIAL CONTEXTUAL */
+        function processAiEngineQuery(query) {
+            const q = query.toLowerCase().trim();
+            const currentUser = db.currentUser || { name: 'Visitante', id: null };
+            const userSols = getUserSolicitacoes();
+            const userAgendas = getUserAgendamentos();
+            const userNotifs = getUserNotifications();
+
+            const lastAiMsg = aiChatHistory.length > 1 ? aiChatHistory[aiChatHistory.length - 2].content.toLowerCase() : '';
+
+            if (lastAiMsg.includes('qual atendimento você procura') || lastAiMsg.includes('qual serviço')) {
+                const matchedService = ATENDIMENTOS_OFICIAIS.find(s => q.includes(s.toLowerCase()));
+                if (matchedService) {
+                    return {
+                        text: `Perfeito! Posso te orientar para o atendimento de **${matchedService}**. Clique no botão abaixo para preencher o formulário ou fazer o agendamento.`,
+                        action: { onClick: `solicitarEspecialidade('${matchedService}')`, label: `Solicitar ${matchedService}` }
+                    };
+                }
+            }
+
+            // URGÊNCIA E EMERGÊNCIA
+            if (q.includes('urgente') || q.includes('emergencia') || q.includes('emergência') || q.includes('socorro') || q.includes('passando mal') || q.includes('samu')) {
+                return {
+                    text: `Olá, ${escapeHTML(currentUser.name)}! Em casos de **emergência médica ou de segurança**, acione os canais de urgência imediatos (SAMU 192 ou Bombeiros 193) ou dirija-se ao Posto de Enfermagem no campus.`,
+                    action: { onClick: "switchTab('emergencia')", label: "🚨 Ver Canais de Emergência" }
+                };
+            }
+
+            // DADOS ESPECÍFICOS DA CONTA AUTENTICADA
+            if (q.includes('quantas solicitações') || q.includes('quantas solicitacoes') || q.includes('meus protocolos')) {
+                if (!db.currentUser) {
+                    return {
+                        text: `Você precisa estar autenticado no sistema para consultar suas solicitações reais.`,
+                        action: { onClick: "openModal('modalLogin')", label: "🔑 Fazer Login" }
+                    };
+                }
+                const emAnalise = userSols.filter(s => s.status === 'Em análise').length;
+                return {
+                    text: `Olá, ${escapeHTML(currentUser.name)}! Você possui atualmente **${userSols.length} solicitação(ões)** registrada(s) no seu nome (${emAnalise} em análise).`,
+                    action: { onClick: "switchTab('acompanhamento')", label: "📋 Ver Minhas Solicitações" }
+                };
+            }
+
+            if (q.includes('quantos agendamentos') || q.includes('tenho agendamento') || q.includes('meus horários') || q.includes('meus horarios')) {
+                if (!db.currentUser) {
+                    return {
+                        text: `Faça login na sua conta para verificar seus agendamentos presenciais.`,
+                        action: { onClick: "openModal('modalLogin')", label: "🔑 Fazer Login" }
+                    };
+                }
+                return {
+                    text: `Você possui **${userAgendas.length} agendamento(s)** cadastrado(s) no sistema.`,
+                    action: { onClick: "switchTab('agendamentos')", label: "📅 Ver Meus Agendamentos" }
+                };
+            }
+
+            if (q.includes('notificações') || q.includes('notificacoes') || q.includes('notificação')) {
+                const unread = userNotifs.filter(n => !n.lida).length;
+                return {
+                    text: `Você tem **${userNotifs.length} notificação(ões)** no total, sendo **${unread} não lida(s)**.`,
+                    action: { onClick: "switchTab('notificacoes')", label: "🔔 Ver Notificações" }
+                };
+            }
+
+            // EXPLICAÇÃO E ENTENDIMENTO DE STATUS
+            if (q.includes('em análise') || q.includes('em analise')) {
+                return {
+                    text: `O status **Em análise** (🟠) significa que sua solicitação foi recebida com sucesso pelo setor responsável e está sob avaliação da equipe profissional do campus.`,
+                    action: { onClick: "switchTab('acompanhamento')", label: "📋 Acompanhar Solicitações" }
+                };
+            }
+            if (q.includes('em andamento')) {
+                return {
+                    text: `O status **Em andamento** (🔵) indica que seu atendimento está em processo de realização ou tratamento pelo setor.`,
+                    action: { onClick: "switchTab('acompanhamento')", label: "📋 Ver Solicitações" }
+                };
+            }
+            if (q.includes('atendida')) {
+                return {
+                    text: `O status **Atendida** (🟢) indica que seu pedido foi concluído. Você já pode emitir o comprovante e avaliar a experiência.`,
+                    action: { onClick: "switchTab('acompanhamento')", label: "📋 Ver Minhas Solicitações" }
+                };
+            }
+
+            // AGENDAMENTOS E CONSULTAS
+            if (q.includes('como agendar') || q.includes('marcar horario') || q.includes('marcar horário') || q.includes('marcar consulta') || q.includes('quero marcar') || q.includes('fazer agendamento')) {
+                return {
+                    text: `Para fazer um agendamento presencial: acesse a área de **Agendamentos**, escolha o serviço desejado, selecione o profissional, a data e um horário livre.`,
+                    action: { onClick: "openModal('modalNovoAgendamento')", label: "📅 Fazer Agendamento Agora" }
+                };
+            }
+
+            if (q.includes('como cancelo') || q.includes('cancelar agendamento') || q.includes('desmarcar')) {
+                return {
+                    text: `Você pode cancelar um agendamento diretamente na página de **Agendamentos** clicando na opção 'Cancelar' ao lado do horário marcado.`,
+                    action: { onClick: "switchTab('agendamentos')", label: "📅 Ir para Agendamentos" }
+                };
+            }
+
+            // OS 7 ATENDIMENTOS OFICIAIS DO CAMPUS
+            if (q.includes('psicologia') || q.includes('psicólogo') || q.includes('psicologo') || q.includes('apoio emocional') || q.includes('ansiedade')) {
+                return {
+                    text: `O setor de **Psicologia** oferece acolhimento, escuta qualificada e suporte para o bem-estar emocional e acadêmico no campus.`,
+                    action: { onClick: "solicitarEspecialidade('Psicologia')", label: "Solicitar Atendimento em Psicologia" }
+                };
+            }
+            if (q.includes('pedagogia') || q.includes('pedagogo') || q.includes('estudo') || q.includes('aprendizagem') || q.includes('nota')) {
+                return {
+                    text: `O setor de **Pedagogia** auxilia na organização de estudos, orientação de aprendizagem e rotina acadêmica.`,
+                    action: { onClick: "solicitarEspecialidade('Pedagogia')", label: "Solicitar Atendimento em Pedagogia" }
+                };
+            }
+            if (q.includes('serviço social') || q.includes('servico social') || q.includes('assistente social') || q.includes('bolsa') || q.includes('auxilio') || q.includes('auxílio')) {
+                return {
+                    text: `O **Serviço Social** orienta sobre auxílios estudantis, bolsas permanência e apoio social aos estudantes.`,
+                    action: { onClick: "solicitarEspecialidade('Serviço Social')", label: "Solicitar Atendimento em Serviço Social" }
+                };
+            }
+            if (q.includes('enfermagem') || q.includes('enfermeira') || q.includes('curativo') || q.includes('pressao') || q.includes('sinais vitais')) {
+                return {
+                    text: `A **Enfermagem** presta primeiro atendimento, verificação de sinais vitais e curativos no posto de saúde do campus.`,
+                    action: { onClick: "solicitarEspecialidade('Enfermagem')", label: "Solicitar Atendimento em Enfermagem" }
+                };
+            }
+            if (q.includes('odontologia') || q.includes('dente') || q.includes('dentista') || q.includes('saúde bucal')) {
+                return {
+                    text: `A **Odontologia** oferece atendimento de orientação de saúde bucal e triagem clínica preventiva.`,
+                    action: { onClick: "solicitarEspecialidade('Odontologia')", label: "Solicitar Atendimento em Odontologia" }
+                };
+            }
+            if (q.includes('nutrição') || q.includes('nutricao') || q.includes('nutricionista') || q.includes('dieta') || q.includes('alimentação')) {
+                return {
+                    text: `A **Nutrição** oferece orientações de reeducação alimentar e avaliação nutricional para a comunidade acadêmica.`,
+                    action: { onClick: "solicitarEspecialidade('Nutrição')", label: "Solicitar Atendimento em Nutrição" }
+                };
+            }
+            if (q.includes('coordenação') || q.includes('coordenacao') || q.includes('direção') || q.includes('geral')) {
+                return {
+                    text: `A **Coordenação Geral** cuida dos encaminhamentos institucionais e organização geral dos atendimentos do campus.`,
+                    action: { onClick: "solicitarEspecialidade('Coordenação Geral')", label: "Solicitar Atendimento na Coordenação" }
+                };
+            }
+
+            if (q.includes('quais serviços') || q.includes('quais servicos') || q.includes('quais atendimentos') || q.includes('que serviços existem')) {
+                return {
+                    text: `O Saúde Conectada disponibiliza 7 áreas de atendimento: **Psicologia, Pedagogia, Serviço Social, Enfermagem, Coordenação Geral, Odontologia e Nutrição**.`,
+                    action: { onClick: "switchTab('servicos')", label: "🏥 Conhecer os 7 Serviços" }
+                };
+            }
+
+            // LOCAIS, SETORES E UNIDADES
+            if (q.includes('onde fica') || q.includes('localização') || q.includes('localizacao') || q.includes('onde encontro') || q.includes('setores')) {
+                return {
+                    text: `Os setores de saúde e apoio estão localizados no **Bloco Principal (Pavimento Térreo)** e no **Bloco B (Sala 102)** do campus.`,
+                    action: { onClick: "switchTab('locais')", label: "📍 Ver Unidades e Setores" }
+                };
+            }
+
+            // INTEGRAÇÃO DINÂMICA COM O FAQ NO BANCO
+            const matchedFaq = db.faqKnowledge ? db.faqKnowledge.find(f => f.ativo && q.includes(f.pergunta.toLowerCase())) : null;
+            if (matchedFaq) {
+                return {
+                    text: escapeHTML(matchedFaq.resposta),
+                    action: { onClick: "switchTab('informacoes')", label: "Ver FAQ Completo" }
+                };
+            }
+
+            // AJUDA E DÚVIDAS GERAIS
+            if (q.includes('como funciona') || q.includes('como uso') || q.includes('ajuda') || q.includes('socorro') || q.includes('não sei')) {
+                return {
+                    text: `O **Saúde Conectada** centraliza todos os atendimentos do IFAL Campus Benedito Bentes. Você pode solicitar atendimentos, acompanhar protocolos e agendar horários em um só lugar.`,
+                    action: { onClick: "switchTab('ajuda')", label: "❓ Abrir Central de Ajuda" }
+                };
+            }
+
+            // FALLBACK INTELIGENTE
+            return {
+                text: `Entendi sua dúvida sobre **"${escapeHTML(query)}"**. Não encontrei um registro idêntico a esses termos na base, mas posso te encaminhar para o menu principal de suporte:`,
+                action: { onClick: "switchTab('servicos')", label: "🏥 Conhecer Todos os Serviços" }
+            };
+        }
+
+        /* GESTÃO DO CONHECIMENTO DA IA NO PAINEL ADMIN */
+        function renderAdminAiKnowledge() {
+            const container = document.getElementById('adminAiKnowledgeList');
+            if (!container) return;
+            const items = db.faqKnowledge || [];
+            if (items.length === 0) {
+                container.innerHTML = `<p class="text-slate-400 text-center py-4">Nenhuma pergunta cadastrada.</p>`;
+                return;
+            }
+            container.innerHTML = items.map(f => `
+                <div class="p-3 bg-slate-50 dark:bg-slate-700/40 rounded-xl border border-slate-200 dark:border-slate-600 flex justify-between items-center text-xs">
+                    <div>
+                        <p class="font-bold text-slate-800 dark:text-white">${escapeHTML(f.pergunta)}</p>
+                        <p class="text-slate-500 mt-0.5">${escapeHTML(f.resposta)}</p>
+                    </div>
+                    <button onclick="adminToggleFaqStatus('${f.id}')" class="px-2.5 py-1 rounded font-bold text-[10px] ${f.ativo ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-600'}">
+                        ${f.ativo ? 'Ativo' : 'Inativo'}
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function adminAddNewFaqItem() {
+            const p = prompt("Digite a pergunta do FAQ / Conhecimento da IA:");
+            if (!p) return;
+            const r = prompt("Digite a resposta oficial da instituição:");
+            if (!r) return;
+
+            if (!db.faqKnowledge) db.faqKnowledge = [];
+            db.faqKnowledge.push({
+                id: 'FK-' + Date.now(),
+                pergunta: p,
+                resposta: r,
+                ativo: true
+            });
+            saveState();
+            showToast("Item adicionado ao Conhecimento da IA!", "success");
+            renderAdminAiKnowledge();
+            renderFAQ();
+        }
+
+        function adminToggleFaqStatus(id) {
+            const item = db.faqKnowledge.find(f => f.id === id);
+            if (item) {
+                item.ativo = !item.ativo;
+                saveState();
+                renderAdminAiKnowledge();
+                renderFAQ();
+            }
+        }
+
+        function renderAdminPanel() {
+            if (!db.currentUser || db.currentUser.role !== 'admin') return;
+
+            const solTbody = document.getElementById('adminSolTableBody');
+            if (solTbody) {
+                solTbody.innerHTML = db.solicitacoes.map(s => `
+                    <tr>
+                        <td class="p-3 font-mono font-bold text-ifal-navy dark:text-emerald-400">${escapeHTML(s.id)}</td>
+                        <td class="p-3 font-bold">${escapeHTML(s.solicitante)}</td>
+                        <td class="p-3">${escapeHTML(s.especialidade)}</td>
+                        <td class="p-3 font-bold">${renderStatusBadge(s.status)}</td>
+                        <td class="p-3 text-right">
+                            <select onchange="adminUpdateSolStatus('${s.id}', this.value)" aria-label="Alterar status do protocolo" class="bg-slate-100 dark:bg-slate-700 p-1 rounded text-[10px] font-bold">
+                                ${STATUS_PADRAO.map(st => `<option value="${st}" ${s.status === st ? 'selected' : ''}>${st}</option>`).join('')}
+                            </select>
+                        </td>
+                    </tr>
+                `).join('');
+            }
+
+            const usersTbody = document.getElementById('adminUsersTableBody');
+            if (usersTbody) {
+                usersTbody.innerHTML = db.users.map(u => `
+                    <tr>
+                        <td class="p-3 font-bold">${escapeHTML(u.name)}</td>
+                        <td class="p-3">${escapeHTML(u.email)}</td>
+                        <td class="p-3 font-bold">${u.role.toUpperCase()}</td>
+                        <td class="p-3 text-emerald-600 font-bold">${escapeHTML(u.status)}</td>
+                    </tr>
+                `).join('');
+            }
+
+            const profsTbody = document.getElementById('adminProfsTableBody');
+            if (profsTbody) {
+                profsTbody.innerHTML = db.profissionais.map(p => `
+                    <tr>
+                        <td class="p-3 font-bold">${escapeHTML(p.name)}</td>
+                        <td class="p-3 text-ifal-navy dark:text-emerald-400 font-semibold">${escapeHTML(p.especialidade)}</td>
+                        <td class="p-3 text-emerald-600 font-bold">${escapeHTML(p.status)}</td>
+                    </tr>
+                `).join('');
+            }
+
+            renderAdminAiKnowledge();
+        }
+
+        function switchAdminSubTab(tab) {
+            db.adminSubTab = tab;
+            saveState();
+            ['solicitacoes', 'users', 'profs', 'aiKnowledge'].forEach(t => {
+                const btn = document.getElementById(`adminTabBtn${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                const view = document.getElementById(`adminSubView${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                if (btn && view) {
+                    if (t === tab) {
+                        btn.className = "px-3.5 py-2 font-bold rounded-xl bg-ifal-navy text-white shadow-sm transition";
+                        view.classList.remove('hidden');
+                    } else {
+                        btn.className = "px-3.5 py-2 font-semibold rounded-xl text-slate-600 dark:text-slate-300 bg-white dark:bg-slate-800 border border-slate-200 transition";
+                        view.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+        function adminUpdateSolStatus(id, newStatus) {
+            const item = db.solicitacoes.find(s => s.id === id);
+            if (item) {
+                item.status = newStatus;
+                if (!item.historico) item.historico = [];
+                item.historico.unshift({
+                    data: new Date().toLocaleString('pt-BR'),
+                    acao: `Status alterado para ${newStatus} pela administração`
+                });
+                saveState();
+                showToast(`Status do protocolo ${id} atualizado para ${newStatus}`, "success");
+                renderSolicitacoes();
+                renderAdminPanel();
+                renderDashboard();
+            }
+        }
+
+        function handleAdminSaveNotice(e) {
+            e.preventDefault();
+            const title = document.getElementById('admNoticeTitle').value;
+            const category = document.getElementById('admNoticeCategory').value;
+            const texto = document.getElementById('admNoticeText').value;
+
+            db.avisos.unshift({
+                id: 'AV-' + Date.now(),
+                titulo: title,
+                categoria: category,
+                texto: texto,
+                data: new Date().toLocaleDateString('pt-BR')
+            });
+
+            saveState();
+            closeModal('modalNovoAviso');
+            showToast("Aviso publicado com sucesso!", "success");
+            renderAvisos();
+            renderDashboard();
+        }
+
+        function openModal(id) {
+            const m = document.getElementById(id);
+            if (m) m.classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            const m = document.getElementById(id);
+            if (m) m.classList.add('hidden');
+        }
+
+        function toggleNotifMenu() {
+            const menu = document.getElementById('notifMenu');
+            if (menu) menu.classList.toggle('hidden');
+        }
+
+        function closeSidebarMobile() {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar) sidebar.classList.add('-translate-x-full');
+        }
+
+        function openSidebarMobile() {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar) sidebar.classList.remove('-translate-x-full');
+        }
+
+        function renderProfileSidebar() {
+            const u = db.currentUser;
+            const sName = document.getElementById('sidebarUserName');
+            const sRole = document.getElementById('sidebarUserRole');
+            const sSector = document.getElementById('sidebarUserSector');
+
+            if (u) {
+                if (sName) sName.textContent = u.name;
+                if (sRole) sRole.textContent = u.role === 'admin' ? 'Administrador' : 'Aluno / Servidor';
+                if (sSector) sSector.textContent = u.setor || 'IFAL Campus Benedito Bentes';
+            } else {
+                if (sName) sName.textContent = "Visitante";
+                if (sRole) sRole.textContent = "Não Autenticado";
+                if (sSector) sSector.textContent = "IFAL Campus Benedito Bentes";
+            }
+
+            const adminNav = document.getElementById('adminNavSection');
+            if (adminNav) {
+                if (u && u.role === 'admin') adminNav.classList.remove('hidden');
+                else adminNav.classList.add('hidden');
+            }
+        }
+
+        function initApp() {
+            loadState();
+            updateThemeUI();
+            renderAuthHeader();
+            renderProfileSidebar();
+            renderDashboard();
+            renderServicesGrid();
+            renderSolicitacoes();
+            renderAgendamentos();
+            renderAvisos();
+            renderLocais();
+            renderFAQ();
+            renderChat();
+            renderNotifications();
+            renderProfile();
+            renderAdminPanel();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initApp();
+
+            const openBtn = document.getElementById('openSidebarMobile');
+            const closeBtn = document.getElementById('closeSidebarMobile');
+            if (openBtn) openBtn.addEventListener('click', openSidebarMobile);
+            if (closeBtn) closeBtn.addEventListener('click', closeSidebarMobile);
+
+            const themeBtn = document.getElementById('themeToggleBtn');
+            if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+
+            window.addEventListener('hashchange', () => {
+                const hash = window.location.hash.replace('#', '') || 'dashboard';
+                switchTab(hash);
+            });
+        });
+    </script>
+</body>
+</html>
