@@ -86,6 +86,8 @@
                     <p class="text-xs text-slate-400 mt-1">Plataforma Integrada de Saúde e Atendimento</p>
                 </div>
             </div>
+
+            <!-- CARD DE LOGIN -->
             <div id="authCardLogin" class="bg-slate-800/90 backdrop-blur-xl rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-700/80 space-y-5">
                 <div class="border-b border-slate-700/80 pb-3">
                     <h2 class="text-lg font-bold text-white">Acesse sua Conta</h2>
@@ -130,6 +132,8 @@
                     <button type="button" onclick="switchToRegisterModal()" class="ml-1 font-bold text-emerald-400 hover:underline">Criar Conta Gratuitamente</button>
                 </div>
             </div>
+
+            <!-- CARD DE CADASTRO -->
             <div id="authCardRegister" class="hidden bg-slate-800/90 backdrop-blur-xl rounded-3xl p-6 sm:p-8 shadow-2xl border border-slate-700/80 space-y-5">
                 <div class="border-b border-slate-700/80 pb-3">
                     <h2 class="text-lg font-bold text-white">Criar Nova Conta</h2>
@@ -217,7 +221,7 @@
                 </button>
             </div>
             
-            <!-- CARD DE USUÁRIO COM REGRAS DE PRIMEIRO + SEGUNDO NOME E TIPO SEPARADO -->
+            <!-- CARD DE USUÁRIO NA SIDEBAR -->
             <div id="sidebarUserBox" class="p-3.5 mx-3 my-3 bg-gradient-to-r from-slate-900 to-ifal-navy text-white rounded-2xl shadow-sm border border-slate-700 relative overflow-hidden shrink-0">
                 <div class="relative z-10 flex items-center justify-between">
                     <div class="flex items-center space-x-3 min-w-0 flex-1 mr-2">
@@ -235,6 +239,7 @@
                     </button>
                 </div>
             </div>
+
             <!-- NAVEGAÇÃO SIDEBAR -->
             <nav class="flex-1 px-3 py-2 space-y-1 overflow-y-auto">
                 <a href="#dashboard" onclick="switchTab('dashboard')" data-view="dashboard" class="nav-btn active flex items-center space-x-3 px-3.5 py-2.5 rounded-xl font-semibold text-xs transition-all bg-ifal-navy text-white shadow-sm">
@@ -330,7 +335,7 @@
                 <div class="flex items-center space-x-2 sm:space-x-3 shrink-0">
                     <div class="relative hidden lg:block w-48 xl:w-64">
                         <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
-                        <input type="text" id="globalSearchInput" onkeyup="handleGlobalSearch(event)" placeholder="Buscar serviços, avisos..." class="w-full bg-slate-700 text-slate-100 text-xs rounded-xl pl-8 pr-3 py-2 border border-transparent focus:border-ifal-navy outline-none">
+                        <input type="text" id="globalSearchInput" placeholder="Buscar serviços, avisos..." class="w-full bg-slate-700 text-slate-100 text-xs rounded-xl pl-8 pr-3 py-2 border border-transparent focus:border-ifal-navy outline-none">
                     </div>
                     
                     <div id="headerAuthArea" class="shrink-0 flex items-center space-x-2"></div>
@@ -350,6 +355,7 @@
                     </div>
                 </div>
             </header>
+
             <main class="flex-1 overflow-y-auto p-3 sm:p-6 lg:p-8 space-y-6 w-full min-w-0">
                 <!-- VISTA DASHBOARD -->
                 <section id="view-dashboard" class="view-section space-y-6 w-full min-w-0">
@@ -425,6 +431,7 @@
                         </div>
                     </div>
                 </section>
+
                 <!-- VISTA SERVIÇOS -->
                 <section id="view-servicos" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm">
@@ -435,6 +442,7 @@
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="servicesGrid"></div>
                 </section>
+
                 <!-- VISTA SOLICITAÇÕES -->
                 <section id="view-solicitacoes" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-700 shadow-sm max-w-2xl mx-auto space-y-4 w-full">
@@ -489,6 +497,7 @@
                         </form>
                     </div>
                 </section>
+
                 <!-- VISTA ACOMPANHAMENTO -->
                 <section id="view-acompanhamento" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm flex items-center justify-between">
@@ -499,6 +508,7 @@
                     </div>
                     <div id="userSolicitacoesContainer" class="space-y-3"></div>
                 </section>
+
                 <!-- VISTA AGENDAMENTOS -->
                 <section id="view-agendamentos" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm flex items-center justify-between">
@@ -509,6 +519,7 @@
                     </div>
                     <div id="userAgendamentosContainer" class="space-y-3"></div>
                 </section>
+
                 <!-- VISTA TRIAGEM -->
                 <section id="view-triagem" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-700 shadow-sm max-w-xl mx-auto space-y-4 w-full">
@@ -543,6 +554,7 @@
                         <div id="triagemResult" class="hidden bg-emerald-950/40 p-4 rounded-xl border border-emerald-800 space-y-3 text-xs"></div>
                     </div>
                 </section>
+
                 <!-- VISTA AVISOS -->
                 <section id="view-avisos" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm flex items-center justify-between">
@@ -553,6 +565,7 @@
                     </div>
                     <div id="avisosContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                 </section>
+
                 <!-- VISTA COMUNICAÇÃO -->
                 <section id="view-comunicacao" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm">
@@ -587,6 +600,7 @@
                         </div>
                     </div>
                 </section>
+
                 <!-- VISTA LOCAIS -->
                 <section id="view-locais" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm">
@@ -595,26 +609,15 @@
                     </div>
                     <div id="locaisGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
                 </section>
+
                 <!-- VISTA INFORMAÇÕES & FAQ -->
                 <section id="view-informacoes" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-700 shadow-sm space-y-4">
                         <h3 class="text-base font-bold text-white">Dúvidas Frequentes (FAQ)</h3>
-                        <div class="space-y-3 text-xs">
-                            <details class="bg-slate-700/50 p-3.5 rounded-xl border cursor-pointer border-slate-600">
-                                <summary class="font-bold text-white">Como solicitar um atendimento psicológico?</summary>
-                                <p class="mt-2 text-slate-300 leading-relaxed">Acesse a aba "Solicitar Atendimento", escolha "Psicologia", descreva brevemente sua demanda e envie. A equipe analisará e agendará o horário.</p>
-                            </details>
-                            <details class="bg-slate-700/50 p-3.5 rounded-xl border cursor-pointer border-slate-600">
-                                <summary class="font-bold text-white">Quem tem direito às contas do sistema?</summary>
-                                <p class="mt-2 text-slate-300 leading-relaxed">Todos os alunos regularmente matriculados, docentes, técnicos administrativos e servidores do IFAL Campus Benedito Bentes podem cadastrar sua conta.</p>
-                            </details>
-                            <details class="bg-slate-700/50 p-3.5 rounded-xl border cursor-pointer border-slate-600">
-                                <summary class="font-bold text-white">Quais são os horários de funcionamento dos setores?</summary>
-                                <p class="mt-2 text-slate-300 leading-relaxed">O atendimento presencial do Ambulatório, Serviço Social, Pedagogia e Psicologia funciona de Segunda a Sexta-feira, das 07:30 às 17:30.</p>
-                            </details>
-                        </div>
+                        <div id="userFaqList" class="space-y-3 text-xs"></div>
                     </div>
                 </section>
+
                 <!-- VISTA EMERGÊNCIA -->
                 <section id="view-emergencia" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-rose-600 text-white p-4 sm:p-6 rounded-3xl shadow-xl space-y-4 border border-rose-500">
@@ -645,6 +648,7 @@
                         </div>
                     </div>
                 </section>
+
                 <!-- VISTA PERFIL -->
                 <section id="view-perfil" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-700 shadow-sm max-w-xl mx-auto space-y-6 w-full">
@@ -658,7 +662,7 @@
                         
                         <form id="formUpdateProfile" onsubmit="handleUpdateProfile(event)" class="space-y-4 text-xs">
                             <div>
-                                <label class="block font-semibold mb-1 text-slate-300">Nome Completo (Original armazenado)</label>
+                                <label class="block font-semibold mb-1 text-slate-300">Nome Completo</label>
                                 <input type="text" id="profInputName" required oninput="updateProfileNamePreview(this.value)" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
                                 <p class="text-[10px] text-slate-400 mt-1">Exibição na interface: <span id="profDisplayNamePreview" class="font-bold text-emerald-400"></span></p>
                             </div>
@@ -682,6 +686,7 @@
                         </form>
                     </div>
                 </section>
+
                 <!-- VISTA NOTIFICAÇÕES -->
                 <section id="view-notificacoes" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm flex items-center justify-between gap-2">
@@ -695,6 +700,7 @@
                     </div>
                     <div id="fullNotifList" class="space-y-3 text-xs"></div>
                 </section>
+
                 <!-- VISTA CENTRAL DE AJUDA -->
                 <section id="view-ajuda" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-700 shadow-sm space-y-6">
@@ -727,6 +733,7 @@
                         </div>
                     </div>
                 </section>
+
                 <!-- VISTA PAINEL ADMINISTRATIVO -->
                 <section id="view-admin" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-gradient-to-r from-slate-900 to-ifal-navy p-4 sm:p-6 rounded-3xl text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -736,34 +743,46 @@
                                 <span>Acesso Restrito do Administrador</span>
                             </div>
                             <h2 class="text-xl sm:text-2xl font-extrabold leading-tight">Painel Geral de Gestão do Saúde Conectada</h2>
-                            <p class="text-slate-300 text-xs mt-1">Gerencie solicitações, agendamentos, usuários e alertas do IFAL Campus Benedito Bentes</p>
+                            <p class="text-slate-300 text-xs mt-1">Gerencie solicitações, agendamentos, usuários, profissionais, serviços, avisos e FAQ do IFAL Campus Benedito Bentes</p>
                         </div>
                     </div>
-                    <div class="grid grid-cols-1 min-[380px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3" id="adminMetricsGrid"></div>
-                    <div class="bg-amber-950/30 border border-amber-800/50 p-4 rounded-2xl space-y-2">
-                        <h4 class="text-xs font-extrabold text-amber-300 uppercase tracking-wider flex items-center space-x-2">
-                            <i class="fa-solid fa-bell"></i><span>Atenção Necessária</span>
-                        </h4>
-                        <div id="adminAttentionList" class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs"></div>
-                    </div>
+
+                    <!-- DASHBOARD METRICS REAL-TIME -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3" id="adminMetricsGrid"></div>
+
+                    <!-- SUB-ABAS NAVEGAÇÃO ADMIN -->
                     <div class="bg-slate-800 rounded-2xl border border-slate-700 shadow-sm overflow-hidden w-full">
                         <div class="flex border-b border-slate-700 overflow-x-auto text-xs font-semibold bg-slate-800/80 no-scrollbar">
-                            <button onclick="switchAdminSubTab('solicitacoes')" id="tabBtnAdminSolicitacoes" class="admin-tab-btn active px-4 py-3 border-b-2 border-emerald-400 text-emerald-400 font-bold whitespace-nowrap shrink-0 cursor-pointer">
-                                Fila de Solicitações
-                            </button>
-                            <button onclick="switchAdminSubTab('agendamentos')" id="tabBtnAdminAgendamentos" class="admin-tab-btn px-4 py-3 border-b-2 border-transparent text-slate-300 whitespace-nowrap shrink-0 cursor-pointer">
-                                Agendamentos Geral
-                            </button>
-                            <button onclick="switchAdminSubTab('usuarios')" id="tabBtnAdminUsuarios" class="admin-tab-btn px-4 py-3 border-b-2 border-transparent text-slate-300 whitespace-nowrap shrink-0 cursor-pointer">
-                                Usuários
-                            </button>
-                            <button onclick="switchAdminSubTab('atividades')" id="tabBtnAdminAtividades" class="admin-tab-btn px-4 py-3 border-b-2 border-transparent text-slate-300 whitespace-nowrap shrink-0 cursor-pointer">
-                                Log de Auditoria
-                            </button>
+                            <button onclick="switchAdminSubTab('solicitacoes')" id="tabBtnAdminSolicitacoes" class="admin-tab-btn active px-4 py-3 border-b-2 border-emerald-400 text-emerald-400 font-bold whitespace-nowrap shrink-0 cursor-pointer">Fila de Solicitações</button>
+                            <button onclick="switchAdminSubTab('agendamentos')" id="tabBtnAdminAgendamentos" class="admin-tab-btn px-4 py-3 border-b-2 border-transparent text-slate-300 whitespace-nowrap shrink-0 cursor-pointer">Agendamentos</button>
+                            <button onclick="switchAdminSubTab('usuarios')" id="tabBtnAdminUsuarios" class="admin-tab-btn px-4 py-3 border-b-2 border-transparent text-slate-300 whitespace-nowrap shrink-0 cursor-pointer">Usuários</button>
+                            <button onclick="switchAdminSubTab('profissionais')" id="tabBtnAdminProfissionais" class="admin-tab-btn px-4 py-3 border-b-2 border-transparent text-slate-300 whitespace-nowrap shrink-0 cursor-pointer">Profissionais</button>
+                            <button onclick="switchAdminSubTab('servicos')" id="tabBtnAdminServicos" class="admin-tab-btn px-4 py-3 border-b-2 border-transparent text-slate-300 whitespace-nowrap shrink-0 cursor-pointer">Serviços</button>
+                            <button onclick="switchAdminSubTab('avisos')" id="tabBtnAdminAvisos" class="admin-tab-btn px-4 py-3 border-b-2 border-transparent text-slate-300 whitespace-nowrap shrink-0 cursor-pointer">Avisos</button>
+                            <button onclick="switchAdminSubTab('faq')" id="tabBtnAdminFAQ" class="admin-tab-btn px-4 py-3 border-b-2 border-transparent text-slate-300 whitespace-nowrap shrink-0 cursor-pointer">FAQ</button>
+                            <button onclick="switchAdminSubTab('atividades')" id="tabBtnAdminAtividades" class="admin-tab-btn px-4 py-3 border-b-2 border-transparent text-slate-300 whitespace-nowrap shrink-0 cursor-pointer">Log de Auditoria</button>
                         </div>
+
                         <div class="p-3 sm:p-6 w-full">
                             <!-- SUB-ABA 1: SOLICITAÇÕES -->
                             <div id="adminSubTabSolicitacoes" class="admin-subtab space-y-4">
+                                <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+                                    <div class="relative w-full sm:w-64">
+                                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400"></i>
+                                        <input type="text" id="searchSolAdmin" oninput="renderAdminSolicitacoes()" placeholder="Buscar por protocolo ou usuário..." class="w-full bg-slate-700 p-2 pl-9 rounded-xl border border-slate-600 outline-none text-white">
+                                    </div>
+                                    <div class="flex items-center space-x-2 w-full sm:w-auto">
+                                        <label class="text-slate-400 whitespace-nowrap">Status:</label>
+                                        <select id="filterSolStatusAdmin" onchange="renderAdminSolicitacoes()" class="bg-slate-700 p-2 rounded-xl border border-slate-600 text-white outline-none w-full sm:w-auto">
+                                            <option value="Todos">Todos</option>
+                                            <option value="Em análise">Em análise</option>
+                                            <option value="Em andamento">Em andamento</option>
+                                            <option value="Encaminhado">Encaminhado</option>
+                                            <option value="Concluído">Concluído</option>
+                                            <option value="Cancelado">Cancelado</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="overflow-x-auto rounded-xl border border-slate-700 w-full">
                                     <table class="w-full text-left text-xs min-w-[640px]">
                                         <thead class="bg-slate-700 uppercase font-bold text-slate-300">
@@ -780,8 +799,15 @@
                                     </table>
                                 </div>
                             </div>
+
                             <!-- SUB-ABA 2: AGENDAMENTOS -->
                             <div id="adminSubTabAgendamentos" class="admin-subtab hidden space-y-4">
+                                <div class="flex justify-between items-center text-xs">
+                                    <h4 class="font-bold text-white">Gerenciamento de Agendamentos</h4>
+                                    <button onclick="openModalCreateAgendamento()" class="px-3 py-2 bg-ifal-green text-white font-bold rounded-xl hover:bg-ifal-greenDark transition flex items-center space-x-1 cursor-pointer">
+                                        <i class="fa-solid fa-plus"></i><span>Novo Agendamento</span>
+                                    </button>
+                                </div>
                                 <div class="overflow-x-auto rounded-xl border border-slate-700 w-full">
                                     <table class="w-full text-left text-xs min-w-[640px]">
                                         <thead class="bg-slate-700 uppercase font-bold text-slate-300">
@@ -791,32 +817,144 @@
                                                 <th class="p-3">Serviço & Profissional</th>
                                                 <th class="p-3">Data e Horário</th>
                                                 <th class="p-3">Status</th>
+                                                <th class="p-3 text-right">Ações</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tableAdminAgendamentos" class="divide-y divide-slate-700"></tbody>
                                     </table>
                                 </div>
                             </div>
+
                             <!-- SUB-ABA 3: USUÁRIOS -->
                             <div id="adminSubTabUsuarios" class="admin-subtab hidden space-y-4">
+                                <div class="flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+                                    <div class="relative w-full sm:w-64">
+                                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400"></i>
+                                        <input type="text" id="searchUserAdmin" oninput="renderAdminUsuarios()" placeholder="Pesquisar por nome ou e-mail..." class="w-full bg-slate-700 p-2 pl-9 rounded-xl border border-slate-600 outline-none text-white">
+                                    </div>
+                                    <div class="flex items-center space-x-2 w-full sm:w-auto">
+                                        <label class="text-slate-400">Filtro:</label>
+                                        <select id="filterUserRoleAdmin" onchange="renderAdminUsuarios()" class="bg-slate-700 p-2 rounded-xl border border-slate-600 text-white outline-none">
+                                            <option value="Todos">Todos</option>
+                                            <option value="Administrador">Administrador</option>
+                                            <option value="Usuário">Usuário</option>
+                                        </select>
+                                    </div>
+                                </div>
                                 <div class="overflow-x-auto rounded-xl border border-slate-700 w-full">
                                     <table class="w-full text-left text-xs min-w-[640px]">
-                                        <thead class="bg-slate-700 uppercase font-bold">
+                                        <thead class="bg-slate-700 uppercase font-bold text-slate-300">
                                             <tr>
-                                                <th class="p-3">Nome Exibido na Interface</th>
+                                                <th class="p-3">Nome do Usuário</th>
                                                 <th class="p-3">E-mail</th>
                                                 <th class="p-3">Tipo de Conta</th>
                                                 <th class="p-3">Curso / Setor</th>
                                                 <th class="p-3">Status</th>
+                                                <th class="p-3 text-right">Ações</th>
                                             </tr>
                                         </thead>
                                         <tbody id="tableAdminUsuarios" class="divide-y divide-slate-700"></tbody>
                                     </table>
                                 </div>
                             </div>
-                            <!-- SUB-ABA 4: AUDITORIA -->
+
+                            <!-- SUB-ABA 4: PROFISSIONAIS -->
+                            <div id="adminSubTabProfissionais" class="admin-subtab hidden space-y-4">
+                                <div class="flex justify-between items-center text-xs">
+                                    <h4 class="font-bold text-white">Gerenciamento de Profissionais</h4>
+                                    <button onclick="openModalProfissional()" class="px-3 py-2 bg-ifal-green text-white font-bold rounded-xl hover:bg-ifal-greenDark transition flex items-center space-x-1 cursor-pointer">
+                                        <i class="fa-solid fa-user-plus"></i><span>Cadastrar Profissional</span>
+                                    </button>
+                                </div>
+                                <div class="overflow-x-auto rounded-xl border border-slate-700 w-full">
+                                    <table class="w-full text-left text-xs min-w-[640px]">
+                                        <thead class="bg-slate-700 uppercase font-bold text-slate-300">
+                                            <tr>
+                                                <th class="p-3">Nome do Profissional</th>
+                                                <th class="p-3">Especialidade / Serviço</th>
+                                                <th class="p-3">Setor / Local</th>
+                                                <th class="p-3">Status</th>
+                                                <th class="p-3 text-right">Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tableAdminProfissionais" class="divide-y divide-slate-700"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- SUB-ABA 5: SERVIÇOS -->
+                            <div id="adminSubTabServicos" class="admin-subtab hidden space-y-4">
+                                <div class="flex justify-between items-center text-xs">
+                                    <h4 class="font-bold text-white">Gerenciamento de Serviços</h4>
+                                    <button onclick="openModalServico()" class="px-3 py-2 bg-ifal-green text-white font-bold rounded-xl hover:bg-ifal-greenDark transition flex items-center space-x-1 cursor-pointer">
+                                        <i class="fa-solid fa-plus"></i><span>Adicionar Serviço</span>
+                                    </button>
+                                </div>
+                                <div class="overflow-x-auto rounded-xl border border-slate-700 w-full">
+                                    <table class="w-full text-left text-xs min-w-[640px]">
+                                        <thead class="bg-slate-700 uppercase font-bold text-slate-300">
+                                            <tr>
+                                                <th class="p-3">Serviço</th>
+                                                <th class="p-3">Profissional Vinculado</th>
+                                                <th class="p-3">Local</th>
+                                                <th class="p-3">Status</th>
+                                                <th class="p-3 text-right">Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tableAdminServicos" class="divide-y divide-slate-700"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- SUB-ABA 6: AVISOS -->
+                            <div id="adminSubTabAvisos" class="admin-subtab hidden space-y-4">
+                                <div class="flex justify-between items-center text-xs">
+                                    <h4 class="font-bold text-white">Gerenciamento do Mural de Avisos</h4>
+                                    <button onclick="openModalAviso()" class="px-3 py-2 bg-ifal-green text-white font-bold rounded-xl hover:bg-ifal-greenDark transition flex items-center space-x-1 cursor-pointer">
+                                        <i class="fa-solid fa-plus"></i><span>Novo Aviso</span>
+                                    </button>
+                                </div>
+                                <div class="overflow-x-auto rounded-xl border border-slate-700 w-full">
+                                    <table class="w-full text-left text-xs min-w-[640px]">
+                                        <thead class="bg-slate-700 uppercase font-bold text-slate-300">
+                                            <tr>
+                                                <th class="p-3">Título</th>
+                                                <th class="p-3">Prioridade</th>
+                                                <th class="p-3">Data</th>
+                                                <th class="p-3">Status</th>
+                                                <th class="p-3 text-right">Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tableAdminAvisos" class="divide-y divide-slate-700"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- SUB-ABA 7: FAQ -->
+                            <div id="adminSubTabFAQ" class="admin-subtab hidden space-y-4">
+                                <div class="flex justify-between items-center text-xs">
+                                    <h4 class="font-bold text-white">Gerenciamento de Perguntas Frequentes (FAQ)</h4>
+                                    <button onclick="openModalFAQ()" class="px-3 py-2 bg-ifal-green text-white font-bold rounded-xl hover:bg-ifal-greenDark transition flex items-center space-x-1 cursor-pointer">
+                                        <i class="fa-solid fa-plus"></i><span>Nova Pergunta</span>
+                                    </button>
+                                </div>
+                                <div class="overflow-x-auto rounded-xl border border-slate-700 w-full">
+                                    <table class="w-full text-left text-xs min-w-[640px]">
+                                        <thead class="bg-slate-700 uppercase font-bold text-slate-300">
+                                            <tr>
+                                                <th class="p-3">Pergunta</th>
+                                                <th class="p-3">Status</th>
+                                                <th class="p-3 text-right">Ações</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tableAdminFAQ" class="divide-y divide-slate-700"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- SUB-ABA 8: AUDITORIA -->
                             <div id="adminSubTabAtividades" class="admin-subtab hidden space-y-4">
-                                <h4 class="font-bold text-xs">Log de Auditoria e Atividades Recentes</h4>
+                                <h4 class="font-bold text-xs text-white">Log de Auditoria e Histórico de Ações Administrativas</h4>
                                 <div id="adminAtividadesList" class="space-y-2 text-xs"></div>
                             </div>
                         </div>
@@ -827,6 +965,7 @@
     </div>
 
     <!-- MODAIS DO SISTEMA -->
+    <!-- Modal Detalhes Serviço -->
     <div id="modalDetalhesServico" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
         <div class="bg-slate-800 rounded-3xl max-w-lg w-full p-4 sm:p-6 shadow-2xl border border-slate-700 space-y-4 text-xs">
             <div class="flex items-center justify-between border-b border-slate-700 pb-3">
@@ -836,12 +975,14 @@
             <p id="detServDesc" class="leading-relaxed bg-slate-700/40 p-3 rounded-xl border border-slate-700 text-slate-200"></p>
             <div class="pt-3 border-t border-slate-700 flex justify-end gap-2">
                 <button onclick="closeModal('modalDetalhesServico')" class="px-4 py-2 bg-slate-700 text-white font-bold rounded-xl">Fechar</button>
-                <button onclick="solicitarServicoFromModal()" class="px-4 py-2 bg-ifal-green hover:bg-ifal-greenDark text-white font-bold rounded-xl flex items-center space-x-2">
+                <button onclick="switchTab('solicitacoes'); closeModal('modalDetalhesServico');" class="px-4 py-2 bg-ifal-green hover:bg-ifal-greenDark text-white font-bold rounded-xl flex items-center space-x-2 cursor-pointer">
                     <i class="fa-solid fa-paper-plane"></i><span>Solicitar Atendimento</span>
                 </button>
             </div>
         </div>
     </div>
+
+    <!-- Modal Detalhes Local -->
     <div id="modalDetalhesLocal" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
         <div class="bg-slate-800 rounded-3xl max-w-lg w-full p-4 sm:p-6 shadow-2xl border border-slate-700 space-y-4 text-xs">
             <div class="flex items-center justify-between border-b border-slate-700 pb-3">
@@ -850,10 +991,12 @@
             </div>
             <p id="detLocalDesc" class="leading-relaxed bg-slate-700/40 p-3 rounded-xl border border-slate-700 text-slate-200"></p>
             <div class="pt-3 border-t border-slate-700 flex justify-end gap-2">
-                <button onclick="closeModal('modalDetalhesLocal')" class="px-4 py-2 bg-slate-700 text-white font-bold rounded-xl">Fechar</button>
+                <button onclick="closeModal('modalDetalhesLocal')" class="px-4 py-2 bg-slate-700 text-white font-bold rounded-xl cursor-pointer">Fechar</button>
             </div>
         </div>
     </div>
+
+    <!-- Modal Esqueci Minha Senha -->
     <div id="modalForgotPassword" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
         <div class="bg-slate-800 rounded-3xl max-w-md w-full p-4 sm:p-6 shadow-2xl border border-slate-700 space-y-4 text-xs">
             <div class="flex items-center justify-between border-b border-slate-700 pb-3">
@@ -863,37 +1006,391 @@
             <p class="text-slate-300">Informe seu e-mail cadastrado para redefinir a senha.</p>
             <input type="email" placeholder="seu.email@aluno.ifal.edu.br" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
             <div class="flex justify-end space-x-2">
-                <button onclick="closeModal('modalForgotPassword')" class="px-4 py-2 bg-slate-700 font-bold rounded-xl text-white">Fechar</button>
-                <button onclick="alert('Solicitação de redefinição enviada com sucesso!'); closeModal('modalForgotPassword');" class="px-4 py-2 bg-ifal-navy text-white font-bold rounded-xl">Enviar Chamado</button>
+                <button onclick="closeModal('modalForgotPassword')" class="px-4 py-2 bg-slate-700 font-bold rounded-xl text-white cursor-pointer">Fechar</button>
+                <button onclick="alert('Solicitação de redefinição enviada com sucesso!'); closeModal('modalForgotPassword');" class="px-4 py-2 bg-ifal-navy text-white font-bold rounded-xl cursor-pointer">Enviar Chamado</button>
             </div>
         </div>
     </div>
 
-    <!-- LÓGICA JAVASCRIPT INTEGRADA E CORRIGIDA -->
+    <!-- Modal Admin Detalhes e Ações em Solicitação -->
+    <div id="modalAdminSolicitacao" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+        <div class="bg-slate-800 rounded-3xl max-w-lg w-full p-4 sm:p-6 shadow-2xl border border-slate-700 space-y-4 text-xs">
+            <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+                <h3 class="font-extrabold text-base text-white" id="admSolTitle">Gerenciar Solicitação</h3>
+                <button onclick="closeModal('modalAdminSolicitacao')" class="text-slate-400 hover:text-white p-1 cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div id="admSolBody" class="space-y-3"></div>
+            <form id="formAdmSol" onsubmit="handleSaveAdminSolicitacao(event)" class="space-y-3 pt-2 border-t border-slate-700">
+                <input type="hidden" id="admSolId">
+                <div>
+                    <label class="block font-semibold text-slate-300 mb-1">Status da Solicitação</label>
+                    <select id="admSolStatus" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                        <option value="Em análise">Em análise</option>
+                        <option value="Em andamento">Em andamento</option>
+                        <option value="Encaminhado">Encaminhado</option>
+                        <option value="Concluído">Concluído</option>
+                        <option value="Cancelado">Cancelado</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block font-semibold text-slate-300 mb-1">Encaminhar para Profissional</label>
+                    <select id="admSolProf" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white"></select>
+                </div>
+                <div>
+                    <label class="block font-semibold text-slate-300 mb-1">Observação Administrativa / Resposta</label>
+                    <textarea id="admSolObs" rows="3" placeholder="Digite uma nota para o acompanhamento..." class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white"></textarea>
+                </div>
+                <div class="flex justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeModal('modalAdminSolicitacao')" class="px-4 py-2 bg-slate-700 text-white font-bold rounded-xl cursor-pointer">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-ifal-green hover:bg-ifal-greenDark text-white font-bold rounded-xl cursor-pointer">Salvar Alterações</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Admin Criar / Editar Agendamento -->
+    <div id="modalAdminAgendamento" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+        <div class="bg-slate-800 rounded-3xl max-w-lg w-full p-4 sm:p-6 shadow-2xl border border-slate-700 space-y-4 text-xs">
+            <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+                <h3 class="font-extrabold text-base text-white" id="admAgTitle">Novo Agendamento</h3>
+                <button onclick="closeModal('modalAdminAgendamento')" class="text-slate-400 hover:text-white p-1 cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="formAdmAgendamento" onsubmit="handleSaveAdminAgendamento(event)" class="space-y-3">
+                <input type="hidden" id="admAgId">
+                <div>
+                    <label class="block font-semibold text-slate-300 mb-1">Paciente / Usuário *</label>
+                    <select id="admAgUser" required class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white"></select>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-semibold text-slate-300 mb-1">Serviço *</label>
+                        <select id="admAgServico" required class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white"></select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-300 mb-1">Profissional *</label>
+                        <select id="admAgProf" required class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white"></select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-semibold text-slate-300 mb-1">Data *</label>
+                        <input type="date" id="admAgData" required class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-300 mb-1">Horário *</label>
+                        <input type="time" id="admAgHorario" required class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                    </div>
+                </div>
+                <div>
+                    <label class="block font-semibold text-slate-300 mb-1">Status</label>
+                    <select id="admAgStatus" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                        <option value="Confirmado">Confirmado</option>
+                        <option value="Pendente">Pendente</option>
+                        <option value="Cancelado">Cancelado</option>
+                        <option value="Concluído">Concluído</option>
+                    </select>
+                </div>
+                <div class="flex justify-end gap-2 pt-2 border-t border-slate-700">
+                    <button type="button" onclick="closeModal('modalAdminAgendamento')" class="px-4 py-2 bg-slate-700 text-white font-bold rounded-xl cursor-pointer">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-ifal-green hover:bg-ifal-greenDark text-white font-bold rounded-xl cursor-pointer">Salvar Agendamento</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Admin Profissional -->
+    <div id="modalAdminProfissional" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+        <div class="bg-slate-800 rounded-3xl max-w-md w-full p-4 sm:p-6 shadow-2xl border border-slate-700 space-y-4 text-xs">
+            <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+                <h3 class="font-extrabold text-base text-white" id="admProfTitle">Cadastrar Profissional</h3>
+                <button onclick="closeModal('modalAdminProfissional')" class="text-slate-400 hover:text-white p-1 cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="formAdmProf" onsubmit="handleSaveProfissional(event)" class="space-y-3">
+                <input type="hidden" id="admProfId">
+                <div>
+                    <label class="block font-semibold text-slate-300 mb-1">Nome Completo *</label>
+                    <input type="text" id="admProfNome" required placeholder="Ex: Dra. Maria Santos" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                </div>
+                <div>
+                    <label class="block font-semibold text-slate-300 mb-1">Especialidade / Função *</label>
+                    <input type="text" id="admProfEsp" required placeholder="Ex: Psicologia Clinica" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                </div>
+                <div>
+                    <label class="block font-semibold text-slate-300 mb-1">Setor / Local *</label>
+                    <input type="text" id="admProfSetor" required placeholder="Ex: Bloco A - Sala 12" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                </div>
+                <div>
+                    <label class="block font-semibold text-slate-300 mb-1">Status</label>
+                    <select id="admProfStatus" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                        <option value="Ativo">Ativo</option>
+                        <option value="Inativo">Inativo</option>
+                    </select>
+                </div>
+                <div class="flex justify-end gap-2 pt-2 border-t border-slate-700">
+                    <button type="button" onclick="closeModal('modalAdminProfissional')" class="px-4 py-2 bg-slate-700 text-white font-bold rounded-xl cursor-pointer">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-ifal-green hover:bg-ifal-greenDark text-white font-bold rounded-xl cursor-pointer">Salvar Profissional</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Admin Serviço -->
+    <div id="modalAdminServico" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+        <div class="bg-slate-800 rounded-3xl max-w-md w-full p-4 sm:p-6 shadow-2xl border border-slate-700 space-y-4 text-xs">
+            <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+                <h3 class="font-extrabold text-base text-white" id="admServTitle">Cadastrar Serviço</h3>
+                <button onclick="closeModal('modalAdminServico')" class="text-slate-400 hover:text-white p-1 cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="formAdmServ" onsubmit="handleSaveServico(event)" class="space-y-3">
+                <input type="hidden" id="admServId">
+                <div>
+                    <label class="block font-semibold text-slate-300 mb-1">Nome do Serviço *</label>
+                    <input type="text" id="admServNome" required placeholder="Ex: Nutrição Estudantil" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                </div>
+                <div>
+                    <label class="block font-semibold text-slate-300 mb-1">Profissional Responsável *</label>
+                    <input type="text" id="admServProf" required placeholder="Ex: Dr. Carlos Lima" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                </div>
+                <div>
+                    <label class="block font-semibold text-slate-300 mb-1">Local de Atendimento *</label>
+                    <input type="text" id="admServLocal" required placeholder="Ex: Bloco B - Sala 02" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                </div>
+                <div>
+                    <label class="block font-semibold text-slate-300 mb-1">Descrição do Serviço</label>
+                    <textarea id="admServDesc" rows="3" placeholder="Descreva o atendimento oferecido..." class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white"></textarea>
+                </div>
+                <div>
+                    <label class="block font-semibold text-slate-300 mb-1">Status</label>
+                    <select id="admServStatus" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                        <option value="Ativo">Ativo</option>
+                        <option value="Inativo">Inativo</option>
+                    </select>
+                </div>
+                <div class="flex justify-end gap-2 pt-2 border-t border-slate-700">
+                    <button type="button" onclick="closeModal('modalAdminServico')" class="px-4 py-2 bg-slate-700 text-white font-bold rounded-xl cursor-pointer">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-ifal-green hover:bg-ifal-greenDark text-white font-bold rounded-xl cursor-pointer">Salvar Serviço</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Admin Aviso -->
+    <div id="modalAdminAviso" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+        <div class="bg-slate-800 rounded-3xl max-w-md w-full p-4 sm:p-6 shadow-2xl border border-slate-700 space-y-4 text-xs">
+            <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+                <h3 class="font-extrabold text-base text-white" id="admAvisoTitle">Novo Aviso</h3>
+                <button onclick="closeModal('modalAdminAviso')" class="text-slate-400 hover:text-white p-1 cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="formAdmAviso" onsubmit="handleSaveAviso(event)" class="space-y-3">
+                <input type="hidden" id="admAvisoId">
+                <div>
+                    <label class="block font-semibold text-slate-300 mb-1">Título do Aviso *</label>
+                    <input type="text" id="admAvisoTitulo" required placeholder="Ex: Vacinação de Gripe" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-semibold text-slate-300 mb-1">Prioridade</label>
+                        <select id="admAvisoPrio" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                            <option value="Normal">Normal</option>
+                            <option value="Importante">Importante</option>
+                            <option value="Urgente">Urgente</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-semibold text-slate-300 mb-1">Status</label>
+                        <select id="admAvisoStatus" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                            <option value="Ativo">Publicado (Ativo)</option>
+                            <option value="Inativo">Rascunho (Inativo)</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block font-semibold text-slate-300 mb-1">Conteúdo do Aviso *</label>
+                    <textarea id="admAvisoConteudo" rows="4" required placeholder="Escreva a mensagem que aparecerá no mural..." class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white"></textarea>
+                </div>
+                <div class="flex justify-end gap-2 pt-2 border-t border-slate-700">
+                    <button type="button" onclick="closeModal('modalAdminAviso')" class="px-4 py-2 bg-slate-700 text-white font-bold rounded-xl cursor-pointer">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-ifal-green hover:bg-ifal-greenDark text-white font-bold rounded-xl cursor-pointer">Salvar Aviso</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Admin FAQ -->
+    <div id="modalAdminFAQ" class="hidden fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+        <div class="bg-slate-800 rounded-3xl max-w-md w-full p-4 sm:p-6 shadow-2xl border border-slate-700 space-y-4 text-xs">
+            <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+                <h3 class="font-extrabold text-base text-white" id="admFaqTitle">Nova Pergunta (FAQ)</h3>
+                <button onclick="closeModal('modalAdminFAQ')" class="text-slate-400 hover:text-white p-1 cursor-pointer"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="formAdmFAQ" onsubmit="handleSaveFAQ(event)" class="space-y-3">
+                <input type="hidden" id="admFaqId">
+                <div>
+                    <label class="block font-semibold text-slate-300 mb-1">Pergunta *</label>
+                    <input type="text" id="admFaqPergunta" required placeholder="Ex: Como remarcar consulta?" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                </div>
+                <div>
+                    <label class="block font-semibold text-slate-300 mb-1">Resposta *</label>
+                    <textarea id="admFaqResposta" rows="4" required placeholder="Explique os passos detalhados..." class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white"></textarea>
+                </div>
+                <div>
+                    <label class="block font-semibold text-slate-300 mb-1">Status</label>
+                    <select id="admFaqStatus" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                        <option value="Ativo">Ativo</option>
+                        <option value="Inativo">Inativo</option>
+                    </select>
+                </div>
+                <div class="flex justify-end gap-2 pt-2 border-t border-slate-700">
+                    <button type="button" onclick="closeModal('modalAdminFAQ')" class="px-4 py-2 bg-slate-700 text-white font-bold rounded-xl cursor-pointer">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-ifal-green hover:bg-ifal-greenDark text-white font-bold rounded-xl cursor-pointer">Salvar Pergunta</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ARQUITETURA DE AUTENTICAÇÃO E DADOS INTEGRADA -->
     <script>
-        // === GERENCIAMENTO DE ARMAZENAMENTO E DADOS ===
+        // === CHAVES DE ARMAZENAMENTO ===
         const STORAGE_KEYS = {
             USERS: 'sc_users',
+            DB_KEY: 'saude_conectada_db',
             CURRENT_USER: 'sc_current_user',
             SOLICITACOES: 'sc_solicitacoes',
             AGENDAMENTOS: 'sc_agendamentos',
             SERVICOS: 'sc_servicos',
+            PROFISSIONAIS: 'sc_profissionais',
             LOCAIS: 'sc_locais',
             AVISOS: 'sc_avisos',
+            FAQ: 'sc_faq',
             MENSAGENS: 'sc_mensagens',
             NOTIFICACOES: 'sc_notificacoes',
-            LOGS: 'sc_logs',
-            DRAFT: 'sc_sol_draft'
+            LOGS: 'sc_logs'
         };
 
-        let activeServiceModalId = null;
-        let chartInstance = null;
+        // === CONTAS ADMINISTRATIVAS PERMANENTES FIXAS ===
+        const PERMANENT_ADMINS = [
+            {
+                id: "admin_lvc1",
+                name: "Lucas Venancio",
+                email: "lvc1@aluno.ifal.edu.br",
+                pass: "lucas01",
+                role: "Administrador",
+                adminLevel: "Administrador Geral",
+                sector: "Administração Geral",
+                phone: "(82) 99999-1111",
+                status: "Ativo",
+                protected: true,
+                permanent: true
+            },
+            {
+                id: "admin_ascl2",
+                name: "Anniele Samily",
+                email: "ascl2@aluno.ifal.edu.br",
+                pass: "samily01",
+                role: "Administrador",
+                adminLevel: "Administrador Geral",
+                sector: "Administração Geral",
+                phone: "(82) 99999-2222",
+                status: "Ativo",
+                protected: true,
+                permanent: true
+            },
+            {
+                id: "admin_isac1",
+                name: "Isabelle Sara",
+                email: "isac1@aluno.ifal.edu.br",
+                pass: "isabelle01",
+                role: "Administrador",
+                adminLevel: "Administrador Geral",
+                sector: "Administração Geral",
+                phone: "(82) 99999-3333",
+                status: "Ativo",
+                protected: true,
+                permanent: true
+            }
+        ];
 
-        /**
-         * REGRA DE EXIBIÇÃO DE NOME:
-         * Pega o nome REAL do cadastro, separa por espaços e pega exatamente os DOIS PRIMEIROS NOMES.
-         * Se existir somente 1 nome, exibe ele. Não altera o nome original armazenado no banco/cadastro.
-         */
+        // === FUNÇÃO CENTRAL DE GARANTIA E PROTEÇÃO DAS CONTAS FIXAS ===
+        function ensurePermanentAdminAccounts(inputUsers = null) {
+            let users = inputUsers;
+            if (!users || !Array.isArray(users)) {
+                try {
+                    const raw = localStorage.getItem(STORAGE_KEYS.USERS);
+                    users = raw ? JSON.parse(raw) : [];
+                } catch (e) {
+                    users = [];
+                }
+            }
+            if (!Array.isArray(users)) users = [];
+
+            PERMANENT_ADMINS.forEach(adminDef => {
+                const normAdminEmail = adminDef.email.toLowerCase().trim();
+                let existingIndex = users.findIndex(u => 
+                    (u.id && u.id === adminDef.id) || 
+                    (u.email && u.email.toLowerCase().trim() === normAdminEmail)
+                );
+
+                if (existingIndex !== -1) {
+                    users[existingIndex] = {
+                        ...users[existingIndex],
+                        id: adminDef.id,
+                        name: adminDef.name,
+                        email: adminDef.email,
+                        pass: adminDef.pass,
+                        role: "Administrador",
+                        adminLevel: "Administrador Geral",
+                        sector: adminDef.sector,
+                        status: "Ativo",
+                        protected: true,
+                        permanent: true
+                    };
+                } else {
+                    users.push({ ...adminDef });
+                }
+            });
+
+            const seen = new Set();
+            const cleanedUsers = [];
+            users.forEach(u => {
+                const norm = (u.email || '').toLowerCase().trim();
+                const isAdmin = PERMANENT_ADMINS.some(pa => pa.email.toLowerCase() === norm);
+                if (isAdmin) {
+                    if (!seen.has(norm)) {
+                        seen.add(norm);
+                        const paDef = PERMANENT_ADMINS.find(pa => pa.email.toLowerCase() === norm);
+                        cleanedUsers.push({
+                            ...u,
+                            id: paDef.id,
+                            name: paDef.name,
+                            email: paDef.email,
+                            pass: paDef.pass,
+                            role: "Administrador",
+                            adminLevel: "Administrador Geral",
+                            sector: paDef.sector,
+                            status: "Ativo",
+                            protected: true,
+                            permanent: true
+                        });
+                    }
+                } else {
+                    cleanedUsers.push(u);
+                }
+            });
+
+            try {
+                localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(cleanedUsers));
+                let dbObj = {};
+                try {
+                    dbObj = JSON.parse(localStorage.getItem(STORAGE_KEYS.DB_KEY) || '{}');
+                } catch (e) { dbObj = {}; }
+                dbObj.users = cleanedUsers;
+                localStorage.setItem(STORAGE_KEYS.DB_KEY, JSON.stringify(dbObj));
+            } catch (err) {
+                console.error("Erro ao salvar banco local de contas:", err);
+            }
+            return cleanedUsers;
+        }
+
         function getDisplayName(fullName) {
             if (!fullName || typeof fullName !== 'string') return 'Usuário';
             const parts = fullName.trim().split(/\s+/).filter(Boolean);
@@ -902,43 +1399,53 @@
             return `${parts[0]} ${parts[1]}`;
         }
 
+        // === INICIALIZAÇÃO E SEED DO BANCO ===
         function initData() {
-            if (!localStorage.getItem(STORAGE_KEYS.USERS)) {
-                const initialUsers = [
-                    { id: "usr_admin1", name: "Lucas Venâncio Carvalho", email: "lucas.carvalho@ifal.edu.br", pass: "123456", role: "Administrador", sector: "Coordenação de TI", phone: "(82) 99999-1111", status: "Ativo" },
-                    { id: "usr_admin2", name: "Ana Sophia Lima", email: "ana.lima@ifal.edu.br", pass: "123456", role: "Administrador", sector: "Serviço de Saúde", phone: "(82) 99999-2222", status: "Ativo" },
-                    { id: "usr_admin3", name: "Isac Silva Santos", email: "isac.santos@ifal.edu.br", pass: "123456", role: "Administrador", sector: "Direção Geral", phone: "(82) 99999-3333", status: "Ativo" },
-                    { id: "usr_user1", name: "Pedro Henrique Almeida Santos", email: "pedro.santos@aluno.ifal.edu.br", pass: "123456", role: "Usuário", sector: "Informática - 3º Ano", phone: "(82) 98888-4444", status: "Ativo" },
-                    { id: "usr_user2", name: "Maria Eduarda Santos Oliveira", email: "maria.oliveira@aluno.ifal.edu.br", pass: "123456", role: "Usuário", sector: "Enfermagem - 2º Ano", phone: "(82) 98888-5555", status: "Ativo" }
-                ];
-                localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(initialUsers));
-            }
+            ensurePermanentAdminAccounts();
 
             if (!localStorage.getItem(STORAGE_KEYS.SERVICOS)) {
                 const initialServ = [
-                    { id: "serv_1", nome: "Psicologia", profissional: "Dra. Juliana Mendes", local: "Bloco A - Sala 12", icone: "fa-brain", descricao: "Apoio emocional, escuta qualificada e acompanhamento da saúde mental de discentes e servidores.", status: "Ativo" },
-                    { id: "serv_2", nome: "Pedagogia", profissional: "Prof. Roberto Alves", local: "Bloco B - Sala 04", icone: "fa-graduation-cap", descricao: "Suporte no processo de aprendizagem, organização do plano de estudos e mediação acadêmica.", status: "Ativo" },
-                    { id: "serv_3", nome: "Serviço Social", profissional: "Dra. Carla Souza", local: "Bloco A - Sala 10", icone: "fa-hands-holding-child", descricao: "Orientação sobre auxílios estudantis, bolsas permanência e apoio à vulnerabilidade socioeconômica.", status: "Ativo" },
-                    { id: "serv_4", nome: "Enfermagem", profissional: "Enf. Márcia Rocha", local: "Ambulatório Central", icone: "fa-stethoscope", descricao: "Primeiros socorros, verificação de sinais vitais e orientações gerais de saúde preventiva.", status: "Ativo" }
+                    { id: "serv_1", nome: "Atendimento Psicológico", profissional: "Dra. Juliana Mendes", local: "Bloco A - Sala 12", icone: "fa-brain", descricao: "Apoio emocional, escuta qualificada e acompanhamento da saúde mental de discentes e servidores.", status: "Ativo" },
+                    { id: "serv_2", nome: "Orientação Pedagógica", profissional: "Prof. Roberto Alves", local: "Bloco B - Sala 04", icone: "fa-graduation-cap", descricao: "Suporte no processo de aprendizagem, organização do plano de estudos e mediação acadêmica.", status: "Ativo" },
+                    { id: "serv_3", nome: "Assistência Social", profissional: "Dra. Carla Souza", local: "Bloco A - Sala 10", icone: "fa-hands-holding-child", descricao: "Orientação sobre auxílios estudantis, bolsas permanência e apoio vulnerabilidade socioeconômica.", status: "Ativo" },
+                    { id: "serv_4", nome: "Atendimento de Enfermagem", profissional: "Enf. Marcos Silva", local: "Ambulatório Central", icone: "fa-user-nurse", descricao: "Cuidados iniciais de enfermagem, aferição de pressão e orientações de saúde preventiva.", status: "Ativo" }
                 ];
                 localStorage.setItem(STORAGE_KEYS.SERVICOS, JSON.stringify(initialServ));
+            }
+
+            if (!localStorage.getItem(STORAGE_KEYS.PROFISSIONAIS)) {
+                const initialProfs = [
+                    { id: "prof_1", nome: "Dra. Juliana Mendes", especialidade: "Psicologia", setor: "Bloco A - Sala 12", status: "Ativo" },
+                    { id: "prof_2", nome: "Prof. Roberto Alves", especialidade: "Pedagogia", setor: "Bloco B - Sala 04", status: "Ativo" },
+                    { id: "prof_3", nome: "Dra. Carla Souza", especialidade: "Assistência Social", setor: "Bloco A - Sala 10", status: "Ativo" },
+                    { id: "prof_4", nome: "Enf. Marcos Silva", especialidade: "Enfermagem", setor: "Ambulatório Central", status: "Ativo" }
+                ];
+                localStorage.setItem(STORAGE_KEYS.PROFISSIONAIS, JSON.stringify(initialProfs));
             }
 
             if (!localStorage.getItem(STORAGE_KEYS.LOCAIS)) {
                 const initialLocais = [
                     { id: "loc_1", nome: "Ambulatório Central", bloco: "Bloco A - Térreo", horario: "07:30 às 17:30", setor: "Serviço de Saúde", desc: "Equipado para aferição de pressão, glicemia, primeiros socorros e triagem inicial." },
-                    { id: "loc_2", nome: "Gabinete de Psicologia", bloco: "Bloco A - Sala 12", horario: "08:00 às 16:30", setor: "Psicologia", desc: "Ambiente reservado e sigiloso para escuta psicológica e acolhimento." },
-                    { id: "loc_3", nome: "Sala de Pedagogia", bloco: "Bloco B - Sala 04", horario: "08:00 às 17:00", setor: "Apoio Pedagógico", desc: "Espaço para orientação acadêmica, acompanhamento metodológico e reuniões pedagógicas." }
+                    { id: "loc_2", nome: "Gabinete de Psicologia", bloco: "Bloco A - Sala 12", horario: "08:00 às 16:30", setor: "Psicologia", desc: "Ambiente reservado e sigiloso para escuta psicológica e acolhimento." }
                 ];
                 localStorage.setItem(STORAGE_KEYS.LOCAIS, JSON.stringify(initialLocais));
             }
 
             if (!localStorage.getItem(STORAGE_KEYS.AVISOS)) {
                 const initialAvisos = [
-                    { id: "av_1", titulo: "Campanha de Vacinação no Campus", categoria: "Saúde", conteudo: "Atualização da caderneta de vacinação no Ambulatório Central durante todo este mês.", data: new Date().toLocaleDateString('pt-BR'), status: "Ativo" },
-                    { id: "av_2", titulo: "Acolhimento Psicológico Individual", categoria: "Avisos", conteudo: "Agendamentos abertos para acolhimento semanal com a equipe do campus.", data: new Date().toLocaleDateString('pt-BR'), status: "Ativo" }
+                    { id: "av_1", titulo: "Campanha de Vacinação no Campus", prioridade: "Importante", conteudo: "Atualização da caderneta de vacinação no Ambulatório Central.", data: new Date().toLocaleDateString('pt-BR'), status: "Ativo" },
+                    { id: "av_2", titulo: "Acolhimento Emocional e Rodas de Conversa", prioridade: "Normal", conteudo: "Encontros semanais no Gabinete de Psicologia para integração dos discentes.", data: new Date().toLocaleDateString('pt-BR'), status: "Ativo" }
                 ];
                 localStorage.setItem(STORAGE_KEYS.AVISOS, JSON.stringify(initialAvisos));
+            }
+
+            if (!localStorage.getItem(STORAGE_KEYS.FAQ)) {
+                const initialFaq = [
+                    { id: "faq_1", pergunta: "Como solicitar um atendimento psicológico?", resposta: "Acesse a aba 'Solicitar Atendimento', escolha 'Psicologia', descreva brevemente sua demanda e envie. A equipe analisará e agendará o horário.", status: "Ativo" },
+                    { id: "faq_2", pergunta: "Quem tem direito às contas do sistema?", resposta: "Todos os alunos regularmente matriculados, docentes, técnicos administrativos e servidores do IFAL Campus Benedito Bentes podem cadastrar sua conta.", status: "Ativo" },
+                    { id: "faq_3", pergunta: "Quais são os horários de funcionamento dos setores?", resposta: "O atendimento presencial do Ambulatório, Serviço Social, Pedagogia e Psicologia funciona de Segunda a Sexta-feira, das 07:30 às 17:30.", status: "Ativo" }
+                ];
+                localStorage.setItem(STORAGE_KEYS.FAQ, JSON.stringify(initialFaq));
             }
 
             if (!localStorage.getItem(STORAGE_KEYS.SOLICITACOES)) {
@@ -953,7 +1460,9 @@
                         preferencia: "Presencial",
                         descricao: "Gostaria de agendar uma conversa para orientação sobre ansiedade pré-exames.",
                         dataCriacao: new Date().toLocaleDateString('pt-BR'),
-                        status: "Em análise"
+                        status: "Em análise",
+                        observacaoAdmin: "Aguardando definição de horários.",
+                        profissionalDesignado: "Dra. Juliana Mendes"
                     }
                 ];
                 localStorage.setItem(STORAGE_KEYS.SOLICITACOES, JSON.stringify(initialSol));
@@ -965,9 +1474,9 @@
                         id: "AG-2026-001",
                         userId: "usr_user1",
                         userName: "Pedro Henrique Almeida Santos",
-                        servico: "Psicologia",
+                        servico: "Atendimento Psicológico",
                         profissional: "Dra. Juliana Mendes",
-                        data: "25/09/2026",
+                        data: "2026-10-05",
                         horario: "10:00",
                         status: "Confirmado"
                     }
@@ -980,22 +1489,61 @@
             if (!localStorage.getItem(STORAGE_KEYS.LOGS)) localStorage.setItem(STORAGE_KEYS.LOGS, JSON.stringify([]));
         }
 
-        // Funções de acesso aos dados
-        function getUsers() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.USERS) || '[]'); }
-        function saveUsers(data) { localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify(data)); }
-        function getCurrentUser() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.CURRENT_USER) || 'null'); }
-        function setCurrentUser(user) { localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(user)); }
+        // === GETTERS E SETTERS ===
+        function getUsers() { return ensurePermanentAdminAccounts(); }
+        function saveUsers(data) { return ensurePermanentAdminAccounts(data); }
+
+        function getCurrentUser() {
+            ensurePermanentAdminAccounts();
+            try {
+                const raw = localStorage.getItem(STORAGE_KEYS.CURRENT_USER);
+                if (!raw) return null;
+                const userSession = JSON.parse(raw);
+                const allUsers = getUsers();
+                const matched = allUsers.find(u => u.id === userSession.id || u.email.toLowerCase().trim() === (userSession.email || '').toLowerCase().trim());
+                if (!matched || matched.status !== 'Ativo') {
+                    localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
+                    return null;
+                }
+                return matched;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        function setCurrentUser(user) {
+            if (user) {
+                localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(user));
+            } else {
+                localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
+            }
+        }
+
         function getSolicitacoes() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.SOLICITACOES) || '[]'); }
         function saveSolicitacoes(data) { localStorage.setItem(STORAGE_KEYS.SOLICITACOES, JSON.stringify(data)); }
+
         function getAgendamentos() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.AGENDAMENTOS) || '[]'); }
         function saveAgendamentos(data) { localStorage.setItem(STORAGE_KEYS.AGENDAMENTOS, JSON.stringify(data)); }
+
+        function getProfissionais() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.PROFISSIONAIS) || '[]'); }
+        function saveProfissionais(data) { localStorage.setItem(STORAGE_KEYS.PROFISSIONAIS, JSON.stringify(data)); }
+
         function getServicos() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.SERVICOS) || '[]'); }
-        function getLocais() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.LOCAIS) || '[]'); }
+        function saveServicos(data) { localStorage.setItem(STORAGE_KEYS.SERVICOS, JSON.stringify(data)); }
+
         function getAvisos() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.AVISOS) || '[]'); }
+        function saveAvisos(data) { localStorage.setItem(STORAGE_KEYS.AVISOS, JSON.stringify(data)); }
+
+        function getFAQ() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.FAQ) || '[]'); }
+        function saveFAQ(data) { localStorage.setItem(STORAGE_KEYS.FAQ, JSON.stringify(data)); }
+
+        function getLocais() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.LOCAIS) || '[]'); }
         function getMensagens() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.MENSAGENS) || '[]'); }
         function saveMensagens(data) { localStorage.setItem(STORAGE_KEYS.MENSAGENS, JSON.stringify(data)); }
+
         function getNotificacoes() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.NOTIFICACOES) || '[]'); }
         function saveNotificacoes(data) { localStorage.setItem(STORAGE_KEYS.NOTIFICACOES, JSON.stringify(data)); }
+
         function getLogs() { return JSON.parse(localStorage.getItem(STORAGE_KEYS.LOGS) || '[]'); }
 
         function addLog(acao, detalhe) {
@@ -1004,126 +1552,76 @@
             logs.unshift({
                 id: 'log_' + Date.now(),
                 data: new Date().toLocaleString('pt-BR'),
-                userName: user ? getDisplayName(user.name) : 'Sistema',
+                userName: user ? user.name : 'Sistema',
                 acao,
                 detalhe
             });
-            localStorage.setItem(STORAGE_KEYS.LOGS, JSON.stringify(logs.slice(0, 50)));
+            localStorage.setItem(STORAGE_KEYS.LOGS, JSON.stringify(logs.slice(0, 100)));
         }
 
-        function addNotificationForUser(userId, titulo, mensagem) {
+        function createNotification(titulo, texto, userEmail = null) {
             const notifs = getNotificacoes();
             notifs.unshift({
                 id: 'notif_' + Date.now(),
-                userId,
                 titulo,
-                mensagem,
+                texto,
                 data: new Date().toLocaleString('pt-BR'),
-                read: false
+                userEmail,
+                lida: false
             });
             saveNotificacoes(notifs);
+            updateNotifBadge();
         }
 
-        // === INICIALIZAÇÃO DA APLICAÇÃO ===
-        function initApp() {
-            initData();
+        // === CONTROLE DE ACESSO E AUTENTICAÇÃO ===
+        function checkAdminAccess() {
             const user = getCurrentUser();
-            if (!user) {
-                document.getElementById('app').classList.add('hidden');
-                document.getElementById('loginScreen').classList.remove('hidden');
-                return;
+            if (!user || user.role !== 'Administrador') {
+                alert('Acesso negado. Esta ação é restrita a administradores.');
+                return false;
             }
-
-            document.getElementById('loginScreen').classList.add('hidden');
-            document.getElementById('app').classList.remove('hidden');
-
-            renderUserUI();
-            restoreDraftSolicitacao();
-
-            const initialHash = location.hash.replace('#', '') || 'dashboard';
-            switchTab(initialHash);
+            return true;
         }
 
-        // === VISUALIZADOR E ALTERAÇÃO DE TELA / MODO ===
-        function toggleMobileSidebar(show) {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            if (show) {
-                sidebar.classList.remove('-translate-x-full');
-                sidebar.classList.add('translate-x-0');
-                overlay.classList.remove('hidden');
-            } else {
-                sidebar.classList.add('-translate-x-full');
-                sidebar.classList.remove('translate-x-0');
-                overlay.classList.add('hidden');
-            }
-        }
-
-        function togglePassVis(inputId, btn) {
-            const input = document.getElementById(inputId);
-            if (!input) return;
-            const icon = btn.querySelector('i');
-            if (input.type === 'password') {
-                input.type = 'text';
-                icon.className = 'fa-solid fa-eye-slash';
-            } else {
-                input.type = 'password';
-                icon.className = 'fa-solid fa-eye';
-            }
-        }
-
-        function openForgotPasswordModal() {
-            document.getElementById('modalForgotPassword').classList.remove('hidden');
-        }
-
-        function closeModal(modalId) {
-            const el = document.getElementById(modalId);
-            if (el) el.classList.add('hidden');
-        }
-
-        function switchToRegisterModal() {
-            document.getElementById('authCardLogin').classList.add('hidden');
-            document.getElementById('authCardRegister').classList.remove('hidden');
-        }
-
-        function switchToLoginModal() {
-            document.getElementById('authCardRegister').classList.add('hidden');
-            document.getElementById('authCardLogin').classList.remove('hidden');
-        }
-
-        // === AUTENTICAÇÃO E NAVEGAÇÃO ===
         function handleLoginSubmit(e) {
             e.preventDefault();
-            const email = document.getElementById('loginEmail').value.trim();
-            const pass = document.getElementById('loginPass').value;
+            const emailInput = document.getElementById('loginEmail').value.trim().toLowerCase();
+            const passInput = document.getElementById('loginPass').value;
             const errBox = document.getElementById('loginErrorBox');
             const errText = document.getElementById('loginErrorText');
+            
             errBox.classList.add('hidden');
-
             const users = getUsers();
-            const found = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.pass === pass);
-            if (!found) {
-                errText.textContent = 'E-mail ou senha incorretos.';
+            const foundUser = users.find(u => (u.email || '').toLowerCase().trim() === emailInput);
+            
+            if (!foundUser || foundUser.pass !== passInput) {
+                errText.textContent = "E-mail ou senha incorretos.";
+                errBox.classList.remove('hidden');
+                return;
+            }
+            if (foundUser.status !== 'Ativo') {
+                errText.textContent = "Esta conta está desativada. Entre em contato com um administrador.";
                 errBox.classList.remove('hidden');
                 return;
             }
 
-            setCurrentUser(found);
-            addLog('Login', `Usuário ${getDisplayName(found.name)} fez login.`);
+            setCurrentUser(foundUser);
+            addLog('Login', `Usuário ${foundUser.name} realizou login.`);
+            document.getElementById('formLogin').reset();
             initApp();
         }
 
         function handleRegisterSubmit(e) {
             e.preventDefault();
             const name = document.getElementById('regName').value.trim();
-            const email = document.getElementById('regEmail').value.trim();
+            const email = document.getElementById('regEmail').value.trim().toLowerCase();
             const sector = document.getElementById('regSector').value.trim() || 'Estudante/Servidor';
             const phone = document.getElementById('regPhone').value.trim() || '';
             const pass = document.getElementById('regPass').value;
             const passConfirm = document.getElementById('regPassConfirm').value;
             const errBox = document.getElementById('regErrorBox');
+            
             errBox.classList.add('hidden');
-
             if (pass !== passConfirm) {
                 errBox.textContent = 'As senhas não coincidem.';
                 errBox.classList.remove('hidden');
@@ -1131,8 +1629,8 @@
             }
 
             const users = getUsers();
-            if (users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
-                errBox.textContent = 'E-mail já cadastrado.';
+            if (users.some(u => (u.email || '').toLowerCase().trim() === email)) {
+                errBox.textContent = 'E-mail já cadastrado no sistema.';
                 errBox.classList.remove('hidden');
                 return;
             }
@@ -1143,40 +1641,60 @@
                 email: email,
                 pass: pass,
                 role: 'Usuário',
+                adminLevel: null,
                 sector: sector,
                 phone: phone,
-                status: 'Ativo'
+                status: 'Ativo',
+                protected: false,
+                permanent: false
             };
 
             users.push(newUser);
             saveUsers(users);
             setCurrentUser(newUser);
-            addLog('Novo Cadastro', `Nova conta criada para ${getDisplayName(newUser.name)}.`);
+
+            addLog('Novo Cadastro', `Nova conta de usuário criada: ${newUser.name}`);
+            createNotification('Bem-vindo ao Saúde Conectada', `Sua conta foi criada com sucesso, ${newUser.name}.`, newUser.email);
+
             document.getElementById('formRegister').reset();
             switchToLoginModal();
             initApp();
         }
 
         function handleLogout() {
-            localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
+            setCurrentUser(null);
             document.getElementById('app').classList.add('hidden');
             document.getElementById('loginScreen').classList.remove('hidden');
         }
 
+        // === GERENCIAMENTO DE PERFIL ===
         function handleUpdateProfile(e) {
             e.preventDefault();
             const user = getCurrentUser();
             if (!user) return;
 
-            const newFullName = document.getElementById('profInputName').value.trim();
-            const newEmail = document.getElementById('profInputEmail').value.trim();
+            const isPermanentAdmin = user.protected || user.permanent || PERMANENT_ADMINS.some(p => p.id === user.id || p.email.toLowerCase() === user.email.toLowerCase());
             const newSector = document.getElementById('profInputSector').value.trim();
             const newPhone = document.getElementById('profInputPhone').value.trim();
 
-            user.name = newFullName;
-            user.email = newEmail;
-            user.sector = newSector;
-            user.phone = newPhone;
+            if (isPermanentAdmin) {
+                const paDef = PERMANENT_ADMINS.find(p => p.id === user.id || p.email.toLowerCase() === user.email.toLowerCase());
+                if (paDef) {
+                    user.name = paDef.name;
+                    user.email = paDef.email;
+                    user.role = paDef.role;
+                    user.adminLevel = paDef.adminLevel;
+                    user.protected = true;
+                    user.permanent = true;
+                    user.sector = newSector || paDef.sector;
+                    user.phone = newPhone || paDef.phone;
+                }
+            } else {
+                user.name = document.getElementById('profInputName').value.trim();
+                user.email = document.getElementById('profInputEmail').value.trim().toLowerCase();
+                user.sector = newSector;
+                user.phone = newPhone;
+            }
 
             const users = getUsers();
             const idx = users.findIndex(u => u.id === user.id);
@@ -1194,404 +1712,1084 @@
             if (preview) preview.textContent = getDisplayName(val);
         }
 
-        // === ATUALIZAÇÃO DA INTERFACE COM NOMES E DADOS DO USUÁRIO ===
-        function renderUserUI() {
-            const user = getCurrentUser();
-            if (!user) return;
-
-            const displayName = getDisplayName(user.name);
-
-            // 1. Sidebar
-            const sidebarNameElem = document.getElementById('sidebarUserName');
-            if (sidebarNameElem) sidebarNameElem.textContent = displayName;
-            const sidebarRoleElem = document.getElementById('sidebarUserRole');
-            if (sidebarRoleElem) sidebarRoleElem.textContent = user.role;
-            const sidebarSectorElem = document.getElementById('sidebarUserSector');
-            if (sidebarSectorElem) sidebarSectorElem.textContent = user.sector || 'IFAL Campus Benedito Bentes';
-
-            // 2. Cabeçalho
-            const headerAuth = document.getElementById('headerAuthArea');
-            if (headerAuth) {
-                headerAuth.innerHTML = `
-                    <div class="flex items-center space-x-2 bg-slate-700/60 px-3 py-1.5 rounded-xl border border-slate-600">
-                        <div class="w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-xs border border-emerald-400">
-                            <i class="fa-solid fa-user"></i>
-                        </div>
-                        <div class="text-left hidden sm:block">
-                            <p class="text-xs font-bold text-white leading-tight">${displayName}</p>
-                            <p class="text-[9px] text-slate-300 font-mono">${user.role}</p>
-                        </div>
-                    </div>
-                `;
-            }
-
-            // 3. Perfil
-            const profInputName = document.getElementById('profInputName');
-            if (profInputName) profInputName.value = user.name;
-            const profDisplayNamePreview = document.getElementById('profDisplayNamePreview');
-            if (profDisplayNamePreview) profDisplayNamePreview.textContent = displayName;
-            const profInputEmail = document.getElementById('profInputEmail');
-            if (profInputEmail) profInputEmail.value = user.email;
-            const profInputSector = document.getElementById('profInputSector');
-            if (profInputSector) profInputSector.value = user.sector || '';
-            const profInputPhone = document.getElementById('profInputPhone');
-            if (profInputPhone) profInputPhone.value = user.phone || '';
-            const profileRoleBadge = document.getElementById('profileUserRoleBadge');
-            if (profileRoleBadge) profileRoleBadge.textContent = user.role;
-
-            // Exibir/Ocultar menu Admin conforme a Role
-            const adminNavSection = document.getElementById('adminNavSection');
-            if (adminNavSection) {
-                if (user.role === 'Administrador') adminNavSection.classList.remove('hidden');
-                else adminNavSection.classList.add('hidden');
-            }
-
-            updateNotifBadge();
-        }
-
-        // === CONTROLE DE MUDANÇA DE ABA ===
-        function switchTab(viewId) {
-            const user = getCurrentUser();
-            if (viewId === 'admin' && (!user || user.role !== 'Administrador')) {
-                alert('Acesso negado: área exclusiva para Administradores.');
-                viewId = 'dashboard';
-            }
-
-            const views = document.querySelectorAll('.view-section');
-            views.forEach(v => v.classList.add('hidden'));
-
-            const target = document.getElementById(`view-${viewId}`);
-            if (target) target.classList.remove('hidden');
-
-            const titleMap = {
-                dashboard: 'Início',
-                servicos: 'Serviços Ofertados',
-                solicitacoes: 'Solicitar Atendimento',
-                acompanhamento: 'Minhas Solicitações',
-                agendamentos: 'Agendamentos',
-                triagem: 'Triagem Digital Orientativa',
-                avisos: 'Mural Institucional de Avisos',
-                comunicacao: 'Comunicação Intersetorial',
-                locais: 'Unidades e Setores do Campus',
-                informacoes: 'Informações & Dúvidas Frequentes',
-                emergencia: 'Contatos de Emergência',
-                perfil: 'Meu Perfil',
-                notificacoes: 'Central de Notificações',
-                ajuda: 'Central de Ajuda',
-                admin: 'Painel Administrativo'
-            };
-
-            const pageTitle = document.getElementById('currentViewTitle');
-            if (pageTitle) pageTitle.textContent = titleMap[viewId] || 'Saúde Conectada';
-
-            const backBtn = document.getElementById('headerBackBtn');
-            if (backBtn) {
-                if (viewId === 'dashboard') backBtn.classList.add('hidden');
-                else backBtn.classList.remove('hidden');
-            }
-
-            const navBtns = document.querySelectorAll('.nav-btn');
-            navBtns.forEach(btn => {
-                if (btn.getAttribute('data-view') === viewId) {
-                    btn.classList.add('bg-ifal-navy', 'text-white', 'shadow-sm');
-                    btn.classList.remove('text-slate-300', 'hover:bg-slate-700/50');
-                } else {
-                    btn.classList.remove('bg-ifal-navy', 'text-white', 'shadow-sm');
-                    btn.classList.add('text-slate-300', 'hover:bg-slate-700/50');
-                }
-            });
-
-            location.hash = viewId;
-
-            if (viewId === 'dashboard') updateDashboardMetrics();
-            if (viewId === 'servicos') renderServicos();
-            if (viewId === 'acompanhamento') renderUserSolicitacoes();
-            if (viewId === 'agendamentos') renderUserAgendamentos();
-            if (viewId === 'avisos') renderAvisos();
-            if (viewId === 'comunicacao') renderChatMessages();
-            if (viewId === 'locais') renderLocais();
-            if (viewId === 'notificacoes') renderNotifications();
-            if (viewId === 'admin') renderAdminPanel();
-
-            toggleMobileSidebar(false);
-        }
-
-        function goBack() { switchTab('dashboard'); }
-
-        // === RASCUNHO DE SOLICITAÇÃO ===
-        function saveDraftSolicitacao() {
-            const draft = {
-                esp: document.getElementById('solEspecialidade').value,
-                motivo: document.getElementById('solMotivo').value,
-                pref: document.getElementById('solPreferencia').value,
-                desc: document.getElementById('solDescricao').value,
-                data: document.getElementById('solDataPref').value
-            };
-            localStorage.setItem(STORAGE_KEYS.DRAFT, JSON.stringify(draft));
-            const indicator = document.getElementById('solDraftIndicator');
-            if (indicator) indicator.classList.remove('hidden');
-        }
-
-        function restoreDraftSolicitacao() {
-            const raw = localStorage.getItem(STORAGE_KEYS.DRAFT);
-            if (!raw) return;
-            try {
-                const draft = JSON.parse(raw);
-                if (draft.esp) document.getElementById('solEspecialidade').value = draft.esp;
-                if (draft.motivo) document.getElementById('solMotivo').value = draft.motivo;
-                if (draft.pref) document.getElementById('solPreferencia').value = draft.pref;
-                if (draft.desc) document.getElementById('solDescricao').value = draft.desc;
-                if (draft.data) document.getElementById('solDataPref').value = draft.data;
-                const indicator = document.getElementById('solDraftIndicator');
-                if (indicator) indicator.classList.remove('hidden');
-            } catch (err) {}
-        }
-
-        function clearDraftSolicitacao() {
-            localStorage.removeItem(STORAGE_KEYS.DRAFT);
-            const indicator = document.getElementById('solDraftIndicator');
-            if (indicator) indicator.classList.add('hidden');
-        }
-
+        // === GERENCIAMENTO DE SOLICITAÇÕES DO USUÁRIO ===
         function handleNovaSolicitacao(e) {
             e.preventDefault();
             const user = getCurrentUser();
             if (!user) return;
 
             const esp = document.getElementById('solEspecialidade').value;
-            const motivo = document.getElementById('solMotivo').value;
+            const mot = document.getElementById('solMotivo').value.trim();
             const pref = document.getElementById('solPreferencia').value;
-            const desc = document.getElementById('solDescricao').value;
+            const desc = document.getElementById('solDescricao').value.trim();
             const dataPref = document.getElementById('solDataPref').value;
 
-            if (!esp || !motivo || !desc) {
-                alert('Preencha os campos obrigatórios do formulário.');
-                return;
-            }
+            const idSol = "SOL-2026-" + String(Math.floor(Math.random() * 899) + 100);
 
-            const list = getSolicitacoes();
-            const newId = `SOL-2026-${String(list.length + 1).padStart(3, '0')}`;
-
-            const newSol = {
-                id: newId,
+            const novaSol = {
+                id: idSol,
                 userId: user.id,
                 userName: user.name,
                 userEmail: user.email,
                 especialidade: esp,
-                motivo,
+                motivo: mot,
                 preferencia: pref,
                 descricao: desc,
-                dataPref: dataPref || 'Não informada',
+                dataPreferencial: dataPref,
                 dataCriacao: new Date().toLocaleDateString('pt-BR'),
-                status: 'Em análise'
+                status: "Em análise",
+                observacaoAdmin: "",
+                profissionalDesignado: ""
             };
 
-            list.unshift(newSol);
-            saveSolicitacoes(list);
-            clearDraftSolicitacao();
+            const solicitacoes = getSolicitacoes();
+            solicitacoes.unshift(novaSol);
+            saveSolicitacoes(solicitacoes);
+
+            addLog('Nova Solicitação', `Solicitação ${idSol} criada por ${user.name} (${esp}).`);
+            createNotification('Solicitação Registrada', `Sua solicitação ${idSol} para ${esp} foi enviada com sucesso.`, user.email);
+
+            localStorage.removeItem('sc_sol_draft');
             document.getElementById('formNovaSolicitacao').reset();
+            document.getElementById('solDraftIndicator').classList.add('hidden');
 
-            addLog('Nova Solicitação', `Solicitação ${newId} aberta por ${getDisplayName(user.name)}.`);
-            addNotificationForUser(user.id, 'Solicitação Enviada', `Sua solicitação (${newId}) foi recebida e está sob análise da equipe do IFAL.`);
-
-            alert(`Solicitação gerada com sucesso!\nNúmero de Protocolo: ${newId}`);
+            alert(`Solicitação ${idSol} registrada com sucesso!`);
             switchTab('acompanhamento');
         }
 
-        // === RENDEREIZAÇÃO DE VISTAS ===
+        function saveDraftSolicitacao() {
+            const draft = {
+                especialidade: document.getElementById('solEspecialidade').value,
+                motivo: document.getElementById('solMotivo').value,
+                preferencia: document.getElementById('solPreferencia').value,
+                descricao: document.getElementById('solDescricao').value,
+                dataPref: document.getElementById('solDataPref').value
+            };
+            localStorage.setItem('sc_sol_draft', JSON.stringify(draft));
+            document.getElementById('solDraftIndicator').classList.remove('hidden');
+        }
+
+        function loadDraftSolicitacao() {
+            const draftRaw = localStorage.getItem('sc_sol_draft');
+            if (!draftRaw) return;
+            try {
+                const draft = JSON.parse(draftRaw);
+                if (draft.especialidade) document.getElementById('solEspecialidade').value = draft.especialidade;
+                if (draft.motivo) document.getElementById('solMotivo').value = draft.motivo;
+                if (draft.preferencia) document.getElementById('solPreferencia').value = draft.preferencia;
+                if (draft.descricao) document.getElementById('solDescricao').value = draft.descricao;
+                if (draft.dataPref) document.getElementById('solDataPref').value = draft.dataPref;
+                document.getElementById('solDraftIndicator').classList.remove('hidden');
+            } catch (e) {}
+        }
+
+        // === GERENCIAMENTO ADMINISTRATIVO: 1. USUÁRIOS ===
+        function renderAdminUsuarios() {
+            const tbody = document.getElementById('tableAdminUsuarios');
+            if (!tbody) return;
+            const users = getUsers();
+            const search = (document.getElementById('searchUserAdmin')?.value || '').toLowerCase().trim();
+            const filterRole = document.getElementById('filterUserRoleAdmin')?.value || 'Todos';
+
+            tbody.innerHTML = '';
+            
+            const filtered = users.filter(u => {
+                const matchSearch = (u.name || '').toLowerCase().includes(search) || (u.email || '').toLowerCase().includes(search);
+                const matchRole = filterRole === 'Todos' || u.role === filterRole;
+                return matchSearch && matchRole;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-400">Nenhum usuário encontrado.</td></tr>';
+                return;
+            }
+
+            filtered.forEach(u => {
+                const isPermanentAdmin = u.protected || u.permanent || PERMANENT_ADMINS.some(p => p.id === u.id || p.email.toLowerCase() === u.email.toLowerCase());
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-700/50 transition border-b border-slate-700/60";
+                tr.innerHTML = `
+                    <td class="p-3">
+                        <div class="font-bold text-white flex items-center space-x-1.5">
+                            <span>${u.name}</span>
+                            ${isPermanentAdmin ? '<span class="text-[9px] bg-amber-500/20 text-amber-300 border border-amber-500/40 px-1.5 py-0.5 rounded font-mono font-bold shrink-0" title="Conta Permanente Protegida"><i class="fa-solid fa-lock text-[8px]"></i> PERMANENTE</span>' : ''}
+                        </div>
+                    </td>
+                    <td class="p-3 text-slate-300 font-mono text-[11px]">${u.email}</td>
+                    <td class="p-3">
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold ${u.role === 'Administrador' ? 'bg-rose-900/60 text-rose-300 border border-rose-700' : 'bg-slate-700 text-slate-300'}">
+                            ${u.role}
+                        </span>
+                    </td>
+                    <td class="p-3 text-slate-300">${u.sector || '-'}</td>
+                    <td class="p-3">
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold ${u.status === 'Ativo' ? 'bg-emerald-900/60 text-emerald-300 border border-emerald-700' : 'bg-rose-950/80 text-rose-300 border border-rose-800'}">
+                            ${u.status || 'Ativo'}
+                        </span>
+                    </td>
+                    <td class="p-3 text-right">
+                        <div class="flex items-center justify-end space-x-1">
+                            <button onclick="attemptChangeUserRole('${u.id}')" title="Alterar Nível de Acesso" class="p-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg text-xs transition cursor-pointer">
+                                <i class="fa-solid fa-user-gear"></i>
+                            </button>
+                            <button onclick="attemptToggleUserStatus('${u.id}')" title="Ativar ou Desativar" class="p-1.5 ${u.status === 'Ativo' ? 'bg-amber-900/40 text-amber-300 hover:bg-amber-800' : 'bg-emerald-900/40 text-emerald-300 hover:bg-emerald-800'} rounded-lg text-xs transition cursor-pointer">
+                                <i class="fa-solid ${u.status === 'Ativo' ? 'fa-user-slash' : 'fa-user-check'}"></i>
+                            </button>
+                            <button onclick="attemptDeleteUser('${u.id}')" title="Excluir Usuário" class="p-1.5 bg-rose-900/40 text-rose-300 hover:bg-rose-800 rounded-lg text-xs transition cursor-pointer">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function attemptDeleteUser(userId) {
+            if (!checkAdminAccess()) return;
+            const users = getUsers();
+            const targetUser = users.find(u => u.id === userId);
+            if (!targetUser) return;
+
+            if (targetUser.protected || targetUser.permanent || PERMANENT_ADMINS.some(p => p.id === targetUser.id || p.email.toLowerCase() === targetUser.email.toLowerCase())) {
+                alert("Esta é uma conta administrativa permanente do sistema e não pode ser excluída.");
+                return;
+            }
+
+            if (confirm(`Deseja realmente remover o usuário ${targetUser.name}?`)) {
+                const updated = users.filter(u => u.id !== userId);
+                saveUsers(updated);
+                addLog('Exclusão de Usuário', `Usuário ${targetUser.name} foi removido por um administrador.`);
+                renderAdminUsuarios();
+                updateDashboardMetrics();
+            }
+        }
+
+        function attemptToggleUserStatus(userId) {
+            if (!checkAdminAccess()) return;
+            const users = getUsers();
+            const targetUser = users.find(u => u.id === userId);
+            if (!targetUser) return;
+
+            if (targetUser.protected || targetUser.permanent || PERMANENT_ADMINS.some(p => p.id === targetUser.id || p.email.toLowerCase() === targetUser.email.toLowerCase())) {
+                alert("Esta conta administrativa permanente não pode ser desativada.");
+                return;
+            }
+
+            targetUser.status = targetUser.status === 'Ativo' ? 'Inativo' : 'Ativo';
+            saveUsers(users);
+            addLog('Status de Usuário', `Status do usuário ${targetUser.name} alterado para ${targetUser.status}.`);
+            renderAdminUsuarios();
+            updateDashboardMetrics();
+        }
+
+        function attemptChangeUserRole(userId) {
+            if (!checkAdminAccess()) return;
+            const users = getUsers();
+            const targetUser = users.find(u => u.id === userId);
+            if (!targetUser) return;
+
+            if (targetUser.protected || targetUser.permanent || PERMANENT_ADMINS.some(p => p.id === targetUser.id || p.email.toLowerCase() === targetUser.email.toLowerCase())) {
+                alert("Não é possível alterar as permissões de uma conta administrativa permanente.");
+                return;
+            }
+
+            targetUser.role = targetUser.role === 'Administrador' ? 'Usuário' : 'Administrador';
+            targetUser.adminLevel = targetUser.role === 'Administrador' ? 'Administrador Geral' : null;
+            saveUsers(users);
+            addLog('Permissão de Usuário', `Permissão de ${targetUser.name} alterada para ${targetUser.role}.`);
+            renderAdminUsuarios();
+            updateDashboardMetrics();
+        }
+
+        // === GERENCIAMENTO ADMINISTRATIVO: 2. SOLICITAÇÕES ===
+        function renderAdminSolicitacoes() {
+            const tbody = document.getElementById('tableAdminSolicitacoes');
+            if (!tbody) return;
+            const list = getSolicitacoes();
+            const search = (document.getElementById('searchSolAdmin')?.value || '').toLowerCase().trim();
+            const statusFilter = document.getElementById('filterSolStatusAdmin')?.value || 'Todos';
+
+            tbody.innerHTML = '';
+
+            const filtered = list.filter(sol => {
+                const matchSearch = (sol.id || '').toLowerCase().includes(search) || (sol.userName || '').toLowerCase().includes(search);
+                const matchStatus = statusFilter === 'Todos' || sol.status === statusFilter;
+                return matchSearch && matchStatus;
+            });
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="p-4 text-center text-slate-400">Nenhuma solicitação encontrada.</td></tr>';
+                return;
+            }
+
+            filtered.forEach(sol => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-700/50 transition border-b border-slate-700/60";
+                tr.innerHTML = `
+                    <td class="p-3 font-mono font-bold text-emerald-400">${sol.id}</td>
+                    <td class="p-3 font-semibold text-white">${sol.userName}</td>
+                    <td class="p-3 text-slate-300">${sol.especialidade}</td>
+                    <td class="p-3 text-slate-400">${sol.dataCriacao}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-900/60 text-amber-300">${sol.status}</span></td>
+                    <td class="p-3 text-right">
+                        <button onclick="openModalAdminSolicitacao('${sol.id}')" class="px-2.5 py-1 bg-ifal-navy hover:bg-ifal-navyDark text-white font-bold rounded text-[11px] transition cursor-pointer">
+                            <i class="fa-solid fa-pen-to-square mr-1"></i>Gerenciar
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function openModalAdminSolicitacao(idSol) {
+            const list = getSolicitacoes();
+            const sol = list.find(s => s.id === idSol);
+            if (!sol) return;
+
+            document.getElementById('admSolId').value = sol.id;
+            document.getElementById('admSolTitle').textContent = `Gerenciar ${sol.id}`;
+            document.getElementById('admSolStatus').value = sol.status || 'Em análise';
+            document.getElementById('admSolObs').value = sol.observacaoAdmin || '';
+
+            const profSelect = document.getElementById('admSolProf');
+            profSelect.innerHTML = '<option value="">Selecione um profissional...</option>';
+            getProfissionais().forEach(p => {
+                const opt = document.createElement('option');
+                opt.value = p.nome;
+                opt.textContent = `${p.nome} (${p.especialidade})`;
+                if (sol.profissionalDesignado === p.nome) opt.selected = true;
+                profSelect.appendChild(opt);
+            });
+
+            const body = document.getElementById('admSolBody');
+            body.innerHTML = `
+                <div class="bg-slate-700/50 p-3 rounded-xl space-y-1 text-slate-300">
+                    <p><strong class="text-white">Solicitante:</strong> ${sol.userName} (${sol.userEmail})</p>
+                    <p><strong class="text-white">Atendimento:</strong> ${sol.especialidade} | Modalidade: ${sol.preferencia || 'Presencial'}</p>
+                    <p><strong class="text-white">Assunto:</strong> ${sol.motivo}</p>
+                    <p><strong class="text-white">Descrição:</strong> ${sol.descricao}</p>
+                </div>
+            `;
+
+            document.getElementById('modalAdminSolicitacao').classList.remove('hidden');
+        }
+
+        function handleSaveAdminSolicitacao(e) {
+            e.preventDefault();
+            if (!checkAdminAccess()) return;
+
+            const id = document.getElementById('admSolId').value;
+            const status = document.getElementById('admSolStatus').value;
+            const prof = document.getElementById('admSolProf').value;
+            const obs = document.getElementById('admSolObs').value.trim();
+
+            const list = getSolicitacoes();
+            const idx = list.findIndex(s => s.id === id);
+            if (idx !== -1) {
+                list[idx].status = status;
+                list[idx].profissionalDesignado = prof;
+                list[idx].observacaoAdmin = obs;
+                saveSolicitacoes(list);
+
+                const adminUser = getCurrentUser();
+                addLog('Ação em Solicitação', `${adminUser.name} alterou o status da solicitação ${id} para ${status}.`);
+                createNotification('Atualização de Solicitação', `Sua solicitação ${id} foi atualizada para "${status}".`, list[idx].userEmail);
+
+                closeModal('modalAdminSolicitacao');
+                renderAdminSolicitacoes();
+                updateDashboardMetrics();
+                alert('Solicitação atualizada com sucesso!');
+            }
+        }
+
+        // === GERENCIAMENTO ADMINISTRATIVO: 3. AGENDAMENTOS ===
+        function renderAdminAgendamentos() {
+            const tbody = document.getElementById('tableAdminAgendamentos');
+            if (!tbody) return;
+            const ags = getAgendamentos();
+
+            tbody.innerHTML = ags.length === 0 ? '<tr><td colspan="6" class="p-4 text-center text-slate-400">Nenhum agendamento cadastrado.</td></tr>' : '';
+
+            ags.forEach(a => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-700/50 transition border-b border-slate-700/60";
+                tr.innerHTML = `
+                    <td class="p-3 font-mono text-purple-400 font-bold">${a.id}</td>
+                    <td class="p-3 font-bold text-white">${a.userName}</td>
+                    <td class="p-3 text-slate-300">${a.servico} <span class="text-slate-400">(${a.profissional})</span></td>
+                    <td class="p-3 text-slate-300">${a.data} às ${a.horario}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-900/60 text-emerald-300 border border-emerald-700">${a.status}</span></td>
+                    <td class="p-3 text-right">
+                        <button onclick="openModalEditAgendamento('${a.id}')" title="Editar / Reagendar" class="p-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg text-xs transition cursor-pointer">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button onclick="deleteAgendamento('${a.id}')" title="Cancelar Agendamento" class="p-1.5 bg-rose-900/40 text-rose-300 hover:bg-rose-800 rounded-lg text-xs transition cursor-pointer">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function populateAgendamentoModalSelects() {
+            const userSelect = document.getElementById('admAgUser');
+            userSelect.innerHTML = '<option value="">Selecione o paciente...</option>';
+            getUsers().forEach(u => {
+                const opt = document.createElement('option');
+                opt.value = u.id;
+                opt.textContent = `${u.name} (${u.email})`;
+                userSelect.appendChild(opt);
+            });
+
+            const servSelect = document.getElementById('admAgServico');
+            servSelect.innerHTML = '<option value="">Selecione o serviço...</option>';
+            getServicos().forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s.nome;
+                opt.textContent = s.nome;
+                servSelect.appendChild(opt);
+            });
+
+            const profSelect = document.getElementById('admAgProf');
+            profSelect.innerHTML = '<option value="">Selecione o profissional...</option>';
+            getProfissionais().forEach(p => {
+                const opt = document.createElement('option');
+                opt.value = p.nome;
+                opt.textContent = `${p.nome} (${p.especialidade})`;
+                profSelect.appendChild(opt);
+            });
+        }
+
+        function openModalCreateAgendamento() {
+            populateAgendamentoModalSelects();
+            document.getElementById('admAgId').value = '';
+            document.getElementById('admAgTitle').textContent = 'Novo Agendamento';
+            document.getElementById('formAdmAgendamento').reset();
+            document.getElementById('modalAdminAgendamento').classList.remove('hidden');
+        }
+
+        function openModalEditAgendamento(idAg) {
+            populateAgendamentoModalSelects();
+            const ags = getAgendamentos();
+            const ag = ags.find(a => a.id === idAg);
+            if (!ag) return;
+
+            document.getElementById('admAgId').value = ag.id;
+            document.getElementById('admAgTitle').textContent = `Editar Agendamento ${ag.id}`;
+            document.getElementById('admAgUser').value = ag.userId || '';
+            document.getElementById('admAgServico').value = ag.servico || '';
+            document.getElementById('admAgProf').value = ag.profissional || '';
+            document.getElementById('admAgData').value = ag.data || '';
+            document.getElementById('admAgHorario').value = ag.horario || '';
+            document.getElementById('admAgStatus').value = ag.status || 'Confirmado';
+
+            document.getElementById('modalAdminAgendamento').classList.remove('hidden');
+        }
+
+        function handleSaveAdminAgendamento(e) {
+            e.preventDefault();
+            if (!checkAdminAccess()) return;
+
+            const id = document.getElementById('admAgId').value;
+            const userId = document.getElementById('admAgUser').value;
+            const servico = document.getElementById('admAgServico').value;
+            const prof = document.getElementById('admAgProf').value;
+            const data = document.getElementById('admAgData').value;
+            const horario = document.getElementById('admAgHorario').value;
+            const status = document.getElementById('admAgStatus').value;
+
+            const ags = getAgendamentos();
+
+            // Verificação de conflito de horário com o mesmo profissional
+            const hasConflict = ags.some(a => a.id !== id && a.profissional === prof && a.data === data && a.horario === horario && a.status !== 'Cancelado');
+            if (hasConflict) {
+                alert(`Conflito de Horário! O profissional ${prof} já possui um atendimento agendado para ${data} às ${horario}.`);
+                return;
+            }
+
+            const matchedUser = getUsers().find(u => u.id === userId);
+            const userName = matchedUser ? matchedUser.name : 'Paciente';
+            const userEmail = matchedUser ? matchedUser.email : null;
+
+            const adminUser = getCurrentUser();
+
+            if (id) {
+                const idx = ags.findIndex(a => a.id === id);
+                if (idx !== -1) {
+                    ags[idx] = { ...ags[idx], userId, userName, servico, profissional: prof, data, horario, status };
+                    saveAgendamentos(ags);
+                    addLog('Reagendamento', `${adminUser.name} alterou o agendamento ${id}.`);
+                    createNotification('Agendamento Atualizado', `Seu agendamento de ${servico} foi alterado para ${data} às ${horario}.`, userEmail);
+                }
+            } else {
+                const newId = "AG-2026-" + String(Math.floor(Math.random() * 899) + 100);
+                const newAg = { id: newId, userId, userName, servico, profissional: prof, data, horario, status };
+                ags.unshift(newAg);
+                saveAgendamentos(ags);
+                addLog('Novo Agendamento', `${adminUser.name} criou o agendamento ${newId} para ${userName}.`);
+                createNotification('Novo Agendamento Confirmado', `Atendimento de ${servico} agendado para ${data} às ${horario}.`, userEmail);
+            }
+
+            closeModal('modalAdminAgendamento');
+            renderAdminAgendamentos();
+            updateDashboardMetrics();
+            alert('Agendamento salvo com sucesso!');
+        }
+
+        function deleteAgendamento(id) {
+            if (!checkAdminAccess()) return;
+            if (confirm(`Deseja cancelar o agendamento ${id}?`)) {
+                const ags = getAgendamentos();
+                const filtered = ags.filter(a => a.id !== id);
+                saveAgendamentos(filtered);
+
+                const adminUser = getCurrentUser();
+                addLog('Cancelamento', `${adminUser.name} cancelou o agendamento ${id}.`);
+                renderAdminAgendamentos();
+                updateDashboardMetrics();
+            }
+        }
+
+        // === GERENCIAMENTO ADMINISTRATIVO: 4. PROFISSIONAIS ===
+        function renderAdminProfissionais() {
+            const tbody = document.getElementById('tableAdminProfissionais');
+            if (!tbody) return;
+            const profs = getProfissionais();
+
+            tbody.innerHTML = profs.length === 0 ? '<tr><td colspan="5" class="p-4 text-center text-slate-400">Nenhum profissional cadastrado.</td></tr>' : '';
+
+            profs.forEach(p => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-700/50 transition border-b border-slate-700/60";
+                tr.innerHTML = `
+                    <td class="p-3 font-bold text-white">${p.nome}</td>
+                    <td class="p-3 text-slate-300">${p.especialidade}</td>
+                    <td class="p-3 text-slate-300">${p.setor}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${p.status === 'Ativo' ? 'bg-emerald-900/60 text-emerald-300' : 'bg-rose-950/80 text-rose-300'}">${p.status}</span></td>
+                    <td class="p-3 text-right">
+                        <button onclick="openModalProfissional('${p.id}')" title="Editar Profissional" class="p-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg text-xs transition cursor-pointer">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function openModalProfissional(idProf = null) {
+            if (idProf) {
+                const profs = getProfissionais();
+                const p = profs.find(x => x.id === idProf);
+                if (!p) return;
+                document.getElementById('admProfId').value = p.id;
+                document.getElementById('admProfTitle').textContent = 'Editar Profissional';
+                document.getElementById('admProfNome').value = p.nome;
+                document.getElementById('admProfEsp').value = p.especialidade;
+                document.getElementById('admProfSetor').value = p.setor;
+                document.getElementById('admProfStatus').value = p.status || 'Ativo';
+            } else {
+                document.getElementById('admProfId').value = '';
+                document.getElementById('admProfTitle').textContent = 'Cadastrar Profissional';
+                document.getElementById('formAdmProf').reset();
+            }
+            document.getElementById('modalAdminProfissional').classList.remove('hidden');
+        }
+
+        function handleSaveProfissional(e) {
+            e.preventDefault();
+            if (!checkAdminAccess()) return;
+
+            const id = document.getElementById('admProfId').value;
+            const nome = document.getElementById('admProfNome').value.trim();
+            const especialidade = document.getElementById('admProfEsp').value.trim();
+            const setor = document.getElementById('admProfSetor').value.trim();
+            const status = document.getElementById('admProfStatus').value;
+
+            const profs = getProfissionais();
+            const adminUser = getCurrentUser();
+
+            if (id) {
+                const idx = profs.findIndex(p => p.id === id);
+                if (idx !== -1) {
+                    profs[idx] = { id, nome, especialidade, setor, status };
+                    saveProfissionais(profs);
+                    addLog('Edição de Profissional', `${adminUser.name} editou o profissional ${nome}.`);
+                }
+            } else {
+                const newId = 'prof_' + Date.now();
+                profs.push({ id: newId, nome, especialidade, setor, status });
+                saveProfissionais(profs);
+                addLog('Novo Profissional', `${adminUser.name} cadastrou o profissional ${nome}.`);
+            }
+
+            closeModal('modalAdminProfissional');
+            renderAdminProfissionais();
+            updateDashboardMetrics();
+            alert('Profissional salvo com sucesso!');
+        }
+
+        // === GERENCIAMENTO ADMINISTRATIVO: 5. SERVIÇOS ===
+        function renderAdminServicos() {
+            const tbody = document.getElementById('tableAdminServicos');
+            if (!tbody) return;
+            const servs = getServicos();
+
+            tbody.innerHTML = servs.length === 0 ? '<tr><td colspan="5" class="p-4 text-center text-slate-400">Nenhum serviço cadastrado.</td></tr>' : '';
+
+            servs.forEach(s => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-700/50 transition border-b border-slate-700/60";
+                tr.innerHTML = `
+                    <td class="p-3 font-bold text-white">${s.nome}</td>
+                    <td class="p-3 text-slate-300">${s.profissional}</td>
+                    <td class="p-3 text-slate-300">${s.local}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${s.status === 'Ativo' ? 'bg-emerald-900/60 text-emerald-300' : 'bg-rose-950/80 text-rose-300'}">${s.status}</span></td>
+                    <td class="p-3 text-right">
+                        <button onclick="openModalServico('${s.id}')" title="Editar Serviço" class="p-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg text-xs transition cursor-pointer">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function openModalServico(idServ = null) {
+            if (idServ) {
+                const servs = getServicos();
+                const s = servs.find(x => x.id === idServ);
+                if (!s) return;
+                document.getElementById('admServId').value = s.id;
+                document.getElementById('admServTitle').textContent = 'Editar Serviço';
+                document.getElementById('admServNome').value = s.nome;
+                document.getElementById('admServProf').value = s.profissional;
+                document.getElementById('admServLocal').value = s.local;
+                document.getElementById('admServDesc').value = s.descricao || '';
+                document.getElementById('admServStatus').value = s.status || 'Ativo';
+            } else {
+                document.getElementById('admServId').value = '';
+                document.getElementById('admServTitle').textContent = 'Adicionar Serviço';
+                document.getElementById('formAdmServ').reset();
+            }
+            document.getElementById('modalAdminServico').classList.remove('hidden');
+        }
+
+        function handleSaveServico(e) {
+            e.preventDefault();
+            if (!checkAdminAccess()) return;
+
+            const id = document.getElementById('admServId').value;
+            const nome = document.getElementById('admServNome').value.trim();
+            const profissional = document.getElementById('admServProf').value.trim();
+            const local = document.getElementById('admServLocal').value.trim();
+            const descricao = document.getElementById('admServDesc').value.trim();
+            const status = document.getElementById('admServStatus').value;
+
+            const servs = getServicos();
+            const adminUser = getCurrentUser();
+
+            if (id) {
+                const idx = servs.findIndex(s => s.id === id);
+                if (idx !== -1) {
+                    servs[idx] = { ...servs[idx], nome, profissional, local, descricao, status };
+                    saveServicos(servs);
+                    addLog('Edição de Serviço', `${adminUser.name} atualizou o serviço ${nome}.`);
+                }
+            } else {
+                const newId = 'serv_' + Date.now();
+                servs.push({ id: newId, nome, profissional, local, icone: 'fa-notes-medical', descricao, status });
+                saveServicos(servs);
+                addLog('Novo Serviço', `${adminUser.name} cadastrou o serviço ${nome}.`);
+            }
+
+            closeModal('modalAdminServico');
+            renderAdminServicos();
+            renderServicos();
+            updateDashboardMetrics();
+            alert('Serviço salvo com sucesso!');
+        }
+
+        // === GERENCIAMENTO ADMINISTRATIVO: 6. AVISOS ===
+        function renderAdminAvisos() {
+            const tbody = document.getElementById('tableAdminAvisos');
+            if (!tbody) return;
+            const avisos = getAvisos();
+
+            tbody.innerHTML = avisos.length === 0 ? '<tr><td colspan="5" class="p-4 text-center text-slate-400">Nenhum aviso cadastrado.</td></tr>' : '';
+
+            avisos.forEach(av => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-700/50 transition border-b border-slate-700/60";
+                tr.innerHTML = `
+                    <td class="p-3 font-bold text-white">${av.titulo}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-sky-900/60 text-sky-300 border border-sky-700">${av.prioridade || 'Normal'}</span></td>
+                    <td class="p-3 text-slate-400">${av.data}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${av.status === 'Ativo' ? 'bg-emerald-900/60 text-emerald-300' : 'bg-rose-950/80 text-rose-300'}">${av.status}</span></td>
+                    <td class="p-3 text-right">
+                        <button onclick="openModalAviso('${av.id}')" title="Editar Aviso" class="p-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg text-xs transition cursor-pointer">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button onclick="deleteAviso('${av.id}')" title="Excluir Aviso" class="p-1.5 bg-rose-900/40 text-rose-300 hover:bg-rose-800 rounded-lg text-xs transition cursor-pointer">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function openModalAviso(idAviso = null) {
+            if (idAviso) {
+                const avisos = getAvisos();
+                const av = avisos.find(x => x.id === idAviso);
+                if (!av) return;
+                document.getElementById('admAvisoId').value = av.id;
+                document.getElementById('admAvisoTitle').textContent = 'Editar Aviso';
+                document.getElementById('admAvisoTitulo').value = av.titulo;
+                document.getElementById('admAvisoPrio').value = av.prioridade || 'Normal';
+                document.getElementById('admAvisoStatus').value = av.status || 'Ativo';
+                document.getElementById('admAvisoConteudo').value = av.conteudo;
+            } else {
+                document.getElementById('admAvisoId').value = '';
+                document.getElementById('admAvisoTitle').textContent = 'Novo Aviso';
+                document.getElementById('formAdmAviso').reset();
+            }
+            document.getElementById('modalAdminAviso').classList.remove('hidden');
+        }
+
+        function handleSaveAviso(e) {
+            e.preventDefault();
+            if (!checkAdminAccess()) return;
+
+            const id = document.getElementById('admAvisoId').value;
+            const titulo = document.getElementById('admAvisoTitulo').value.trim();
+            const prioridade = document.getElementById('admAvisoPrio').value;
+            const status = document.getElementById('admAvisoStatus').value;
+            const conteudo = document.getElementById('admAvisoConteudo').value.trim();
+
+            const avisos = getAvisos();
+            const adminUser = getCurrentUser();
+
+            if (id) {
+                const idx = avisos.findIndex(a => a.id === id);
+                if (idx !== -1) {
+                    avisos[idx] = { ...avisos[idx], titulo, prioridade, status, conteudo };
+                    saveAvisos(avisos);
+                    addLog('Edição de Aviso', `${adminUser.name} alterou o aviso "${titulo}".`);
+                }
+            } else {
+                const newId = 'av_' + Date.now();
+                avisos.unshift({
+                    id: newId,
+                    titulo,
+                    prioridade,
+                    status,
+                    conteudo,
+                    data: new Date().toLocaleDateString('pt-BR')
+                });
+                saveAvisos(avisos);
+                addLog('Novo Aviso', `${adminUser.name} publicou o aviso "${titulo}".`);
+                createNotification('Novo Aviso no Campus', `Mural atualizado: "${titulo}".`);
+            }
+
+            closeModal('modalAdminAviso');
+            renderAdminAvisos();
+            renderAvisos();
+            updateDashboardMetrics();
+            alert('Aviso salvo com sucesso!');
+        }
+
+        function deleteAviso(id) {
+            if (!checkAdminAccess()) return;
+            if (confirm('Deseja realmente excluir este aviso?')) {
+                const avisos = getAvisos();
+                const filtered = avisos.filter(a => a.id !== id);
+                saveAvisos(filtered);
+                const adminUser = getCurrentUser();
+                addLog('Exclusão de Aviso', `${adminUser.name} removeu um aviso do mural.`);
+                renderAdminAvisos();
+                renderAvisos();
+                updateDashboardMetrics();
+            }
+        }
+
+        // === GERENCIAMENTO ADMINISTRATIVO: 7. FAQ ===
+        function renderAdminFAQ() {
+            const tbody = document.getElementById('tableAdminFAQ');
+            if (!tbody) return;
+            const list = getFAQ();
+
+            tbody.innerHTML = list.length === 0 ? '<tr><td colspan="3" class="p-4 text-center text-slate-400">Nenhuma pergunta cadastrada.</td></tr>' : '';
+
+            list.forEach(item => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-700/50 transition border-b border-slate-700/60";
+                tr.innerHTML = `
+                    <td class="p-3 font-bold text-white">${item.pergunta}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${item.status === 'Ativo' ? 'bg-emerald-900/60 text-emerald-300' : 'bg-rose-950/80 text-rose-300'}">${item.status}</span></td>
+                    <td class="p-3 text-right">
+                        <button onclick="openModalFAQ('${item.id}')" title="Editar FAQ" class="p-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 rounded-lg text-xs transition cursor-pointer">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button onclick="deleteFAQ('${item.id}')" title="Excluir Pergunta" class="p-1.5 bg-rose-900/40 text-rose-300 hover:bg-rose-800 rounded-lg text-xs transition cursor-pointer">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function openModalFAQ(idFaq = null) {
+            if (idFaq) {
+                const list = getFAQ();
+                const item = list.find(x => x.id === idFaq);
+                if (!item) return;
+                document.getElementById('admFaqId').value = item.id;
+                document.getElementById('admFaqTitle').textContent = 'Editar FAQ';
+                document.getElementById('admFaqPergunta').value = item.pergunta;
+                document.getElementById('admFaqResposta').value = item.resposta;
+                document.getElementById('admFaqStatus').value = item.status || 'Ativo';
+            } else {
+                document.getElementById('admFaqId').value = '';
+                document.getElementById('admFaqTitle').textContent = 'Nova Pergunta (FAQ)';
+                document.getElementById('formAdmFAQ').reset();
+            }
+            document.getElementById('modalAdminFAQ').classList.remove('hidden');
+        }
+
+        function handleSaveFAQ(e) {
+            e.preventDefault();
+            if (!checkAdminAccess()) return;
+
+            const id = document.getElementById('admFaqId').value;
+            const pergunta = document.getElementById('admFaqPergunta').value.trim();
+            const resposta = document.getElementById('admFaqResposta').value.trim();
+            const status = document.getElementById('admFaqStatus').value;
+
+            const list = getFAQ();
+            const adminUser = getCurrentUser();
+
+            if (id) {
+                const idx = list.findIndex(f => f.id === id);
+                if (idx !== -1) {
+                    list[idx] = { id, pergunta, resposta, status };
+                    saveFAQ(list);
+                    addLog('Edição de FAQ', `${adminUser.name} alterou a pergunta do FAQ.`);
+                }
+            } else {
+                const newId = 'faq_' + Date.now();
+                list.push({ id: newId, pergunta, resposta, status });
+                saveFAQ(list);
+                addLog('Novo FAQ', `${adminUser.name} adicionou uma nova pergunta ao FAQ.`);
+            }
+
+            closeModal('modalAdminFAQ');
+            renderAdminFAQ();
+            renderUserFAQ();
+            alert('FAQ salvo com sucesso!');
+        }
+
+        function deleteFAQ(id) {
+            if (!checkAdminAccess()) return;
+            if (confirm('Deseja excluir esta pergunta do FAQ?')) {
+                const list = getFAQ();
+                const filtered = list.filter(f => f.id !== id);
+                saveFAQ(filtered);
+                const adminUser = getCurrentUser();
+                addLog('Exclusão de FAQ', `${adminUser.name} removeu uma pergunta do FAQ.`);
+                renderAdminFAQ();
+                renderUserFAQ();
+            }
+        }
+
+        function renderUserFAQ() {
+            const container = document.getElementById('userFaqList');
+            if (!container) return;
+            const list = getFAQ().filter(f => f.status === 'Ativo');
+
+            container.innerHTML = list.length === 0 ? '<p class="text-slate-400">Nenhuma pergunta encontrada.</p>' : '';
+
+            list.forEach(f => {
+                const details = document.createElement('details');
+                details.className = "bg-slate-700/50 p-3.5 rounded-xl border cursor-pointer border-slate-600";
+                details.innerHTML = `
+                    <summary class="font-bold text-white">${f.pergunta}</summary>
+                    <p class="mt-2 text-slate-300 leading-relaxed">${f.resposta}</p>
+                `;
+                container.appendChild(details);
+            });
+        }
+
+        // === DASHBOARD E AUDITORIA ===
+        function updateDashboardMetrics() {
+            const users = getUsers();
+            const solList = getSolicitacoes();
+            const agList = getAgendamentos();
+            const profs = getProfissionais();
+            const servs = getServicos();
+            const avisos = getAvisos();
+
+            const totalUsers = users.length;
+            const activeUsers = users.filter(u => u.status === 'Ativo').length;
+            const totalSol = solList.length;
+            const pendingSol = solList.filter(s => s.status === 'Em análise').length;
+            const totalAg = agList.length;
+            const totalProf = profs.length;
+            const totalServ = servs.length;
+            const totalAvisos = avisos.length;
+
+            const metricsGrid = document.getElementById('adminMetricsGrid');
+            if (metricsGrid) {
+                metricsGrid.innerHTML = `
+                    <div class="bg-slate-800 p-3 rounded-2xl border border-slate-700 text-center">
+                        <p class="text-[9px] text-slate-400 font-bold uppercase">Usuários</p>
+                        <h4 class="text-lg font-extrabold text-white">${totalUsers}</h4>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-2xl border border-slate-700 text-center">
+                        <p class="text-[9px] text-slate-400 font-bold uppercase">Ativos</p>
+                        <h4 class="text-lg font-extrabold text-emerald-400">${activeUsers}</h4>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-2xl border border-slate-700 text-center">
+                        <p class="text-[9px] text-slate-400 font-bold uppercase">Solicitações</p>
+                        <h4 class="text-lg font-extrabold text-white">${totalSol}</h4>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-2xl border border-slate-700 text-center">
+                        <p class="text-[9px] text-slate-400 font-bold uppercase">Pendentes</p>
+                        <h4 class="text-lg font-extrabold text-amber-400">${pendingSol}</h4>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-2xl border border-slate-700 text-center">
+                        <p class="text-[9px] text-slate-400 font-bold uppercase">Agendamentos</p>
+                        <h4 class="text-lg font-extrabold text-purple-400">${totalAg}</h4>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-2xl border border-slate-700 text-center">
+                        <p class="text-[9px] text-slate-400 font-bold uppercase">Profissionais</p>
+                        <h4 class="text-lg font-extrabold text-sky-400">${totalProf}</h4>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-2xl border border-slate-700 text-center">
+                        <p class="text-[9px] text-slate-400 font-bold uppercase">Serviços</p>
+                        <h4 class="text-lg font-extrabold text-indigo-400">${totalServ}</h4>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-2xl border border-slate-700 text-center">
+                        <p class="text-[9px] text-slate-400 font-bold uppercase">Avisos</p>
+                        <h4 class="text-lg font-extrabold text-rose-400">${totalAvisos}</h4>
+                    </div>
+                `;
+            }
+
+            // Cards de resumo no Dashboard do Usuário
+            const user = getCurrentUser();
+            if (user) {
+                const uSol = solList.filter(s => user.role === 'Administrador' || s.userId === user.id);
+                document.getElementById('dashUserSolCount').textContent = uSol.length;
+                document.getElementById('dashUserSolDetail').textContent = `Em análise: ${uSol.filter(s => s.status === 'Em análise').length} | Concluídas: ${uSol.filter(s => s.status === 'Concluído').length}`;
+
+                const uAg = agList.filter(a => user.role === 'Administrador' || a.userId === user.id);
+                document.getElementById('dashUserAgendaCount').textContent = uAg.length;
+                document.getElementById('dashUserAgendaDetail').textContent = uAg.length > 0 ? `Próximo: ${uAg[0].data}` : 'Sem horários';
+
+                const uNotif = getNotificacoes().filter(n => !n.userEmail || n.userEmail === user.email);
+                document.getElementById('dashUserNotifCount').textContent = uNotif.length;
+                document.getElementById('dashUserNotifDetail').textContent = `${uNotif.filter(n => !n.lida).length} não lidas`;
+
+                document.getElementById('dashUserMsgCount').textContent = getMensagens().length;
+                document.getElementById('dashUserServCount').textContent = servs.filter(s => s.status === 'Ativo').length;
+            }
+
+            renderChart();
+            renderDashNotices();
+        }
+
+        function renderAdminAtividades() {
+            const list = document.getElementById('adminAtividadesList');
+            if (!list) return;
+            const logs = getLogs();
+            list.innerHTML = logs.length === 0 ? '<p class="text-slate-400 py-4 text-center">Nenhum log registrado.</p>' : '';
+            logs.forEach(l => {
+                const item = document.createElement('div');
+                item.className = "p-2.5 bg-slate-700/40 rounded-xl border border-slate-700 flex items-center justify-between";
+                item.innerHTML = `
+                    <div>
+                        <span class="font-bold text-emerald-400">${l.userName}</span>:
+                        <span class="text-white">${l.acao}</span>
+                        <p class="text-[10px] text-slate-400">${l.detalhe}</p>
+                    </div>
+                    <span class="text-[10px] text-slate-500 font-mono">${l.data}</span>
+                `;
+                list.appendChild(item);
+            });
+        }
+
+        function renderAdminPanel() {
+            if (!checkAdminAccess()) return;
+            renderAdminSolicitacoes();
+            renderAdminAgendamentos();
+            renderAdminUsuarios();
+            renderAdminProfissionais();
+            renderAdminServicos();
+            renderAdminAvisos();
+            renderAdminFAQ();
+            renderAdminAtividades();
+            updateDashboardMetrics();
+        }
+
+        // === OUTRAS INTERFACES DE CONTEÚDO ===
+        function renderServicos() {
+            const grid = document.getElementById('servicesGrid');
+            if (!grid) return;
+            const servs = getServicos().filter(s => s.status === 'Ativo');
+
+            grid.innerHTML = '';
+            servs.forEach(s => {
+                const card = document.createElement('div');
+                card.className = "bg-slate-800 p-5 rounded-2xl border border-slate-700 hover:border-ifal-green transition space-y-3 cursor-pointer";
+                card.onclick = () => openServicoModal(s);
+                card.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">
+                            <i class="fa-solid ${s.icone || 'fa-notes-medical'}"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white text-sm">${s.nome}</h4>
+                            <p class="text-[11px] text-slate-400">${s.profissional}</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-300 line-clamp-2">${s.descricao}</p>
+                    <div class="pt-2 border-t border-slate-700/60 flex items-center justify-between text-[11px] text-emerald-400 font-semibold">
+                        <span><i class="fa-solid fa-location-dot mr-1"></i>${s.local}</span>
+                        <span>Detalhes <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function openServicoModal(s) {
+            document.getElementById('detServTitle').textContent = s.nome;
+            document.getElementById('detServDesc').innerHTML = `
+                <strong class="text-white">Profissional:</strong> ${s.profissional}<br>
+                <strong class="text-white">Local:</strong> ${s.local}<br><br>
+                ${s.descricao}
+            `;
+            document.getElementById('modalDetalhesServico').classList.remove('hidden');
+        }
+
+        function renderAvisos() {
+            const container = document.getElementById('avisosContainer');
+            if (!container) return;
+            const list = getAvisos().filter(a => a.status === 'Ativo');
+
+            container.innerHTML = list.length === 0 ? '<p class="text-slate-400 col-span-2">Nenhum aviso no momento.</p>' : '';
+
+            list.forEach(av => {
+                const card = document.createElement('div');
+                card.className = "bg-slate-800 p-4 rounded-2xl border border-slate-700 space-y-2 text-xs";
+                card.innerHTML = `
+                    <div class="flex items-center justify-between">
+                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-sky-900/60 text-sky-300 border border-sky-700">${av.prioridade || 'Normal'}</span>
+                        <span class="text-slate-400 text-[10px]">${av.data}</span>
+                    </div>
+                    <h4 class="font-bold text-white text-sm">${av.titulo}</h4>
+                    <p class="text-slate-300 leading-relaxed">${av.conteudo}</p>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function renderDashNotices() {
+            const widget = document.getElementById('dashNoticesWidget');
+            if (!widget) return;
+            const list = getAvisos().filter(a => a.status === 'Ativo').slice(0, 3);
+
+            widget.innerHTML = list.length === 0 ? '<p class="text-slate-400">Sem avisos recentes.</p>' : '';
+
+            list.forEach(a => {
+                const item = document.createElement('div');
+                item.className = "p-2.5 bg-slate-700/40 rounded-xl border border-slate-700 space-y-1";
+                item.innerHTML = `
+                    <p class="font-bold text-white">${a.titulo}</p>
+                    <p class="text-[11px] text-slate-300 line-clamp-2">${a.conteudo}</p>
+                `;
+                widget.appendChild(item);
+            });
+        }
+
         function renderUserSolicitacoes() {
             const user = getCurrentUser();
             const container = document.getElementById('userSolicitacoesContainer');
             if (!container || !user) return;
-
             const list = getSolicitacoes().filter(s => user.role === 'Administrador' || s.userId === user.id);
-            container.innerHTML = '';
 
-            if (list.length === 0) {
-                container.innerHTML = `<div class="p-6 bg-slate-800 rounded-2xl border border-slate-700 text-center text-slate-400 text-xs">Nenhuma solicitação encontrada no seu histórico.</div>`;
-                return;
-            }
+            container.innerHTML = list.length === 0 ? '<p class="text-slate-400 text-center py-6 text-xs">Nenhuma solicitação registrada.</p>' : '';
 
             list.forEach(sol => {
                 const card = document.createElement('div');
-                card.className = "bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 text-xs space-y-3 shadow-sm";
+                card.className = "bg-slate-800 p-4 rounded-2xl border border-slate-700 text-xs space-y-2";
                 card.innerHTML = `
-                    <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-700 pb-2">
-                        <div class="flex items-center space-x-2">
-                            <span class="font-mono font-bold text-emerald-400">${sol.id}</span>
-                            <span class="text-slate-400">• ${sol.dataCriacao}</span>
-                        </div>
-                        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold bg-amber-900/60 text-amber-300 border border-amber-700">${sol.status}</span>
+                    <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                        <span class="font-mono font-bold text-emerald-400">${sol.id}</span>
+                        <span class="px-2 py-0.5 rounded text-[10px] bg-amber-900/60 text-amber-300 font-bold">${sol.status}</span>
                     </div>
-                    <div>
-                        <h4 class="font-bold text-white text-sm">${sol.especialidade} - ${sol.motivo}</h4>
-                        <p class="text-slate-300 mt-1">${sol.descricao}</p>
-                    </div>
-                    <div class="flex flex-wrap gap-4 text-[11px] text-slate-400 border-t border-slate-700/60 pt-2">
-                        <span>Modalidade: <strong class="text-slate-200">${sol.preferencia || 'Presencial'}</strong></span>
-                        <span>Solicitante: <strong class="text-slate-200">${getDisplayName(sol.userName)}</strong></span>
-                    </div>
+                    <p class="font-bold text-white">${sol.especialidade} — ${sol.motivo}</p>
+                    <p class="text-slate-300">${sol.descricao}</p>
+                    ${sol.profissionalDesignado ? `<p class="text-[11px] text-emerald-400">Profissional: ${sol.profissionalDesignado}</p>` : ''}
+                    ${sol.observacaoAdmin ? `<p class="text-[11px] text-amber-300 bg-amber-950/40 p-2 rounded-lg border border-amber-800">Nota Adm: ${sol.observacaoAdmin}</p>` : ''}
                 `;
                 container.appendChild(card);
             });
-
-            const badge = document.getElementById('badgeSolCount');
-            if (badge) badge.textContent = list.length;
         }
 
         function renderUserAgendamentos() {
             const user = getCurrentUser();
             const container = document.getElementById('userAgendamentosContainer');
             if (!container || !user) return;
-
             const list = getAgendamentos().filter(a => user.role === 'Administrador' || a.userId === user.id);
-            container.innerHTML = '';
 
-            if (list.length === 0) {
-                container.innerHTML = `<div class="p-6 bg-slate-800 rounded-2xl border border-slate-700 text-center text-slate-400 text-xs">Você não possui agendamentos confirmados.</div>`;
-                return;
-            }
+            container.innerHTML = list.length === 0 ? '<p class="text-slate-400 text-center py-6 text-xs">Nenhum agendamento encontrado.</p>' : '';
 
-            list.forEach(ag => {
+            list.forEach(a => {
                 const card = document.createElement('div');
-                card.className = "bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 text-xs space-y-2 shadow-sm";
+                card.className = "bg-slate-800 p-4 rounded-2xl border border-slate-700 text-xs space-y-2";
                 card.innerHTML = `
                     <div class="flex justify-between items-center border-b border-slate-700 pb-2">
-                        <span class="font-mono text-purple-400 font-bold">${ag.id}</span>
-                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-900/60 text-emerald-300 border border-emerald-700">${ag.status}</span>
+                        <span class="font-mono font-bold text-purple-400">${a.id}</span>
+                        <span class="px-2 py-0.5 rounded text-[10px] bg-emerald-900 text-emerald-300 font-bold">${a.status}</span>
                     </div>
-                    <h4 class="font-bold text-white text-sm">${ag.servico}</h4>
-                    <p class="text-slate-300">Profissional: <strong class="text-slate-100">${ag.profissional}</strong></p>
-                    <p class="text-emerald-400 font-semibold"><i class="fa-solid fa-calendar-day mr-1"></i> ${ag.data} às ${ag.horario}</p>
+                    <p class="font-bold text-white">${a.servico}</p>
+                    <p class="text-slate-300">Profissional: ${a.profissional}</p>
+                    <p class="text-slate-400">Data & Horário: <strong>${a.data} às ${a.horario}</strong></p>
                 `;
                 container.appendChild(card);
             });
-        }
-
-        function renderServicos() {
-            const grid = document.getElementById('servicesGrid');
-            if (!grid) return;
-            const servs = getServicos();
-            grid.innerHTML = '';
-
-            servs.forEach(s => {
-                const card = document.createElement('div');
-                card.className = "bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-3 text-xs flex flex-col justify-between shadow-sm hover:border-emerald-500/50 transition";
-                card.innerHTML = `
-                    <div class="space-y-2">
-                        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg">
-                            <i class="fa-solid ${s.icone || 'fa-notes-medical'}"></i>
-                        </div>
-                        <h4 class="font-bold text-white text-sm">${s.nome}</h4>
-                        <p class="text-slate-300 leading-relaxed">${s.descricao}</p>
-                        <div class="text-[11px] text-slate-400 pt-1 space-y-0.5">
-                            <p><i class="fa-solid fa-user-doctor text-slate-500 mr-1"></i> ${s.profissional}</p>
-                            <p><i class="fa-solid fa-location-dot text-slate-500 mr-1"></i> ${s.local}</p>
-                        </div>
-                    </div>
-                    <div class="pt-2 flex gap-2">
-                        <button onclick="openServiceModal('${s.id}')" class="flex-1 py-2 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-xl transition cursor-pointer">Detalhes</button>
-                        <button onclick="solicitarServicoDirect('${s.nome}')" class="flex-1 py-2 bg-ifal-green hover:bg-ifal-greenDark text-white font-bold rounded-xl transition cursor-pointer">Solicitar</button>
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
-
-        function openServiceModal(id) {
-            const servs = getServicos();
-            const found = servs.find(s => s.id === id);
-            if (!found) return;
-
-            activeServiceModalId = found.nome;
-            document.getElementById('detServTitle').textContent = found.nome;
-            document.getElementById('detServDesc').innerHTML = `
-                <strong class="text-white block mb-1">Responsável: ${found.profissional}</strong>
-                <span class="block mb-2 text-emerald-400">Local: ${found.local}</span>
-                ${found.descricao}
-            `;
-            document.getElementById('modalDetalhesServico').classList.remove('hidden');
-        }
-
-        function solicitarServicoFromModal() {
-            closeModal('modalDetalhesServico');
-            if (activeServiceModalId) {
-                solicitarServicoDirect(activeServiceModalId);
-            } else {
-                switchTab('solicitacoes');
-            }
-        }
-
-        function solicitarServicoDirect(nomeServico) {
-            switchTab('solicitacoes');
-            const select = document.getElementById('solEspecialidade');
-            if (select) {
-                for (let i = 0; i < select.options.length; i++) {
-                    if (select.options[i].value.toLowerCase() === nomeServico.toLowerCase()) {
-                        select.selectedIndex = i;
-                        break;
-                    }
-                }
-            }
         }
 
         function renderLocais() {
             const grid = document.getElementById('locaisGrid');
             if (!grid) return;
-            const locs = getLocais();
-            grid.innerHTML = '';
+            const locais = getLocais();
 
-            locs.forEach(l => {
+            grid.innerHTML = '';
+            locais.forEach(l => {
                 const card = document.createElement('div');
-                card.className = "bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-2 text-xs flex flex-col justify-between shadow-sm";
+                card.className = "bg-slate-800 p-4 rounded-2xl border border-slate-700 space-y-2 text-xs cursor-pointer hover:border-ifal-green transition";
+                card.onclick = () => {
+                    document.getElementById('detLocalTitle').textContent = l.nome;
+                    document.getElementById('detLocalDesc').innerHTML = `
+                        <strong class="text-white">Bloco:</strong> ${l.bloco}<br>
+                        <strong class="text-white">Horário:</strong> ${l.horario}<br>
+                        <strong class="text-white">Setor:</strong> ${l.setor}<br><br>
+                        ${l.desc}
+                    `;
+                    document.getElementById('modalDetalhesLocal').classList.remove('hidden');
+                };
                 card.innerHTML = `
-                    <div class="space-y-2">
-                        <div class="flex items-center justify-between">
-                            <h4 class="font-bold text-white text-sm">${l.nome}</h4>
-                            <span class="text-[10px] bg-teal-950 text-teal-300 font-bold px-2 py-0.5 rounded border border-teal-800">${l.setor}</span>
-                        </div>
-                        <p class="text-teal-400 font-medium">${l.bloco}</p>
-                        <p class="text-slate-300 leading-relaxed">${l.desc}</p>
-                        <p class="text-[11px] text-slate-400"><i class="fa-regular fa-clock mr-1"></i> ${l.horario}</p>
-                    </div>
-                    <button onclick="openLocalModal('${l.id}')" class="w-full py-2 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-xl mt-2 transition cursor-pointer">Ver Detalhes do Local</button>
+                    <h4 class="font-bold text-white text-sm">${l.nome}</h4>
+                    <p class="text-slate-400">${l.bloco} • ${l.horario}</p>
+                    <p class="text-slate-300 line-clamp-2">${l.desc}</p>
                 `;
                 grid.appendChild(card);
-            });
-        }
-
-        function openLocalModal(id) {
-            const locs = getLocais();
-            const found = locs.find(l => l.id === id);
-            if (!found) return;
-
-            document.getElementById('detLocalTitle').textContent = found.nome;
-            document.getElementById('detLocalDesc').innerHTML = `
-                <strong class="text-teal-400 block mb-1">${found.bloco} • ${found.setor}</strong>
-                <p class="mb-2"><i class="fa-regular fa-clock mr-1"></i> Horário de Funcionamento: ${found.horario}</p>
-                ${found.desc}
-            `;
-            document.getElementById('modalDetalhesLocal').classList.remove('hidden');
-        }
-
-        function renderAvisos() {
-            const container = document.getElementById('avisosContainer');
-            if (!container) return;
-            const avs = getAvisos();
-            container.innerHTML = '';
-
-            avs.forEach(a => {
-                const card = document.createElement('div');
-                card.className = "bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 text-xs space-y-2 shadow-sm";
-                card.innerHTML = `
-                    <div class="flex justify-between items-center">
-                        <span class="px-2 py-0.5 bg-sky-950 text-sky-300 font-bold rounded border border-sky-800 text-[10px]">${a.categoria}</span>
-                        <span class="text-slate-400 text-[10px]">${a.data}</span>
-                    </div>
-                    <h4 class="font-bold text-white text-sm">${a.titulo}</h4>
-                    <p class="text-slate-300 leading-relaxed">${a.conteudo}</p>
-                `;
-                container.appendChild(card);
             });
         }
 
@@ -1599,24 +2797,20 @@
             const list = document.getElementById('chatMessagesList');
             if (!list) return;
             const msgs = getMensagens();
-            list.innerHTML = '';
 
-            if (msgs.length === 0) {
-                list.innerHTML = `<div class="p-6 text-center text-slate-400 text-xs">Nenhuma mensagem trocada ainda.</div>`;
-                return;
-            }
+            list.innerHTML = msgs.length === 0 ? '<p class="text-slate-400">Nenhuma mensagem registrada.</p>' : '';
 
             msgs.forEach(m => {
-                const card = document.createElement('div');
-                card.className = "p-3 sm:p-4 bg-slate-700/50 rounded-2xl border border-slate-600 space-y-1.5 text-xs";
-                card.innerHTML = `
-                    <div class="flex justify-between items-center font-bold text-emerald-400 text-[11px]">
-                        <span>${getDisplayName(m.userName)} → ${m.setor}</span>
-                        <span class="text-slate-400 text-[10px] font-normal">${m.data}</span>
+                const item = document.createElement('div');
+                item.className = "p-3 bg-slate-700/40 rounded-xl border border-slate-700 space-y-1";
+                item.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-emerald-400">${m.userName} → ${m.setor}</span>
+                        <span class="text-[10px] text-slate-400">${m.data}</span>
                     </div>
-                    <p class="text-slate-200 leading-relaxed">${m.texto}</p>
+                    <p class="text-slate-200">${m.texto}</p>
                 `;
-                list.appendChild(card);
+                list.appendChild(item);
             });
         }
 
@@ -1627,7 +2821,6 @@
 
             const setor = document.getElementById('chatSetor').value;
             const texto = document.getElementById('chatTexto').value.trim();
-            if (!texto) return;
 
             const msgs = getMensagens();
             msgs.unshift({
@@ -1636,88 +2829,37 @@
                 userName: user.name,
                 setor,
                 texto,
-                data: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+                data: new Date().toLocaleString('pt-BR')
             });
 
             saveMensagens(msgs);
-            document.getElementById('chatTexto').value = '';
-            addLog('Mensagem Intersetorial', `Mensagem enviada por ${getDisplayName(user.name)} para ${setor}.`);
+            document.getElementById('formChatMsg').reset();
             renderChatMessages();
+            alert('Mensagem enviada com sucesso!');
         }
 
         function processTriagem(tipo) {
-            const res = document.getElementById('triagemResult');
-            if (!res) return;
+            const resBox = document.getElementById('triagemResult');
+            let txt = '';
+            if (tipo === 'emocional') txt = 'Sugerimos agendamento no setor de <strong>Psicologia</strong> para apoio emocional.';
+            else if (tipo === 'academico') txt = 'Sugerimos contato com a <strong>Pedagogia</strong> para acompanhamento de aprendizagem.';
+            else if (tipo === 'social') txt = 'Sugerimos agendamento na <strong>Assistência Social</strong> para orientação sobre auxílios.';
+            else txt = 'Sugerimos dirigir-se ao <strong>Ambulatório Central</strong> de Enfermagem.';
 
-            let content = '';
-            if (tipo === 'emocional') {
-                content = `
-                    <h4 class="font-bold text-white text-sm">Encaminhamento Indicado: Acolhimento Psicológico</h4>
-                    <p class="text-slate-300 mt-1">Sua resposta indica a conveniência de agendar uma escuta qualificada com o Setor de Psicologia.</p>
-                    <button onclick="solicitarServicoDirect('Psicologia')" class="mt-3 px-4 py-2 bg-ifal-green hover:bg-ifal-greenDark text-white font-bold rounded-xl cursor-pointer">Solicitar Atendimento em Psicologia</button>
-                `;
-            } else if (tipo === 'academico') {
-                content = `
-                    <h4 class="font-bold text-white text-sm">Encaminhamento Indicado: Orientação Pedagógica</h4>
-                    <p class="text-slate-300 mt-1">Recomendamos apoio pedagógico para elaboração de plano de estudos e mediação da aprendizagem.</p>
-                    <button onclick="solicitarServicoDirect('Pedagogia')" class="mt-3 px-4 py-2 bg-ifal-green hover:bg-ifal-greenDark text-white font-bold rounded-xl cursor-pointer">Solicitar Atendimento em Pedagogia</button>
-                `;
-            } else if (tipo === 'social') {
-                content = `
-                    <h4 class="font-bold text-white text-sm">Encaminhamento Indicado: Serviço Social</h4>
-                    <p class="text-slate-300 mt-1">Dirija-se ou envie uma solicitação ao Serviço Social para obter esclarecimentos sobre editais e auxílios.</p>
-                    <button onclick="solicitarServicoDirect('Serviço Social')" class="mt-3 px-4 py-2 bg-ifal-green hover:bg-ifal-greenDark text-white font-bold rounded-xl cursor-pointer">Solicitar Atendimento em Serviço Social</button>
-                `;
-            } else if (tipo === 'saude') {
-                content = `
-                    <h4 class="font-bold text-white text-sm">Encaminhamento Indicado: Ambulatório Central (Enfermagem)</h4>
-                    <p class="text-slate-300 mt-1">Atendimento inicial para verificação de sinais vitais e orientações de saúde preventiva.</p>
-                    <button onclick="solicitarServicoDirect('Enfermagem')" class="mt-3 px-4 py-2 bg-ifal-green hover:bg-ifal-greenDark text-white font-bold rounded-xl cursor-pointer">Solicitar Atendimento de Enfermagem</button>
-                `;
-            }
-
-            content += `<p class="text-[10px] text-amber-300/80 mt-3 border-t border-emerald-800/60 pt-2"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Atenção: A triagem digital é um recurso meramente orientativo e não substitui diagnóstico ou avaliação presencial especializada.</p>`;
-
-            res.innerHTML = content;
-            res.classList.remove('hidden');
+            resBox.innerHTML = `
+                <p class="font-bold text-emerald-300">Recomendação:</p>
+                <p class="text-slate-200">${txt}</p>
+                <button onclick="switchTab('solicitacoes')" class="mt-2 px-3 py-1.5 bg-ifal-green hover:bg-ifal-greenDark text-white font-bold rounded-lg cursor-pointer">Ir para Solicitação</button>
+            `;
+            resBox.classList.remove('hidden');
         }
 
         // === NOTIFICAÇÕES ===
-        function toggleNotifMenu() {
-            const menu = document.getElementById('notifMenu');
-            if (menu) menu.classList.toggle('hidden');
-        }
-
-        function renderNotifications() {
-            const user = getCurrentUser();
-            if (!user) return;
-
-            const notifs = getNotificacoes().filter(n => n.userId === user.id);
-            const menuList = document.getElementById('notifList');
-            const fullList = document.getElementById('fullNotifList');
-
-            const contentHTML = notifs.length === 0
-                ? '<p class="text-slate-400 text-center py-4 text-xs">Nenhuma notificação no momento.</p>'
-                : notifs.map(n => `
-                    <div class="p-3 bg-slate-700/50 rounded-xl border border-slate-600 space-y-1 text-xs ${n.read ? 'opacity-60' : ''}">
-                        <div class="flex justify-between items-center font-bold text-white">
-                            <span>${n.titulo}</span>
-                            <span class="text-[10px] text-slate-400 font-normal">${n.data}</span>
-                        </div>
-                        <p class="text-slate-300">${n.mensagem}</p>
-                    </div>
-                `).join('');
-
-            if (menuList) menuList.innerHTML = contentHTML;
-            if (fullList) fullList.innerHTML = contentHTML;
-
-            updateNotifBadge();
-        }
-
         function updateNotifBadge() {
             const user = getCurrentUser();
             if (!user) return;
-            const unread = getNotificacoes().filter(n => n.userId === user.id && !n.read).length;
+            const notifs = getNotificacoes().filter(n => !n.userEmail || n.userEmail === user.email);
+            const unread = notifs.filter(n => !n.lida).length;
             const dot = document.getElementById('notifBadgeDot');
             if (dot) {
                 if (unread > 0) dot.classList.remove('hidden');
@@ -1725,341 +2867,254 @@
             }
         }
 
-        function markAllNotificationsRead() {
+        function toggleNotifMenu() {
+            const menu = document.getElementById('notifMenu');
+            if (menu) {
+                menu.classList.toggle('hidden');
+                if (!menu.classList.contains('hidden')) renderNotifList();
+            }
+        }
+
+        function renderNotifList() {
             const user = getCurrentUser();
-            if (!user) return;
-            const notifs = getNotificacoes();
+            const list = document.getElementById('notifList');
+            if (!list || !user) return;
+
+            const notifs = getNotificacoes().filter(n => !n.userEmail || n.userEmail === user.email);
+            list.innerHTML = notifs.length === 0 ? '<p class="text-slate-400 py-2 text-center">Nenhuma notificação.</p>' : '';
+
             notifs.forEach(n => {
-                if (n.userId === user.id) n.read = true;
-            });
-            saveNotificacoes(notifs);
-            renderNotifications();
-        }
-
-        // === PAINEL ADMINISTRATIVO E SUB-ABAS ===
-        function switchAdminSubTab(tabName) {
-            const tabs = ['solicitacoes', 'agendamentos', 'usuarios', 'atividades'];
-            tabs.forEach(t => {
-                const capital = t.charAt(0).toUpperCase() + t.slice(1);
-                const btn = document.getElementById(`tabBtnAdmin${capital}`);
-                const area = document.getElementById(`adminSubTab${capital}`);
-                if (btn && area) {
-                    if (t === tabName) {
-                        btn.classList.add('border-emerald-400', 'text-emerald-400', 'font-bold');
-                        btn.classList.remove('border-transparent', 'text-slate-300');
-                        area.classList.remove('hidden');
-                    } else {
-                        btn.classList.remove('border-emerald-400', 'text-emerald-400', 'font-bold');
-                        btn.classList.add('border-transparent', 'text-slate-300');
-                        area.classList.add('hidden');
-                    }
-                }
-            });
-        }
-
-        function renderAdminPanel() {
-            renderAdminMetrics();
-            renderAdminSolicitacoes();
-            renderAdminAgendamentos();
-            renderAdminUsuarios();
-            renderAdminAtividades();
-        }
-
-        function renderAdminMetrics() {
-            const grid = document.getElementById('adminMetricsGrid');
-            const attentionList = document.getElementById('adminAttentionList');
-            if (!grid) return;
-
-            const sol = getSolicitacoes();
-            const ag = getAgendamentos();
-            const usr = getUsers();
-
-            const solAnalise = sol.filter(s => s.status === 'Em análise').length;
-            const agConfirmados = ag.filter(a => a.status === 'Confirmado').length;
-
-            grid.innerHTML = `
-                <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
-                    <p class="text-[10px] text-slate-400 font-bold uppercase">Total Solicitações</p>
-                    <h4 class="text-xl font-extrabold text-white">${sol.length}</h4>
-                </div>
-                <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
-                    <p class="text-[10px] text-amber-400 font-bold uppercase">Em Análise</p>
-                    <h4 class="text-xl font-extrabold text-amber-300">${solAnalise}</h4>
-                </div>
-                <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
-                    <p class="text-[10px] text-purple-400 font-bold uppercase">Agendamentos</p>
-                    <h4 class="text-xl font-extrabold text-purple-300">${agConfirmados}</h4>
-                </div>
-                <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
-                    <p class="text-[10px] text-emerald-400 font-bold uppercase">Usuários</p>
-                    <h4 class="text-xl font-extrabold text-emerald-300">${usr.length}</h4>
-                </div>
-                <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700">
-                    <p class="text-[10px] text-teal-400 font-bold uppercase">Serviços Ativos</p>
-                    <h4 class="text-xl font-extrabold text-teal-300">${getServicos().length}</h4>
-                </div>
-            `;
-
-            if (attentionList) {
-                attentionList.innerHTML = `
-                    <div class="p-2.5 bg-amber-950/40 rounded-xl border border-amber-800 text-amber-200">
-                        <strong>${solAnalise} solicitações</strong> pendentes de análise pela gestão.
-                    </div>
-                    <div class="p-2.5 bg-slate-800 rounded-xl border border-slate-700 text-slate-300">
-                        <strong>${usr.length} usuários</strong> cadastrados e ativos no sistema.
-                    </div>
-                    <div class="p-2.5 bg-slate-800 rounded-xl border border-slate-700 text-slate-300">
-                        Sistema operando normalmente no IFAL Benedito Bentes.
-                    </div>
-                `;
-            }
-        }
-
-        function renderAdminUsuarios() {
-            const tbody = document.getElementById('tableAdminUsuarios');
-            if (!tbody) return;
-            const users = getUsers();
-            tbody.innerHTML = '';
-
-            users.forEach(u => {
-                const tr = document.createElement('tr');
-                tr.className = "hover:bg-slate-700/50 transition border-b border-slate-700/60";
-                tr.innerHTML = `
-                    <td class="p-3">
-                        <div class="font-bold text-white">${getDisplayName(u.name)}</div>
-                        <div class="text-[10px] text-slate-400">${u.name}</div>
-                    </td>
-                    <td class="p-3 text-slate-300">${u.email}</td>
-                    <td class="p-3">
-                        <span class="px-2 py-0.5 rounded text-[10px] font-bold ${u.role === 'Administrador' ? 'bg-rose-900/60 text-rose-300 border border-rose-700' : 'bg-slate-700 text-slate-300'}">
-                            ${u.role}
-                        </span>
-                    </td>
-                    <td class="p-3 text-slate-300">${u.sector || '-'}</td>
-                    <td class="p-3">
-                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-900/60 text-emerald-300 border border-emerald-700">
-                            ${u.status || 'Ativo'}
-                        </span>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function renderAdminSolicitacoes() {
-            const tbody = document.getElementById('tableAdminSolicitacoes');
-            if (!tbody) return;
-            const list = getSolicitacoes();
-            tbody.innerHTML = '';
-
-            if (list.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-slate-400">Nenhuma solicitação no banco de dados.</td></tr>`;
-                return;
-            }
-
-            list.forEach(sol => {
-                const tr = document.createElement('tr');
-                tr.className = "hover:bg-slate-700/50 transition border-b border-slate-700/60";
-                tr.innerHTML = `
-                    <td class="p-3 font-mono font-bold text-emerald-400">${sol.id}</td>
-                    <td class="p-3 font-semibold text-white">${getDisplayName(sol.userName)}</td>
-                    <td class="p-3 text-slate-300">${sol.especialidade}</td>
-                    <td class="p-3 text-slate-400">${sol.dataCriacao}</td>
-                    <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-900/60 text-amber-300 border border-amber-700">${sol.status}</span></td>
-                    <td class="p-3 text-right">
-                        <button onclick="alterarStatusSolicitacao('${sol.id}')" class="px-2.5 py-1 bg-ifal-navy hover:bg-ifal-navyDark text-white rounded text-[11px] font-bold cursor-pointer">Alterar Status</button>
-                    </td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function alterarStatusSolicitacao(solId) {
-            const list = getSolicitacoes();
-            const found = list.find(s => s.id === solId);
-            if (!found) return;
-
-            const novoStatus = prompt(`Alterar status da solicitação ${solId}:\n(Ex: Em atendimento, Concluído, Cancelado)`, found.status);
-            if (novoStatus && novoStatus.trim() !== '') {
-                found.status = novoStatus.trim();
-                saveSolicitacoes(list);
-                addNotificationForUser(found.userId, 'Status Atualizado', `Sua solicitação (${solId}) foi atualizada para: ${found.status}`);
-                addLog('Status Atualizado', `Solicitação ${solId} alterada para "${found.status}".`);
-                renderAdminPanel();
-            }
-        }
-
-        function renderAdminAgendamentos() {
-            const tbody = document.getElementById('tableAdminAgendamentos');
-            if (!tbody) return;
-            const ags = getAgendamentos();
-            tbody.innerHTML = ags.length === 0 ? '<tr><td colspan="5" class="p-4 text-center text-slate-400">Nenhum agendamento cadastrado.</td></tr>' : '';
-
-            ags.forEach(a => {
-                const tr = document.createElement('tr');
-                tr.className = "hover:bg-slate-700/50 transition border-b border-slate-700/60";
-                tr.innerHTML = `
-                    <td class="p-3 font-mono text-purple-400 font-bold">${a.id}</td>
-                    <td class="p-3 font-bold text-white">${getDisplayName(a.userName)}</td>
-                    <td class="p-3 text-slate-300">${a.servico} (${a.profissional})</td>
-                    <td class="p-3 text-slate-300">${a.data} às ${a.horario}</td>
-                    <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] bg-emerald-900 text-emerald-300 font-bold border border-emerald-700">${a.status}</span></td>
-                `;
-                tbody.appendChild(tr);
-            });
-        }
-
-        function renderAdminAtividades() {
-            const list = document.getElementById('adminAtividadesList');
-            if (!list) return;
-            const logs = getLogs();
-            list.innerHTML = '';
-
-            logs.forEach(l => {
                 const item = document.createElement('div');
-                item.className = "p-2.5 bg-slate-700/40 rounded-xl border border-slate-700 flex items-center justify-between";
+                item.className = `p-2 rounded-xl border ${n.lida ? 'bg-slate-700/30 border-slate-700' : 'bg-slate-700 border-emerald-500/50'}`;
                 item.innerHTML = `
-                    <div>
-                        <span class="font-bold text-emerald-400">${getDisplayName(l.userName)}</span>:
-                        <span class="text-white">${l.acao}</span>
-                        <p class="text-[10px] text-slate-400">${l.detalhe}</p>
-                    </div>
-                    <span class="text-[10px] text-slate-500">${l.data}</span>
+                    <p class="font-bold text-white">${n.titulo}</p>
+                    <p class="text-slate-300 text-[11px]">${n.texto}</p>
+                    <span class="text-[9px] text-slate-400">${n.data}</span>
                 `;
                 list.appendChild(item);
             });
         }
 
-        // === METRICAS DO DASHBOARD E GRÁFICO ===
-        function updateDashboardMetrics() {
+        function renderNotifications() {
             const user = getCurrentUser();
-            if (!user) return;
+            const list = document.getElementById('fullNotifList');
+            if (!list || !user) return;
 
-            const sol = getSolicitacoes().filter(s => user.role === 'Administrador' || s.userId === user.id);
-            const ag = getAgendamentos().filter(a => user.role === 'Administrador' || a.userId === user.id);
-            const notifs = getNotificacoes().filter(n => n.userId === user.id);
-            const msgs = getMensagens();
-            const servs = getServicos();
+            const notifs = getNotificacoes().filter(n => !n.userEmail || n.userEmail === user.email);
+            list.innerHTML = notifs.length === 0 ? '<p class="text-slate-400 text-center py-6">Nenhuma notificação registrada.</p>' : '';
 
-            const solCount = document.getElementById('dashUserSolCount');
-            if (solCount) solCount.textContent = sol.length;
-
-            const solAnalise = sol.filter(s => s.status === 'Em análise').length;
-            const solDetail = document.getElementById('dashUserSolDetail');
-            if (solDetail) solDetail.textContent = `Em análise: ${solAnalise} | Total: ${sol.length}`;
-
-            const agendaCount = document.getElementById('dashUserAgendaCount');
-            if (agendaCount) agendaCount.textContent = ag.length;
-
-            const agendaDetail = document.getElementById('dashUserAgendaDetail');
-            if (agendaDetail) agendaDetail.textContent = ag.length > 0 ? `Próximo: ${ag[0].data}` : 'Sem horários';
-
-            const notifCount = document.getElementById('dashUserNotifCount');
-            if (notifCount) notifCount.textContent = notifs.length;
-
-            const unread = notifs.filter(n => !n.read).length;
-            const notifDetail = document.getElementById('dashUserNotifDetail');
-            if (notifDetail) notifDetail.textContent = `${unread} não lidas`;
-
-            const msgCount = document.getElementById('dashUserMsgCount');
-            if (msgCount) msgCount.textContent = msgs.length;
-
-            const servCount = document.getElementById('dashUserServCount');
-            if (servCount) servCount.textContent = servs.length;
-
-            // Renderizar Widget de Avisos no Dashboard
-            const widget = document.getElementById('dashNoticesWidget');
-            if (widget) {
-                const avisos = getAvisos().slice(0, 3);
-                widget.innerHTML = avisos.map(a => `
-                    <div class="p-2.5 bg-slate-700/50 rounded-xl border border-slate-600 space-y-1">
-                        <div class="flex justify-between font-bold text-white text-[11px]">
-                            <span class="truncate">${a.titulo}</span>
-                            <span class="text-sky-400 text-[9px] shrink-0">${a.categoria}</span>
-                        </div>
-                        <p class="text-[10px] text-slate-300 line-clamp-2">${a.conteudo}</p>
+            notifs.forEach(n => {
+                const item = document.createElement('div');
+                item.className = "bg-slate-800 p-4 rounded-2xl border border-slate-700 text-xs space-y-1";
+                item.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <p class="font-bold text-white text-sm">${n.titulo}</p>
+                        <span class="text-[10px] text-slate-400">${n.data}</span>
                     </div>
-                `).join('');
-            }
-
-            // Renderizar Gráfico
-            renderDashboardChart();
+                    <p class="text-slate-300">${n.texto}</p>
+                `;
+                list.appendChild(item);
+            });
         }
 
-        function renderDashboardChart() {
-            const canvas = document.getElementById('dashboardChart');
-            if (!canvas) return;
+        function markAllNotificationsRead() {
+            const user = getCurrentUser();
+            if (!user) return;
+            const notifs = getNotificacoes();
+            notifs.forEach(n => {
+                if (!n.userEmail || n.userEmail === user.email) n.lida = true;
+            });
+            saveNotificacoes(notifs);
+            updateNotifBadge();
+            renderNotifList();
+            renderNotifications();
+        }
 
-            const sol = getSolicitacoes();
-            const categorias = ['Psicologia', 'Pedagogia', 'Serviço Social', 'Enfermagem', 'Outros'];
-            const contagem = categorias.map(cat => {
-                return sol.filter(s => (s.especialidade || '').toLowerCase() === cat.toLowerCase()).length;
+        // === CHART.JS ===
+        let chartInstance = null;
+        function renderChart() {
+            const ctx = document.getElementById('dashboardChart')?.getContext('2d');
+            if (!ctx) return;
+
+            const solList = getSolicitacoes();
+            const counts = { Psicologia: 0, Pedagogia: 0, 'Serviço Social': 0, Enfermagem: 0, Outros: 0 };
+
+            solList.forEach(s => {
+                if (counts[s.especialidade] !== undefined) counts[s.especialidade]++;
+                else counts['Outros']++;
             });
 
-            if (chartInstance) {
-                chartInstance.destroy();
-            }
+            if (chartInstance) chartInstance.destroy();
 
-            chartInstance = new Chart(canvas, {
+            chartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: categorias,
+                    labels: Object.keys(counts),
                     datasets: [{
-                        label: 'Solicitações por Setor',
-                        data: contagem,
-                        backgroundColor: ['#059669', '#3b82f6', '#f59e0b', '#ec4899', '#64748b'],
+                        label: 'Solicitações',
+                        data: Object.values(counts),
+                        backgroundColor: ['#059669', '#0f3764', '#d97706', '#9333ea', '#64748b'],
                         borderRadius: 8
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    },
+                    plugins: { legend: { display: false } },
                     scales: {
-                        y: {
-                            beginAtZero: true,
-                            ticks: { precision: 0, color: '#94a3b8' },
-                            grid: { color: '#334155' }
-                        },
-                        x: {
-                            ticks: { color: '#94a3b8' },
-                            grid: { display: false }
-                        }
+                        x: { ticks: { color: '#94a3b8' }, grid: { display: false } },
+                        y: { ticks: { color: '#94a3b8', stepSize: 1 }, grid: { color: '#334155' } }
                     }
                 }
             });
         }
 
-        // === BUSCA GLOBAL ===
-        function handleGlobalSearch(e) {
-            const query = e.target.value.toLowerCase().trim();
-            if (!query) return;
-
-            if (e.key === 'Enter') {
-                const servs = getServicos();
-                const matchedServ = servs.find(s => s.nome.toLowerCase().includes(query));
-                if (matchedServ) {
-                    switchTab('servicos');
-                    return;
-                }
-
-                const avisos = getAvisos();
-                const matchedAviso = avisos.find(a => a.titulo.toLowerCase().includes(query) || a.conteudo.toLowerCase().includes(query));
-                if (matchedAviso) {
-                    switchTab('avisos');
-                    return;
-                }
-
-                alert(`Nenhum resultado direto encontrado para "${query}". Tente buscar por termos como "Psicologia", "Vacinação", etc.`);
+        // === CONTROLE DA SIDEBAR E MODAIS ===
+        function toggleMobileSidebar(show) {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (show) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
             }
         }
 
-        // === INICIALIZAÇÃO AO CARREGAR A PÁGINA ===
-        window.addEventListener('DOMContentLoaded', () => {
-            initApp();
-        });
+        function switchAdminSubTab(sub) {
+            document.querySelectorAll('.admin-subtab').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+                btn.classList.remove('border-emerald-400', 'text-emerald-400');
+                btn.classList.add('border-transparent', 'text-slate-300');
+            });
+
+            const target = document.getElementById(`adminSubTab${sub.charAt(0).toUpperCase() + sub.slice(1)}`);
+            if (target) target.classList.remove('hidden');
+
+            const btn = document.getElementById(`tabBtnAdmin${sub.charAt(0).toUpperCase() + sub.slice(1)}`);
+            if (btn) {
+                btn.classList.add('border-emerald-400', 'text-emerald-400');
+                btn.classList.remove('border-transparent', 'text-slate-300');
+            }
+        }
+
+        function switchToRegisterModal() {
+            document.getElementById('authCardLogin').classList.add('hidden');
+            document.getElementById('authCardRegister').classList.remove('hidden');
+        }
+
+        function switchToLoginModal() {
+            document.getElementById('authCardRegister').classList.add('hidden');
+            document.getElementById('authCardLogin').classList.remove('hidden');
+        }
+
+        function openForgotPasswordModal() { document.getElementById('modalForgotPassword').classList.remove('hidden'); }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+        function togglePassVis(id, btn) {
+            const input = document.getElementById(id);
+            if (input.type === 'password') {
+                input.type = 'text';
+                btn.innerHTML = '<i class="fa-solid fa-eye-slash"></i>';
+            } else {
+                input.type = 'password';
+                btn.innerHTML = '<i class="fa-solid fa-eye"></i>';
+            }
+        }
+
+        function renderUserUI() {
+            const user = getCurrentUser();
+            if (!user) return;
+
+            const isPermanentAdmin = user.protected || user.permanent || PERMANENT_ADMINS.some(p => p.id === user.id || p.email.toLowerCase() === user.email.toLowerCase());
+            const displayName = isPermanentAdmin ? user.name : getDisplayName(user.name);
+
+            document.getElementById('sidebarUserName').textContent = displayName;
+            document.getElementById('sidebarUserRole').textContent = user.role;
+            document.getElementById('sidebarUserSector').textContent = user.sector || 'IFAL Campus Benedito Bentes';
+
+            document.getElementById('headerAuthArea').innerHTML = `
+                <div class="flex items-center space-x-2 bg-slate-700/60 px-3 py-1.5 rounded-xl border border-slate-600">
+                    <div class="w-7 h-7 rounded-full bg-emerald-500/20 text-emerald-400 font-bold flex items-center justify-center text-xs border border-emerald-400">
+                        <i class="fa-solid fa-user"></i>
+                    </div>
+                    <div class="text-left hidden sm:block">
+                        <p class="text-xs font-bold text-white leading-tight">${displayName}</p>
+                        <p class="text-[9px] text-slate-300 font-mono">${user.role}</p>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('profInputName').value = user.name;
+            document.getElementById('profInputName').readOnly = isPermanentAdmin;
+            document.getElementById('profDisplayNamePreview').textContent = displayName;
+
+            document.getElementById('profInputEmail').value = user.email;
+            document.getElementById('profInputEmail').readOnly = isPermanentAdmin;
+            document.getElementById('profInputSector').value = user.sector || '';
+            document.getElementById('profInputPhone').value = user.phone || '';
+
+            document.getElementById('profileUserRoleBadge').textContent = user.role;
+
+            const adminNavSection = document.getElementById('adminNavSection');
+            if (user.role === 'Administrador') adminNavSection.classList.remove('hidden');
+            else adminNavSection.classList.add('hidden');
+        }
+
+        function switchTab(viewId) {
+            if (viewId === 'admin' && !checkAdminAccess()) return;
+
+            document.querySelectorAll('.view-section').forEach(v => v.classList.add('hidden'));
+            const target = document.getElementById(`view-${viewId}`);
+            if (target) target.classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                if (btn.getAttribute('data-view') === viewId) {
+                    btn.classList.add('bg-ifal-navy', 'text-white', 'shadow-sm');
+                    btn.classList.remove('text-slate-300', 'hover:bg-slate-700/50');
+                } else {
+                    btn.classList.remove('bg-ifal-navy', 'text-white', 'shadow-sm');
+                    btn.classList.add('text-slate-300', 'hover:bg-slate-700/50');
+                }
+            });
+
+            document.getElementById('currentViewTitle').textContent = viewId === 'admin' ? 'Painel Administrativo' : 'Saúde Conectada';
+
+            if (viewId === 'dashboard') updateDashboardMetrics();
+            if (viewId === 'servicos') renderServicos();
+            if (viewId === 'acompanhamento') renderUserSolicitacoes();
+            if (viewId === 'agendamentos') renderUserAgendamentos();
+            if (viewId === 'avisos') renderAvisos();
+            if (viewId === 'comunicacao') renderChatMessages();
+            if (viewId === 'locais') renderLocais();
+            if (viewId === 'informacoes') renderUserFAQ();
+            if (viewId === 'notificacoes') renderNotifications();
+            if (viewId === 'admin') renderAdminPanel();
+
+            toggleMobileSidebar(false);
+        }
+
+        function goBack() { switchTab('dashboard'); }
+
+        // === INICIALIZAÇÃO DO APP ===
+        function initApp() {
+            initData();
+            const user = getCurrentUser();
+            if (user) {
+                document.getElementById('loginScreen').classList.add('hidden');
+                document.getElementById('app').classList.remove('hidden');
+                renderUserUI();
+                loadDraftSolicitacao();
+                updateNotifBadge();
+                switchTab('dashboard');
+            } else {
+                document.getElementById('app').classList.add('hidden');
+                document.getElementById('loginScreen').classList.remove('hidden');
+            }
+        }
+
+        window.onload = initApp;
     </script>
 </body>
 </html>
+
