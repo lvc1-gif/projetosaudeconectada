@@ -242,6 +242,7 @@
                     </button>
                 </div>
             </div>
+
             <!-- NAVEGAÇÃO SIDEBAR -->
             <nav class="flex-1 px-3 py-2 space-y-1 overflow-y-auto">
                 <a href="#dashboard" onclick="switchTab('dashboard')" data-view="dashboard" class="nav-btn active flex items-center space-x-3 px-3.5 py-2.5 rounded-xl font-semibold text-xs transition-all bg-ifal-navy text-white shadow-sm">
@@ -358,6 +359,7 @@
                     </div>
                 </div>
             </header>
+
             <main class="flex-1 overflow-y-auto p-3 sm:p-6 lg:p-8 space-y-6 w-full min-w-0">
                 <!-- VISTA DASHBOARD -->
                 <section id="view-dashboard" class="view-section space-y-6 w-full min-w-0">
@@ -433,6 +435,7 @@
                         </div>
                     </div>
                 </section>
+
                 <!-- VISTA SERVIÇOS -->
                 <section id="view-servicos" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm">
@@ -443,6 +446,7 @@
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="servicesGrid"></div>
                 </section>
+
                 <!-- VISTA SOLICITAÇÕES -->
                 <section id="view-solicitacoes" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-700 shadow-sm max-w-2xl mx-auto space-y-4 w-full">
@@ -494,6 +498,7 @@
                         </form>
                     </div>
                 </section>
+
                 <!-- VISTA ACOMPANHAMENTO -->
                 <section id="view-acompanhamento" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm flex items-center justify-between">
@@ -504,6 +509,7 @@
                     </div>
                     <div id="userSolicitacoesContainer" class="space-y-3"></div>
                 </section>
+
                 <!-- VISTA AGENDAMENTOS -->
                 <section id="view-agendamentos" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm flex items-center justify-between">
@@ -514,6 +520,7 @@
                     </div>
                     <div id="userAgendamentosContainer" class="space-y-3"></div>
                 </section>
+
                 <!-- VISTA TRIAGEM -->
                 <section id="view-triagem" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-700 shadow-sm max-w-xl mx-auto space-y-4 w-full">
@@ -548,6 +555,7 @@
                         <div id="triagemResult" class="hidden bg-emerald-950/40 p-4 rounded-xl border border-emerald-800 space-y-3 text-xs"></div>
                     </div>
                 </section>
+
                 <!-- VISTA AVISOS -->
                 <section id="view-avisos" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm flex items-center justify-between">
@@ -558,6 +566,7 @@
                     </div>
                     <div id="avisosContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                 </section>
+
                 <!-- VISTA COMUNICAÇÃO -->
                 <section id="view-comunicacao" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm">
@@ -592,6 +601,7 @@
                         </div>
                     </div>
                 </section>
+
                 <!-- VISTA LOCAIS -->
                 <section id="view-locais" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm">
@@ -600,6 +610,7 @@
                     </div>
                     <div id="locaisGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
                 </section>
+
                 <!-- VISTA INFORMAÇÕES & FAQ -->
                 <section id="view-informacoes" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-700 shadow-sm space-y-4">
@@ -607,6 +618,7 @@
                         <div id="userFaqList" class="space-y-3 text-xs"></div>
                     </div>
                 </section>
+
                 <!-- VISTA EMERGÊNCIA -->
                 <section id="view-emergencia" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-rose-600 text-white p-4 sm:p-6 rounded-3xl shadow-xl space-y-4 border border-rose-500">
@@ -637,6 +649,7 @@
                         </div>
                     </div>
                 </section>
+
                 <!-- VISTA PERFIL -->
                 <section id="view-perfil" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-700 shadow-sm max-w-xl mx-auto space-y-6 w-full">
@@ -673,6 +686,7 @@
                         </form>
                     </div>
                 </section>
+
                 <!-- VISTA NOTIFICAÇÕES -->
                 <section id="view-notificacoes" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm flex items-center justify-between gap-2">
@@ -686,6 +700,7 @@
                     </div>
                     <div id="fullNotifList" class="space-y-3 text-xs"></div>
                 </section>
+
                 <!-- VISTA CENTRAL DE AJUDA -->
                 <section id="view-ajuda" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-700 shadow-sm space-y-6">
@@ -718,6 +733,7 @@
                         </div>
                     </div>
                 </section>
+
                 <!-- VISTA PAINEL ADMINISTRATIVO -->
                 <section id="view-admin" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-gradient-to-r from-slate-900 to-ifal-navy p-4 sm:p-6 rounded-3xl text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
@@ -830,8 +846,7 @@
             try {
                 const raw = storage.getItem(key);
                 if (!raw) return fallback;
-                const parsed = JSON.parse(raw);
-                return parsed;
+                return JSON.parse(raw);
             } catch (_) {
                 try { storage.removeItem(key); } catch (_) {}
                 return fallback;
@@ -892,7 +907,6 @@
                 return Array.from(new Uint8Array(hashBuffer))
                     .map(byte => byte.toString(16).padStart(2, '0')).join('');
             }
-
             let hash = 2166136261;
             for (let i = 0; i < value.length; i++) {
                 hash ^= value.charCodeAt(i);
@@ -909,12 +923,10 @@
             try {
                 let users = getUsers();
                 let hasChanges = false;
-
                 for (const account of requiredAdminAccounts) {
                     const normEmail = normalizeEmail(account.email);
                     let existingUser = users.find(u => u.email === normEmail);
                     const targetHash = await hashPassword(account.senha);
-
                     if (!existingUser) {
                         users.push({
                             id: createLocalId(),
@@ -952,7 +964,6 @@
                         if (updated) hasChanges = true;
                     }
                 }
-
                 if (hasChanges) {
                     saveUsers(users);
                 }
@@ -1095,7 +1106,6 @@
             if (!user) throw authenticationError('session/invalid');
             const profile = getUsers().find(item => item.id === user.id && item.email === user.email);
             if (!profile || profile.ativo !== true) throw authenticationError('profile/inactive');
-
             if (isOfficialAdminEmail(profile.email) && profile.role === 'admin' && profile.tipo === 'admin') {
                 profile.nome = officialAdministrators[profile.email];
             }
@@ -1133,33 +1143,26 @@
             navigationHistory = [];
             currentView = 'dashboard';
             clearPersistentUserData();
-
             authElement('adminNavSection')?.classList.add('hidden');
             authElement('view-admin')?.classList.add('hidden');
-
             ['adminSolList', 'chatMessagesList', 'userSolicitacoesContainer', 'notifList', 'fullNotifList', 'triagemResult']
                 .forEach(id => authElement(id)?.replaceChildren());
-
             authElement('formUpdateProfile')?.reset();
             authElement('formNovaSolicitacao')?.reset();
             authElement('formChatMsg')?.reset();
-
             ['badgeSolCount', 'dashUserSolCount'].forEach(id => {
                 const el = authElement(id);
                 if (el) el.textContent = '0';
             });
-
             ['profileUserRoleBadge', 'sidebarUserName', 'sidebarUserRole', 'sidebarUserSector']
                 .forEach(id => {
                     const el = authElement(id);
                     if (el) el.textContent = '';
                 });
-
             if (window.myDashChart) {
                 window.myDashChart.destroy();
                 window.myDashChart = null;
             }
-
             toggleMobileSidebar(false);
             closeRecoveryDialog();
             showAccessScreen();
@@ -1170,15 +1173,12 @@
             const name = currentUserProfile.nome || currentUser.email.split('@')[0];
             const isUserAdmin = isCurrentUserAdmin();
             const roleLabel = isUserAdmin ? 'Administrador' : 'Usuário';
-
             authElement('sidebarUserName').textContent = name;
             authElement('sidebarUserRole').textContent = roleLabel;
             authElement('sidebarUserSector').textContent = currentUserProfile.setor || 'IFAL Campus Benedito Bentes';
-
             const adminNav = authElement('adminNavSection');
             if (isUserAdmin) adminNav.classList.remove('hidden');
             else adminNav.classList.add('hidden');
-
             authElement('profInputName').value = name;
             authElement('profInputEmail').value = currentUser.email || '';
             authElement('profInputSector').value = currentUserProfile.setor || '';
@@ -1193,11 +1193,9 @@
                 setAuthenticationBusy(false);
                 return;
             }
-
             try {
                 const profile = readAuthenticatedProfile(user);
                 if (revision !== sessionRevision) return;
-
                 updateSessionFromUser(profile);
                 loadPersistentData();
                 updateUIWithUserData();
@@ -1219,33 +1217,25 @@
         async function submitAccessCredentials(event) {
             event.preventDefault();
             if (authBusy) return;
-
             showAuthenticationMessage('');
             setAuthenticationBusy(true, 'login');
-
             try {
                 if (!storage) throw authenticationError('storage/unavailable');
-
                 const email = normalizeEmail(authElement('accessEmail').value);
                 const password = authElement('accessPassword').value;
-
                 if (!email) {
                     throw authenticationError('auth/invalid-email');
                 }
                 if (!password) throw authenticationError('auth/wrong-password');
-
                 const user = findUserByEmail(email);
                 if (!user || user.ativo !== true) throw authenticationError('auth/user-not-found');
-
                 const matches = await passwordMatches(user, password);
                 if (!matches) throw authenticationError('auth/wrong-password');
-
                 if (!isOfficialAdminEmail(user.email) && (user.tipo === 'admin' || user.role === 'admin')) {
                     user.tipo = 'usuario';
                     user.role = 'usuario';
                     saveUsers(getUsers().map(item => item.id === user.id ? user : item));
                 }
-
                 saveUsers(getUsers().map(item => item.id === user.id ? user : item));
                 createSession(user);
                 await synchronizeAuthenticatedSession(user);
@@ -1260,20 +1250,16 @@
         async function submitNewAccount(event) {
             event.preventDefault();
             if (authBusy) return;
-
             showAuthenticationMessage('', 'enrollMessage');
             setAuthenticationBusy(true, 'register');
-
             try {
                 if (!storage) throw authenticationError('storage/unavailable');
-
                 const email = normalizeEmail(authElement('enrollEmail').value);
                 const nome = authElement('enrollName').value.trim();
                 const setor = authElement('enrollSector').value.trim();
                 const telefone = authElement('enrollPhone').value.trim();
                 const password = authElement('enrollPassword').value;
                 const confirmation = authElement('enrollConfirmation').value;
-
                 if (!email) {
                     throw authenticationError('auth/invalid-email');
                 }
@@ -1282,7 +1268,6 @@
                 if (password.length < 6) throw authenticationError('auth/weak-password');
                 if (password !== confirmation) throw authenticationError('register/mismatch');
                 if (findUserByEmail(email)) throw authenticationError('auth/email-already-in-use');
-
                 const users = getUsers();
                 const user = {
                     id: createLocalId(),
@@ -1296,7 +1281,6 @@
                     ativo: true,
                     criadoEm: new Date().toISOString()
                 };
-
                 users.push(user);
                 saveUsers(users);
                 createSession(user);
@@ -1366,18 +1350,13 @@
         async function initializeAuthentication() {
             authElement('accessForm')?.addEventListener('submit', submitAccessCredentials);
             authElement('enrollForm')?.addEventListener('submit', submitNewAccount);
-
             if (!storage) {
                 showAccessScreen();
                 showAuthenticationMessage(describeAuthenticationError(authenticationError('storage/unavailable')));
                 return;
             }
-
             setAuthenticationBusy(false);
-
-            // Garante que as três contas administrativas estejam sempre pré-cadastradas
             await ensureDefaultAdminAccounts();
-
             const session = getSession();
             if (session) {
                 const user = getUsers().find(item => item.id === session.id && item.email === normalizeEmail(session.email));
@@ -1387,7 +1366,6 @@
                 }
                 removeSession();
             }
-
             showAccessScreen();
             selectAccessPanel(false);
         }
@@ -1397,26 +1375,21 @@
         async function handleUpdateProfile(e) {
             e.preventDefault();
             if (!sessionReady || !currentUser || !currentUserProfile) return;
-
             const name = document.getElementById('profInputName').value.trim();
             const sector = document.getElementById('profInputSector').value.trim();
             const phone = document.getElementById('profInputPhone').value.trim();
-
             if (!name) {
                 alert('Informe seu nome completo.');
                 return;
             }
-
             try {
                 const users = getUsers();
                 const index = users.findIndex(u => u.id === currentUser.id);
                 if (index < 0) throw authenticationError('session/invalid');
-
                 users[index].nome = name;
                 users[index].setor = sector;
                 users[index].telefone = phone;
                 saveUsers(users);
-
                 currentUserProfile = users[index];
                 currentUser.displayName = name;
                 createSession(users[index]);
@@ -1725,6 +1698,27 @@
             switchTab('acompanhamento');
         }
 
+        function renderChatMessages() {
+            const list = document.getElementById('chatMessagesList');
+            const dashCount = document.getElementById('dashUserMsgCount');
+            if (dashCount) dashCount.textContent = mockMensagens.length;
+            if (!list) return;
+            if (mockMensagens.length === 0) {
+                list.innerHTML = '<p class="text-slate-400 text-xs text-center py-6">Nenhuma mensagem registrada.</p>';
+                return;
+            }
+            list.innerHTML = mockMensagens.map(m => `
+                <div class="bg-slate-700/50 p-3 rounded-xl border border-slate-600 space-y-1">
+                    <div class="flex justify-between items-center text-[10px] text-slate-400">
+                        <span class="font-bold text-indigo-400">${m.setor}</span>
+                        <span>${m.data}</span>
+                    </div>
+                    <p class="text-white text-xs font-semibold">${m.autor}:</p>
+                    <p class="text-slate-300 text-xs">${m.texto}</p>
+                </div>
+            `).join('');
+        }
+
         function handleSendChatMessage(e) {
             e.preventDefault();
             const setor = document.getElementById('chatSetor').value;
@@ -1733,86 +1727,57 @@
                 setor,
                 texto,
                 autor: currentUserProfile?.nome || 'Usuário',
-                data: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+                data: new Date().toLocaleDateString('pt-BR')
             });
             savePersistentData();
-            document.getElementById('chatTexto').value = '';
+            document.getElementById('formChatMsg').reset();
             renderChatMessages();
-        }
-
-        function renderChatMessages() {
-            const list = document.getElementById('chatMessagesList');
-            if (!list) return;
-            if (mockMensagens.length === 0) {
-                list.innerHTML = '<p class="text-slate-400 text-xs text-center py-4">Nenhuma mensagem registrada.</p>';
-                return;
-            }
-            list.innerHTML = mockMensagens.map(m => `
-                <div class="bg-slate-700/40 p-3 rounded-xl border border-slate-600 space-y-1">
-                    <div class="flex justify-between items-center text-[10px]">
-                        <span class="font-bold text-emerald-400">${m.autor} → ${m.setor}</span>
-                        <span class="text-slate-400">${m.data}</span>
-                    </div>
-                    <p class="text-slate-200 text-xs">${m.texto}</p>
-                </div>
-            `).join('');
         }
 
         function processTriagem(tipo) {
             const res = document.getElementById('triagemResult');
             if (!res) return;
-            res.classList.remove('hidden');
-            const msgs = {
-                'emocional': 'Recomendamos agendar um atendimento com a equipe de Psicologia.',
-                'academico': 'Sugerimos procurar o setor de Apoio Pedagógico.',
-                'social': 'Dirija-se ao Serviço Social do IFAL para obter orientações sobre programas e auxílios.',
-                'saude': 'Você pode buscar atendimento direto na Sala de Saúde / Enfermagem do campus.'
+            const mapa = {
+                'emocional': { setor: 'Psicologia', desc: 'Recomendamos agendar ou solicitar um acolhimento psicológico no campus.' },
+                'academico': { setor: 'Apoio Pedagógico', desc: 'Sugerimos procurar a equipe pedagógica para organização de plano de estudos.' },
+                'social': { setor: 'Serviço Social', desc: 'Orientações sobre auxílios estudantis e apoios socioeconômicos.' },
+                'saude': { setor: 'Sala de Enfermagem', desc: 'Atendimento presencial para orientações de saúde e verificação de sinais vitais.' }
             };
-            res.innerHTML = `
-                <p class="font-bold text-emerald-300">Orientação de Encaminhamento:</p>
-                <p class="text-slate-200 mt-1">${msgs[tipo] || 'Procure a Coordenação Geral do campus.'}</p>
-                <button onclick="switchTab('solicitacoes')" class="mt-3 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl font-bold text-xs transition">
-                    Ir para Solicitação
-                </button>
-            `;
+            const item = mapa[tipo];
+            if (item) {
+                res.classList.remove('hidden');
+                res.innerHTML = `
+                    <h4 class="font-bold text-emerald-300 text-sm">Direcionamento Recomendado: ${item.setor}</h4>
+                    <p class="text-slate-200 text-xs mt-1">${item.desc}</p>
+                    <button onclick="preSelectService('${item.setor}')" class="mt-2 px-3 py-1.5 bg-emerald-600 text-white rounded-lg font-bold text-xs">Ir para Solicitação</button>
+                `;
+            }
         }
 
         function initDashboardChart() {
             const canvas = document.getElementById('dashboardChart');
-            if (!canvas || typeof Chart === 'undefined') return;
+            if (!canvas) return;
             if (window.myDashChart) window.myDashChart.destroy();
+            
             const ctx = canvas.getContext('2d');
             window.myDashChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['Psicologia', 'Pedagogia', 'Serviço Social', 'Enfermagem', 'Coordenação'],
+                    labels: ['Psicologia', 'Pedagogia', 'Serv. Social', 'Enfermagem', 'Coordenação'],
                     datasets: [{
-                        label: 'Atendimentos Realizados',
-                        data: [12, 19, 8, 15, 5],
-                        backgroundColor: '#059669',
+                        label: 'Atendimentos',
+                        data: [12, 8, 15, 20, 5],
+                        backgroundColor: ['#f43f5e', '#60a5fa', '#f59e0b', '#34d399', '#a855f7'],
                         borderRadius: 8
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            labels: {
-                                color: '#94a3b8',
-                                font: { family: 'Inter', size: 11 }
-                            }
-                        }
-                    },
+                    plugins: { legend: { display: false } },
                     scales: {
-                        x: {
-                            ticks: { color: '#94a3b8', font: { family: 'Inter', size: 10 } },
-                            grid: { color: 'rgba(51, 65, 85, 0.3)' }
-                        },
-                        y: {
-                            ticks: { color: '#94a3b8', font: { family: 'Inter', size: 10 } },
-                            grid: { color: 'rgba(51, 65, 85, 0.3)' }
-                        }
+                        x: { ticks: { color: '#94a3b8' }, grid: { display: false } },
+                        y: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } }
                     }
                 }
             });
