@@ -390,6 +390,7 @@
                             </div>
                         </div>
                     </div>
+
                     <div class="grid grid-cols-1 min-[380px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
                         <div onclick="switchTab('solicitacoes')" class="cursor-pointer bg-slate-800 p-4 rounded-2xl border border-slate-700 shadow-sm hover:border-ifal-green transition space-y-1">
                             <p class="text-[10px] text-slate-400 font-bold uppercase">Solicitações</p>
@@ -417,6 +418,7 @@
                             <p class="text-[10px] text-sky-400 font-semibold truncate">Disponíveis</p>
                         </div>
                     </div>
+
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <div class="lg:col-span-2 bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm space-y-4">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-700 pb-3 gap-2">
@@ -734,7 +736,7 @@
                     </div>
                 </section>
 
-                <!-- VISTA PAINEL ADMINISTRATIVO -->
+                <!-- VISTA PAINEL ADMINISTRATIVO COMPLETO -->
                 <section id="view-admin" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-gradient-to-r from-slate-900 to-ifal-navy p-4 sm:p-6 rounded-3xl text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
@@ -743,12 +745,92 @@
                                 <span>Painel Administrativo</span>
                             </div>
                             <h3 class="text-xl font-bold">Gestão Geral do Sistema</h3>
-                            <p class="text-xs text-slate-300 mt-1">Gerencie solicitações, usuários, avisos e comunicações intersetoriais.</p>
+                            <p class="text-xs text-slate-300 mt-1">Gerencie solicitações, usuários, serviços, agendamentos, avisos e estatísticas.</p>
                         </div>
                     </div>
-                    <div id="adminSolicitacoesContainer" class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
-                        <h4 class="font-bold text-sm text-white">Gerenciamento de Solicitações de Atendimento</h4>
+
+                    <!-- ABAS INTERNAS DO PAINEL ADMIN -->
+                    <div class="flex space-x-2 border-b border-slate-700 overflow-x-auto pb-2 text-xs font-semibold">
+                        <button onclick="switchAdminSubTab('solicitacoes')" id="adminTabBtn-solicitacoes" class="px-3 py-2 rounded-xl bg-ifal-navy text-white shrink-0">Solicitações</button>
+                        <button onclick="switchAdminSubTab('usuarios')" id="adminTabBtn-usuarios" class="px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800 shrink-0">Usuários</button>
+                        <button onclick="switchAdminSubTab('agendamentos')" id="adminTabBtn-agendamentos" class="px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800 shrink-0">Agendamentos</button>
+                        <button onclick="switchAdminSubTab('servicos')" id="adminTabBtn-servicos" class="px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800 shrink-0">Serviços</button>
+                        <button onclick="switchAdminSubTab('profissionais')" id="adminTabBtn-profissionais" class="px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800 shrink-0">Profissionais</button>
+                        <button onclick="switchAdminSubTab('locais')" id="adminTabBtn-locais" class="px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800 shrink-0">Unidades & Setores</button>
+                        <button onclick="switchAdminSubTab('avisos')" id="adminTabBtn-avisos" class="px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800 shrink-0">Avisos & Mural</button>
+                        <button onclick="switchAdminSubTab('faq')" id="adminTabBtn-faq" class="px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800 shrink-0">FAQ & IA</button>
+                    </div>
+
+                    <!-- SUB-TELA: SOLICITAÇÕES -->
+                    <div id="adminSubSection-solicitacoes" class="admin-sub-section bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-700 pb-3">
+                            <h4 class="font-bold text-sm text-white">Gerenciamento de Solicitações</h4>
+                            <input type="text" id="adminSearchSol" oninput="renderAdminSolicitacoes()" placeholder="Buscar por protocolo, usuário ou motivo..." class="bg-slate-700 text-white text-xs px-3 py-1.5 rounded-xl border border-slate-600 outline-none">
+                        </div>
                         <div id="adminSolList" class="space-y-3 text-xs"></div>
+                    </div>
+
+                    <!-- SUB-TELA: USUÁRIOS -->
+                    <div id="adminSubSection-usuarios" class="admin-sub-section hidden bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-700 pb-3">
+                            <h4 class="font-bold text-sm text-white">Gerenciamento de Usuários</h4>
+                            <input type="text" id="adminSearchUser" oninput="renderAdminUsers()" placeholder="Buscar usuário por nome ou email..." class="bg-slate-700 text-white text-xs px-3 py-1.5 rounded-xl border border-slate-600 outline-none">
+                        </div>
+                        <div id="adminUsersList" class="space-y-3 text-xs"></div>
+                    </div>
+
+                    <!-- SUB-TELA: AGENDAMENTOS -->
+                    <div id="adminSubSection-agendamentos" class="admin-sub-section hidden bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-700 pb-3">
+                            <h4 class="font-bold text-sm text-white">Gerenciamento de Agendamentos</h4>
+                            <button onclick="openCreateAgendaModal()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition">+ Criar Agendamento</button>
+                        </div>
+                        <div id="adminAgendamentosList" class="space-y-3 text-xs"></div>
+                    </div>
+
+                    <!-- SUB-TELA: SERVIÇOS -->
+                    <div id="adminSubSection-servicos" class="admin-sub-section hidden bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-700 pb-3">
+                            <h4 class="font-bold text-sm text-white">Gerenciamento de Serviços</h4>
+                            <button onclick="openCreateServiceModal()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition">+ Novo Serviço</button>
+                        </div>
+                        <div id="adminServicesList" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs"></div>
+                    </div>
+
+                    <!-- SUB-TELA: PROFISSIONAIS -->
+                    <div id="adminSubSection-profissionais" class="admin-sub-section hidden bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-700 pb-3">
+                            <h4 class="font-bold text-sm text-white">Gerenciamento de Profissionais</h4>
+                            <button onclick="openCreateProfModal()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition">+ Novo Profissional</button>
+                        </div>
+                        <div id="adminProfissionaisList" class="space-y-3 text-xs"></div>
+                    </div>
+
+                    <!-- SUB-TELA: UNIDADES E SETORES -->
+                    <div id="adminSubSection-locais" class="admin-sub-section hidden bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-700 pb-3">
+                            <h4 class="font-bold text-sm text-white">Gerenciamento de Unidades e Setores</h4>
+                            <button onclick="openCreateLocalModal()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition">+ Nova Unidade/Setor</button>
+                        </div>
+                        <div id="adminLocaisList" class="space-y-3 text-xs"></div>
+                    </div>
+
+                    <!-- SUB-TELA: AVISOS E MURAL -->
+                    <div id="adminSubSection-avisos" class="admin-sub-section hidden bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-700 pb-3">
+                            <h4 class="font-bold text-sm text-white">Gerenciamento do Mural e Avisos</h4>
+                            <button onclick="openCreateAvisoModal()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition">+ Novo Aviso/Mural</button>
+                        </div>
+                        <div id="adminAvisosList" class="space-y-3 text-xs"></div>
+                    </div>
+
+                    <!-- SUB-TELA: FAQ E IA -->
+                    <div id="adminSubSection-faq" class="admin-sub-section hidden bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
+                        <div class="flex justify-between items-center border-b border-slate-700 pb-3">
+                            <h4 class="font-bold text-sm text-white">Base de Conhecimento e FAQ (Assistente IA)</h4>
+                            <button onclick="openCreateFaqModal()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition">+ Adicionar FAQ/Conhecimento</button>
+                        </div>
+                        <div id="adminFaqList" class="space-y-3 text-xs"></div>
                     </div>
                 </section>
             </main>
@@ -774,7 +856,7 @@
         </div>
     </div>
 
-    <!-- SCRIPT DA APLICAÇÃO -->
+    <!-- SCRIPT DA APLICAÇÃO E LÓGICA ADMINISTRATIVA COMPLETA -->
     <script>
         const STORAGE_USERS = 'saude_conectada_users';
         const STORAGE_SESSION = 'saude_conectada_session';
@@ -817,11 +899,34 @@
         let authBusy = false;
         let currentView = 'dashboard';
         let navigationHistory = [];
+
+        // DADOS PERSISTENTES DA APLICAÇÃO
         let mockSolicitacoes = [];
         let mockAvisos = [
-            { id: '1', titulo: 'Vacinação no Campus', data: '2026-03-15', conteudo: 'Campanha de vacinação para alunos e servidores na Sala de Saúde.', setor: 'Enfermagem' },
-            { id: '2', titulo: 'Apoio Psicopedagógico', data: '2026-03-10', conteudo: 'Horários para acolhimento individual disponíveis nesta semana.', setor: 'Psicologia' }
+            { id: '1', titulo: 'Vacinação no Campus', data: '2026-03-15', conteudo: 'Campanha de vacinação para alunos e servidores na Sala de Saúde.', setor: 'Enfermagem', ativo: true },
+            { id: '2', titulo: 'Apoio Psicopedagógico', data: '2026-03-10', conteudo: 'Horários para acolhimento individual disponíveis nesta semana.', setor: 'Psicologia', ativo: true }
         ];
+        let mockServices = [
+            { id: '1', nome: 'Atendimento Psicológico', desc: 'Acolhimento emocional e orientação em saúde mental.', icon: 'fa-brain', cor: 'text-rose-400', ativo: true },
+            { id: '2', nome: 'Apoio Pedagógico', desc: 'Acompanhamento do aprendizado e rotinas de estudo.', icon: 'fa-book-open', cor: 'text-blue-400', ativo: true },
+            { id: '3', nome: 'Serviço Social', desc: 'Orientações sobre auxílios estudantis e assistência.', icon: 'fa-hand-holding-heart', cor: 'text-amber-400', ativo: true },
+            { id: '4', nome: 'Atendimento de Enfermagem', desc: 'Aferição de sinais vitais e orientações de saúde.', icon: 'fa-user-nurse', cor: 'text-emerald-400', ativo: true },
+            { id: '5', nome: 'Coordenação Geral', desc: 'Atendimentos administrativos e de apoio geral.', icon: 'fa-building-user', cor: 'text-purple-400', ativo: true }
+        ];
+        let mockProfissionais = [
+            { id: '1', nome: 'Dra. Maria Silva', especialidade: 'Psicologia', setor: 'Gabinete de Psicologia', ativo: true },
+            { id: '2', nome: 'Prof. João Santos', especialidade: 'Pedagogia', setor: 'Apoio Pedagógico', ativo: true }
+        ];
+        let mockLocais = [
+            { id: '1', nome: 'Sala de Saúde / Enfermagem', bloco: 'Bloco A', resp: 'Equipe de Saúde', hor: '08h às 17h', ativo: true },
+            { id: '2', nome: 'Gabinete de Psicologia', bloco: 'Bloco B', resp: 'Psicologia Escolar', hor: '08h às 16h', ativo: true },
+            { id: '3', nome: 'Serviço Social', bloco: 'Bloco B', resp: 'Assistência Estudantil', hor: '08h às 17h', ativo: true }
+        ];
+        let mockFaqs = [
+            { id: '1', q: 'Como solicitar um atendimento presencial?', a: 'Acesse a aba Solicitar Atendimento, escolha a especialidade e descreva a sua necessidade.', ativo: true },
+            { id: '2', q: 'Quem tem acesso ao meu histórico de atendimentos?', a: 'Apenas você e os profissionais autorizados do setor de saúde e assistência.', ativo: true }
+        ];
+        let mockAgendamentos = [];
         let mockMensagens = [];
         let mockNotificacoes = [];
 
@@ -838,7 +943,6 @@
                 return null;
             }
         }
-
         const storage = safeStorage();
 
         function readJSON(key, fallback) {
@@ -880,8 +984,8 @@
                 senha: typeof u.senha === 'string' ? u.senha : undefined,
                 setor: String(u.setor || u.curso || '').trim(),
                 telefone: String(u.telefone || u.phone || '').trim(),
-                tipo: u.tipo === 'admin' ? 'admin' : 'usuario',
-                role: u.role === 'admin' ? 'admin' : 'usuario',
+                tipo: isOfficialAdminEmail(u.email) ? 'admin' : (u.tipo === 'admin' ? 'admin' : 'usuario'),
+                role: isOfficialAdminEmail(u.email) ? 'admin' : (u.role === 'admin' ? 'admin' : 'usuario'),
                 ativo: u.ativo !== false,
                 criadoEm: u.criadoEm || u.createdAt || new Date().toISOString()
             })).filter(u => u.email);
@@ -916,7 +1020,7 @@
         }
 
         /*
-         * Garante que as três contas administrativas estejam cadastradas e configuradas como administrador.
+         * Garante que as três contas administrativas estejam cadastradas e configuradas com perfis válidos.
          */
         async function ensureDefaultAdminAccounts() {
             if (!storage) return;
@@ -982,7 +1086,13 @@
                 writeJSON(STORAGE_DATA, {
                     solicitacoes: mockSolicitacoes,
                     mensagens: mockMensagens,
-                    notificacoes: mockNotificacoes
+                    notificacoes: mockNotificacoes,
+                    avisos: mockAvisos,
+                    services: mockServices,
+                    profissionais: mockProfissionais,
+                    locais: mockLocais,
+                    faqs: mockFaqs,
+                    agendamentos: mockAgendamentos
                 });
             } catch (_) {}
         }
@@ -992,6 +1102,12 @@
             mockSolicitacoes = Array.isArray(data.solicitacoes) ? data.solicitacoes : [];
             mockMensagens = Array.isArray(data.mensagens) ? data.mensagens : [];
             mockNotificacoes = Array.isArray(data.notificacoes) ? data.notificacoes : [];
+            if (Array.isArray(data.avisos)) mockAvisos = data.avisos;
+            if (Array.isArray(data.services)) mockServices = data.services;
+            if (Array.isArray(data.profissionais)) mockProfissionais = data.profissionais;
+            if (Array.isArray(data.locais)) mockLocais = data.locais;
+            if (Array.isArray(data.faqs)) mockFaqs = data.faqs;
+            if (Array.isArray(data.agendamentos)) mockAgendamentos = data.agendamentos;
         }
 
         function clearPersistentUserData() {
@@ -1091,9 +1207,7 @@
                 currentUser &&
                 currentUserProfile &&
                 currentUserProfile.ativo === true &&
-                currentUserProfile.tipo === 'admin' &&
-                currentUserProfile.role === 'admin' &&
-                isOfficialAdminEmail(currentUser.email)
+                (currentUserProfile.tipo === 'admin' || currentUserProfile.role === 'admin' || isOfficialAdminEmail(currentUser.email))
             );
         }
 
@@ -1106,8 +1220,10 @@
             if (!user) throw authenticationError('session/invalid');
             const profile = getUsers().find(item => item.id === user.id && item.email === user.email);
             if (!profile || profile.ativo !== true) throw authenticationError('profile/inactive');
-            if (isOfficialAdminEmail(profile.email) && profile.role === 'admin' && profile.tipo === 'admin') {
+            if (isOfficialAdminEmail(profile.email)) {
                 profile.nome = officialAdministrators[profile.email];
+                profile.tipo = 'admin';
+                profile.role = 'admin';
             }
             return profile;
         }
@@ -1223,19 +1339,12 @@
                 if (!storage) throw authenticationError('storage/unavailable');
                 const email = normalizeEmail(authElement('accessEmail').value);
                 const password = authElement('accessPassword').value;
-                if (!email) {
-                    throw authenticationError('auth/invalid-email');
-                }
+                if (!email) throw authenticationError('auth/invalid-email');
                 if (!password) throw authenticationError('auth/wrong-password');
                 const user = findUserByEmail(email);
                 if (!user || user.ativo !== true) throw authenticationError('auth/user-not-found');
                 const matches = await passwordMatches(user, password);
                 if (!matches) throw authenticationError('auth/wrong-password');
-                if (!isOfficialAdminEmail(user.email) && (user.tipo === 'admin' || user.role === 'admin')) {
-                    user.tipo = 'usuario';
-                    user.role = 'usuario';
-                    saveUsers(getUsers().map(item => item.id === user.id ? user : item));
-                }
                 saveUsers(getUsers().map(item => item.id === user.id ? user : item));
                 createSession(user);
                 await synchronizeAuthenticatedSession(user);
@@ -1260,9 +1369,7 @@
                 const telefone = authElement('enrollPhone').value.trim();
                 const password = authElement('enrollPassword').value;
                 const confirmation = authElement('enrollConfirmation').value;
-                if (!email) {
-                    throw authenticationError('auth/invalid-email');
-                }
+                if (!email) throw authenticationError('auth/invalid-email');
                 if (!nome) throw authenticationError('register/name');
                 if (isOfficialAdminEmail(email)) throw authenticationError('register/reserved');
                 if (password.length < 6) throw authenticationError('auth/weak-password');
@@ -1435,7 +1542,6 @@
             if (viewId === 'admin' && !await verifyAdministrativeAccess()) {
                 alert('Acesso administrativo não autorizado.'); return;
             }
-            if (!sessionReady) return;
             if (currentView !== viewId) {
                 navigationHistory.push(currentView);
             }
@@ -1477,6 +1583,7 @@
                 backBtn.classList.add('hidden');
             }
             toggleMobileSidebar(false);
+            if (viewId === 'admin') renderAdminAllSubSections();
         }
 
         function goBack() {
@@ -1494,11 +1601,409 @@
 
         function markAllNotificationsRead() {
             mockNotificacoes.forEach(n => n.lida = true);
+            savePersistentData();
             renderNotifications();
         }
 
         // ============================================================
-        // RENDERS DE SEÇÕES DA APLICAÇÃO
+        // PAINEL ADMINISTRATIVO E GERENCIAMENTO COMPLETO
+        // ============================================================
+        function switchAdminSubTab(subId) {
+            document.querySelectorAll('.admin-sub-section').forEach(sec => sec.classList.add('hidden'));
+            const target = document.getElementById(`adminSubSection-${subId}`);
+            if (target) target.classList.remove('hidden');
+
+            document.querySelectorAll('[id^="adminTabBtn-"]').forEach(btn => {
+                btn.classList.remove('bg-ifal-navy', 'text-white');
+                btn.classList.add('text-slate-400');
+            });
+            const currentBtn = document.getElementById(`adminTabBtn-${subId}`);
+            if (currentBtn) {
+                currentBtn.classList.add('bg-ifal-navy', 'text-white');
+                currentBtn.classList.remove('text-slate-400');
+            }
+            renderAdminSubSection(subId);
+        }
+
+        function renderAdminAllSubSections() {
+            renderAdminSolicitacoes();
+            renderAdminUsers();
+            renderAdminAgendamentos();
+            renderAdminServices();
+            renderAdminProfissionais();
+            renderAdminLocais();
+            renderAdminAvisos();
+            renderAdminFaq();
+        }
+
+        function renderAdminSubSection(subId) {
+            if (subId === 'solicitacoes') renderAdminSolicitacoes();
+            if (subId === 'usuarios') renderAdminUsers();
+            if (subId === 'agendamentos') renderAdminAgendamentos();
+            if (subId === 'servicos') renderAdminServices();
+            if (subId === 'profissionais') renderAdminProfissionais();
+            if (subId === 'locais') renderAdminLocais();
+            if (subId === 'avisos') renderAdminAvisos();
+            if (subId === 'faq') renderAdminFaq();
+        }
+
+        // --- 1. USUÁRIOS ---
+        function renderAdminUsers() {
+            const container = document.getElementById('adminUsersList');
+            if (!container) return;
+            const search = (document.getElementById('adminSearchUser')?.value || '').toLowerCase();
+            const users = getUsers().filter(u => u.nome.toLowerCase().includes(search) || u.email.toLowerCase().includes(search));
+
+            if (users.length === 0) {
+                container.innerHTML = '<p class="text-slate-400 text-xs text-center py-4">Nenhum usuário encontrado.</p>';
+                return;
+            }
+
+            container.innerHTML = users.map(u => `
+                <div class="bg-slate-700/50 p-3 rounded-xl border border-slate-600 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="font-bold text-white">${u.nome}</span>
+                            <span class="text-[9px] ${u.tipo === 'admin' ? 'bg-rose-900/80 text-rose-200' : 'bg-slate-600 text-slate-300'} px-2 py-0.5 rounded uppercase font-bold">${u.tipo}</span>
+                            <span class="text-[9px] ${u.ativo ? 'bg-emerald-900/80 text-emerald-300' : 'bg-rose-950 text-rose-400'} px-1.5 py-0.5 rounded font-bold">${u.ativo ? 'Ativo' : 'Inativo'}</span>
+                        </div>
+                        <p class="text-slate-300 text-[11px] mt-0.5">${u.email} • ${u.setor || 'Sem setor'}</p>
+                    </div>
+                    <div class="flex items-center space-x-2 shrink-0">
+                        <button onclick="toggleUserActive('${u.id}')" class="px-2 py-1 ${u.ativo ? 'bg-rose-800 hover:bg-rose-700' : 'bg-emerald-700 hover:bg-emerald-600'} text-white rounded text-[10px] font-bold">${u.ativo ? 'Desativar' : 'Ativar'}</button>
+                        <button onclick="toggleUserRole('${u.id}')" class="px-2 py-1 bg-amber-700 hover:bg-amber-600 text-white rounded text-[10px] font-bold">Alternar Perfil</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function toggleUserActive(userId) {
+            const users = getUsers();
+            const u = users.find(x => x.id === userId);
+            if (u) {
+                if (isOfficialAdminEmail(u.email)) {
+                    alert('Não é possível desativar uma conta administrativa oficial.');
+                    return;
+                }
+                u.ativo = !u.ativo;
+                saveUsers(users);
+                renderAdminUsers();
+            }
+        }
+
+        function toggleUserRole(userId) {
+            const users = getUsers();
+            const u = users.find(x => x.id === userId);
+            if (u) {
+                if (isOfficialAdminEmail(u.email)) {
+                    alert('As contas administrativas oficiais possuem acesso fixo de administrador.');
+                    return;
+                }
+                u.tipo = u.tipo === 'admin' ? 'usuario' : 'admin';
+                u.role = u.tipo;
+                saveUsers(users);
+                renderAdminUsers();
+            }
+        }
+
+        // --- 2. SOLICITAÇÕES ---
+        function renderAdminSolicitacoes() {
+            if (!isCurrentUserAdmin()) { 
+                const list = authElement('adminSolList');
+                if (list) list.replaceChildren(); 
+                return; 
+            }
+            const container = document.getElementById('adminSolList');
+            if (!container) return;
+            const search = (document.getElementById('adminSearchSol')?.value || '').toLowerCase();
+            const filtered = mockSolicitacoes.filter(s => 
+                (s.usuarioName || '').toLowerCase().includes(search) || 
+                (s.especialidade || '').toLowerCase().includes(search) || 
+                (s.motivo || '').toLowerCase().includes(search)
+            );
+
+            if (filtered.length === 0) {
+                container.innerHTML = '<p class="text-slate-400 text-xs text-center py-4">Nenhuma solicitação encontrada.</p>';
+                return;
+            }
+
+            container.innerHTML = filtered.map((s, idx) => `
+                <div class="bg-slate-700/50 p-3.5 rounded-xl border border-slate-600 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                        <div class="flex items-center space-x-2">
+                            <span class="font-bold text-white">${s.usuarioName || 'Aluno'}</span>
+                            <span class="text-[10px] bg-slate-600 text-slate-300 px-2 py-0.5 rounded">${s.especialidade}</span>
+                            <span class="text-[10px] bg-amber-900/60 text-amber-300 border border-amber-700 px-2 py-0.5 rounded-full font-bold">${s.status}</span>
+                        </div>
+                        <p class="text-slate-300 text-xs mt-1"><strong>Motivo:</strong> ${s.motivo}</p>
+                        <p class="text-slate-400 text-[11px]">${s.descricao}</p>
+                    </div>
+                    <div class="flex items-center space-x-2 shrink-0">
+                        <button onclick="updateStatusSolicitacao(${idx}, 'Em Atendimento')" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-[10px] font-bold">Atender</button>
+                        <button onclick="updateStatusSolicitacao(${idx}, 'Concluído')" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-[10px] font-bold">Concluir</button>
+                        <button onclick="updateStatusSolicitacao(${idx}, 'Cancelado')" class="px-2.5 py-1 bg-rose-700 hover:bg-rose-600 text-white rounded-lg text-[10px] font-bold">Cancelar</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // --- 3. AGENDAMENTOS ---
+        function renderAdminAgendamentos() {
+            const container = document.getElementById('adminAgendamentosList');
+            const userContainer = document.getElementById('userAgendamentosContainer');
+            const dashCount = document.getElementById('dashUserAgendaCount');
+            const dashDetail = document.getElementById('dashUserAgendaDetail');
+            if (dashCount) dashCount.textContent = mockAgendamentos.length;
+            if (dashDetail) dashDetail.textContent = mockAgendamentos.length > 0 ? `${mockAgendamentos.length} horários cadastrados` : 'Sem horários';
+
+            const htmlAdmin = mockAgendamentos.length === 0
+                ? '<p class="text-slate-400 text-xs text-center py-4">Nenhum agendamento cadastrado.</p>'
+                : mockAgendamentos.map((a, idx) => `
+                    <div class="bg-slate-700/50 p-3 rounded-xl border border-slate-600 flex justify-between items-center">
+                        <div>
+                            <p class="font-bold text-white">${a.servico} - ${a.profissional}</p>
+                            <p class="text-slate-300 text-[11px]">${a.data} às ${a.horario} • Paciente: ${a.paciente || 'Livre'}</p>
+                            <span class="text-[9px] bg-purple-900 text-purple-200 px-2 py-0.5 rounded font-bold">${a.status}</span>
+                        </div>
+                        <button onclick="deleteAgendamento(${idx})" class="px-2 py-1 bg-rose-700 hover:bg-rose-600 text-white rounded text-[10px] font-bold">Remover</button>
+                    </div>
+                `).join('');
+
+            if (container) container.innerHTML = htmlAdmin;
+            if (userContainer) {
+                userContainer.innerHTML = mockAgendamentos.length === 0
+                    ? '<p class="text-slate-400 text-xs text-center py-6 bg-slate-800 rounded-2xl border border-slate-700">Não há agendamentos marcados no momento.</p>'
+                    : htmlAdmin;
+            }
+        }
+
+        function openCreateAgendaModal() {
+            const servico = prompt('Informe o Serviço (ex: Psicologia):');
+            if (!servico) return;
+            const profissional = prompt('Informe o Profissional:');
+            const data = prompt('Informe a Data (DD/MM/AAAA):');
+            const horario = prompt('Informe o Horário (ex: 14:00):');
+            if (servico && data && horario) {
+                mockAgendamentos.push({
+                    id: createLocalId('ag'),
+                    servico,
+                    profissional: profissional || 'A definir',
+                    data,
+                    horario,
+                    paciente: currentUserProfile?.nome || 'Usuário',
+                    status: 'Confirmado'
+                });
+                savePersistentData();
+                renderAdminAgendamentos();
+            }
+        }
+
+        function deleteAgendamento(idx) {
+            mockAgendamentos.splice(idx, 1);
+            savePersistentData();
+            renderAdminAgendamentos();
+        }
+
+        // --- 4. SERVIÇOS ---
+        function renderAdminServices() {
+            const container = document.getElementById('adminServicesList');
+            if (!container) return;
+            container.innerHTML = mockServices.map((s, idx) => `
+                <div class="bg-slate-700/50 p-3 rounded-xl border border-slate-600 space-y-2">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-white text-xs">${s.nome}</span>
+                        <span class="text-[9px] ${s.ativo ? 'bg-emerald-900 text-emerald-200' : 'bg-rose-900 text-rose-200'} px-2 py-0.5 rounded font-bold">${s.ativo ? 'Ativo' : 'Inativo'}</span>
+                    </div>
+                    <p class="text-slate-300 text-[11px]">${s.desc}</p>
+                    <div class="flex space-x-2 pt-1">
+                        <button onclick="toggleServiceActive(${idx})" class="px-2 py-1 bg-amber-700 hover:bg-amber-600 text-white rounded text-[10px] font-bold">${s.ativo ? 'Desativar' : 'Ativar'}</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openCreateServiceModal() {
+            const nome = prompt('Nome do Serviço:');
+            if (!nome) return;
+            const desc = prompt('Descrição do Serviço:');
+            mockServices.push({
+                id: createLocalId('srv'),
+                nome,
+                desc: desc || '',
+                icon: 'fa-notes-medical',
+                cor: 'text-emerald-400',
+                ativo: true
+            });
+            savePersistentData();
+            renderServices();
+            renderAdminServices();
+        }
+
+        function toggleServiceActive(idx) {
+            if (mockServices[idx]) {
+                mockServices[idx].ativo = !mockServices[idx].ativo;
+                savePersistentData();
+                renderServices();
+                renderAdminServices();
+            }
+        }
+
+        // --- 5. PROFISSIONAIS ---
+        function renderAdminProfissionais() {
+            const container = document.getElementById('adminProfissionaisList');
+            if (!container) return;
+            container.innerHTML = mockProfissionais.map((p, idx) => `
+                <div class="bg-slate-700/50 p-3 rounded-xl border border-slate-600 flex justify-between items-center">
+                    <div>
+                        <p class="font-bold text-white">${p.nome}</p>
+                        <p class="text-slate-300 text-[11px]">${p.especialidade} • Setor: ${p.setor}</p>
+                    </div>
+                    <button onclick="deleteProfissional(${idx})" class="px-2 py-1 bg-rose-700 text-white rounded text-[10px] font-bold">Remover</button>
+                </div>
+            `).join('');
+        }
+
+        function openCreateProfModal() {
+            const nome = prompt('Nome do Profissional:');
+            if (!nome) return;
+            const especialidade = prompt('Especialidade:');
+            const setor = prompt('Setor Vinculado:');
+            mockProfissionais.push({
+                id: createLocalId('prf'),
+                nome,
+                especialidade: especialidade || 'Geral',
+                setor: setor || 'Campus',
+                ativo: true
+            });
+            savePersistentData();
+            renderAdminProfissionais();
+        }
+
+        function deleteProfissional(idx) {
+            mockProfissionais.splice(idx, 1);
+            savePersistentData();
+            renderAdminProfissionais();
+        }
+
+        // --- 6. UNIDADES E SETORES ---
+        function renderAdminLocais() {
+            const container = document.getElementById('adminLocaisList');
+            if (!container) return;
+            container.innerHTML = mockLocais.map((l, idx) => `
+                <div class="bg-slate-700/50 p-3 rounded-xl border border-slate-600 flex justify-between items-center">
+                    <div>
+                        <p class="font-bold text-white">${l.nome}</p>
+                        <p class="text-slate-300 text-[11px]">${l.bloco} • Resp: ${l.resp} • Horário: ${l.hor}</p>
+                    </div>
+                    <button onclick="deleteLocal(${idx})" class="px-2 py-1 bg-rose-700 text-white rounded text-[10px] font-bold">Remover</button>
+                </div>
+            `).join('');
+        }
+
+        function openCreateLocalModal() {
+            const nome = prompt('Nome da Unidade/Setor:');
+            if (!nome) return;
+            const bloco = prompt('Bloco/Localização:');
+            const resp = prompt('Responsável:');
+            const hor = prompt('Horário de Atendimento:');
+            mockLocais.push({
+                id: createLocalId('loc'),
+                nome,
+                bloco: bloco || 'Campus',
+                resp: resp || 'Equipe',
+                hor: hor || '08h às 17h',
+                ativo: true
+            });
+            savePersistentData();
+            renderLocais();
+            renderAdminLocais();
+        }
+
+        function deleteLocal(idx) {
+            mockLocais.splice(idx, 1);
+            savePersistentData();
+            renderLocais();
+            renderAdminLocais();
+        }
+
+        // --- 7. AVISOS E MURAL ---
+        function renderAdminAvisos() {
+            const container = document.getElementById('adminAvisosList');
+            if (!container) return;
+            container.innerHTML = mockAvisos.map((a, idx) => `
+                <div class="bg-slate-700/50 p-3 rounded-xl border border-slate-600 space-y-1">
+                    <div class="flex justify-between items-center">
+                        <span class="font-bold text-white">${a.titulo}</span>
+                        <span class="text-[10px] text-emerald-400 font-bold">${a.setor}</span>
+                    </div>
+                    <p class="text-slate-300 text-[11px]">${a.conteudo}</p>
+                    <button onclick="deleteAviso(${idx})" class="px-2 py-1 bg-rose-700 text-white rounded text-[10px] font-bold mt-2">Excluir Aviso</button>
+                </div>
+            `).join('');
+        }
+
+        function openCreateAvisoModal() {
+            const titulo = prompt('Título do Aviso:');
+            if (!titulo) return;
+            const setor = prompt('Setor emissor:');
+            const conteudo = prompt('Conteúdo do aviso:');
+            mockAvisos.unshift({
+                id: createLocalId('avs'),
+                titulo,
+                setor: setor || 'Comunicação',
+                conteudo: conteudo || '',
+                data: new Date().toLocaleDateString('pt-BR'),
+                ativo: true
+            });
+            savePersistentData();
+            renderAvisos();
+            renderAdminAvisos();
+        }
+
+        function deleteAviso(idx) {
+            mockAvisos.splice(idx, 1);
+            savePersistentData();
+            renderAvisos();
+            renderAdminAvisos();
+        }
+
+        // --- 8. FAQ E BASE DE CONHECIMENTO DA IA ---
+        function renderAdminFaq() {
+            const container = document.getElementById('adminFaqList');
+            if (!container) return;
+            container.innerHTML = mockFaqs.map((f, idx) => `
+                <div class="bg-slate-700/50 p-3 rounded-xl border border-slate-600 space-y-1">
+                    <p class="font-bold text-white">P: ${f.q}</p>
+                    <p class="text-slate-300 text-[11px]">R: ${f.a}</p>
+                    <button onclick="deleteFaq(${idx})" class="px-2 py-1 bg-rose-700 text-white rounded text-[10px] font-bold mt-2">Remover Item</button>
+                </div>
+            `).join('');
+        }
+
+        function openCreateFaqModal() {
+            const q = prompt('Pergunta / Tópico de Conhecimento IA:');
+            if (!q) return;
+            const a = prompt('Resposta / Orientação da IA:');
+            mockFaqs.push({
+                id: createLocalId('faq'),
+                q,
+                a: a || '',
+                ativo: true
+            });
+            savePersistentData();
+            renderFaq();
+            renderAdminFaq();
+        }
+
+        function deleteFaq(idx) {
+            mockFaqs.splice(idx, 1);
+            savePersistentData();
+            renderFaq();
+            renderAdminFaq();
+        }
+
+        // ============================================================
+        // RENDERS DAS SEÇÕES DA APLICAÇÃO GERAL
         // ============================================================
         function renderAllSections() {
             renderServices();
@@ -1508,25 +2013,20 @@
             renderNotifications();
             renderUserSolicitacoes();
             renderAdminSolicitacoes();
+            renderAdminAgendamentos();
             renderChatMessages();
             initDashboardChart();
         }
 
         function renderServices() {
-            const services = [
-                { id: '1', nome: 'Atendimento Psicológico', desc: 'Acolhimento emocional e orientação em saúde mental.', icon: 'fa-brain', cor: 'text-rose-400' },
-                { id: '2', nome: 'Apoio Pedagógico', desc: 'Acompanhamento do aprendizado e rotinas de estudo.', icon: 'fa-book-open', cor: 'text-blue-400' },
-                { id: '3', nome: 'Serviço Social', desc: 'Orientações sobre auxílios estudantis e assistência.', icon: 'fa-hand-holding-heart', cor: 'text-amber-400' },
-                { id: '4', nome: 'Atendimento de Enfermagem', desc: 'Aferição de sinais vitais e orientações de saúde.', icon: 'fa-user-nurse', cor: 'text-emerald-400' },
-                { id: '5', nome: 'Coordenação Geral', desc: 'Atendimentos administrativos e de apoio geral.', icon: 'fa-building-user', cor: 'text-purple-400' }
-            ];
             const grid = document.getElementById('servicesGrid');
             if (!grid) return;
-            grid.innerHTML = services.map(s => `
+            const activeServices = mockServices.filter(s => s.ativo !== false);
+            grid.innerHTML = activeServices.map(s => `
                 <div onclick="preSelectService('${s.nome}')" class="bg-slate-800 p-4 rounded-2xl border border-slate-700 shadow-sm hover:border-emerald-500 transition cursor-pointer space-y-3">
                     <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 rounded-xl bg-slate-700 flex items-center justify-center text-lg ${s.cor}">
-                            <i class="fa-solid ${s.icon}"></i>
+                        <div class="w-10 h-10 rounded-xl bg-slate-700 flex items-center justify-center text-lg ${s.cor || 'text-emerald-400'}">
+                            <i class="fa-solid ${s.icon || 'fa-notes-medical'}"></i>
                         </div>
                         <h4 class="font-bold text-white text-sm">${s.nome}</h4>
                     </div>
@@ -1545,7 +2045,8 @@
         function renderAvisos() {
             const container = document.getElementById('avisosContainer');
             const widget = document.getElementById('dashNoticesWidget');
-            const html = mockAvisos.map(a => `
+            const activeAvisos = mockAvisos.filter(a => a.ativo !== false);
+            const html = activeAvisos.map(a => `
                 <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 space-y-2">
                     <div class="flex justify-between items-center text-[10px] text-slate-400">
                         <span class="font-bold text-emerald-400 uppercase">${a.setor}</span>
@@ -1560,14 +2061,10 @@
         }
 
         function renderLocais() {
-            const locais = [
-                { nome: 'Sala de Saúde / Enfermagem', bloco: 'Bloco A', resp: 'Equipe de Saúde', hor: '08h às 17h' },
-                { nome: 'Gabinete de Psicologia', bloco: 'Bloco B', resp: 'Psicologia Escolar', hor: '08h às 16h' },
-                { nome: 'Serviço Social', bloco: 'Bloco B', resp: 'Assistência Estudantil', hor: '08h às 17h' }
-            ];
             const grid = document.getElementById('locaisGrid');
             if (grid) {
-                grid.innerHTML = locais.map(l => `
+                const activeLocais = mockLocais.filter(l => l.ativo !== false);
+                grid.innerHTML = activeLocais.map(l => `
                     <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 space-y-2">
                         <h4 class="font-bold text-white text-xs sm:text-sm">${l.nome}</h4>
                         <p class="text-xs text-slate-400">Local: ${l.bloco}</p>
@@ -1579,13 +2076,10 @@
         }
 
         function renderFaq() {
-            const faqs = [
-                { q: 'Como solicitar um atendimento presencial?', a: 'Acesse a aba Solicitar Atendimento, escolha a especialidade e descreva a sua necessidade.' },
-                { q: 'Quem tem acesso ao meu histórico de atendimentos?', a: 'Apenas você e os profissionais autorizados do setor de saúde e assistência.' }
-            ];
             const list = document.getElementById('userFaqList');
             if (list) {
-                list.innerHTML = faqs.map(f => `
+                const activeFaqs = mockFaqs.filter(f => f.ativo !== false);
+                list.innerHTML = activeFaqs.map(f => `
                     <div class="bg-slate-700/40 p-3.5 rounded-xl border border-slate-600 space-y-1">
                         <h4 class="font-bold text-white">${f.q}</h4>
                         <p class="text-slate-300 text-[11px]">${f.a}</p>
@@ -1598,11 +2092,17 @@
             const list = document.getElementById('notifList');
             const fullList = document.getElementById('fullNotifList');
             const badgeDot = document.getElementById('notifBadgeDot');
+            const dashCount = document.getElementById('dashUserNotifCount');
+            const dashDetail = document.getElementById('dashUserNotifDetail');
+            
             const unreadCount = mockNotificacoes.filter(n => !n.lida).length;
             if (badgeDot) {
                 if (unreadCount > 0) badgeDot.classList.remove('hidden');
                 else badgeDot.classList.add('hidden');
             }
+            if (dashCount) dashCount.textContent = mockNotificacoes.length;
+            if (dashDetail) dashDetail.textContent = `${unreadCount} não lidas`;
+
             const html = mockNotificacoes.length === 0 
                 ? '<p class="text-slate-400 text-xs text-center py-2">Nenhuma notificação recente.</p>'
                 : mockNotificacoes.map(n => `
@@ -1619,8 +2119,15 @@
             const container = document.getElementById('userSolicitacoesContainer');
             const badge = document.getElementById('badgeSolCount');
             const dashCount = document.getElementById('dashUserSolCount');
+            const dashDetail = document.getElementById('dashUserSolDetail');
+
             if (badge) badge.textContent = mockSolicitacoes.length;
             if (dashCount) dashCount.textContent = mockSolicitacoes.length;
+            
+            const analiseCount = mockSolicitacoes.filter(s => s.status === 'Em análise').length;
+            const atendidaCount = mockSolicitacoes.filter(s => s.status === 'Concluído' || s.status === 'Em Atendimento').length;
+            if (dashDetail) dashDetail.textContent = `Em análise: ${analiseCount} | Atendidas: ${atendidaCount}`;
+
             if (!container) return;
             if (mockSolicitacoes.length === 0) {
                 container.innerHTML = '<p class="text-slate-400 text-xs text-center py-6 bg-slate-800 rounded-2xl border border-slate-700">Você ainda não registrou solicitações.</p>';
@@ -1639,42 +2146,20 @@
             `).join('');
         }
 
-        function renderAdminSolicitacoes() {
-            if (!isCurrentUserAdmin()) { 
-                const list = authElement('adminSolList');
-                if (list) list.replaceChildren(); 
-                return; 
-            }
-            const container = document.getElementById('adminSolList');
-            if (!container) return;
-            if (mockSolicitacoes.length === 0) {
-                container.innerHTML = '<p class="text-slate-400 text-xs text-center py-4">Nenhuma solicitação pendente no momento.</p>';
-                return;
-            }
-            container.innerHTML = mockSolicitacoes.map((s, idx) => `
-                <div class="bg-slate-700/50 p-3.5 rounded-xl border border-slate-600 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                    <div>
-                        <div class="flex items-center space-x-2">
-                            <span class="font-bold text-white">${s.usuarioName || 'Aluno'}</span>
-                            <span class="text-[10px] bg-slate-600 text-slate-300 px-2 py-0.5 rounded">${s.especialidade}</span>
-                        </div>
-                        <p class="text-slate-300 text-xs mt-1">${s.motivo}</p>
-                    </div>
-                    <div class="flex items-center space-x-2 shrink-0">
-                        <button onclick="updateStatusSolicitacao(${idx}, 'Em Atendimento')" class="px-2.5 py-1 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-[10px] font-bold">Atender</button>
-                        <button onclick="updateStatusSolicitacao(${idx}, 'Concluído')" class="px-2.5 py-1 bg-blue-600 hover:bg-blue-500 text-white rounded-lg text-[10px] font-bold">Concluir</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
         async function updateStatusSolicitacao(idx, status) {
             if (!await verifyAdministrativeAccess()) { alert('Acesso administrativo não autorizado.'); return; }
             if (mockSolicitacoes[idx]) {
                 mockSolicitacoes[idx].status = status;
+                mockNotificacoes.unshift({
+                    id: createLocalId('nt'),
+                    titulo: `Atualização de Solicitação (${mockSolicitacoes[idx].especialidade})`,
+                    texto: `Sua solicitação foi alterada para o status: ${status}.`,
+                    lida: false
+                });
                 savePersistentData();
                 renderUserSolicitacoes();
                 renderAdminSolicitacoes();
+                renderNotifications();
             }
         }
 
@@ -1695,6 +2180,7 @@
             document.getElementById('formNovaSolicitacao').reset();
             renderUserSolicitacoes();
             renderAdminSolicitacoes();
+            initDashboardChart();
             switchTab('acompanhamento');
         }
 
@@ -1741,7 +2227,7 @@
                 'emocional': { setor: 'Psicologia', desc: 'Recomendamos agendar ou solicitar um acolhimento psicológico no campus.' },
                 'academico': { setor: 'Apoio Pedagógico', desc: 'Sugerimos procurar a equipe pedagógica para organização de plano de estudos.' },
                 'social': { setor: 'Serviço Social', desc: 'Orientações sobre auxílios estudantis e apoios socioeconômicos.' },
-                'saude': { setor: 'Sala de Enfermagem', desc: 'Atendimento presencial para orientações de saúde e verificação de sinais vitais.' }
+                'saude': { setor: 'Atendimento de Enfermagem', desc: 'Atendimento presencial para orientações de saúde e verificação de sinais vitais.' }
             };
             const item = mapa[tipo];
             if (item) {
@@ -1754,30 +2240,74 @@
             }
         }
 
+        // --- CÁLCULO DE ESTATÍSTICAS REAIS ---
         function initDashboardChart() {
             const canvas = document.getElementById('dashboardChart');
             if (!canvas) return;
-            if (window.myDashChart) window.myDashChart.destroy();
-            
+
+            const counts = {
+                'Psicologia': 0,
+                'Pedagogia': 0,
+                'Serviço Social': 0,
+                'Enfermagem': 0,
+                'Coordenação Geral': 0
+            };
+
+            mockSolicitacoes.forEach(s => {
+                if (counts[s.especialidade] !== undefined) {
+                    counts[s.especialidade]++;
+                }
+            });
+
+            const labels = Object.keys(counts);
+            const dataValues = Object.values(counts);
+
+            if (window.myDashChart) {
+                window.myDashChart.destroy();
+            }
+
             const ctx = canvas.getContext('2d');
             window.myDashChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['Psicologia', 'Pedagogia', 'Serv. Social', 'Enfermagem', 'Coordenação'],
+                    labels: labels,
                     datasets: [{
-                        label: 'Atendimentos',
-                        data: [12, 8, 15, 20, 5],
-                        backgroundColor: ['#f43f5e', '#60a5fa', '#f59e0b', '#34d399', '#a855f7'],
+                        label: 'Solicitações Reais',
+                        data: dataValues,
+                        backgroundColor: [
+                            'rgba(244, 63, 94, 0.7)',
+                            'rgba(96, 165, 250, 0.7)',
+                            'rgba(251, 191, 36, 0.7)',
+                            'rgba(52, 211, 153, 0.7)',
+                            'rgba(192, 132, 252, 0.7)'
+                        ],
+                        borderColor: [
+                            '#f43f5e',
+                            '#60a5fa',
+                            '#fbbf24',
+                            '#34d399',
+                            '#c084fc'
+                        ],
+                        borderWidth: 1.5,
                         borderRadius: 8
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
+                    plugins: {
+                        legend: { display: false }
+                    },
                     scales: {
-                        x: { ticks: { color: '#94a3b8' }, grid: { display: false } },
-                        y: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } }
+                        y: {
+                            beginAtZero: true,
+                            ticks: { precision: 0, color: '#94a3b8' },
+                            grid: { color: 'rgba(51, 65, 85, 0.5)' }
+                        },
+                        x: {
+                            ticks: { color: '#94a3b8' },
+                            grid: { display: false }
+                        }
                     }
                 }
             });
