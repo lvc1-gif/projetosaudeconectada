@@ -77,8 +77,7 @@
     </style>
 </head>
 <body class="bg-slate-900 text-slate-100 h-full flex flex-col font-sans overflow-x-hidden">
-
-    <!-- TOAST / NOTIFICAÇÕES RÁPIDAS (VISUAL PEER FEEDBACK) -->
+    <!-- TOAST / NOTIFICAÇÕES RÁPIDAS -->
     <div id="toastContainer" class="fixed top-5 right-5 z-50 flex flex-col space-y-2 pointer-events-none"></div>
 
     <!-- TELA DE LOGIN E CADASTRO -->
@@ -108,7 +107,7 @@
                 <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-emerald-500/0 via-emerald-500 to-emerald-500/0 opacity-80"></div>
                 <div class="border-b border-slate-700/80 pb-3">
                     <h2 class="text-lg font-bold text-white tracking-tight">Acesse sua Conta</h2>
-                    <p class="text-xs text-slate-400 mt-0.5">Entre com seu e-mail institucional ou cadastrado</p>
+                    <p class="text-xs text-slate-400 mt-0.5">Entre com seu e-mail cadastrado ou institucional</p>
                 </div>
                 <form id="accessForm" onsubmit="submitAccessCredentials(event)" class="space-y-4 text-xs">
                     <div>
@@ -131,11 +130,11 @@
                             </button>
                         </div>
                     </div>
-                    <div id="accessMessageBox" class="text-rose-300 text-xs font-semibold min-h-[1rem]">
+                    <div id="accessMessageBox" class="text-rose-400 text-xs font-semibold min-h-[1rem]">
                         <span id="accessMessage" role="status" aria-live="polite"></span>
                     </div>
                     <button type="submit" id="accessSubmit" class="w-full bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold py-3.5 rounded-xl shadow-lg shadow-emerald-600/25 hover:shadow-emerald-500/40 active:scale-[0.99] transition-all duration-200 flex items-center justify-center space-x-2 text-xs sm:text-sm cursor-pointer border border-emerald-400/30">
-                        <i class="fa-solid fa-right-to-bracket"></i>
+                        <i class="fa-solid fa-right-to-bracket" id="accessSubmitIcon"></i>
                         <span id="accessSubmitLabel">Entrar no Sistema</span>
                     </button>
                 </form>
@@ -193,7 +192,7 @@
                     </div>
                     <div id="enrollMessage" class="hidden p-2.5 bg-rose-950/90 text-rose-300 border border-rose-800/80 rounded-xl text-xs font-semibold shadow-lg"></div>
                     <button type="submit" id="enrollSubmit" class="w-full bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold py-3 rounded-xl shadow-lg shadow-emerald-600/25 hover:shadow-emerald-500/40 active:scale-[0.99] transition-all duration-200 flex items-center justify-center space-x-2 text-xs cursor-pointer border border-emerald-400/30">
-                        <i class="fa-solid fa-user-plus"></i>
+                        <i class="fa-solid fa-user-plus" id="enrollSubmitIcon"></i>
                         <span id="enrollSubmitLabel">Concluir Cadastro</span>
                     </button>
                 </form>
@@ -243,7 +242,7 @@
                         </div>
                         <div class="min-w-0 flex-1">
                             <p id="sidebarUserName" class="text-xs font-bold leading-snug break-words">Carregando...</p>
-                            <p id="sidebarUserRole" class="text-[10px] text-emerald-300 font-mono tracking-wider uppercase mt-0.5">Usuário</p>
+                            <p id="sidebarUserRole" class="text-[10px] text-emerald-300 font-mono tracking-wider uppercase mt-0.5">USUÁRIO</p>
                             <p id="sidebarUserSector" class="text-[9px] text-slate-300 truncate mt-0.5">IFAL Campus Benedito Bentes</p>
                         </div>
                     </div>
@@ -343,11 +342,6 @@
                     </div>
                 </div>
                 <div class="flex items-center space-x-2 sm:space-x-3 shrink-0">
-                    <div class="relative hidden lg:block w-48 xl:w-64">
-                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-slate-400 text-xs"></i>
-                        <input type="text" id="globalSearchInput" oninput="handleGlobalSearch(this.value)" placeholder="Buscar serviços, avisos..." class="w-full bg-slate-700 text-slate-100 text-xs rounded-xl pl-8 pr-3 py-2 border border-transparent focus:border-ifal-navy outline-none">
-                    </div>
-                    
                     <div id="headerAuthArea" class="shrink-0 flex items-center space-x-2"></div>
                     <div class="relative shrink-0">
                         <button id="notifBtn" aria-label="Abrir notificações" onclick="toggleNotifMenu()" class="relative p-2 rounded-xl text-slate-300 hover:bg-slate-700 transition cursor-pointer">
@@ -365,7 +359,6 @@
                     </div>
                 </div>
             </header>
-
             <main class="flex-1 overflow-y-auto p-3 sm:p-6 lg:p-8 space-y-6 w-full min-w-0">
                 <!-- VISTA DASHBOARD -->
                 <section id="view-dashboard" class="view-section space-y-6 w-full min-w-0">
@@ -396,6 +389,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="grid grid-cols-1 min-[380px]:grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
                         <div onclick="switchTab('solicitacoes')" class="cursor-pointer bg-slate-800 p-4 rounded-2xl border border-slate-700 shadow-sm hover:border-ifal-green transition space-y-1">
                             <p class="text-[10px] text-slate-400 font-bold uppercase">Solicitações</p>
@@ -453,165 +447,27 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="servicesGrid"></div>
                 </section>
                 
-                <!-- VISTA SOLICITAÇÕES COM FLUXO COMPLETO -->
+                <!-- VISTA SOLICITAÇÕES -->
                 <section id="view-solicitacoes" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-700 shadow-sm max-w-3xl mx-auto space-y-6 w-full">
-                        <!-- INDICADOR DE PROGRESSO DA SOLICITAÇÃO -->
-                        <div class="border-b border-slate-700 pb-4">
-                            <div class="flex items-center justify-between max-w-xl mx-auto text-center relative">
-                                <div class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-slate-700 -z-0"></div>
-                                <div id="solStepLine" class="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-emerald-500 transition-all duration-300 -z-0" style="width: 0%;"></div>
-                                
-                                <div id="solStepDot-1" class="relative z-10 w-8 h-8 rounded-full bg-emerald-600 text-white font-bold text-xs flex items-center justify-center border-2 border-slate-800 transition">1</div>
-                                <div id="solStepDot-2" class="relative z-10 w-8 h-8 rounded-full bg-slate-700 text-slate-400 font-bold text-xs flex items-center justify-center border-2 border-slate-800 transition">2</div>
-                                <div id="solStepDot-3" class="relative z-10 w-8 h-8 rounded-full bg-slate-700 text-slate-400 font-bold text-xs flex items-center justify-center border-2 border-slate-800 transition">3</div>
-                                <div id="solStepDot-4" class="relative z-10 w-8 h-8 rounded-full bg-slate-700 text-slate-400 font-bold text-xs flex items-center justify-center border-2 border-slate-800 transition">4</div>
-                            </div>
-                            <div class="flex justify-between text-[11px] font-semibold text-slate-400 mt-2 max-w-xl mx-auto px-1">
-                                <span id="solStepText-1" class="text-emerald-400">1. Atendimento</span>
-                                <span id="solStepText-2">2. Triagem</span>
-                                <span id="solStepText-3">3. Revisão</span>
-                                <span id="solStepText-4">4. Enviado</span>
-                            </div>
-                        </div>
-
-                        <!-- FORMULÁRIO DE SOLICITAÇÃO -->
                         <form id="formNovaSolicitacao" onsubmit="handleNovaSolicitacao(event)" class="space-y-6 text-xs">
-                            <!-- ETAPA 1 -->
-                            <div id="solStepContainer-1" class="space-y-4">
-                                <h3 class="text-sm font-bold text-white border-b border-slate-700/60 pb-2">1. Escolha do Serviço e Beneficiário</h3>
-                                
+                            <div class="space-y-4">
+                                <h3 class="text-sm font-bold text-white border-b border-slate-700/60 pb-2">1. Escolha do Serviço e Demanda</h3>
                                 <div>
                                     <label for="solEspecialidade" class="block font-semibold text-slate-300 mb-1">Selecione o Serviço *</label>
-                                    <select id="solEspecialidade" required onchange="handleServicoChange()" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none focus:border-emerald-500 text-white">
-                                        <!-- Preenchido via JS dinamicamente -->
-                                    </select>
+                                    <select id="solEspecialidade" required class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none focus:border-emerald-500 text-white"></select>
                                 </div>
                                 <div>
-                                    <label class="block font-semibold text-slate-300 mb-2">Quem receberá o atendimento? *</label>
-                                    <div class="grid grid-cols-2 gap-3">
-                                        <label class="flex items-center space-x-2 p-3 bg-slate-700/60 rounded-xl border border-slate-600 cursor-pointer hover:border-emerald-500 transition">
-                                            <input type="radio" name="solTargetType" value="me" checked onchange="toggleBeneficiarioForm()" class="accent-emerald-500">
-                                            <span class="text-white font-medium">Para mim</span>
-                                        </label>
-                                        <label class="flex items-center space-x-2 p-3 bg-slate-700/60 rounded-xl border border-slate-600 cursor-pointer hover:border-emerald-500 transition">
-                                            <input type="radio" name="solTargetType" value="other" onchange="toggleBeneficiarioForm()" class="accent-emerald-500">
-                                            <span class="text-white font-medium">Para outra pessoa</span>
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <div id="boxBeneficiarioOutro" class="hidden bg-slate-900/60 p-4 rounded-xl border border-slate-700 space-y-3">
-                                    <h4 class="font-bold text-emerald-400 text-xs">Dados da Pessoa Beneficiária</h4>
-                                    <div>
-                                        <label for="benNome" class="block font-semibold text-slate-300 mb-1">Nome Completo *</label>
-                                        <input type="text" id="benNome" placeholder="Nome da pessoa" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 text-white outline-none">
-                                    </div>
-                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                        <div>
-                                            <label for="benContato" class="block font-semibold text-slate-300 mb-1">E-mail ou Telefone</label>
-                                            <input type="text" id="benContato" placeholder="(82) 99999-0000" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 text-white outline-none">
-                                        </div>
-                                        <div>
-                                            <label for="benRelacao" class="block font-semibold text-slate-300 mb-1">Relação com Solicitante *</label>
-                                            <select id="benRelacao" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 text-white outline-none">
-                                                <option value="Colega">Colega</option>
-                                                <option value="Familiar">Familiar</option>
-                                                <option value="Responsável">Responsável</option>
-                                                <option value="Professor(a)">Professor(a)</option>
-                                                <option value="Outro">Outro</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label for="benObs" class="block font-semibold text-slate-300 mb-1">Observação sobre o beneficiário</label>
-                                        <input type="text" id="benObs" placeholder="Ex: Aluno da mesma turma" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 text-white outline-none">
-                                    </div>
-                                </div>
-
-                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div>
-                                        <label for="solMotivo" class="block font-semibold text-slate-300 mb-1">Assunto / Motivo Resumido *</label>
-                                        <input type="text" id="solMotivo" required placeholder="Ex: Orientação acadêmica / Apoio inicial" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
-                                    </div>
-                                    <div>
-                                        <label for="solPreferencia" class="block font-semibold text-slate-300 mb-1">Preferência de Modalidade</label>
-                                        <select id="solPreferencia" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
-                                            <option value="Presencial">Presencial no Campus</option>
-                                            <option value="Online">Online / Remoto</option>
-                                            <option value="Indiferente">Indiferente</option>
-                                        </select>
-                                    </div>
+                                    <label for="solMotivo" class="block font-semibold text-slate-300 mb-1">Assunto / Motivo Resumido *</label>
+                                    <input type="text" id="solMotivo" required placeholder="Ex: Orientação acadêmica / Apoio inicial" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
                                 </div>
                                 <div>
                                     <label for="solDescricao" class="block font-semibold text-slate-300 mb-1">Descrição detalhada da solicitação *</label>
-                                    <textarea id="solDescricao" rows="3" required placeholder="Descreva detalhadamente sua demanda para o setor..." class="w-full bg-slate-700 p-3 rounded-xl border border-slate-600 outline-none focus:border-emerald-500 text-white"></textarea>
+                                    <textarea id="solDescricao" rows="4" required placeholder="Descreva detalhadamente sua demanda para o setor..." class="w-full bg-slate-700 p-3 rounded-xl border border-slate-600 outline-none focus:border-emerald-500 text-white"></textarea>
                                 </div>
-                                <div>
-                                    <label for="solDataPref" class="block font-semibold text-slate-300 mb-1">Data de Preferência (Opcional)</label>
-                                    <input type="date" id="solDataPref" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
-                                </div>
-                                <div class="flex justify-end pt-2">
-                                    <button type="button" onclick="goToSolStep(2)" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition flex items-center space-x-2">
-                                        <span>Avançar para Triagem</span>
-                                        <i class="fa-solid fa-arrow-right"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- ETAPA 2 -->
-                            <div id="solStepContainer-2" class="hidden space-y-4">
-                                <h3 class="text-sm font-bold text-white border-b border-slate-700/60 pb-2">2. Triagem de Atendimento (<span id="solStepServicoNome">Serviço</span>)</h3>
-                                
-                                <blockquote class="p-3 bg-amber-950/40 border-l-4 border-amber-500 text-amber-200 rounded-r-xl text-[11px]">
-                                    Aviso Institucional: Esta triagem destina-se apenas ao direcionamento e organização do atendimento. Não realiza diagnósticos, prescreve medicamentos nem substitui avaliação médica profissional.
-                                </blockquote>
-                                <div id="solTriagemDynamicFields" class="space-y-4"></div>
-                                <div class="flex justify-between pt-2">
-                                    <button type="button" onclick="goToSolStep(1)" class="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-xl transition flex items-center space-x-2">
-                                        <i class="fa-solid fa-arrow-left"></i>
-                                        <span>Voltar</span>
-                                    </button>
-                                    <button type="button" onclick="goToSolStep(3)" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition flex items-center space-x-2">
-                                        <span>Revisar Solicitação</span>
-                                        <i class="fa-solid fa-arrow-right"></i>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- ETAPA 3 -->
-                            <div id="solStepContainer-3" class="hidden space-y-4">
-                                <h3 class="text-sm font-bold text-white border-b border-slate-700/60 pb-2">3. Revise sua Solicitação</h3>
-                                <div id="solRevisionSummary" class="bg-slate-900/80 p-4 rounded-xl border border-slate-700 space-y-3 text-xs text-slate-200"></div>
-                                <div class="flex justify-between pt-2">
-                                    <button type="button" onclick="goToSolStep(2)" class="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-xl transition flex items-center space-x-2">
-                                        <i class="fa-solid fa-arrow-left"></i>
-                                        <span>Voltar e Editar</span>
-                                    </button>
-                                    <button type="submit" id="btnSubmitSolicitacao" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow-lg transition flex items-center space-x-2">
-                                        <i class="fa-solid fa-check"></i>
-                                        <span>Confirmar Solicitação</span>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- ETAPA 4 -->
-                            <div id="solStepContainer-4" class="hidden space-y-4 text-center py-6">
-                                <div class="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto border border-emerald-500/40 text-2xl">
-                                    <i class="fa-solid fa-circle-check"></i>
-                                </div>
-                                <h3 class="text-lg font-bold text-white">Solicitação registrada com sucesso!</h3>
-                                <p class="text-xs text-slate-300">Sua demanda foi enviada para a equipe do IFAL e já está em análise.</p>
-                                
-                                <div class="p-4 bg-slate-900/90 rounded-2xl border border-slate-700 max-w-sm mx-auto space-y-1">
-                                    <span class="text-[10px] uppercase font-bold text-slate-400 tracking-wider">Protocolo Gerado</span>
-                                    <p id="solGeneratedProtocol" class="text-xl font-extrabold text-emerald-400 font-mono"></p>
-                                </div>
-                                <div class="pt-4">
-                                    <button type="button" onclick="switchTab('acompanhamento')" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition">
-                                        Ir para Minhas Solicitações
-                                    </button>
-                                </div>
+                                <button type="submit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition cursor-pointer">
+                                    Enviar Solicitação
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -619,33 +475,27 @@
 
                 <!-- VISTA ACOMPANHAMENTO -->
                 <section id="view-acompanhamento" class="view-section hidden space-y-6 w-full min-w-0">
-                    <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm flex items-center justify-between">
-                        <div>
-                            <h3 class="text-base font-bold text-white">Minhas Solicitações Registradas</h3>
-                            <p class="text-xs text-slate-400">Acompanhe o status e a tramitação das suas demandas em qualquer dispositivo</p>
-                        </div>
+                    <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm">
+                        <h3 class="text-base font-bold text-white">Minhas Solicitações Registradas</h3>
+                        <p class="text-xs text-slate-400">Acompanhe o status e a tramitação das suas demandas em qualquer dispositivo</p>
                     </div>
                     <div id="userSolicitacoesContainer" class="space-y-3"></div>
                 </section>
 
                 <!-- VISTA AGENDAMENTOS -->
                 <section id="view-agendamentos" class="view-section hidden space-y-6 w-full min-w-0">
-                    <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm flex items-center justify-between">
-                        <div>
-                            <h3 class="text-base font-bold text-white">Meus Agendamentos de Atendimento</h3>
-                            <p class="text-xs text-slate-400">Consulte datas, horários, profissionais e locais confirmados</p>
-                        </div>
+                    <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm">
+                        <h3 class="text-base font-bold text-white">Meus Agendamentos</h3>
+                        <p class="text-xs text-slate-400">Consulte datas, horários e locais confirmados</p>
                     </div>
                     <div id="userAgendamentosContainer" class="space-y-3"></div>
                 </section>
 
                 <!-- VISTA AVISOS -->
                 <section id="view-avisos" class="view-section hidden space-y-6 w-full min-w-0">
-                    <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm flex items-center justify-between">
-                        <div>
-                            <h3 class="text-base font-bold text-white">Mural Institucional de Avisos</h3>
-                            <p class="text-xs text-slate-400">Comunicados oficiais do setor de saúde e coordenações do IFAL</p>
-                        </div>
+                    <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm">
+                        <h3 class="text-base font-bold text-white">Mural Institucional de Avisos</h3>
+                        <p class="text-xs text-slate-400">Comunicados oficiais do setor de saúde e coordenações do IFAL</p>
                     </div>
                     <div id="avisosContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
                 </section>
@@ -654,7 +504,7 @@
                 <section id="view-comunicacao" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm">
                         <h3 class="text-base font-bold text-white">Central de Comunicação Intersetorial</h3>
-                        <p class="text-xs text-slate-400">Envie mensagens diretamente para a gestão e coordenações do IFAL Benedito Bentes</p>
+                        <p class="text-xs text-slate-400">Envie mensagens diretamente para a gestão do IFAL Benedito Bentes</p>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm space-y-4">
@@ -671,7 +521,7 @@
                                 </div>
                                 <div>
                                     <label class="block font-semibold mb-1 text-slate-300">Sua Mensagem</label>
-                                    <textarea id="chatTexto" rows="4" required placeholder="Escreva sua dúvida ou comunicado..." class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white"></textarea>
+                                    <textarea id="chatTexto" rows="4" required placeholder="Escreva sua dúvida..." class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white"></textarea>
                                 </div>
                                 <button type="submit" class="w-full bg-ifal-navy hover:bg-ifal-navyDark text-white font-bold py-2.5 rounded-xl shadow transition flex items-center justify-center space-x-2 cursor-pointer">
                                     <i class="fa-solid fa-paper-plane"></i> <span>Enviar Mensagem</span>
@@ -689,12 +539,12 @@
                 <section id="view-locais" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm">
                         <h3 class="text-base font-bold text-white">Unidades e Setores do Campus</h3>
-                        <p class="text-xs text-slate-400">Clique em qualquer unidade para ver horários, localização, responsável e serviços vinculados.</p>
+                        <p class="text-xs text-slate-400">Consulte localizações, horários e responsáveis.</p>
                     </div>
                     <div id="locaisGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
                 </section>
 
-                <!-- VISTA INFORMAÇÕES & FAQ -->
+                <!-- VISTA INFORMAÇÕES FAQ -->
                 <section id="view-informacoes" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-700 shadow-sm space-y-4">
                         <h3 class="text-base font-bold text-white">Dúvidas Frequentes (FAQ)</h3>
@@ -713,21 +563,13 @@
                             </div>
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-bold text-slate-900">
-                            <a href="tel:192" class="bg-white hover:bg-rose-50 p-4 rounded-2xl space-y-1 block shadow-md hover:shadow-lg transition border-2 border-transparent hover:border-rose-300 active:scale-95 cursor-pointer">
-                                <div class="flex items-center justify-between">
-                                    <p class="text-rose-600 uppercase text-[10px] font-bold tracking-wider">SAMU - Emergência Médica</p>
-                                    <i class="fa-solid fa-phone text-rose-600 transition"></i>
-                                </div>
+                            <a href="tel:192" class="bg-white hover:bg-rose-50 p-4 rounded-2xl space-y-1 block shadow-md hover:shadow-lg transition">
+                                <p class="text-rose-600 uppercase text-[10px] font-bold">SAMU - Emergência Médica</p>
                                 <p class="text-2xl font-black text-slate-900">192</p>
-                                <p class="text-[10px] text-slate-500 font-normal">Clique para acionar ligação no aparelho</p>
                             </a>
-                            <a href="tel:188" class="bg-white hover:bg-rose-50 p-4 rounded-2xl space-y-1 block shadow-md hover:shadow-lg transition border-2 border-transparent hover:border-rose-300 active:scale-95 cursor-pointer">
-                                <div class="flex items-center justify-between">
-                                    <p class="text-rose-600 uppercase text-[10px] font-bold tracking-wider">CVV - Centro de Valorização da Vida</p>
-                                    <i class="fa-solid fa-phone text-rose-600 transition"></i>
-                                </div>
+                            <a href="tel:188" class="bg-white hover:bg-rose-50 p-4 rounded-2xl space-y-1 block shadow-md hover:shadow-lg transition">
+                                <p class="text-rose-600 uppercase text-[10px] font-bold">CVV - Apoio Emocional</p>
                                 <p class="text-2xl font-black text-slate-900">188</p>
-                                <p class="text-[10px] text-slate-500 font-normal">Apoio emocional gratuito e confidencial 24h</p>
                             </a>
                         </div>
                     </div>
@@ -739,7 +581,7 @@
                         <div class="border-b border-slate-700 pb-3 flex items-center justify-between gap-2">
                             <div>
                                 <h3 class="text-base font-bold text-white">Meu Perfil e Dados Pessoais</h3>
-                                <p class="text-xs text-slate-400">Dados armazenados localmente neste navegador</p>
+                                <p class="text-xs text-slate-400">Seus dados cadastrados no sistema</p>
                             </div>
                             <span id="profileUserRoleBadge" class="px-2.5 py-1 bg-emerald-900/60 text-emerald-300 font-bold rounded-lg text-[10px] uppercase border border-emerald-700 shrink-0"></span>
                         </div>
@@ -750,7 +592,7 @@
                                 <input type="text" id="profInputName" maxlength="200" required class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
                             </div>
                             <div>
-                                <label class="block font-semibold mb-1 text-slate-300">E-mail Institucional (Leitura)</label>
+                                <label class="block font-semibold mb-1 text-slate-300">E-mail Registrado</label>
                                 <input type="email" id="profInputEmail" readonly disabled class="w-full bg-slate-800 opacity-70 p-2.5 rounded-xl border border-slate-700 text-slate-400 cursor-not-allowed">
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -793,229 +635,48 @@
                         </div>
                         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
                             <div onclick="switchTab('informacoes')" class="bg-slate-700/50 hover:bg-slate-700 p-4 rounded-2xl border border-slate-600 cursor-pointer transition space-y-2 group">
-                                <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-lg group-hover:scale-105 transition">
-                                    <i class="fa-solid fa-circle-info"></i>
-                                </div>
                                 <h4 class="font-bold text-white">Dúvidas Frequentes (FAQ)</h4>
-                                <p class="text-slate-300 text-[11px] leading-relaxed">Respostas para as principais dúvidas de uso do sistema.</p>
+                                <p class="text-slate-300 text-[11px]">Respostas para as principais dúvidas de uso do sistema.</p>
                             </div>
                             <a href="mailto:ti.beneditobentes@ifal.edu.br" class="bg-slate-700/50 hover:bg-slate-700 p-4 rounded-2xl border border-slate-600 cursor-pointer transition space-y-2 group block">
-                                <div class="w-10 h-10 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-lg group-hover:scale-105 transition">
-                                    <i class="fa-solid fa-envelope"></i>
-                                </div>
                                 <h4 class="font-bold text-white">Suporte Técnico por E-mail</h4>
-                                <p class="text-slate-300 text-[11px] leading-relaxed">TI: <span class="text-blue-400 underline font-medium">ti.beneditobentes@ifal.edu.br</span>.</p>
+                                <p class="text-slate-300 text-[11px]">TI: <span class="text-blue-400 underline font-medium">ti.beneditobentes@ifal.edu.br</span>.</p>
                             </a>
-                            <div onclick="openRecoveryDialog()" class="bg-slate-700/50 hover:bg-slate-700 p-4 rounded-2xl border border-slate-600 cursor-pointer transition space-y-2 group">
-                                <div class="w-10 h-10 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center text-lg group-hover:scale-105 transition">
-                                    <i class="fa-solid fa-key"></i>
-                                </div>
-                                <h4 class="font-bold text-white">Recuperação de Acesso</h4>
-                                <p class="text-slate-300 text-[11px] leading-relaxed">Esqueceu a senha? Solicite redefinição via e-mail.</p>
-                            </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- VISTA PAINEL ADMINISTRATIVO COMPLETO -->
+                <!-- VISTA PAINEL ADMINISTRATIVO -->
                 <section id="view-admin" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-gradient-to-r from-slate-900 to-ifal-navy p-4 sm:p-6 rounded-3xl text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
                         <div>
                             <div class="inline-flex items-center space-x-2 bg-rose-600/30 text-rose-300 border border-rose-500/30 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest mb-2">
                                 <i class="fa-solid fa-user-shield"></i>
-                                <span>Painel Administrativo</span>
+                                <span>Painel Administrativo Exclusivo</span>
                             </div>
                             <h3 class="text-xl font-bold">Gestão Geral do Sistema</h3>
-                            <p class="text-xs text-slate-300 mt-1">Gerencie solicitações, usuários, serviços, agendamentos, avisos, dados e auditoria.</p>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <button onclick="exportSystemBackup()" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 cursor-pointer">
-                                <i class="fa-solid fa-download text-emerald-400"></i>
-                                <span>Exportar Backup (JSON)</span>
-                            </button>
-                            <label class="px-3 py-2 bg-slate-800 hover:bg-slate-700 border border-slate-600 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 cursor-pointer">
-                                <i class="fa-solid fa-upload text-blue-400"></i>
-                                <span>Importar Backup</span>
-                                <input type="file" id="importBackupInput" accept=".json" onchange="importSystemBackup(event)" class="hidden">
-                            </label>
+                            <p class="text-xs text-slate-300 mt-1">Gerencie solicitações, usuários cadastrados e registros operacionais do sistema.</p>
                         </div>
                     </div>
-
-                    <!-- ABAS INTERNAS DO PAINEL ADMIN -->
-                    <div class="flex space-x-2 border-b border-slate-700 overflow-x-auto pb-2 text-xs font-semibold">
-                        <button onclick="switchAdminSubTab('solicitacoes')" id="adminTabBtn-solicitacoes" class="px-3 py-2 rounded-xl bg-ifal-navy text-white shrink-0">Solicitações</button>
-                        <button onclick="switchAdminSubTab('usuarios')" id="adminTabBtn-usuarios" class="px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800 shrink-0">Usuários & Admins</button>
-                        <button onclick="switchAdminSubTab('agendamentos')" id="adminTabBtn-agendamentos" class="px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800 shrink-0">Agendamentos</button>
-                        <button onclick="switchAdminSubTab('servicos')" id="adminTabBtn-servicos" class="px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800 shrink-0">Serviços</button>
-                        <button onclick="switchAdminSubTab('profissionais')" id="adminTabBtn-profissionais" class="px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800 shrink-0">Profissionais</button>
-                        <button onclick="switchAdminSubTab('locais')" id="adminTabBtn-locais" class="px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800 shrink-0">Unidades & Setores</button>
-                        <button onclick="switchAdminSubTab('avisos')" id="adminTabBtn-avisos" class="px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800 shrink-0">Avisos & Mural</button>
-                        <button onclick="switchAdminSubTab('faq')" id="adminTabBtn-faq" class="px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800 shrink-0">FAQ & Bot</button>
-                        <button onclick="switchAdminSubTab('logs')" id="adminTabBtn-logs" class="px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800 shrink-0">Histórico/Auditoria</button>
-                    </div>
-
-                    <!-- SUB-TELA: SOLICITAÇÕES -->
-                    <div id="adminSubSection-solicitacoes" class="admin-sub-section bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
-                        <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2 text-center" id="adminSolMetrics"></div>
+                    
+                    <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-700 pb-3">
-                            <h4 class="font-bold text-sm text-white">Gerenciamento de Solicitações</h4>
-                            <div class="flex flex-wrap items-center gap-2">
-                                <select id="adminFilterStatus" onchange="renderAdminSolicitacoes()" class="bg-slate-700 text-white text-xs px-2.5 py-1.5 rounded-xl border border-slate-600 outline-none">
-                                    <option value="">Todos os Status</option>
-                                    <option value="Em análise">Em análise</option>
-                                    <option value="Aguardando atendimento">Aguardando atendimento</option>
-                                    <option value="Agendada">Agendada</option>
-                                    <option value="Em atendimento">Em atendimento</option>
-                                    <option value="Atendida">Atendida</option>
-                                    <option value="Cancelada">Cancelada</option>
-                                </select>
-                                <input type="text" id="adminSearchSol" oninput="renderAdminSolicitacoes()" placeholder="Buscar protocolo, nome..." class="bg-slate-700 text-white text-xs px-3 py-1.5 rounded-xl border border-slate-600 outline-none">
-                            </div>
-                        </div>
-                        <div id="adminSolList" class="space-y-3 text-xs"></div>
-                    </div>
-
-                    <!-- SUB-TELA: USUÁRIOS -->
-                    <div id="adminSubSection-usuarios" class="admin-sub-section hidden bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-700 pb-3">
-                            <h4 class="font-bold text-sm text-white">Gerenciamento de Usuários e Administradores</h4>
-                            <input type="text" id="adminSearchUser" oninput="renderAdminUsers()" placeholder="Buscar usuário por nome ou email..." class="bg-slate-700 text-white text-xs px-3 py-1.5 rounded-xl border border-slate-600 outline-none">
+                            <h4 class="font-bold text-sm text-white">Usuários & Administradores do Sistema</h4>
                         </div>
                         <div id="adminUsersList" class="space-y-3 text-xs"></div>
                     </div>
-
-                    <!-- SUB-TELA: AGENDAMENTOS -->
-                    <div id="adminSubSection-agendamentos" class="admin-sub-section hidden bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
-                        <div class="flex justify-between items-center border-b border-slate-700 pb-3">
-                            <h4 class="font-bold text-sm text-white">Gerenciamento de Agendamentos</h4>
-                            <button onclick="openCreateAgendaModal()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition cursor-pointer">+ Criar Agendamento</button>
+                    <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-700 pb-3">
+                            <h4 class="font-bold text-sm text-white">Solicitações Registradas no Sistema</h4>
                         </div>
-                        <div id="adminAgendamentosList" class="space-y-3 text-xs"></div>
-                    </div>
-
-                    <!-- SUB-TELA: SERVIÇOS -->
-                    <div id="adminSubSection-servicos" class="admin-sub-section hidden bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
-                        <div class="flex justify-between items-center border-b border-slate-700 pb-3">
-                            <h4 class="font-bold text-sm text-white">Gerenciamento de Serviços</h4>
-                            <button onclick="openCreateServiceModal()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition cursor-pointer">+ Novo Serviço</button>
-                        </div>
-                        <div id="adminServicesList" class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs"></div>
-                    </div>
-
-                    <!-- SUB-TELA: PROFISSIONAIS -->
-                    <div id="adminSubSection-profissionais" class="admin-sub-section hidden bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
-                        <div class="flex justify-between items-center border-b border-slate-700 pb-3">
-                            <h4 class="font-bold text-sm text-white">Gerenciamento de Profissionais</h4>
-                            <button onclick="openCreateProfModal()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition cursor-pointer">+ Novo Profissional</button>
-                        </div>
-                        <div id="adminProfissionaisList" class="space-y-3 text-xs"></div>
-                    </div>
-
-                    <!-- SUB-TELA: UNIDADES E SETORES -->
-                    <div id="adminSubSection-locais" class="admin-sub-section hidden bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
-                        <div class="flex justify-between items-center border-b border-slate-700 pb-3">
-                            <h4 class="font-bold text-sm text-white">Gerenciamento de Unidades e Setores</h4>
-                            <button onclick="openCreateLocalModal()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition cursor-pointer">+ Nova Unidade/Setor</button>
-                        </div>
-                        <div id="adminLocaisList" class="space-y-3 text-xs"></div>
-                    </div>
-
-                    <!-- SUB-TELA: AVISOS E MURAL -->
-                    <div id="adminSubSection-avisos" class="admin-sub-section hidden bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
-                        <div class="flex justify-between items-center border-b border-slate-700 pb-3">
-                            <h4 class="font-bold text-sm text-white">Gerenciamento do Mural e Avisos</h4>
-                            <button onclick="openCreateAvisoModal()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition cursor-pointer">+ Novo Aviso/Mural</button>
-                        </div>
-                        <div id="adminAvisosList" class="space-y-3 text-xs"></div>
-                    </div>
-
-                    <!-- SUB-TELA: FAQ E IA -->
-                    <div id="adminSubSection-faq" class="admin-sub-section hidden bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
-                        <div class="flex justify-between items-center border-b border-slate-700 pb-3">
-                            <h4 class="font-bold text-sm text-white">Base de Conhecimento e FAQ (Assistente Virtual)</h4>
-                            <button onclick="openCreateFaqModal()" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition cursor-pointer">+ Adicionar FAQ</button>
-                        </div>
-                        <div id="adminFaqList" class="space-y-3 text-xs"></div>
-                    </div>
-
-                    <!-- SUB-TELA: AUDITORIA / LOGS -->
-                    <div id="adminSubSection-logs" class="admin-sub-section hidden bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
-                        <div class="border-b border-slate-700 pb-3">
-                            <h4 class="font-bold text-sm text-white">Histórico de Ações Administrativas</h4>
-                            <p class="text-xs text-slate-400">Auditoria das alterações realizadas pelos administradores do sistema</p>
-                        </div>
-                        <div id="adminLogsList" class="space-y-2 text-xs max-h-96 overflow-y-auto"></div>
+                        <div id="adminSolList" class="space-y-3 text-xs"></div>
                     </div>
                 </section>
             </main>
         </div>
     </div>
 
-    <!-- CHATBOT INTELIGENTE CONECTA SAÚDE -->
-    <div id="chatbotContainer" class="fixed bottom-4 right-4 z-40 flex flex-col items-end">
-        <div id="chatbotWindow" class="hidden chatbot-animate w-[calc(100vw-2rem)] sm:w-96 h-[520px] max-h-[80vh] bg-slate-800 border border-slate-700 rounded-3xl shadow-2xl flex flex-col overflow-hidden mb-3">
-            <div class="bg-gradient-to-r from-ifal-navy to-slate-900 p-3.5 border-b border-slate-700 flex items-center justify-between shrink-0">
-                <div class="flex items-center space-x-3 min-w-0">
-                    <div class="relative">
-                        <div class="w-9 h-9 rounded-full bg-emerald-500/20 border border-emerald-400 flex items-center justify-center text-emerald-400 font-bold">
-                            <i class="fa-solid fa-robot text-base"></i>
-                        </div>
-                        <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full border-2 border-slate-900"></span>
-                    </div>
-                    <div class="min-w-0">
-                        <h3 class="font-bold text-xs text-white leading-tight truncate">Conecta Saúde</h3>
-                        <p class="text-[10px] text-slate-300 truncate">Assistente virtual do Saúde Conectada</p>
-                    </div>
-                </div>
-                <div class="flex items-center space-x-1 shrink-0">
-                    <button onclick="clearChatbotHistory()" title="Limpar conversa" class="text-slate-400 hover:text-white p-1.5 rounded-lg transition">
-                        <i class="fa-solid fa-rotate-right text-xs"></i>
-                    </button>
-                    <button onclick="toggleChatbot(false)" title="Fechar" class="text-slate-400 hover:text-white p-1.5 rounded-lg transition">
-                        <i class="fa-solid fa-xmark text-sm"></i>
-                    </button>
-                </div>
-            </div>
-            <div id="chatbotMessages" class="flex-1 p-3.5 overflow-y-auto space-y-3 text-xs no-scrollbar bg-slate-900/50"></div>
-            <div id="chatbotQuickSuggestions" class="px-3 py-2 border-t border-slate-700/60 bg-slate-800/80 flex gap-1.5 overflow-x-auto no-scrollbar shrink-0 text-[10px]">
-                <button onclick="sendQuickBotQuery('Quais serviços existem?')" class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2.5 py-1 rounded-full whitespace-nowrap transition border border-slate-600">Serviços</button>
-                <button onclick="sendQuickBotQuery('Como faço para pedir atendimento?')" class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2.5 py-1 rounded-full whitespace-nowrap transition border border-slate-600">Solicitar</button>
-                <button onclick="sendQuickBotQuery('tenho uma consulta marcada?')" class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2.5 py-1 rounded-full whitespace-nowrap transition border border-slate-600">Agendamentos</button>
-                <button onclick="sendQuickBotQuery('quais são os avisos?')" class="bg-slate-700 hover:bg-slate-600 text-slate-200 px-2.5 py-1 rounded-full whitespace-nowrap transition border border-slate-600">Avisos</button>
-            </div>
-            <form id="chatbotForm" onsubmit="handleChatbotSubmit(event)" class="p-3 border-t border-slate-700 bg-slate-800 flex items-center space-x-2 shrink-0">
-                <input type="text" id="chatbotInput" placeholder="Pergunte ao Conecta Saúde..." autocomplete="off" class="flex-1 bg-slate-900 text-white text-xs p-2.5 rounded-xl border border-slate-700 outline-none focus:border-emerald-500 transition">
-                <button type="submit" aria-label="Enviar mensagem ao assistente virtual" class="bg-emerald-600 hover:bg-emerald-500 text-white p-2.5 rounded-xl transition shadow cursor-pointer shrink-0">
-                    <i class="fa-solid fa-paper-plane text-xs"></i>
-                </button>
-            </form>
-        </div>
-        <button id="chatbotToggleBtn" onclick="toggleChatbot()" aria-label="Abrir assistente virtual" class="w-13 h-13 rounded-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-xl hover:shadow-emerald-500/30 flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 border-2 border-emerald-400/40 cursor-pointer">
-            <i class="fa-solid fa-comments text-xl"></i>
-        </button>
-    </div>
-
-    <!-- MODAIS GENÉRICOS DE INTERAÇÃO -->
-    <div id="solDetailModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-700 rounded-3xl p-6 max-w-2xl w-full space-y-4 text-xs max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center border-b border-slate-700 pb-3">
-                <h3 id="solModalTitle" class="font-bold text-white text-base">Detalhes da Solicitação</h3>
-                <button onclick="closeSolModal()" class="text-slate-400 hover:text-white p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
-            </div>
-            <div id="solModalBody" class="space-y-4"></div>
-        </div>
-    </div>
-
-    <div id="adminGenericModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-700 rounded-3xl p-6 max-w-lg w-full space-y-4 text-xs max-h-[90vh] overflow-y-auto">
-            <div class="flex justify-between items-center border-b border-slate-700 pb-3">
-                <h3 id="adminGenericModalTitle" class="font-bold text-white text-base">Ação Administrativa</h3>
-                <button onclick="closeAdminGenericModal()" class="text-slate-400 hover:text-white p-1"><i class="fa-solid fa-xmark text-lg"></i></button>
-            </div>
-            <div id="adminGenericModalBody" class="space-y-4"></div>
-        </div>
-    </div>
-
+    <!-- MODAL DE RECUPERAÇÃO -->
     <div id="recoveryDialog" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
         <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-sm w-full space-y-4 text-xs">
             <div class="flex justify-between items-center border-b border-slate-700 pb-2">
@@ -1029,52 +690,69 @@
             </div>
             <div id="recoveryMessage" class="hidden p-2.5 rounded-xl font-semibold"></div>
             <button id="recoverySubmit" onclick="sendRecoveryEmail()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 rounded-xl transition cursor-pointer">
-                Enviar Link de Recuperação
+                Enviar Instruções
             </button>
         </div>
     </div>
 
     <!-- SCRIPT PRINCIPAL DA APLICAÇÃO -->
     <script>
+        // Chaves para LocalStorage
         const STORAGE_USERS = 'saude_conectada_users';
         const STORAGE_SESSION = 'saude_conectada_session';
         const STORAGE_DATA = 'saude_conectada_data_v1';
         
-        const officialAdministrators = Object.freeze({
-            'lvc1@aluno.ifal.edu.br': 'Lucas Venâncio',
-            'ascl2@aluno.ifal.edu.br': 'Anielle Samily',
-            'isac1@aluno.ifal.edu.br': 'Isabelle Sara'
-        });
-
-        const requiredAdminAccounts = Object.freeze([
-            { nome: 'Lucas Venâncio', email: 'lvc1@aluno.ifal.edu.br', senha: 'lucas01' },
-            { nome: 'Anielle Samily', email: 'ascl2@aluno.ifal.edu.br', senha: 'Samily01' },
-            { nome: 'Isabelle Sara', email: 'isac1@aluno.ifal.edu.br', senha: 'isabelle01' }
+        // CONTAS ADMINISTRATIVAS DEFINIDAS DIRETAMENTE NO CÓDIGO DO INDEX.HTML
+        // Estas contas funcionam diretamente no código, em qualquer dispositivo ou navegador.
+        const ADMIN_ACCOUNTS = Object.freeze([
+            {
+                name: "Lucas Venâncio",
+                email: "lvc1@aluno.ifal.edu.br",
+                password: "lucas01",
+                role: "administrador",
+                sector: "Administração IFAL"
+            },
+            {
+                name: "Lucas Venâncio",
+                email: "lvc1@aluno.ifal.edu",
+                password: "lucas01",
+                role: "administrador",
+                sector: "Administração IFAL"
+            },
+            {
+                name: "Anielle Samily",
+                email: "ascl2@aluno.ifal.edu.br",
+                password: "Samily01",
+                role: "administrador",
+                sector: "Administração IFAL"
+            },
+            {
+                name: "Isabelle Sara",
+                email: "Isac1@aluno.ifal.edu.br",
+                password: "isabelle01",
+                role: "administrador",
+                sector: "Administração IFAL"
+            }
         ]);
 
         let currentUser = null;
-        let currentUserProfile = null;
         let currentView = 'dashboard';
-        let currentAdminSubTab = 'solicitacoes';
         let navigationHistory = [];
-        let solCurrentStep = 1;
         let myChartInstance = null;
 
-        // ESTRUTURAS DE DADOS LOCAIS (DATA STORES)
+        // Estruturas de Dados
         let mockSolicitacoes = [];
         let mockAvisos = [];
         let mockServices = [];
-        let mockProfissionais = [];
         let mockLocais = [];
         let mockFaqs = [];
         let mockAgendamentos = [];
         let mockMensagens = [];
         let mockNotificacoes = [];
-        let mockLogs = [];
 
         function safeStorage() {
             try {
-                const testKey = '__saude_conectada_storage_test__';
+                const testKey = '__saude_conectada_test__';
                 localStorage.setItem(testKey, '1');
                 localStorage.removeItem(testKey);
                 return localStorage;
@@ -1089,8 +767,9 @@
             if (!container) return;
             const toast = document.createElement('div');
             const bgClass = type === 'success' ? 'bg-emerald-600' : (type === 'error' ? 'bg-rose-600' : 'bg-slate-700');
+            const iconClass = type === 'success' ? 'fa-circle-check' : (type === 'error' ? 'fa-triangle-exclamation' : 'fa-circle-info');
             toast.className = `${bgClass} text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold flex items-center space-x-2 transition-all duration-300 transform translate-y-2 opacity-0 pointer-events-auto border border-white/20`;
-            toast.innerHTML = `<i class="fa-solid type==='success'?'fa-circle-check':(type==='error'?'fa-triangle-exclamation':'fa-circle-info')"></i><span>{message}</span>`;
+            toast.innerHTML = `<i class="fa-solid ${iconClass}"></i><span>${message}</span>`;
             container.appendChild(toast);
             setTimeout(() => {
                 toast.classList.remove('translate-y-2', 'opacity-0');
@@ -1129,81 +808,43 @@
             return `${prefix}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
         }
 
-        function isOfficialAdminEmail(email) {
-            const norm = normalizeEmail(email);
-            return Object.keys(officialAdministrators).includes(norm);
-        }
-
         function isCurrentUserAdmin() {
             if (!currentUser) return false;
-            if (isOfficialAdminEmail(currentUser.email)) return true;
-            return currentUser.tipo === 'admin' || currentUser.role === 'admin';
+            const normEmail = normalizeEmail(currentUser.email);
+            const isHardcodedAdmin = ADMIN_ACCOUNTS.some(a => normalizeEmail(a.email) === normEmail);
+            return isHardcodedAdmin || currentUser.role === 'administrador' || currentUser.tipo === 'administrador' || currentUser.role === 'admin';
         }
 
-        function logAdminAction(action) {
-            if (!isCurrentUserAdmin()) return;
-            const logEntry = {
-                id: createLocalId('log'),
-                admin: currentUser ? currentUser.nome : 'Sistema',
-                dataHora: new Date().toLocaleString('pt-BR'),
-                acao: action
-            };
-            mockLogs.unshift(logEntry);
-            if (mockLogs.length > 100) mockLogs.pop();
-            persistAllData();
-        }
-
-        // CARREGAMENTO E INICIALIZAÇÃO DOS DADOS
         function loadInitialData() {
             const data = readJSON(STORAGE_DATA, null);
-            
             if (data) {
                 mockSolicitacoes = data.solicitacoes || [];
                 mockAvisos = data.avisos || [];
                 mockServices = data.services || [];
-                mockProfissionais = data.profissionais || [];
                 mockLocais = data.locais || [];
                 mockFaqs = data.faqs || [];
                 mockAgendamentos = data.agendamentos || [];
                 mockMensagens = data.mensagens || [];
                 mockNotificacoes = data.notificacoes || [];
-                mockLogs = data.logs || [];
             } else {
-                // Dados Padrões Iniciais do IFAL
                 mockServices = [
-                    { id: '1', nome: 'Psicologia', desc: 'Acolhimento emocional, escuta especializada e orientação psicológica.', icon: 'fa-brain', cor: 'text-rose-400', setor: 'Gabinete de Psicologia', ativo: true },
-                    { id: '2', nome: 'Pedagogia', desc: 'Acompanhamento do processo do aprendizado e orientação de estudos.', icon: 'fa-book-open', cor: 'text-blue-400', setor: 'Apoio Pedagógico', ativo: true },
-                    { id: '3', nome: 'Serviço Social', desc: 'Orientações sobre auxílios estudantis e assistência social.', icon: 'fa-hand-holding-heart', cor: 'text-amber-400', setor: 'Assistência Estudantil', ativo: true },
-                    { id: '4', nome: 'Enfermagem', desc: 'Sinais vitais, curativos de emergência e orientações de saúde.', icon: 'fa-user-nurse', cor: 'text-emerald-400', setor: 'Sala de Saúde', ativo: true },
-                    { id: '5', nome: 'Coordenação Geral', desc: 'Atendimentos administrativos, orientações gerais e apoio ao aluno.', icon: 'fa-building-user', cor: 'text-purple-400', setor: 'Coordenação Geral', ativo: true }
+                    { id: '1', nome: 'Psicologia Escolar', desc: 'Acolhimento emocional e escuta especializada.', icon: 'fa-brain', setor: 'Psicologia' },
+                    { id: '2', nome: 'Apoio Pedagógico', desc: 'Orientação de estudos e aprendizado.', icon: 'fa-book-open', setor: 'Pedagogia' },
+                    { id: '3', nome: 'Serviço Social', desc: 'Orientações sobre auxílios estudantis.', icon: 'fa-hand-holding-heart', setor: 'Assistência Estudantil' },
+                    { id: '4', nome: 'Enfermagem', desc: 'Apoiamento e triagem de saúde no campus.', icon: 'fa-user-nurse', setor: 'Saúde' }
                 ];
-
-                mockProfissionais = [
-                    { id: '1', nome: 'Dra. Maria Silva', especialidade: 'Psicologia', setor: 'Gabinete de Psicologia', unidade: 'Bloco B', ativo: true },
-                    { id: '2', nome: 'Prof. João Santos', especialidade: 'Pedagogia', setor: 'Apoio Pedagógico', unidade: 'Bloco A', ativo: true },
-                    { id: '3', nome: 'Enf. Carla Mendes', especialidade: 'Enfermagem', setor: 'Sala de Saúde', unidade: 'Bloco A', ativo: true }
-                ];
-
-                mockLocais = [
-                    { id: '1', nome: 'Sala de Saúde / Enfermagem', bloco: 'Bloco A - Térreo', resp: 'Equipe de Enfermagem', hor: '08h às 17h', ativo: true, desc: 'Atendimentos de saúde inicial e emergência local.' },
-                    { id: '2', nome: 'Gabinete de Psicologia', bloco: 'Bloco B - Sala 12', resp: 'Psicologia Escolar', hor: '08h às 16h', ativo: true, desc: 'Atendimento e escuta psicológica individual.' },
-                    { id: '3', nome: 'Serviço Social', bloco: 'Bloco B - Sala 14', resp: 'Assistência Estudantil', hor: '08h às 17h', ativo: true, desc: 'Gestão de auxílios e bolsas de estudo.' }
-                ];
-
                 mockAvisos = [
-                    { id: '1', titulo: 'Campanha de Vacinação no Campus', data: '2026-10-10', prioridade: 'Urgente', conteudo: 'Vacinação disponível para todos os alunos e servidores no setor de saúde.', setor: 'Enfermagem', ativo: true },
-                    { id: '2', titulo: 'Horários do Acolhimento Psicológico', data: '2026-10-05', prioridade: 'Importante', conteudo: 'Novos horários para escuta qualificada na semana de exames.', setor: 'Psicologia', ativo: true }
+                    { id: '1', titulo: 'Campanha de Saúde no Campus', data: '2026-10-10', conteudo: 'Atendimentos de orientação e saúde para alunos e servidores.', setor: 'Enfermagem' }
                 ];
-
+                mockLocais = [
+                    { id: '1', nome: 'Sala de Enfermagem', bloco: 'Bloco A - Térreo', resp: 'Equipe de Saúde', hor: '08h às 17h' },
+                    { id: '2', nome: 'Gabinete de Psicologia', bloco: 'Bloco B - Sala 12', resp: 'Psicologia', hor: '08h às 16h' }
+                ];
                 mockFaqs = [
-                    { id: '1', q: 'Como solicitar um atendimento presencial?', a: 'Acesse a opção "Solicitar Atendimento", selecione o serviço desejado, preencha a triagem e aguarde a confirmação.', ativo: true, cat: 'Geral' },
-                    { id: '2', q: 'Onde fica a sala de enfermagem?', a: 'Fica localizada no Bloco A - Térreo, aberta de 08h às 17h.', ativo: true, cat: 'Locais' }
+                    { id: '1', q: 'Como solicitar atendimento?', a: 'Acesse a guia Solicitar Atendimento, selecione a área e descreva seu pedido.' }
                 ];
-
                 persistAllData();
             }
-
-            ensureRequiredAdmins();
         }
 
         function persistAllData() {
@@ -1211,64 +852,21 @@
                 solicitacoes: mockSolicitacoes,
                 avisos: mockAvisos,
                 services: mockServices,
-                profissionais: mockProfissionais,
                 locais: mockLocais,
                 faqs: mockFaqs,
                 agendamentos: mockAgendamentos,
                 mensagens: mockMensagens,
-                notificacoes: mockNotificacoes,
-                logs: mockLogs
+                notificacoes: mockNotificacoes
             });
         }
 
-        function ensureRequiredAdmins() {
-            let users = readJSON(STORAGE_USERS, []);
-            let updated = false;
-
-            requiredAdminAccounts.forEach(adm => {
-                const normEmail = normalizeEmail(adm.email);
-                let idx = users.findIndex(u => normalizeEmail(u.email) === normEmail);
-                if (idx === -1) {
-                    users.push({
-                        id: createLocalId('usr'),
-                        nome: adm.nome,
-                        email: normEmail,
-                        senha: adm.senha,
-                        setor: 'Administração IFAL',
-                        telefone: '(82) 99999-0000',
-                        tipo: 'admin',
-                        role: 'admin',
-                        ativo: true,
-                        criadoEm: new Date().toISOString()
-                    });
-                    updated = true;
-                } else {
-                    if (users[idx].tipo !== 'admin' || !users[idx].ativo) {
-                        users[idx].tipo = 'admin';
-                        users[idx].role = 'admin';
-                        users[idx].ativo = true;
-                        updated = true;
-                    }
-                }
-            });
-
-            if (updated) {
-                writeJSON(STORAGE_USERS, users);
-            }
-        }
-
-        // SISTEMA DE AUTENTICAÇÃO E SESSÃO
         function initAppSession() {
             loadInitialData();
             const session = readJSON(STORAGE_SESSION, null);
-            if (session && session.email) {
-                const users = readJSON(STORAGE_USERS, []);
-                const user = users.find(u => normalizeEmail(u.email) === normalizeEmail(session.email));
-                if (user && user.ativo !== false) {
-                    currentUser = user;
-                    setupAuthenticatedUI();
-                    return;
-                }
+            if (session && session.authenticated && session.email) {
+                currentUser = session;
+                setupAuthenticatedUI();
+                return;
             }
             showAccessScreen();
         }
@@ -1281,22 +879,21 @@
         function setupAuthenticatedUI() {
             document.getElementById('accessScreen').classList.add('hidden');
             document.getElementById('app').classList.remove('hidden');
-
             const isAdmin = isCurrentUserAdmin();
-            document.getElementById('sidebarUserName').textContent = currentUser.nome;
+            
+            document.getElementById('sidebarUserName').textContent = currentUser.name || currentUser.nome || 'Usuário';
             document.getElementById('sidebarUserRole').textContent = isAdmin ? 'ADMINISTRADOR' : 'USUÁRIO';
-            document.getElementById('sidebarUserSector').textContent = currentUser.setor || 'IFAL Campus Benedito Bentes';
-
+            document.getElementById('sidebarUserSector').textContent = currentUser.sector || currentUser.setor || 'IFAL Campus Benedito Bentes';
+            
             if (isAdmin) {
                 document.getElementById('adminNavSection').classList.remove('hidden');
             } else {
                 document.getElementById('adminNavSection').classList.add('hidden');
                 if (currentView === 'admin') currentView = 'dashboard';
             }
-
+            
             populateServicesDropdown();
             renderCurrentView();
-            updateNotificationsUI();
             updateDashboardMetrics();
         }
 
@@ -1328,37 +925,92 @@
             }
         }
 
-        function submitAccessCredentials(e) {
-            e.preventDefault();
-            const email = normalizeEmail(document.getElementById('accessEmail').value);
-            const password = document.getElementById('accessPassword').value;
-            const msgEl = document.getElementById('accessMessage');
-            msgEl.textContent = '';
-
-            const users = readJSON(STORAGE_USERS, []);
-            const found = users.find(u => normalizeEmail(u.email) === email);
-
-            if (!found) {
-                msgEl.textContent = 'E-mail não encontrado no sistema.';
-                return;
+        function setSubmitLoading(btnId, iconId, labelId, isLoading, defaultLabel) {
+            const btn = document.getElementById(btnId);
+            const icon = document.getElementById(iconId);
+            const label = document.getElementById(labelId);
+            if (!btn) return;
+            if (isLoading) {
+                btn.disabled = true;
+                if (icon) icon.className = 'fa-solid fa-spinner fa-spin';
+                if (label) label.textContent = 'Carregando...';
+            } else {
+                btn.disabled = false;
+                if (icon) icon.className = btnId === 'accessSubmit' ? 'fa-solid fa-right-to-bracket' : 'fa-solid fa-user-plus';
+                if (label) label.textContent = defaultLabel;
             }
-
-            if (found.ativo === false) {
-                msgEl.textContent = 'Sua conta está desativada. Entre em contato com o suporte.';
-                return;
-            }
-
-            if (found.senha !== password) {
-                msgEl.textContent = 'Senha incorreta. Tente novamente.';
-                return;
-            }
-
-            currentUser = found;
-            writeJSON(STORAGE_SESSION, { email: found.email, loginTime: new Date().toISOString() });
-            setupAuthenticatedUI();
-            showToast(`Bem-vindo(a), ${found.nome}!`);
         }
 
+        // AUTENTICAÇÃO DIRETA VIA LISTA JS (ADMIN_ACCOUNTS)
+        function submitAccessCredentials(e) {
+            e.preventDefault();
+            const emailInput = document.getElementById('accessEmail').value;
+            const passwordInput = document.getElementById('accessPassword').value;
+            const msgEl = document.getElementById('accessMessage');
+            if (msgEl) msgEl.textContent = '';
+
+            const email = normalizeEmail(emailInput);
+            const password = String(passwordInput || '').trim();
+
+            if (!email || !password) {
+                if (msgEl) msgEl.textContent = 'E-mail ou senha incorretos.';
+                return;
+            }
+
+            setSubmitLoading('accessSubmit', 'accessSubmitIcon', 'accessSubmitLabel', true, 'Entrar no Sistema');
+
+            setTimeout(() => {
+                // 1. Verificar contra a lista de administradores em ADMIN_ACCOUNTS
+                let matchedAccount = ADMIN_ACCOUNTS.find(acc => 
+                    normalizeEmail(acc.email) === email && acc.password === password
+                );
+
+                let userRole = 'usuario';
+                let userName = '';
+                let userSector = 'IFAL Campus Benedito Bentes';
+
+                if (matchedAccount) {
+                    userRole = 'administrador';
+                    userName = matchedAccount.name;
+                    userSector = matchedAccount.sector || 'Administração IFAL';
+                } else {
+                    // 2. Verificar contas criadas no formulário de cadastro (localStorage)
+                    const localUsers = readJSON(STORAGE_USERS, []);
+                    const foundLocal = localUsers.find(u => normalizeEmail(u.email) === email);
+                    if (foundLocal && foundLocal.senha === password) {
+                        const isAdminByEmail = ADMIN_ACCOUNTS.some(a => normalizeEmail(a.email) === email);
+                        userRole = isAdminByEmail || foundLocal.role === 'administrador' || foundLocal.tipo === 'administrador' ? 'administrador' : 'usuario';
+                        userName = foundLocal.nome || foundLocal.name;
+                        userSector = foundLocal.setor || foundLocal.sector || 'Estudante / Servidor';
+                        matchedAccount = foundLocal;
+                    }
+                }
+
+                if (!matchedAccount) {
+                    if (msgEl) msgEl.textContent = 'E-mail ou senha incorretos.';
+                    setSubmitLoading('accessSubmit', 'accessSubmitIcon', 'accessSubmitLabel', false, 'Entrar no Sistema');
+                    return;
+                }
+
+                // O localStorage é utilizado APENAS para manter a sessão ativa pós-login
+                const sessionObj = {
+                    authenticated: true,
+                    name: userName,
+                    email: email,
+                    role: userRole,
+                    sector: userSector,
+                    loginTime: new Date().toISOString()
+                };
+
+                writeJSON(STORAGE_SESSION, sessionObj);
+                currentUser = sessionObj;
+                setSubmitLoading('accessSubmit', 'accessSubmitIcon', 'accessSubmitLabel', false, 'Entrar no Sistema');
+                setupAuthenticatedUI();
+                showToast(`Bem-vindo(a), ${userName}!`);
+            }, 300);
+        }
+
+        // CADASTRO DE NOVO USUÁRIO
         function submitNewAccount(e) {
             e.preventDefault();
             const name = document.getElementById('enrollName').value.trim();
@@ -1372,6 +1024,12 @@
             msgEl.classList.add('hidden');
             msgEl.textContent = '';
 
+            if (!name || !email || !pass) {
+                msgEl.textContent = 'Preencha todos os campos obrigatórios.';
+                msgEl.classList.remove('hidden');
+                return;
+            }
+
             if (pass.length < 6) {
                 msgEl.textContent = 'A senha deve conter no mínimo 6 caracteres.';
                 msgEl.classList.remove('hidden');
@@ -1384,34 +1042,51 @@
                 return;
             }
 
-            let users = readJSON(STORAGE_USERS, []);
-            if (users.some(u => normalizeEmail(u.email) === email)) {
-                msgEl.textContent = 'Este e-mail já está cadastrado no sistema.';
-                msgEl.classList.remove('hidden');
-                return;
-            }
+            setSubmitLoading('enrollSubmit', 'enrollSubmitIcon', 'enrollSubmitLabel', true, 'Concluir Cadastro');
 
-            const isAdmin = isOfficialAdminEmail(email);
-            const newUser = {
-                id: createLocalId('usr'),
-                nome: name,
-                email: email,
-                senha: pass,
-                setor: sector || 'Estudante IFAL',
-                telefone: phone,
-                tipo: isAdmin ? 'admin' : 'usuario',
-                role: isAdmin ? 'admin' : 'usuario',
-                ativo: true,
-                criadoEm: new Date().toISOString()
-            };
+            setTimeout(() => {
+                let users = readJSON(STORAGE_USERS, []);
+                
+                const existsInAdmin = ADMIN_ACCOUNTS.some(a => normalizeEmail(a.email) === email);
+                const existsInLocal = users.some(u => normalizeEmail(u.email) === email);
 
-            users.push(newUser);
-            writeJSON(STORAGE_USERS, users);
+                if (existsInAdmin || existsInLocal) {
+                    msgEl.textContent = 'Este e-mail já está cadastrado no sistema.';
+                    msgEl.classList.remove('hidden');
+                    setSubmitLoading('enrollSubmit', 'enrollSubmitIcon', 'enrollSubmitLabel', false, 'Concluir Cadastro');
+                    return;
+                }
 
-            currentUser = newUser;
-            writeJSON(STORAGE_SESSION, { email: newUser.email, loginTime: new Date().toISOString() });
-            setupAuthenticatedUI();
-            showToast('Conta criada com sucesso!');
+                const newUser = {
+                    id: createLocalId('usr'),
+                    nome: name,
+                    email: email,
+                    senha: pass,
+                    setor: sector || 'Estudante IFAL',
+                    telefone: phone,
+                    role: 'usuario',
+                    tipo: 'usuario',
+                    criadoEm: new Date().toISOString()
+                };
+
+                users.push(newUser);
+                writeJSON(STORAGE_USERS, users);
+
+                const sessionObj = {
+                    authenticated: true,
+                    name: newUser.nome,
+                    email: newUser.email,
+                    role: 'usuario',
+                    sector: newUser.setor,
+                    loginTime: new Date().toISOString()
+                };
+
+                writeJSON(STORAGE_SESSION, sessionObj);
+                currentUser = sessionObj;
+                setSubmitLoading('enrollSubmit', 'enrollSubmitIcon', 'enrollSubmitLabel', false, 'Concluir Cadastro');
+                setupAuthenticatedUI();
+                showToast('Conta criada com sucesso.');
+            }, 300);
         }
 
         function openRecoveryDialog() {
@@ -1427,28 +1102,26 @@
             const msgBox = document.getElementById('recoveryMessage');
             if (!email) {
                 msgBox.className = 'p-2.5 rounded-xl font-semibold bg-rose-950 text-rose-300';
-                msgBox.textContent = 'Por favor, digite seu e-mail.';
+                msgBox.textContent = 'Por favor, informe seu e-mail.';
                 msgBox.classList.remove('hidden');
                 return;
             }
             msgBox.className = 'p-2.5 rounded-xl font-semibold bg-emerald-950 text-emerald-300';
-            msgBox.textContent = 'Se o e-mail estiver cadastrado, as instruções de redefinição serão enviadas.';
+            msgBox.textContent = 'Instruções para redefinição enviadas (simulação).';
             msgBox.classList.remove('hidden');
         }
 
-        // NAVEGAÇÃO E RETORNO
         function switchTab(viewName) {
             if (viewName === 'admin' && !isCurrentUserAdmin()) {
-                showToast('Acesso negado: área restrita a administradores.', 'error');
+                showToast('Acesso restrito ao Painel Administrativo.', 'error');
                 return;
             }
 
             if (currentView !== viewName) {
                 navigationHistory.push(currentView);
             }
-            currentView = viewName;
 
-            // Atualiza Botões da Sidebar
+            currentView = viewName;
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 if (btn.getAttribute('data-view') === viewName) {
                     btn.classList.add('bg-ifal-navy', 'text-white', 'shadow-sm', 'font-semibold');
@@ -1459,31 +1132,29 @@
                 }
             });
 
-            // Oculta todas as seções e exibe a atual
             document.querySelectorAll('.view-section').forEach(sec => sec.classList.add('hidden'));
             const activeSec = document.getElementById(`view-${viewName}`);
             if (activeSec) activeSec.classList.remove('hidden');
 
-            // Atualiza o Título do Header
             const titles = {
                 dashboard: 'Início • Saúde Conectada',
                 servicos: 'Serviços de Saúde & Acolhimento',
-                solicitacoes: 'Solicitação de Atendimento',
+                solicitacoes: 'Solicitar Atendimento',
                 acompanhamento: 'Minhas Solicitações',
                 agendamentos: 'Meus Agendamentos',
                 avisos: 'Mural de Avisos Institucionais',
                 comunicacao: 'Comunicação Intersetorial',
                 locais: 'Unidades e Setores do Campus',
                 informacoes: 'Informações Frequentes & FAQ',
-                emergencia: 'Emergência & Contatos de Apoio',
+                emergencia: 'Emergência',
                 perfil: 'Meu Perfil',
-                notificacoes: 'Central de Notificações',
-                ajuda: 'Central de Suporte e Ajuda',
+                notificacoes: 'Notificações',
+                ajuda: 'Central de Ajuda',
                 admin: 'Painel Administrativo'
             };
+
             document.getElementById('currentViewTitle').textContent = titles[viewName] || 'Saúde Conectada';
 
-            // Botão Voltar no Header
             if (navigationHistory.length > 0) {
                 document.getElementById('headerBackBtn').classList.remove('hidden');
             } else {
@@ -1513,459 +1184,181 @@
             }
         }
 
-        // RENDERIZAÇÃO DAS TELAS PRINCIPAIS
+        function populateServicesDropdown() {
+            const select = document.getElementById('solEspecialidade');
+            if (!select) return;
+            select.innerHTML = '';
+            mockServices.forEach(s => {
+                const opt = document.createElement('option');
+                opt.value = s.nome;
+                opt.textContent = `${s.nome} (${s.setor})`;
+                select.appendChild(opt);
+            });
+        }
+
         function renderCurrentView() {
             if (currentView === 'dashboard') renderDashboardView();
             else if (currentView === 'servicos') renderServicosView();
-            else if (currentView === 'solicitacoes') resetSolicitacaoForm();
             else if (currentView === 'acompanhamento') renderUserSolicitacoesView();
             else if (currentView === 'agendamentos') renderUserAgendamentosView();
             else if (currentView === 'avisos') renderAvisosView();
-            else if (currentView === 'comunicacao') renderComunicacaoView();
             else if (currentView === 'locais') renderLocaisView();
             else if (currentView === 'informacoes') renderFaqView();
-            else if (currentView === 'perfil') renderPerfilView();
-            else if (currentView === 'notificacoes') renderNotificacoesFullView();
+            else if (currentView === 'comunicacao') renderChatView();
+            else if (currentView === 'perfil') renderProfileView();
+            else if (currentView === 'notificacoes') renderFullNotifView();
             else if (currentView === 'admin') renderAdminView();
-        }
-
-        function renderDashboardView() {
-            updateDashboardMetrics();
-            renderDashboardNotices();
-            renderDashboardChart();
         }
 
         function updateDashboardMetrics() {
             if (!currentUser) return;
-            const mySols = mockSolicitacoes.filter(s => normalizeEmail(s.userEmail) === normalizeEmail(currentUser.email));
-            const myAgendas = mockAgendamentos.filter(a => normalizeEmail(a.userEmail) === normalizeEmail(currentUser.email));
-            const myNotifs = mockNotificacoes.filter(n => normalizeEmail(n.userEmail) === normalizeEmail(currentUser.email));
-            const myMsgs = mockMensagens.filter(m => normalizeEmail(m.userEmail) === normalizeEmail(currentUser.email));
-
+            const mySols = mockSolicitacoes.filter(s => s.userEmail === currentUser.email);
             document.getElementById('dashUserSolCount').textContent = mySols.length;
-            const inAnalysis = mySols.filter(s => s.status === 'Em análise').length;
-            const completed = mySols.filter(s => s.status === 'Atendida').length;
-            document.getElementById('dashUserSolDetail').textContent = `Em análise: ${inAnalysis} | Atendidas: ${completed}`;
-
-            document.getElementById('dashUserAgendaCount').textContent = myAgendas.length;
-            document.getElementById('dashUserAgendaDetail').textContent = myAgendas.length > 0 ? `${myAgendas.length} confirmado(s)` : 'Sem horários';
-
-            document.getElementById('dashUserNotifCount').textContent = myNotifs.length;
-            const unread = myNotifs.filter(n => !n.lida).length;
-            document.getElementById('dashUserNotifDetail').textContent = `${unread} não lidas`;
-
-            document.getElementById('dashUserMsgCount').textContent = myMsgs.length;
-            document.getElementById('dashUserServCount').textContent = mockServices.filter(s => s.ativo).length;
-
+            document.getElementById('dashUserServCount').textContent = mockServices.length;
             document.getElementById('badgeSolCount').textContent = mySols.length;
         }
 
-        function renderDashboardNotices() {
+        function renderDashboardView() {
             const widget = document.getElementById('dashNoticesWidget');
-            const activeNotices = mockAvisos.filter(a => a.ativo).slice(0, 3);
-            if (activeNotices.length === 0) {
-                widget.innerHTML = `<p class="text-slate-400 italic text-center py-4">Nenhum aviso recente.</p>`;
-                return;
-            }
-            widget.innerHTML = activeNotices.map(a => `
-                <div class="p-3 bg-slate-700/50 rounded-xl border border-slate-600 space-y-1">
-                    <div class="flex items-center justify-between">
-                        <span class="text-[10px] font-bold uppercase text-emerald-400">${a.setor}</span>
-                        <span class="text-[10px] text-slate-400">${a.data}</span>
+            if (widget) {
+                widget.innerHTML = mockAvisos.slice(0, 3).map(a => `
+                    <div class="p-3 bg-slate-700/60 rounded-xl border border-slate-600">
+                        <p class="font-bold text-white">${a.titulo}</p>
+                        <p class="text-slate-300 mt-1">${a.conteudo}</p>
                     </div>
-                    <h4 class="font-bold text-white text-xs">${a.titulo}</h4>
-                    <p class="text-slate-300 text-[11px] line-clamp-2">${a.conteudo}</p>
-                </div>
-            `).join('');
+                `).join('');
+            }
+            renderChart();
         }
 
-        function renderDashboardChart() {
+        function renderChart() {
             const ctx = document.getElementById('dashboardChart');
             if (!ctx) return;
             if (myChartInstance) myChartInstance.destroy();
-
-            const serviceCounts = {};
-            mockServices.forEach(s => serviceCounts[s.nome] = 0);
-            mockSolicitacoes.forEach(s => {
-                if (serviceCounts[s.servico] !== undefined) serviceCounts[s.servico]++;
-            });
-
             myChartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: Object.keys(serviceCounts),
+                    labels: ['Psicologia', 'Pedagogia', 'Serviço Social', 'Enfermagem'],
                     datasets: [{
-                        label: 'Solicitações de Atendimento',
-                        data: Object.values(serviceCounts),
-                        backgroundColor: '#059669',
-                        borderRadius: 8
+                        label: 'Atendimentos',
+                        data: [12, 19, 7, 15],
+                        backgroundColor: '#059669'
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        legend: { display: false }
-                    },
-                    scales: {
-                        y: { ticks: { color: '#94a3b8', stepSize: 1 }, grid: { color: '#334155' } },
-                        x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
-                    }
+                    plugins: { legend: { display: false } }
                 }
             });
         }
 
         function renderServicosView() {
             const grid = document.getElementById('servicesGrid');
-            const activeServices = mockServices.filter(s => s.ativo);
-            grid.innerHTML = activeServices.map(s => `
-                <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 shadow-sm space-y-3 hover:border-emerald-500 transition">
-                    <div class="w-10 h-10 rounded-xl bg-slate-700 flex items-center justify-center ${s.cor || 'text-emerald-400'} text-xl">
-                        <i class="fa-solid ${s.icon || 'fa-briefcase-medical'}"></i>
+            if (!grid) return;
+            grid.innerHTML = mockServices.map(s => `
+                <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl">
+                        <i class="fa-solid ${s.icon || 'fa-notes-medical'}"></i>
                     </div>
                     <h4 class="font-bold text-white text-sm">${s.nome}</h4>
-                    <p class="text-slate-300 text-xs leading-relaxed">${s.desc}</p>
-                    <div class="pt-2 flex justify-between items-center text-[11px]">
-                        <span class="text-slate-400 font-medium">${s.setor || 'Setor de Saúde'}</span>
-                        <button onclick="quickSelectService('${s.nome}')" class="px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg transition cursor-pointer">Solicitar</button>
-                    </div>
+                    <p class="text-xs text-slate-300">${s.desc}</p>
+                    <span class="inline-block px-2 py-0.5 bg-slate-700 text-emerald-400 text-[10px] rounded font-semibold">${s.setor}</span>
                 </div>
             `).join('');
-        }
-
-        function populateServicesDropdown() {
-            const sel = document.getElementById('solEspecialidade');
-            if (!sel) return;
-            const activeServices = mockServices.filter(s => s.ativo);
-            sel.innerHTML = '<option value="">Escolha um atendimento...</option>' + 
-                activeServices.map(s => `<option value="s.nome">{s.nome}</option>`).join('');
-        }
-
-        function quickSelectService(serviceName) {
-            switchTab('solicitacoes');
-            const sel = document.getElementById('solEspecialidade');
-            if (sel) {
-                sel.value = serviceName;
-                handleServicoChange();
-            }
-        }
-
-        // FLUXO DE SOLICITAÇÃO DE ATENDIMENTO
-        function handleServicoChange() {
-            const serv = document.getElementById('solEspecialidade').value;
-            document.getElementById('solStepServicoNome').textContent = serv || 'Serviço';
-            
-            const dynamicBox = document.getElementById('solTriagemDynamicFields');
-            if (!serv) {
-                dynamicBox.innerHTML = '<p class="text-slate-400 italic">Selecione um serviço na etapa 1 para carregar as perguntas de triagem.</p>';
-                return;
-            }
-
-            // Perguntas personalizadas por área
-            if (serv === 'Psicologia') {
-                dynamicBox.innerHTML = `
-                    <div>
-                        <label class="block font-semibold text-slate-300 mb-1">É a sua primeira consulta no campus?</label>
-                        <select id="triagP1" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 text-white outline-none">
-                            <option value="Sim">Sim, é a primeira vez</option>
-                            <option value="Não">Não, já realizei atendimento antes</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block font-semibold text-slate-300 mb-1">Como você classifica o seu nível de urgência emocional atual?</label>
-                        <select id="triagP2" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 text-white outline-none">
-                            <option value="Leve">Leve (Quero orientação de rotina)</option>
-                            <option value="Moderado">Moderado (Estou sentindo ansiedade/estresse constante)</option>
-                            <option value="Alto">Alto (Preciso de apoio psicológico urgente)</option>
-                        </select>
-                    </div>
-                `;
-            } else if (serv === 'Pedagogia') {
-                dynamicBox.innerHTML = `
-                    <div>
-                        <label class="block font-semibold text-slate-300 mb-1">Qual a principal dificuldade encontrada?</label>
-                        <select id="triagP1" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 text-white outline-none">
-                            <option value="Organização de tempo">Organização de tempo e rotina</option>
-                            <option value="Dificuldade na disciplina">Dificuldade em disciplinas específicas</option>
-                            <option value="Adaptação ao IFAL">Adaptação às normas e rotinas do IFAL</option>
-                        </select>
-                    </div>
-                `;
-            } else {
-                dynamicBox.innerHTML = `
-                    <div>
-                        <label class="block font-semibold text-slate-300 mb-1">Observações relevantes para o acolhimento inicial:</label>
-                        <textarea id="triagP1" rows="2" placeholder="Digite alguma observação adicional se necessário..." class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 text-white outline-none"></textarea>
-                    </div>
-                `;
-            }
-        }
-
-        function toggleBeneficiarioForm() {
-            const isOther = document.querySelector('input[name="solTargetType"]:checked').value === 'other';
-            const box = document.getElementById('boxBeneficiarioOutro');
-            if (isOther) box.classList.remove('hidden');
-            else box.classList.add('hidden');
-        }
-
-        function goToSolStep(step) {
-            if (step === 2) {
-                const serv = document.getElementById('solEspecialidade').value;
-                const motivo = document.getElementById('solMotivo').value.trim();
-                const desc = document.getElementById('solDescricao').value.trim();
-                if (!serv || !motivo || !desc) {
-                    showToast('Preencha os campos obrigatórios (*)', 'error');
-                    return;
-                }
-            } else if (step === 3) {
-                // Atualiza resumo para revisão
-                const serv = document.getElementById('solEspecialidade').value;
-                const motivo = document.getElementById('solMotivo').value;
-                const target = document.querySelector('input[name="solTargetType"]:checked').value;
-                const benNome = document.getElementById('benNome').value;
-
-                document.getElementById('solRevisionSummary').innerHTML = `
-                    <p><strong>Serviço:</strong> ${serv}</p>
-                    <p><strong>Solicitante:</strong> currentUser?currentUser.nome:''({currentUser ? currentUser.email : ''})</p>
-                    <p><strong>Beneficiário:</strong> ${target === 'me' ? 'O próprio usuário' : benNome}</p>
-                    <p><strong>Motivo/Assunto:</strong> ${motivo}</p>
-                    <p><strong>Modalidade:</strong> ${document.getElementById('solPreferencia').value}</p>
-                `;
-            }
-
-            solCurrentStep = step;
-            for (let i = 1; i <= 4; i++) {
-                const container = document.getElementById(`solStepContainer-${i}`);
-                const dot = document.getElementById(`solStepDot-${i}`);
-                const txt = document.getElementById(`solStepText-${i}`);
-                if (i === step) {
-                    container.classList.remove('hidden');
-                    dot.className = "relative z-10 w-8 h-8 rounded-full bg-emerald-600 text-white font-bold text-xs flex items-center justify-center border-2 border-slate-800 transition";
-                    txt.className = "text-emerald-400 font-bold";
-                } else {
-                    container.classList.add('hidden');
-                    if (i < step) {
-                        dot.className = "relative z-10 w-8 h-8 rounded-full bg-emerald-800 text-emerald-200 font-bold text-xs flex items-center justify-center border-2 border-slate-800 transition";
-                        txt.className = "text-emerald-500 font-medium";
-                    } else {
-                        dot.className = "relative z-10 w-8 h-8 rounded-full bg-slate-700 text-slate-400 font-bold text-xs flex items-center justify-center border-2 border-slate-800 transition";
-                        txt.className = "text-slate-400";
-                    }
-                }
-            }
-
-            const pct = ((step - 1) / 3) * 100;
-            document.getElementById('solStepLine').style.width = `${pct}%`;
-        }
-
-        function resetSolicitacaoForm() {
-            document.getElementById('formNovaSolicitacao').reset();
-            toggleBeneficiarioForm();
-            goToSolStep(1);
         }
 
         function handleNovaSolicitacao(e) {
             e.preventDefault();
-            const protocol = `PROT-newDate().getFullYear()-{Math.floor(10000 + Math.random() * 90000)}`;
-            const serv = document.getElementById('solEspecialidade').value;
-            const targetType = document.querySelector('input[name="solTargetType"]:checked').value;
+            const esp = document.getElementById('solEspecialidade').value;
+            const mot = document.getElementById('solMotivo').value.trim();
+            const desc = document.getElementById('solDescricao').value.trim();
+
+            if (!esp || !mot || !desc) {
+                showToast('Preencha todos os campos obrigatórios.', 'error');
+                return;
+            }
 
             const newSol = {
                 id: createLocalId('sol'),
-                protocolo: protocol,
+                protocolo: `SC-${Math.floor(100000 + Math.random() * 900000)}`,
                 userEmail: currentUser.email,
-                userName: currentUser.nome,
-                servico: serv,
-                targetType: targetType,
-                beneficiarioNome: targetType === 'me' ? currentUser.nome : document.getElementById('benNome').value,
-                motivo: document.getElementById('solMotivo').value,
-                descricao: document.getElementById('solDescricao').value,
-                modalidade: document.getElementById('solPreferencia').value,
-                dataPref: document.getElementById('solDataPref').value,
+                userName: currentUser.name || currentUser.nome,
+                especialidade: esp,
+                motivo: mot,
+                descricao: desc,
                 status: 'Em análise',
-                dataCriacao: new Date().toLocaleDateString('pt-BR'),
-                historico: [{
-                    status: 'Em análise',
-                    dataHora: new Date().toLocaleString('pt-BR'),
-                    resp: 'Sistema',
-                    obs: 'Solicitação gerada com sucesso.'
-                }]
+                data: new Date().toLocaleDateString('pt-BR')
             };
 
             mockSolicitacoes.unshift(newSol);
-            
-            // Gerar notificação automática
-            mockNotificacoes.unshift({
-                id: createLocalId('notif'),
-                userEmail: currentUser.email,
-                titulo: 'Solicitação Criada',
-                mensagem: `Sua solicitação (${protocol}) para ${serv} foi registrada com sucesso.`,
-                dataHora: new Date().toLocaleString('pt-BR'),
-                lida: false
-            });
-
             persistAllData();
-            document.getElementById('solGeneratedProtocol').textContent = protocol;
-            goToSolStep(4);
-            showToast('Solicitação registrada com sucesso!');
-            updateNotificationsUI();
+            updateDashboardMetrics();
+            showToast('Solicitação enviada com sucesso.');
+            document.getElementById('formNovaSolicitacao').reset();
+            switchTab('acompanhamento');
         }
 
-        // VISUALIZAÇÃO DE MINHAS SOLICITAÇÕES
         function renderUserSolicitacoesView() {
             const container = document.getElementById('userSolicitacoesContainer');
-            const mySols = mockSolicitacoes.filter(s => normalizeEmail(s.userEmail) === normalizeEmail(currentUser.email));
-
+            if (!container) return;
+            const mySols = mockSolicitacoes.filter(s => s.userEmail === currentUser.email);
             if (mySols.length === 0) {
-                container.innerHTML = `
-                    <div class="bg-slate-800 p-8 rounded-2xl border border-slate-700 text-center space-y-3">
-                        <i class="fa-solid fa-folder-open text-4xl text-slate-500"></i>
-                        <p class="text-slate-300 font-semibold text-xs">Você ainda não possui solicitações registradas.</p>
-                        <button onclick="switchTab('solicitacoes')" class="px-4 py-2 bg-emerald-600 text-white font-bold text-xs rounded-xl hover:bg-emerald-500 transition">Criar Nova Solicitação</button>
-                    </div>
-                `;
+                container.innerHTML = `<p class="text-xs text-slate-400 p-4 bg-slate-800 rounded-2xl">Nenhuma solicitação encontrada.</p>`;
                 return;
             }
-
-            container.innerHTML = mySols.map(s => {
-                const statusColors = {
-                    'Em análise': 'bg-amber-900/60 text-amber-300 border-amber-700',
-                    'Aguardando atendimento': 'bg-blue-900/60 text-blue-300 border-blue-700',
-                    'Agendada': 'bg-purple-900/60 text-purple-300 border-purple-700',
-                    'Em atendimento': 'bg-indigo-900/60 text-indigo-300 border-indigo-700',
-                    'Atendida': 'bg-emerald-900/60 text-emerald-300 border-emerald-700',
-                    'Cancelada': 'bg-rose-900/60 text-rose-300 border-rose-700'
-                };
-                return `
-                    <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 space-y-3">
-                        <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-700 pb-2">
-                            <div>
-                                <span class="font-mono text-emerald-400 font-bold text-xs">${s.protocolo}</span>
-                                <span class="text-slate-400 text-[10px] ml-2">• ${s.dataCriacao}</span>
-                            </div>
-                            <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold border statusColors[s.status]||'bg-slate-700text-slate-300'">{s.status}</span>
-                        </div>
-                        <div class="space-y-1">
-                            <h4 class="font-bold text-white text-xs">${s.servico} - ${s.motivo}</h4>
-                            <p class="text-slate-300 text-xs">${s.descricao}</p>
-                            <p class="text-slate-400 text-[11px]"><strong>Beneficiário:</strong> ${s.beneficiarioNome}</p>
-                        </div>
-                        <div class="pt-2 flex justify-end">
-                            <button onclick="openSolModal('${s.id}')" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-200 text-xs font-bold rounded-xl transition">Ver Histórico Detalhado</button>
-                        </div>
+            container.innerHTML = mySols.map(s => `
+                <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 space-y-2">
+                    <div class="flex justify-between items-center text-xs">
+                        <span class="font-mono font-bold text-emerald-400">${s.protocolo}</span>
+                        <span class="px-2 py-0.5 bg-amber-900/60 text-amber-300 rounded font-semibold text-[10px]">${s.status}</span>
                     </div>
-                `;
-            }).join('');
-        }
-
-        function openSolModal(solId) {
-            const sol = mockSolicitacoes.find(s => s.id === solId);
-            if (!sol) return;
-
-            document.getElementById('solModalTitle').textContent = `Solicitação ${sol.protocolo}`;
-            const body = document.getElementById('solModalBody');
-
-            body.innerHTML = `
-                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-2">
-                    <p><strong>Serviço:</strong> ${sol.servico}</p>
-                    <p><strong>Solicitante:</strong> ${sol.userName}</p>
-                    <p><strong>Beneficiário:</strong> ${sol.beneficiarioNome}</p>
-                    <p><strong>Status Atual:</strong> ${sol.status}</p>
-                    <p><strong>Descrição:</strong> ${sol.descricao}</p>
+                    <h4 class="font-bold text-white text-xs">${s.especialidade} — ${s.motivo}</h4>
+                    <p class="text-xs text-slate-300">${s.descricao}</p>
+                    <p class="text-[10px] text-slate-500">Data: ${s.data}</p>
                 </div>
-                <div class="space-y-2">
-                    <h4 class="font-bold text-white text-xs border-b border-slate-700 pb-1">Histórico de Alterações</h4>
-                    <div class="space-y-2">
-                        ${(sol.historico || []).map(h => `
-                            <div class="p-2.5 bg-slate-800/60 rounded-lg border border-slate-700 text-[11px] space-y-0.5">
-                                <div class="flex justify-between font-semibold text-emerald-400">
-                                    <span>${h.status}</span>
-                                    <span class="text-slate-400">${h.dataHora}</span>
-                                </div>
-                                <p class="text-slate-300">${h.obs}</p>
-                                <p class="text-[10px] text-slate-400">Responsável: ${h.resp}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-
-            document.getElementById('solDetailModal').classList.remove('hidden');
+            `).join('');
         }
 
-        function closeSolModal() {
-            document.getElementById('solDetailModal').classList.add('hidden');
-        }
-
-        // VISUALIZAÇÃO DE MEUS AGENDAMENTOS
         function renderUserAgendamentosView() {
             const container = document.getElementById('userAgendamentosContainer');
-            const myAgendas = mockAgendamentos.filter(a => normalizeEmail(a.userEmail) === normalizeEmail(currentUser.email));
-
-            if (myAgendas.length === 0) {
-                container.innerHTML = `
-                    <div class="bg-slate-800 p-8 rounded-2xl border border-slate-700 text-center space-y-3">
-                        <i class="fa-solid fa-calendar-xmark text-4xl text-slate-500"></i>
-                        <p class="text-slate-300 font-semibold text-xs">Você não possui agendamentos marcados no momento.</p>
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = myAgendas.map(a => `
-                <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                    <div class="space-y-1">
-                        <div class="flex items-center space-x-2">
-                            <span class="px-2 py-0.5 bg-purple-900/60 text-purple-300 font-bold text-[10px] rounded border border-purple-700">${a.servico}</span>
-                            <span class="text-slate-400 text-xs font-mono">${a.data} às ${a.horario}</span>
-                        </div>
-                        <h4 class="font-bold text-white text-sm">Profissional: ${a.profissional}</h4>
-                        <p class="text-slate-300 text-xs">Unidade/Local: ${a.local}</p>
-                        ${a.obs ? `<p class="text-slate-400 text-[11px] italic">Obs: ${a.obs}</p>` : ''}
-                    </div>
-                </div>
-            `).join('');
+            if (!container) return;
+            container.innerHTML = `<p class="text-xs text-slate-400 p-4 bg-slate-800 rounded-2xl">Nenhum agendamento ativo no momento.</p>`;
         }
 
-        // VISUALIZAÇÃO DE AVISOS
         function renderAvisosView() {
             const container = document.getElementById('avisosContainer');
-            const activeNotices = mockAvisos.filter(a => a.ativo);
-
-            if (activeNotices.length === 0) {
-                container.innerHTML = `<div class="col-span-full bg-slate-800 p-8 rounded-2xl border border-slate-700 text-center text-slate-400 italic text-xs">Nenhum aviso publicado no momento.</div>`;
-                return;
-            }
-
-            container.innerHTML = activeNotices.map(a => `
-                <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 shadow-sm space-y-3">
-                    <div class="flex items-center justify-between">
-                        <span class="px-2 py-0.5 bg-emerald-900/60 text-emerald-300 border border-emerald-700 font-bold text-[10px] rounded">${a.setor}</span>
-                        <span class="text-slate-400 text-[10px]">${a.data}</span>
-                    </div>
-                    <h4 class="font-bold text-white text-sm">${a.titulo}</h4>
-                    <p class="text-slate-300 text-xs leading-relaxed">${a.conteudo}</p>
+            if (!container) return;
+            container.innerHTML = mockAvisos.map(a => `
+                <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 space-y-2">
+                    <span class="text-[10px] text-emerald-400 font-bold uppercase">${a.setor}</span>
+                    <h4 class="font-bold text-white text-xs">${a.titulo}</h4>
+                    <p class="text-xs text-slate-300">${a.conteudo}</p>
+                    <p class="text-[10px] text-slate-500">${a.data}</p>
                 </div>
             `).join('');
         }
 
-        // VISUALIZAÇÃO DE COMUNICAÇÃO INTERSETORIAL
-        function renderComunicacaoView() {
-            const list = document.getElementById('chatMessagesList');
-            const myMsgs = mockMensagens.filter(m => normalizeEmail(m.userEmail) === normalizeEmail(currentUser.email));
+        function renderLocaisView() {
+            const grid = document.getElementById('locaisGrid');
+            if (!grid) return;
+            grid.innerHTML = mockLocais.map(l => `
+                <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 space-y-2">
+                    <h4 class="font-bold text-white text-xs">${l.nome}</h4>
+                    <p class="text-xs text-slate-300"><i class="fa-solid fa-location-dot text-teal-400 mr-1"></i> ${l.bloco}</p>
+                    <p class="text-xs text-slate-400">Responsável: ${l.resp}</p>
+                    <p class="text-[10px] text-emerald-400 font-semibold">Horário: ${l.hor}</p>
+                </div>
+            `).join('');
+        }
 
-            if (myMsgs.length === 0) {
-                list.innerHTML = `<p class="text-slate-400 italic text-center py-4">Sua caixa de mensagens intersetoriais está vazia.</p>`;
-                return;
-            }
-
-            list.innerHTML = myMsgs.map(m => `
-                <div class="p-3 bg-slate-700/50 rounded-xl border border-slate-600 space-y-1">
-                    <div class="flex justify-between items-center text-[10px]">
-                        <span class="font-bold text-indigo-400">Para: ${m.setor}</span>
-                        <span class="text-slate-400">${m.dataHora}</span>
-                    </div>
-                    <p class="text-slate-200 text-xs">${m.texto}</p>
+        function renderFaqView() {
+            const list = document.getElementById('userFaqList');
+            if (!list) return;
+            list.innerHTML = mockFaqs.map(f => `
+                <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 space-y-1">
+                    <h4 class="font-bold text-white text-xs">${f.q}</h4>
+                    <p class="text-xs text-slate-300">${f.a}</p>
                 </div>
             `).join('');
         }
@@ -1974,1009 +1367,158 @@
             e.preventDefault();
             const setor = document.getElementById('chatSetor').value;
             const texto = document.getElementById('chatTexto').value.trim();
-
             if (!texto) return;
 
             mockMensagens.unshift({
                 id: createLocalId('msg'),
-                userEmail: currentUser.email,
-                userName: currentUser.nome,
+                user: currentUser.name || currentUser.nome,
                 setor: setor,
                 texto: texto,
-                dataHora: new Date().toLocaleString('pt-BR')
+                data: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
             });
 
             persistAllData();
             document.getElementById('chatTexto').value = '';
-            renderComunicacaoView();
-            showToast('Mensagem enviada com sucesso!');
+            renderChatView();
+            showToast('Mensagem enviada.');
         }
 
-        // VISUALIZAÇÃO DE UNIDADES E LOCAIS
-        function renderLocaisView() {
-            const container = document.getElementById('locaisGrid');
-            const activeLocais = mockLocais.filter(l => l.ativo);
-
-            container.innerHTML = activeLocais.map(l => `
-                <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-3">
-                    <div class="w-10 h-10 rounded-xl bg-teal-500/20 text-teal-400 flex items-center justify-center text-xl">
-                        <i class="fa-solid fa-location-dot"></i>
+        function renderChatView() {
+            const list = document.getElementById('chatMessagesList');
+            if (!list) return;
+            if (mockMensagens.length === 0) {
+                list.innerHTML = `<p class="text-slate-400 text-xs">Nenhuma mensagem registrada.</p>`;
+                return;
+            }
+            list.innerHTML = mockMensagens.map(m => `
+                <div class="p-3 bg-slate-700/60 rounded-xl space-y-1">
+                    <div class="flex justify-between font-bold text-emerald-400">
+                        <span>${m.user} → ${m.setor}</span>
+                        <span class="text-slate-400 font-normal text-[10px]">${m.data}</span>
                     </div>
-                    <h4 class="font-bold text-white text-sm">${l.nome}</h4>
-                    <p class="text-slate-400 text-xs">${l.bloco}</p>
-                    <p class="text-slate-300 text-xs">${l.desc || 'Acolhimento e suporte ao estudante.'}</p>
-                    <div class="pt-2 border-t border-slate-700 text-[11px] space-y-0.5 text-slate-400">
-                        <p><strong>Responsável:</strong> ${l.resp}</p>
-                        <p><strong>Horário:</strong> ${l.hor}</p>
-                    </div>
+                    <p class="text-slate-200">${m.texto}</p>
                 </div>
             `).join('');
         }
 
-        // VISUALIZAÇÃO DE FAQ
-        function renderFaqView() {
-            const container = document.getElementById('userFaqList');
-            const activeFaqs = mockFaqs.filter(f => f.ativo);
-
-            container.innerHTML = activeFaqs.map(f => `
-                <div class="bg-slate-800 p-4 rounded-xl border border-slate-700 space-y-2">
-                    <h4 class="font-bold text-emerald-400 text-xs">${f.q}</h4>
-                    <p class="text-slate-200 text-xs leading-relaxed">${f.a}</p>
-                </div>
-            `).join('');
-        }
-
-        // PERFIL
-        function renderPerfilView() {
-            if (!currentUser) return;
-            document.getElementById('profInputName').value = currentUser.nome || '';
+        function renderProfileView() {
+            document.getElementById('profInputName').value = currentUser.name || currentUser.nome || '';
             document.getElementById('profInputEmail').value = currentUser.email || '';
-            document.getElementById('profInputSector').value = currentUser.setor || '';
-            document.getElementById('profInputPhone').value = currentUser.telefone || '';
+            document.getElementById('profInputSector').value = currentUser.sector || currentUser.setor || '';
+            document.getElementById('profInputPhone').value = currentUser.phone || currentUser.telefone || '';
             document.getElementById('profileUserRoleBadge').textContent = isCurrentUserAdmin() ? 'ADMINISTRADOR' : 'USUÁRIO';
         }
 
         function handleUpdateProfile(e) {
             e.preventDefault();
-            currentUser.nome = document.getElementById('profInputName').value.trim();
-            currentUser.setor = document.getElementById('profInputSector').value.trim();
-            currentUser.telefone = document.getElementById('profInputPhone').value.trim();
+            const name = document.getElementById('profInputName').value.trim();
+            const sector = document.getElementById('profInputSector').value.trim();
+            const phone = document.getElementById('profInputPhone').value.trim();
+            if (!name) return;
+
+            currentUser.name = name;
+            currentUser.sector = sector;
+            currentUser.phone = phone;
+
+            writeJSON(STORAGE_SESSION, currentUser);
 
             let users = readJSON(STORAGE_USERS, []);
             let idx = users.findIndex(u => normalizeEmail(u.email) === normalizeEmail(currentUser.email));
             if (idx !== -1) {
-                users[idx] = currentUser;
+                users[idx].nome = name;
+                users[idx].setor = sector;
+                users[idx].telefone = phone;
                 writeJSON(STORAGE_USERS, users);
             }
 
             setupAuthenticatedUI();
-            showToast('Perfil atualizado com sucesso!');
+            showToast('Perfil atualizado com sucesso.');
         }
 
-        // NOTIFICAÇÕES
-        function updateNotificationsUI() {
-            if (!currentUser) return;
-            const myNotifs = mockNotificacoes.filter(n => normalizeEmail(n.userEmail) === normalizeEmail(currentUser.email));
-            const unread = myNotifs.filter(n => !n.lida);
-
-            const badge = document.getElementById('notifBadgeDot');
-            if (unread.length > 0) badge.classList.remove('hidden');
-            else badge.classList.add('hidden');
-
-            const list = document.getElementById('notifList');
-            if (myNotifs.length === 0) {
-                list.innerHTML = `<p class="text-slate-400 italic text-center py-2">Sem notificações.</p>`;
-                return;
-            }
-
-            list.innerHTML = myNotifs.slice(0, 5).map(n => `
-                <div class="p-2 bg-slate-700/50 rounded-lg space-y-0.5 ${n.lida ? 'opacity-60' : ''}">
-                    <div class="flex justify-between font-bold text-white text-[11px]">
-                        <span>${n.titulo}</span>
-                        <span class="text-slate-400 text-[9px]">${n.dataHora}</span>
-                    </div>
-                    <p class="text-slate-300 text-[10px]">${n.mensagem}</p>
-                </div>
-            `).join('');
-        }
-
-        function renderNotificacoesFullView() {
+        function renderFullNotifView() {
             const list = document.getElementById('fullNotifList');
-            const myNotifs = mockNotificacoes.filter(n => normalizeEmail(n.userEmail) === normalizeEmail(currentUser.email));
-
-            if (myNotifs.length === 0) {
-                list.innerHTML = `<p class="text-slate-400 italic text-center py-8">Você não possui notificações gravadas.</p>`;
-                return;
-            }
-
-            list.innerHTML = myNotifs.map(n => `
-                <div class="p-4 bg-slate-800 rounded-2xl border border-slate-700 space-y-1 ${n.lida ? 'opacity-60' : ''}">
-                    <div class="flex justify-between font-bold text-white text-xs">
-                        <span>${n.titulo}</span>
-                        <span class="text-slate-400 text-[10px]">${n.dataHora}</span>
-                    </div>
-                    <p class="text-slate-200 text-xs">${n.mensagem}</p>
-                </div>
-            `).join('');
+            if (!list) return;
+            list.innerHTML = `<p class="text-slate-400 text-xs bg-slate-800 p-4 rounded-2xl">Não há notificações no momento.</p>`;
         }
 
         function toggleNotifMenu() {
-            document.getElementById('notifMenu').classList.toggle('hidden');
+            const menu = document.getElementById('notifMenu');
+            menu.classList.toggle('hidden');
         }
 
         function markAllNotificationsRead() {
-            if (!currentUser) return;
-            mockNotificacoes.forEach(n => {
-                if (normalizeEmail(n.userEmail) === normalizeEmail(currentUser.email)) n.lida = true;
-            });
-            persistAllData();
-            updateNotificationsUI();
-            if (currentView === 'notificacoes') renderNotificacoesFullView();
+            document.getElementById('notifBadgeDot').classList.add('hidden');
             showToast('Notificações marcadas como lidas.');
         }
 
-        // PAINEL ADMINISTRATIVO (COMPLETO)
         function renderAdminView() {
-            if (!isCurrentUserAdmin()) return;
-            switchAdminSubTab(currentAdminSubTab);
-        }
+            const localUsers = readJSON(STORAGE_USERS, []);
+            const userListEl = document.getElementById('adminUsersList');
+            const solListEl = document.getElementById('adminSolList');
 
-        function switchAdminSubTab(tab) {
-            currentAdminSubTab = tab;
-            document.querySelectorAll('.admin-sub-section').forEach(sec => sec.classList.add('hidden'));
-            
-            const btnContainer = document.querySelectorAll('[id^="adminTabBtn-"]');
-            btnContainer.forEach(b => {
-                b.className = "px-3 py-2 rounded-xl text-slate-400 hover:bg-slate-800 shrink-0 cursor-pointer";
+            const combinedUsers = [];
+            const addedEmails = new Set();
+
+            ADMIN_ACCOUNTS.forEach(a => {
+                const norm = normalizeEmail(a.email);
+                if (!addedEmails.has(norm)) {
+                    addedEmails.add(norm);
+                    combinedUsers.push({
+                        nome: a.name,
+                        email: a.email,
+                        tipo: a.role || 'administrador',
+                        setor: a.sector || 'Administração IFAL'
+                    });
+                }
             });
 
-            const activeBtn = document.getElementById(`adminTabBtn-${tab}`);
-            if (activeBtn) activeBtn.className = "px-3 py-2 rounded-xl bg-ifal-navy text-white font-bold shrink-0 cursor-pointer";
+            localUsers.forEach(u => {
+                const norm = normalizeEmail(u.email);
+                if (!addedEmails.has(norm)) {
+                    addedEmails.add(norm);
+                    combinedUsers.push({
+                        nome: u.nome || u.name,
+                        email: u.email,
+                        tipo: u.role || u.tipo || 'usuario',
+                        setor: u.setor || u.sector || 'N/A'
+                    });
+                }
+            });
 
-            const activeSec = document.getElementById(`adminSubSection-${tab}`);
-            if (activeSec) activeSec.classList.remove('hidden');
-
-            if (tab === 'solicitacoes') renderAdminSolicitacoes();
-            else if (tab === 'usuarios') renderAdminUsers();
-            else if (tab === 'agendamentos') renderAdminAgendamentos();
-            else if (tab === 'servicos') renderAdminServices();
-            else if (tab === 'profissionais') renderAdminProfissionais();
-            else if (tab === 'locais') renderAdminLocais();
-            else if (tab === 'avisos') renderAdminAvisos();
-            else if (tab === 'faq') renderAdminFaqs();
-            else if (tab === 'logs') renderAdminLogs();
-        }
-
-        // ADMIN: SOLICITAÇÕES
-        function renderAdminSolicitacoes() {
-            if (!isCurrentUserAdmin()) return;
-            const statusFilter = document.getElementById('adminFilterStatus').value;
-            const search = document.getElementById('adminSearchSol').value.toLowerCase().trim();
-
-            let list = [...mockSolicitacoes];
-            if (statusFilter) list = list.filter(s => s.status === statusFilter);
-            if (search) {
-                list = list.filter(s => 
-                    s.protocolo.toLowerCase().includes(search) || 
-                    s.userName.toLowerCase().includes(search) ||
-                    s.servico.toLowerCase().includes(search)
-                );
-            }
-
-            // Métricas
-            const metricsBox = document.getElementById('adminSolMetrics');
-            const total = mockSolicitacoes.length;
-            const inAnalysis = mockSolicitacoes.filter(s => s.status === 'Em análise').length;
-            const scheduled = mockSolicitacoes.filter(s => s.status === 'Agendada').length;
-            const done = mockSolicitacoes.filter(s => s.status === 'Atendida').length;
-
-            metricsBox.innerHTML = `
-                <div class="bg-slate-700/50 p-2 rounded-xl"><p class="text-[10px] text-slate-400 uppercase font-bold">Total</p><p class="text-sm font-extrabold text-white">${total}</p></div>
-                <div class="bg-slate-700/50 p-2 rounded-xl"><p class="text-[10px] text-amber-400 uppercase font-bold">Em Análise</p><p class="text-sm font-extrabold text-amber-300">${inAnalysis}</p></div>
-                <div class="bg-slate-700/50 p-2 rounded-xl"><p class="text-[10px] text-purple-400 uppercase font-bold">Agendadas</p><p class="text-sm font-extrabold text-purple-300">${scheduled}</p></div>
-                <div class="bg-slate-700/50 p-2 rounded-xl"><p class="text-[10px] text-emerald-400 uppercase font-bold">Atendidas</p><p class="text-sm font-extrabold text-emerald-300">${done}</p></div>
-            `;
-
-            const solList = document.getElementById('adminSolList');
-            if (list.length === 0) {
-                solList.innerHTML = `<p class="text-slate-400 italic text-center py-4">Nenhuma solicitação encontrada.</p>`;
-                return;
-            }
-
-            solList.innerHTML = list.map(s => `
-                <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700 space-y-2">
-                    <div class="flex flex-wrap items-center justify-between gap-2">
+            if (userListEl) {
+                userListEl.innerHTML = combinedUsers.map(u => `
+                    <div class="p-3 bg-slate-700/60 rounded-xl flex items-center justify-between">
                         <div>
-                            <span class="font-mono text-emerald-400 font-bold">${s.protocolo}</span>
-                            <span class="text-slate-300 ml-2 font-bold">s.userName({s.servico})</span>
+                            <p class="font-bold text-white">${u.nome} <span class="text-[10px] text-emerald-400">(${u.tipo})</span></p>
+                            <p class="text-slate-300 text-[11px]">${u.email} — ${u.setor}</p>
                         </div>
-                        <div class="flex items-center space-x-2">
-                            <select onchange="updateSolicitacaoStatus('${s.id}', this.value)" class="bg-slate-800 text-white text-xs px-2 py-1 rounded border border-slate-600 outline-none">
-                                <option value="Em análise" ${s.status === 'Em análise' ? 'selected' : ''}>Em análise</option>
-                                <option value="Aguardando atendimento" ${s.status === 'Aguardando atendimento' ? 'selected' : ''}>Aguardando atendimento</option>
-                                <option value="Agendada" ${s.status === 'Agendada' ? 'selected' : ''}>Agendada</option>
-                                <option value="Em atendimento" ${s.status === 'Em atendimento' ? 'selected' : ''}>Em atendimento</option>
-                                <option value="Atendida" ${s.status === 'Atendida' ? 'selected' : ''}>Atendida</option>
-                                <option value="Cancelada" ${s.status === 'Cancelada' ? 'selected' : ''}>Cancelada</option>
-                            </select>
-                            <button onclick="openSolModal('${s.id}')" class="px-2.5 py-1 bg-slate-700 hover:bg-slate-600 text-white rounded text-[11px]">Detalhes</button>
-                        </div>
+                        <span class="px-2 py-0.5 bg-emerald-900/80 text-emerald-300 text-[10px] font-bold rounded">Ativo</span>
                     </div>
-                    <p class="text-slate-300 text-xs">${s.descricao}</p>
-                </div>
-            `).join('');
-        }
-
-        function updateSolicitacaoStatus(solId, newStatus) {
-            if (!isCurrentUserAdmin()) return;
-            const sol = mockSolicitacoes.find(s => s.id === solId);
-            if (!sol) return;
-
-            const oldStatus = sol.status;
-            sol.status = newStatus;
-
-            sol.historico.unshift({
-                status: newStatus,
-                dataHora: new Date().toLocaleString('pt-BR'),
-                resp: currentUser.nome,
-                obs: `Status alterado de "oldStatus"para"{newStatus}".`
-            });
-
-            // Notificação ao usuário
-            mockNotificacoes.unshift({
-                id: createLocalId('notif'),
-                userEmail: sol.userEmail,
-                titulo: 'Status de Solicitação Atualizado',
-                mensagem: `Sua solicitação (${sol.protocolo}) mudou para: ${newStatus}.`,
-                dataHora: new Date().toLocaleString('pt-BR'),
-                lida: false
-            });
-
-            logAdminAction(`Alterou status da solicitação ${sol.protocolo} para ${newStatus}`);
-            persistAllData();
-            showToast(`Status atualizado para ${newStatus}`);
-            renderAdminSolicitacoes();
-        }
-
-        // ADMIN: USUÁRIOS E ADMINS
-        function renderAdminUsers() {
-            if (!isCurrentUserAdmin()) return;
-            const search = document.getElementById('adminSearchUser').value.toLowerCase().trim();
-            const users = readJSON(STORAGE_USERS, []);
-
-            let list = users;
-            if (search) {
-                list = list.filter(u => u.nome.toLowerCase().includes(search) || u.email.toLowerCase().includes(search));
+                `).join('');
             }
 
-            const container = document.getElementById('adminUsersList');
-            container.innerHTML = list.map(u => {
-                const isAdmin = isOfficialAdminEmail(u.email) || u.tipo === 'admin';
-                return `
-                    <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                        <div>
-                            <div class="flex items-center space-x-2">
-                                <h4 class="font-bold text-white text-xs">${u.nome}</h4>
-                                <span class="px-2 py-0.5 text-[9px] font-bold rounded uppercase isAdmin?'bg-rose-900/80text-rose-300borderborder-rose-700':'bg-slate-700text-slate-300'">{isAdmin ? 'ADMIN' : 'USUÁRIO'}</span>
+            if (solListEl) {
+                if (mockSolicitacoes.length === 0) {
+                    solListEl.innerHTML = `<p class="text-slate-400">Nenhuma solicitação no sistema.</p>`;
+                } else {
+                    solListEl.innerHTML = mockSolicitacoes.map(s => `
+                        <div class="p-3 bg-slate-700/60 rounded-xl space-y-1">
+                            <div class="flex justify-between">
+                                <span class="font-bold text-emerald-400 font-mono">${s.protocolo}</span>
+                                <span class="text-slate-400">${s.userName} (${s.userEmail})</span>
                             </div>
-                            <p class="text-slate-400 text-xs">${u.email} • ${u.setor || 'Sem setor'}</p>
+                            <p class="font-semibold text-white">${s.especialidade} — ${s.motivo}</p>
+                            <p class="text-slate-300">${s.descricao}</p>
                         </div>
-                        <div class="flex items-center space-x-2">
-                            ${!isOfficialAdminEmail(u.email) ? `
-                                <button onclick="toggleUserAdminRole('${u.id}')" class="px-2.5 py-1 ${isAdmin ? 'bg-amber-800 hover:bg-amber-700' : 'bg-rose-800 hover:bg-rose-700'} text-white rounded text-[11px] font-semibold transition">
-                                    ${isAdmin ? 'Remover Admin' : 'Tornar Admin'}
-                                </button>
-                                <button onclick="toggleUserActiveStatus('${u.id}')" class="px-2.5 py-1 ${u.ativo !== false ? 'bg-slate-700 hover:bg-slate-600 text-rose-300' : 'bg-emerald-800 hover:bg-emerald-700 text-white'} rounded text-[11px] font-semibold transition">
-                                    ${u.ativo !== false ? 'Desativar' : 'Ativar'}
-                                </button>
-                            ` : '<span class="text-slate-500 text-[10px] italic">Admin Oficial (Protegido)</span>'}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function toggleUserAdminRole(userId) {
-            if (!isCurrentUserAdmin()) return;
-            let users = readJSON(STORAGE_USERS, []);
-            let user = users.find(u => u.id === userId);
-            if (!user) return;
-
-            if (isOfficialAdminEmail(user.email)) {
-                showToast('Administradores oficiais não podem ter seus privilégios removidos.', 'error');
-                return;
-            }
-
-            const isCurrentlyAdmin = user.tipo === 'admin';
-            user.tipo = isCurrentlyAdmin ? 'usuario' : 'admin';
-            user.role = user.tipo;
-
-            writeJSON(STORAGE_USERS, users);
-            logAdminAction(`${isCurrentlyAdmin ? 'Removeu' : 'Concedeu'} privilégios de admin para ${user.email}`);
-            showToast('Privilégios de usuário atualizados.');
-            renderAdminUsers();
-        }
-
-        function toggleUserActiveStatus(userId) {
-            if (!isCurrentUserAdmin()) return;
-            let users = readJSON(STORAGE_USERS, []);
-            let user = users.find(u => u.id === userId);
-            if (!user) return;
-
-            if (isOfficialAdminEmail(user.email)) {
-                showToast('Administradores oficiais não podem ser desativados.', 'error');
-                return;
-            }
-
-            user.ativo = !(user.ativo !== false);
-            writeJSON(STORAGE_USERS, users);
-            logAdminAction(`${user.ativo ? 'Ativou' : 'Desativou'} a conta de ${user.email}`);
-            showToast('Status da conta atualizado.');
-            renderAdminUsers();
-        }
-
-        // ADMIN: AGENDAMENTOS
-        function renderAdminAgendamentos() {
-            if (!isCurrentUserAdmin()) return;
-            const container = document.getElementById('adminAgendamentosList');
-            if (mockAgendamentos.length === 0) {
-                container.innerHTML = `<p class="text-slate-400 italic text-center py-4">Nenhum agendamento cadastrado.</p>`;
-                return;
-            }
-
-            container.innerHTML = mockAgendamentos.map(a => `
-                <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700 flex justify-between items-center">
-                    <div>
-                        <h4 class="font-bold text-white text-xs">${a.userName} - ${a.servico}</h4>
-                        <p class="text-slate-400 text-xs">${a.data} às ${a.horario} • a.profissional({a.local})</p>
-                    </div>
-                    <button onclick="cancelAgendamentoAdmin('${a.id}')" class="px-2.5 py-1 bg-rose-900 hover:bg-rose-800 text-rose-200 text-xs rounded transition">Cancelar</button>
-                </div>
-            `).join('');
-        }
-
-        function openCreateAgendaModal() {
-            if (!isCurrentUserAdmin()) return;
-            const title = document.getElementById('adminGenericModalTitle');
-            const body = document.getElementById('adminGenericModalBody');
-            title.textContent = 'Novo Agendamento';
-
-            const activeServices = mockServices.filter(s => s.ativo);
-            const activeProfs = mockProfissionais.filter(p => p.ativo);
-            const activeLocais = mockLocais.filter(l => l.ativo);
-            const users = readJSON(STORAGE_USERS, []);
-
-            body.innerHTML = `
-                <form onsubmit="handleCreateAgendaAdmin(event)" class="space-y-3">
-                    <div>
-                        <label class="block font-semibold mb-1 text-slate-300">Selecione o Usuário *</label>
-                        <select id="agUserEmail" required class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-white outline-none">
-                            ${users.map(u => `<option value="${u.email}">u.nome({u.email})</option>`).join('')}
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block font-semibold mb-1 text-slate-300">Serviço *</label>
-                        <select id="agServico" required class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-white outline-none">
-                            ${activeServices.map(s => `<option value="${s.nome}">${s.nome}</option>`).join('')}
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block font-semibold mb-1 text-slate-300">Profissional *</label>
-                        <select id="agProf" required class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-white outline-none">
-                            ${activeProfs.map(p => `<option value="${p.nome}">p.nome({p.especialidade})</option>`).join('')}
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block font-semibold mb-1 text-slate-300">Unidade/Local *</label>
-                        <select id="agLocal" required class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-white outline-none">
-                            ${activeLocais.map(l => `<option value="${l.nome}">l.nome({l.bloco})</option>`).join('')}
-                        </select>
-                    </div>
-                    <div class="grid grid-cols-2 gap-3">
-                        <div>
-                            <label class="block font-semibold mb-1 text-slate-300">Data *</label>
-                            <input type="date" id="agData" required class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-white outline-none">
-                        </div>
-                        <div>
-                            <label class="block font-semibold mb-1 text-slate-300">Horário *</label>
-                            <input type="time" id="agHora" required class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-white outline-none">
-                        </div>
-                    </div>
-                    <button type="submit" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition">Salvar Agendamento</button>
-                </form>
-            `;
-
-            document.getElementById('adminGenericModal').classList.remove('hidden');
-        }
-
-        function handleCreateAgendaAdmin(e) {
-            e.preventDefault();
-            if (!isCurrentUserAdmin()) return;
-
-            const userEmail = document.getElementById('agUserEmail').value;
-            const users = readJSON(STORAGE_USERS, []);
-            const u = users.find(usr => normalizeEmail(usr.email) === normalizeEmail(userEmail));
-
-            const newAgenda = {
-                id: createLocalId('ag'),
-                userEmail: userEmail,
-                userName: u ? u.nome : 'Usuário',
-                servico: document.getElementById('agServico').value,
-                profissional: document.getElementById('agProf').value,
-                local: document.getElementById('agLocal').value,
-                data: document.getElementById('agData').value,
-                horario: document.getElementById('agHora').value
-            };
-
-            mockAgendamentos.unshift(newAgenda);
-
-            // Notificação
-            mockNotificacoes.unshift({
-                id: createLocalId('notif'),
-                userEmail: userEmail,
-                titulo: 'Novo Agendamento Confirmado',
-                mensagem: `Seu agendamento para ${newAgenda.servico} foi marcado para ${newAgenda.data} às ${newAgenda.horario}.`,
-                dataHora: new Date().toLocaleString('pt-BR'),
-                lida: false
-            });
-
-            logAdminAction(`Criou agendamento para ${userEmail}`);
-            persistAllData();
-            closeAdminGenericModal();
-            showToast('Agendamento criado com sucesso!');
-            renderAdminAgendamentos();
-        }
-
-        function cancelAgendamentoAdmin(agId) {
-            if (!isCurrentUserAdmin()) return;
-            mockAgendamentos = mockAgendamentos.filter(a => a.id !== agId);
-            logAdminAction(`Cancelou agendamento ${agId}`);
-            persistAllData();
-            showToast('Agendamento removido.');
-            renderAdminAgendamentos();
-        }
-
-        // ADMIN: SERVIÇOS
-        function renderAdminServices() {
-            if (!isCurrentUserAdmin()) return;
-            const container = document.getElementById('adminServicesList');
-            container.innerHTML = mockServices.map(s => `
-                <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700 space-y-2">
-                    <div class="flex justify-between items-center">
-                        <h4 class="font-bold text-white text-xs">${s.nome}</h4>
-                        <span class="px-2 py-0.5 text-[9px] rounded font-bold uppercase s.ativo?'bg-emerald-900/80text-emerald-300':'bg-rose-900/80text-rose-300'">{s.ativo ? 'ATIVO' : 'INATIVO'}</span>
-                    </div>
-                    <p class="text-slate-300 text-xs">${s.desc}</p>
-                    <div class="pt-2 flex justify-end space-x-2">
-                        <button onclick="toggleServiceActive('s.id')"class="px-2.5py-1bg-slate-700hover:bg-slate-600text-whiteroundedtext-[11px]">{s.ativo ? 'Desativar' : 'Ativar'}</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function openCreateServiceModal() {
-            if (!isCurrentUserAdmin()) return;
-            document.getElementById('adminGenericModalTitle').textContent = 'Novo Serviço';
-            document.getElementById('adminGenericModalBody').innerHTML = `
-                <form onsubmit="handleCreateServiceAdmin(event)" class="space-y-3">
-                    <div>
-                        <label class="block font-semibold mb-1 text-slate-300">Nome do Serviço *</label>
-                        <input type="text" id="srvNome" required placeholder="Ex: Nutrição" class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-white outline-none">
-                    </div>
-                    <div>
-                        <label class="block font-semibold mb-1 text-slate-300">Setor *</label>
-                        <input type="text" id="srvSetor" required placeholder="Ex: Saúde Estudantil" class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-white outline-none">
-                    </div>
-                    <div>
-                        <label class="block font-semibold mb-1 text-slate-300">Descrição *</label>
-                        <textarea id="srvDesc" rows="3" required placeholder="Descrição simplificada..." class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-white outline-none"></textarea>
-                    </div>
-                    <button type="submit" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition">Criar Serviço</button>
-                </form>
-            `;
-            document.getElementById('adminGenericModal').classList.remove('hidden');
-        }
-
-        function handleCreateServiceAdmin(e) {
-            e.preventDefault();
-            if (!isCurrentUserAdmin()) return;
-
-            const newService = {
-                id: createLocalId('srv'),
-                nome: document.getElementById('srvNome').value.trim(),
-                setor: document.getElementById('srvSetor').value.trim(),
-                desc: document.getElementById('srvDesc').value.trim(),
-                icon: 'fa-user-doctor',
-                cor: 'text-teal-400',
-                ativo: true
-            };
-
-            mockServices.push(newService);
-            logAdminAction(`Criou serviço ${newService.nome}`);
-            persistAllData();
-            closeAdminGenericModal();
-            populateServicesDropdown();
-            showToast('Serviço criado com sucesso!');
-            renderAdminServices();
-        }
-
-        function toggleServiceActive(srvId) {
-            if (!isCurrentUserAdmin()) return;
-            const srv = mockServices.find(s => s.id === srvId);
-            if (!srv) return;
-            srv.ativo = !srv.ativo;
-            logAdminAction(`${srv.ativo ? 'Ativou' : 'Desativou'} serviço ${srv.nome}`);
-            persistAllData();
-            populateServicesDropdown();
-            showToast('Serviço atualizado.');
-            renderAdminServices();
-        }
-
-        // ADMIN: PROFISSIONAIS
-        function renderAdminProfissionais() {
-            if (!isCurrentUserAdmin()) return;
-            const container = document.getElementById('adminProfissionaisList');
-            container.innerHTML = mockProfissionais.map(p => `
-                <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700 flex justify-between items-center">
-                    <div>
-                        <h4 class="font-bold text-white text-xs">${p.nome}</h4>
-                        <p class="text-slate-400 text-xs">${p.especialidade} • p.setor({p.unidade || 'Campus'})</p>
-                    </div>
-                    <button onclick="toggleProfActive('p.id')"class="px-2.5py-1bg-slate-700hover:bg-slate-600text-whitetext-xsrounded">{p.ativo ? 'Desativar' : 'Ativar'}</button>
-                </div>
-            `).join('');
-        }
-
-        function openCreateProfModal() {
-            if (!isCurrentUserAdmin()) return;
-            document.getElementById('adminGenericModalTitle').textContent = 'Novo Profissional';
-            document.getElementById('adminGenericModalBody').innerHTML = `
-                <form onsubmit="handleCreateProfAdmin(event)" class="space-y-3">
-                    <div>
-                        <label class="block font-semibold mb-1 text-slate-300">Nome do Profissional *</label>
-                        <input type="text" id="profNome" required placeholder="Ex: Dr. Carlos Eduardo" class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-white outline-none">
-                    </div>
-                    <div>
-                        <label class="block font-semibold mb-1 text-slate-300">Especialidade / Função *</label>
-                        <input type="text" id="profEsp" required placeholder="Ex: Psicologia" class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-white outline-none">
-                    </div>
-                    <div>
-                        <label class="block font-semibold mb-1 text-slate-300">Setor / Gabinete *</label>
-                        <input type="text" id="profSetor" required placeholder="Ex: Gabinete de Psicologia" class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-white outline-none">
-                    </div>
-                    <button type="submit" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition">Salvar Profissional</button>
-                </form>
-            `;
-            document.getElementById('adminGenericModal').classList.remove('hidden');
-        }
-
-        function handleCreateProfAdmin(e) {
-            e.preventDefault();
-            if (!isCurrentUserAdmin()) return;
-
-            const newProf = {
-                id: createLocalId('prof'),
-                nome: document.getElementById('profNome').value.trim(),
-                especialidade: document.getElementById('profEsp').value.trim(),
-                setor: document.getElementById('profSetor').value.trim(),
-                unidade: 'Campus Benedito Bentes',
-                ativo: true
-            };
-
-            mockProfissionais.push(newProf);
-            logAdminAction(`Cadastrou profissional ${newProf.nome}`);
-            persistAllData();
-            closeAdminGenericModal();
-            showToast('Profissional cadastrado!');
-            renderAdminProfissionais();
-        }
-
-        function toggleProfActive(profId) {
-            if (!isCurrentUserAdmin()) return;
-            const prof = mockProfissionais.find(p => p.id === profId);
-            if (!prof) return;
-            prof.ativo = !prof.ativo;
-            logAdminAction(`${prof.ativo ? 'Ativou' : 'Desativou'} profissional ${prof.nome}`);
-            persistAllData();
-            showToast('Status do profissional atualizado.');
-            renderAdminProfissionais();
-        }
-
-        // ADMIN: LOCAIS E UNIDADES
-        function renderAdminLocais() {
-            if (!isCurrentUserAdmin()) return;
-            const container = document.getElementById('adminLocaisList');
-            container.innerHTML = mockLocais.map(l => `
-                <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700 flex justify-between items-center">
-                    <div>
-                        <h4 class="font-bold text-white text-xs">${l.nome}</h4>
-                        <p class="text-slate-400 text-xs">${l.bloco} • Horário: ${l.hor}</p>
-                    </div>
-                    <button onclick="toggleLocalActive('l.id')"class="px-2.5py-1bg-slate-700hover:bg-slate-600text-whitetext-xsrounded">{l.ativo ? 'Desativar' : 'Ativar'}</button>
-                </div>
-            `).join('');
-        }
-
-        function openCreateLocalModal() {
-            if (!isCurrentUserAdmin()) return;
-            document.getElementById('adminGenericModalTitle').textContent = 'Nova Unidade/Setor';
-            document.getElementById('adminGenericModalBody').innerHTML = `
-                <form onsubmit="handleCreateLocalAdmin(event)" class="space-y-3">
-                    <div>
-                        <label class="block font-semibold mb-1 text-slate-300">Nome da Unidade/Setor *</label>
-                        <input type="text" id="locNome" required placeholder="Ex: Sala de Odontologia" class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-white outline-none">
-                    </div>
-                    <div>
-                        <label class="block font-semibold mb-1 text-slate-300">Bloco / Localização *</label>
-                        <input type="text" id="locBloco" required placeholder="Ex: Bloco C - Sala 04" class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-white outline-none">
-                    </div>
-                    <div>
-                        <label class="block font-semibold mb-1 text-slate-300">Horário de Funcionamento *</label>
-                        <input type="text" id="locHor" required placeholder="Ex: 08h às 17h" class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-white outline-none">
-                    </div>
-                    <button type="submit" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition">Salvar Unidade</button>
-                </form>
-            `;
-            document.getElementById('adminGenericModal').classList.remove('hidden');
-        }
-
-        function handleCreateLocalAdmin(e) {
-            e.preventDefault();
-            if (!isCurrentUserAdmin()) return;
-
-            const newLocal = {
-                id: createLocalId('loc'),
-                nome: document.getElementById('locNome').value.trim(),
-                bloco: document.getElementById('locBloco').value.trim(),
-                hor: document.getElementById('locHor').value.trim(),
-                resp: 'Setor de Saúde',
-                ativo: true
-            };
-
-            mockLocais.push(newLocal);
-            logAdminAction(`Cadastrou unidade/setor ${newLocal.nome}`);
-            persistAllData();
-            closeAdminGenericModal();
-            showToast('Unidade cadastrada com sucesso!');
-            renderAdminLocais();
-        }
-
-        function toggleLocalActive(locId) {
-            if (!isCurrentUserAdmin()) return;
-            const loc = mockLocais.find(l => l.id === locId);
-            if (!loc) return;
-            loc.ativo = !loc.ativo;
-            logAdminAction(`${loc.ativo ? 'Ativou' : 'Desativou'} local ${loc.nome}`);
-            persistAllData();
-            showToast('Unidade atualizada.');
-            renderAdminLocais();
-        }
-
-        // ADMIN: AVISOS
-        function renderAdminAvisos() {
-            if (!isCurrentUserAdmin()) return;
-            const container = document.getElementById('adminAvisosList');
-            container.innerHTML = mockAvisos.map(a => `
-                <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700 space-y-2">
-                    <div class="flex justify-between items-center">
-                        <h4 class="font-bold text-white text-xs">a.titulo({a.setor})</h4>
-                        <button onclick="toggleAvisoActive('a.id')"class="px-2.5py-1bg-slate-700hover:bg-slate-600text-whitetext-xsrounded">{a.ativo ? 'Desativar' : 'Ativar'}</button>
-                    </div>
-                    <p class="text-slate-300 text-xs">${a.conteudo}</p>
-                </div>
-            `).join('');
-        }
-
-        function openCreateAvisoModal() {
-            if (!isCurrentUserAdmin()) return;
-            document.getElementById('adminGenericModalTitle').textContent = 'Novo Aviso no Mural';
-            document.getElementById('adminGenericModalBody').innerHTML = `
-                <form onsubmit="handleCreateAvisoAdmin(event)" class="space-y-3">
-                    <div>
-                        <label class="block font-semibold mb-1 text-slate-300">Título do Aviso *</label>
-                        <input type="text" id="avTitulo" required placeholder="Ex: Mutirão de Exames" class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-white outline-none">
-                    </div>
-                    <div>
-                        <label class="block font-semibold mb-1 text-slate-300">Setor Emissor *</label>
-                        <input type="text" id="avSetor" required placeholder="Ex: Enfermagem" class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-white outline-none">
-                    </div>
-                    <div>
-                        <label class="block font-semibold mb-1 text-slate-300">Conteúdo *</label>
-                        <textarea id="avConteudo" rows="3" required placeholder="Digite a mensagem..." class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-white outline-none"></textarea>
-                    </div>
-                    <button type="submit" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition">Publicar Aviso</button>
-                </form>
-            `;
-            document.getElementById('adminGenericModal').classList.remove('hidden');
-        }
-
-        function handleCreateAvisoAdmin(e) {
-            e.preventDefault();
-            if (!isCurrentUserAdmin()) return;
-
-            const newAviso = {
-                id: createLocalId('av'),
-                titulo: document.getElementById('avTitulo').value.trim(),
-                setor: document.getElementById('avSetor').value.trim(),
-                conteudo: document.getElementById('avConteudo').value.trim(),
-                data: new Date().toISOString().split('T')[0],
-                ativo: true
-            };
-
-            mockAvisos.unshift(newAviso);
-            logAdminAction(`Publicou aviso ${newAviso.titulo}`);
-            persistAllData();
-            closeAdminGenericModal();
-            showToast('Aviso publicado com sucesso!');
-            renderAdminAvisos();
-        }
-
-        function toggleAvisoActive(avId) {
-            if (!isCurrentUserAdmin()) return;
-            const av = mockAvisos.find(a => a.id === avId);
-            if (!av) return;
-            av.ativo = !av.ativo;
-            logAdminAction(`${av.ativo ? 'Ativou' : 'Desativou'} aviso ${av.titulo}`);
-            persistAllData();
-            showToast('Aviso atualizado.');
-            renderAdminAvisos();
-        }
-
-        // ADMIN: FAQ
-        function renderAdminFaqs() {
-            if (!isCurrentUserAdmin()) return;
-            const container = document.getElementById('adminFaqList');
-            container.innerHTML = mockFaqs.map(f => `
-                <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-700 space-y-1">
-                    <div class="flex justify-between items-center">
-                        <h4 class="font-bold text-emerald-400 text-xs">${f.q}</h4>
-                        <button onclick="deleteFaqAdmin('${f.id}')" class="px-2 py-1 bg-rose-900 hover:bg-rose-800 text-rose-200 text-[10px] rounded">Excluir</button>
-                    </div>
-                    <p class="text-slate-300 text-xs">${f.a}</p>
-                </div>
-            `).join('');
-        }
-
-        function openCreateFaqModal() {
-            if (!isCurrentUserAdmin()) return;
-            document.getElementById('adminGenericModalTitle').textContent = 'Novo item de FAQ / Base IA';
-            document.getElementById('adminGenericModalBody').innerHTML = `
-                <form onsubmit="handleCreateFaqAdmin(event)" class="space-y-3">
-                    <div>
-                        <label class="block font-semibold mb-1 text-slate-300">Pergunta *</label>
-                        <input type="text" id="faqQ" required placeholder="Ex: Como remarcar consulta?" class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-white outline-none">
-                    </div>
-                    <div>
-                        <label class="block font-semibold mb-1 text-slate-300">Resposta *</label>
-                        <textarea id="faqA" rows="3" required placeholder="Digite a resposta oficial..." class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 text-white outline-none"></textarea>
-                    </div>
-                    <button type="submit" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition">Salvar FAQ</button>
-                </form>
-            `;
-            document.getElementById('adminGenericModal').classList.remove('hidden');
-        }
-
-        function handleCreateFaqAdmin(e) {
-            e.preventDefault();
-            if (!isCurrentUserAdmin()) return;
-
-            const newFaq = {
-                id: createLocalId('faq'),
-                q: document.getElementById('faqQ').value.trim(),
-                a: document.getElementById('faqA').value.trim(),
-                ativo: true
-            };
-
-            mockFaqs.push(newFaq);
-            logAdminAction(`Adicionou FAQ ${newFaq.q}`);
-            persistAllData();
-            closeAdminGenericModal();
-            showToast('Item adicionado à Base de Conhecimento e Bot!');
-            renderAdminFaqs();
-        }
-
-        function deleteFaqAdmin(faqId) {
-            if (!isCurrentUserAdmin()) return;
-            if (!confirm('Deseja realmente excluir este item?')) return;
-            mockFaqs = mockFaqs.filter(f => f.id !== faqId);
-            logAdminAction(`Excluiu FAQ ${faqId}`);
-            persistAllData();
-            showToast('FAQ removido.');
-            renderAdminFaqs();
-        }
-
-        // ADMIN: AUDITORIA / LOGS
-        function renderAdminLogs() {
-            if (!isCurrentUserAdmin()) return;
-            const container = document.getElementById('adminLogsList');
-            if (mockLogs.length === 0) {
-                container.innerHTML = `<p class="text-slate-400 italic text-center py-4">Nenhum registro no histórico de auditoria.</p>`;
-                return;
-            }
-
-            container.innerHTML = mockLogs.map(l => `
-                <div class="p-2.5 bg-slate-900/60 rounded-lg border border-slate-700 text-[11px]">
-                    <div class="flex justify-between font-bold text-slate-300">
-                        <span>${l.admin}</span>
-                        <span class="text-slate-400 font-normal">${l.dataHora}</span>
-                    </div>
-                    <p class="text-emerald-400 font-mono mt-0.5">${l.acao}</p>
-                </div>
-            `).join('');
-        }
-
-        function closeAdminGenericModal() {
-            document.getElementById('adminGenericModal').classList.add('hidden');
-        }
-
-        // BACKUP E RESTAURAÇÃO
-        function exportSystemBackup() {
-            if (!isCurrentUserAdmin()) return;
-            const backupData = {
-                version: '1.0',
-                exportDate: new Date().toISOString(),
-                users: readJSON(STORAGE_USERS, []),
-                data: readJSON(STORAGE_DATA, {})
-            };
-
-            const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `saude_conectada_backup_${new Date().toISOString().slice(0, 10)}.json`;
-            a.click();
-            URL.revokeObjectURL(url);
-            showToast('Backup exportado com sucesso!');
-        }
-
-        function importSystemBackup(e) {
-            if (!isCurrentUserAdmin()) return;
-            const file = e.target.files[0];
-            if (!file) return;
-
-            if (!confirm('Atenção: A importação irá substituir os dados atuais do sistema. Deseja continuar?')) {
-                e.target.value = '';
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function(evt) {
-                try {
-                    const parsed = JSON.parse(evt.target.result);
-                    if (parsed.users) writeJSON(STORAGE_USERS, parsed.users);
-                    if (parsed.data) writeJSON(STORAGE_DATA, parsed.data);
-                    
-                    showToast('Backup restaurado com sucesso! Recarregando...');
-                    setTimeout(() => window.location.reload(), 1500);
-                } catch (err) {
-                    showToast('Arquivo de backup inválido.', 'error');
+                    `).join('');
                 }
-            };
-            reader.readAsText(file);
-        }
-
-        // CHATBOT "CONECTA SAÚDE"
-        function toggleChatbot(forceState) {
-            const win = document.getElementById('chatbotWindow');
-            const isHidden = win.classList.contains('hidden');
-            const newState = forceState !== undefined ? forceState : isHidden;
-
-            if (newState) {
-                win.classList.remove('hidden');
-                if (document.getElementById('chatbotMessages').children.length === 0) {
-                    addBotMessage('Olá! Sou o **Conecta Saúde**, assistente virtual do IFAL Campus Benedito Bentes. Como posso te ajudar hoje?');
-                }
-            } else {
-                win.classList.add('hidden');
             }
         }
 
-        function addBotMessage(text, isUser = false) {
-            const container = document.getElementById('chatbotMessages');
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `flex ${isUser ? 'justify-end' : 'justify-start'}`;
-
-            const bubbleClass = isUser ? 'bg-emerald-600 text-white rounded-2xl rounded-tr-none' : 'bg-slate-800 text-slate-100 rounded-2xl rounded-tl-none border border-slate-700';
-
-            msgDiv.innerHTML = `
-                <div class="max-w-[85%] p-3 text-xs ${bubbleClass} shadow-md space-y-1">
-                    <p class="leading-relaxed break-words">${text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')}</p>
-                </div>
-            `;
-
-            container.appendChild(msgDiv);
-            container.scrollTop = container.scrollHeight;
-        }
-
-        function handleChatbotSubmit(e) {
-            e.preventDefault();
-            const input = document.getElementById('chatbotInput');
-            const text = input.value.trim();
-            if (!text) return;
-
-            addBotMessage(text, true);
-            input.value = '';
-
-            setTimeout(() => respondBotQuery(text), 400);
-        }
-
-        function sendQuickBotQuery(q) {
-            addBotMessage(q, true);
-            setTimeout(() => respondBotQuery(q), 400);
-        }
-
-        function respondBotQuery(query) {
-            const q = query.toLowerCase();
-
-            // Busca dinamica na Base de FAQ
-            const matchFaq = mockFaqs.find(f => f.ativo && (q.includes(f.q.toLowerCase()) || f.q.toLowerCase().includes(q)));
-            if (matchFaq) {
-                addBotMessage(matchFaq.a);
-                return;
-            }
-
-            if (q.includes('serviço') || q.includes('atendimento')) {
-                const activeServs = mockServices.filter(s => s.ativo).map(s => s.nome).join(', ');
-                addBotMessage(`Atualmente ofertamos os seguintes serviços de saúde e acolhimento no campus: **${activeServs}**.`);
-                return;
-            }
-
-            if (q.includes('marcar') || q.includes('pedir') || q.includes('solicitar')) {
-                addBotMessage('Para solicitar um atendimento, acesse a aba **"Solicitar Atendimento"** no menu lateral, escolha o serviço e preencha o formulário de triagem.');
-                return;
-            }
-
-            if (q.includes('agendamento') || q.includes('consulta')) {
-                if (currentUser) {
-                    const myAgendas = mockAgendamentos.filter(a => normalizeEmail(a.userEmail) === normalizeEmail(currentUser.email));
-                    if (myAgendas.length > 0) {
-                        addBotMessage(`Você possui **${myAgendas.length} agendamento(s)** marcados. Verifique na aba "Meus Agendamentos".`);
-                    } else {
-                        addBotMessage('Você não possui nenhuma consulta ou atendimento agendado no momento.');
-                    }
-                } else {
-                    addBotMessage('Você pode conferir seus horários na aba "Meus Agendamentos".');
-                }
-                return;
-            }
-
-            if (q.includes('aviso') || q.includes('mural')) {
-                const activeAvisos = mockAvisos.filter(a => a.ativo);
-                if (activeAvisos.length > 0) {
-                    addBotMessage(`Temos **${activeAvisos.length} aviso(s) recente(s)** no mural do campus. Confira na aba "Mural de Avisos".`);
-                } else {
-                    addBotMessage('Não há novos avisos urgentes no mural neste momento.');
-                }
-                return;
-            }
-
-            if (q.includes('psicologia') || q.includes('onde fica')) {
-                addBotMessage('O Gabinete de Psicologia fica no **Bloco B - Sala 12**. Você pode agendar um atendimento diretamente pela plataforma.');
-                return;
-            }
-
-            // Resposta de fallback caso não encontre na base
-            addBotMessage('Não encontrei uma resposta exata para sua dúvida no momento. Você pode consultar a aba **"Informações & FAQ"** ou enviar uma mensagem para a coordenação na aba **"Comunicação"**.');
-        }
-
-        function clearChatbotHistory() {
-            document.getElementById('chatbotMessages').innerHTML = '';
-            addBotMessage('Conversa reiniciada. Como posso te ajudar?');
-        }
-
-        function handleGlobalSearch(term) {
-            if (!term) return;
-            const t = term.toLowerCase();
-            if (t.includes('serviço') || t.includes('psicologia') || t.includes('enfermagem')) switchTab('servicos');
-            else if (t.includes('aviso') || t.includes('mural')) switchTab('avisos');
-            else if (t.includes('faq') || t.includes('duvida')) switchTab('informacoes');
-        }
-
-        // INICIALIZADOR PRINCIPAL
-        window.addEventListener('DOMContentLoaded', () => {
+        // Inicialização do Sistema
+        document.addEventListener('DOMContentLoaded', () => {
             initAppSession();
         });
     </script>
 </body>
 </html>
-
