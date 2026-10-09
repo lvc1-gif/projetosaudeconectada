@@ -166,7 +166,7 @@
                             <input type="text" id="enrollSector" maxlength="200" placeholder="Ex: Informática" class="w-full bg-slate-800/80 p-2.5 rounded-xl border border-slate-700 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/25 text-white placeholder-slate-500 transition-all">
                         </div>
                         <div>
-                            <label for="enrollPhone" class="block font-semibold mb-1 text-slate-300">Telefone</label>
+                            <label for="enrollPhone" class="block font-semibold mb-1 text-slate-300">Telefone / WhatsApp</label>
                             <input type="text" id="enrollPhone" maxlength="40" autocomplete="tel" placeholder="(82) 99999-0000" class="w-full bg-slate-800/80 p-2.5 rounded-xl border border-slate-700 outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/25 text-white placeholder-slate-500 transition-all">
                         </div>
                     </div>
@@ -359,6 +359,7 @@
                     </div>
                 </div>
             </header>
+
             <main class="flex-1 overflow-y-auto p-3 sm:p-6 lg:p-8 space-y-6 w-full min-w-0">
                 <!-- VISTA DASHBOARD -->
                 <section id="view-dashboard" class="view-section space-y-6 w-full min-w-0">
@@ -383,7 +384,7 @@
                                         <i class="fa-solid fa-paper-plane"></i><span>Solicitar Atendimento</span>
                                     </button>
                                     <button onclick="switchTab('agendamentos')" class="bg-purple-600 hover:bg-purple-700 text-white px-3.5 py-2 rounded-xl text-xs font-bold shadow-md transition flex items-center space-x-1.5 cursor-pointer">
-                                        <i class="fa-solid fa-calendar-check"></i><span>Fazer Agendamento</span>
+                                        <i class="fa-solid fa-calendar-check"></i><span>Meus Agendamentos</span>
                                     </button>
                                 </div>
                             </div>
@@ -394,17 +395,17 @@
                         <div onclick="switchTab('solicitacoes')" class="cursor-pointer bg-slate-800 p-4 rounded-2xl border border-slate-700 shadow-sm hover:border-ifal-green transition space-y-1">
                             <p class="text-[10px] text-slate-400 font-bold uppercase">Solicitações</p>
                             <h4 id="dashUserSolCount" class="text-xl font-extrabold text-white">0</h4>
-                            <p id="dashUserSolDetail" class="text-[10px] text-emerald-400 font-semibold truncate">Em análise: 0 | Atendidas: 0</p>
+                            <p id="dashUserSolDetail" class="text-[10px] text-emerald-400 font-semibold truncate">Registradas</p>
                         </div>
                         <div onclick="switchTab('agendamentos')" class="cursor-pointer bg-slate-800 p-4 rounded-2xl border border-slate-700 shadow-sm hover:border-ifal-green transition space-y-1">
                             <p class="text-[10px] text-slate-400 font-bold uppercase">Agendamentos</p>
                             <h4 id="dashUserAgendaCount" class="text-xl font-extrabold text-white">0</h4>
-                            <p id="dashUserAgendaDetail" class="text-[10px] text-purple-400 font-semibold truncate">Sem horários</p>
+                            <p id="dashUserAgendaDetail" class="text-[10px] text-purple-400 font-semibold truncate">Confirmados</p>
                         </div>
                         <div onclick="switchTab('notificacoes')" class="cursor-pointer bg-slate-800 p-4 rounded-2xl border border-slate-700 shadow-sm hover:border-ifal-green transition space-y-1">
                             <p class="text-[10px] text-slate-400 font-bold uppercase">Notificações</p>
                             <h4 id="dashUserNotifCount" class="text-xl font-extrabold text-white">0</h4>
-                            <p id="dashUserNotifDetail" class="text-[10px] text-amber-400 font-semibold truncate">0 não lidas</p>
+                            <p id="dashUserNotifDetail" class="text-[10px] text-amber-400 font-semibold truncate">Não lidas</p>
                         </div>
                         <div onclick="switchTab('comunicacao')" class="cursor-pointer bg-slate-800 p-4 rounded-2xl border border-slate-700 shadow-sm hover:border-ifal-green transition space-y-1">
                             <p class="text-[10px] text-slate-400 font-bold uppercase">Mensagens</p>
@@ -417,18 +418,20 @@
                             <p class="text-[10px] text-sky-400 font-semibold truncate">Disponíveis</p>
                         </div>
                     </div>
+
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                         <div class="lg:col-span-2 bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm space-y-4">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-700 pb-3 gap-2">
                                 <div>
                                     <h3 class="font-bold text-white text-sm">Estatísticas de Atendimentos</h3>
-                                    <p class="text-xs text-slate-400">Distribuição das solicitações pelas áreas</p>
+                                    <p class="text-xs text-slate-400">Distribuição real das solicitações pelos serviços</p>
                                 </div>
                             </div>
                             <div class="h-56 sm:h-64 relative w-full" id="chartWrapper">
                                 <canvas id="dashboardChart"></canvas>
                             </div>
                         </div>
+
                         <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm space-y-4">
                             <h3 class="font-bold text-white text-sm border-b border-slate-700 pb-2">Últimos Avisos do Campus</h3>
                             <div id="dashNoticesWidget" class="space-y-3 text-xs"></div>
@@ -441,43 +444,46 @@
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm">
                         <div>
                             <h3 class="text-base font-bold text-white">Atendimentos Ofertados no IFAL Campus Benedito Bentes</h3>
-                            <p class="text-xs text-slate-400">Clique em qualquer serviço para visualizar os detalhes, profissional responsável, local e solicitar atendimento.</p>
+                            <p class="text-xs text-slate-400">Clique no botão para solicitar atendimento no serviço desejado.</p>
                         </div>
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="servicesGrid"></div>
                 </section>
-                
-                <!-- VISTA SOLICITAÇÕES -->
+
+                <!-- VISTA SOLICITAR ATENDIMENTO (FLUXO INTEGRADO COM TRIAGEM) -->
                 <section id="view-solicitacoes" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-6 rounded-2xl border border-slate-700 shadow-sm max-w-3xl mx-auto space-y-6 w-full">
-                        <form id="formNovaSolicitacao" onsubmit="handleNovaSolicitacao(event)" class="space-y-6 text-xs">
-                            <div class="space-y-4">
-                                <h3 class="text-sm font-bold text-white border-b border-slate-700/60 pb-2">1. Escolha do Serviço e Demanda</h3>
-                                <div>
-                                    <label for="solEspecialidade" class="block font-semibold text-slate-300 mb-1">Selecione o Serviço *</label>
-                                    <select id="solEspecialidade" required class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none focus:border-emerald-500 text-white"></select>
-                                </div>
-                                <div>
-                                    <label for="solMotivo" class="block font-semibold text-slate-300 mb-1">Assunto / Motivo Resumido *</label>
-                                    <input type="text" id="solMotivo" required placeholder="Ex: Orientação acadêmica / Apoio inicial" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
-                                </div>
-                                <div>
-                                    <label for="solDescricao" class="block font-semibold text-slate-300 mb-1">Descrição detalhada da solicitação *</label>
-                                    <textarea id="solDescricao" rows="4" required placeholder="Descreva detalhadamente sua demanda para o setor..." class="w-full bg-slate-700 p-3 rounded-xl border border-slate-600 outline-none focus:border-emerald-500 text-white"></textarea>
-                                </div>
-                                <button type="submit" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl transition cursor-pointer">
-                                    Enviar Solicitação
-                                </button>
+                        <div class="border-b border-slate-700 pb-4">
+                            <div class="flex items-center justify-between gap-2">
+                                <h3 class="text-base font-bold text-white">Nova Solicitação de Atendimento</h3>
+                                <span id="solWizardStepBadge" class="px-2.5 py-1 bg-emerald-900/60 text-emerald-300 font-bold rounded-lg text-[11px] border border-emerald-700">Etapa 1 de 5</span>
                             </div>
-                        </form>
+                            <p class="text-xs text-slate-400 mt-1">Preencha o fluxo abaixo para registrar e encaminhar seu pedido ao setor responsável.</p>
+                        </div>
+
+                        <!-- BARRA DE PROGRESSO DO WIZARD -->
+                        <div class="w-full bg-slate-700/60 rounded-full h-2 overflow-hidden">
+                            <div id="solWizardProgressBar" class="bg-gradient-to-r from-emerald-500 to-teal-400 h-full transition-all duration-300 w-1/5"></div>
+                        </div>
+
+                        <!-- CONTAINER DOS PASSO DO WIZARD -->
+                        <div id="solWizardStepContainer" class="space-y-6 text-xs">
+                            <!-- Renderizado via JavaScript -->
+                        </div>
                     </div>
                 </section>
 
-                <!-- VISTA ACOMPANHAMENTO -->
+                <!-- VISTA ACOMPANHAMENTO (MINHAS SOLICITAÇÕES) -->
                 <section id="view-acompanhamento" class="view-section hidden space-y-6 w-full min-w-0">
-                    <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm">
-                        <h3 class="text-base font-bold text-white">Minhas Solicitações Registradas</h3>
-                        <p class="text-xs text-slate-400">Acompanhe o status e a tramitação das suas demandas em qualquer dispositivo</p>
+                    <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div>
+                            <h3 class="text-base font-bold text-white">Minhas Solicitações Registradas</h3>
+                            <p class="text-xs text-slate-400">Você visualiza apenas as solicitações associadas à sua conta</p>
+                        </div>
+                        <button onclick="switchTab('solicitacoes')" class="px-3.5 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs transition shadow flex items-center space-x-1.5 shrink-0 cursor-pointer">
+                            <i class="fa-solid fa-plus"></i>
+                            <span>Nova Solicitação</span>
+                        </button>
                     </div>
                     <div id="userSolicitacoesContainer" class="space-y-3"></div>
                 </section>
@@ -486,7 +492,7 @@
                 <section id="view-agendamentos" class="view-section hidden space-y-6 w-full min-w-0">
                     <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm">
                         <h3 class="text-base font-bold text-white">Meus Agendamentos</h3>
-                        <p class="text-xs text-slate-400">Consulte datas, horários e locais confirmados</p>
+                        <p class="text-xs text-slate-400">Consulte profissionais, datas, horários e locais confirmados para atendimento</p>
                     </div>
                     <div id="userAgendamentosContainer" class="space-y-3"></div>
                 </section>
@@ -601,7 +607,7 @@
                                     <input type="text" id="profInputSector" maxlength="200" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
                                 </div>
                                 <div>
-                                    <label class="block font-semibold mb-1 text-slate-300">Telefone / Contato</label>
+                                    <label class="block font-semibold mb-1 text-slate-300">Telefone / WhatsApp</label>
                                     <input type="text" id="profInputPhone" maxlength="40" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
                                 </div>
                             </div>
@@ -617,7 +623,7 @@
                     <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 shadow-sm flex items-center justify-between gap-2">
                         <div>
                             <h3 class="text-base font-bold text-white">Minha Central de Notificações</h3>
-                            <p class="text-xs text-slate-400">Histórico de mensagens e avisos da sua conta</p>
+                            <p class="text-xs text-slate-400">Histórico de atualizações das suas solicitações</p>
                         </div>
                         <button onclick="markAllNotificationsRead()" class="px-3 py-1.5 bg-blue-900/50 text-blue-300 border border-blue-700 rounded-xl text-xs font-bold hover:bg-blue-900 transition shrink-0 cursor-pointer">
                             Marcar Lidas
@@ -646,39 +652,78 @@
                     </div>
                 </section>
 
-                <!-- VISTA PAINEL ADMINISTRATIVO -->
+                <!-- VISTA PAINEL ADMINISTRATIVO (GERENCIAMENTO DE SOLICITAÇÕES REAL) -->
                 <section id="view-admin" class="view-section hidden space-y-6 w-full min-w-0">
-                    <div class="bg-gradient-to-r from-slate-900 to-ifal-navy p-4 sm:p-6 rounded-3xl text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div class="bg-gradient-to-r from-slate-900 to-ifal-navy p-4 sm:p-6 rounded-3xl text-white shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-4 border border-slate-700">
                         <div>
                             <div class="inline-flex items-center space-x-2 bg-rose-600/30 text-rose-300 border border-rose-500/30 px-3 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-widest mb-2">
                                 <i class="fa-solid fa-user-shield"></i>
                                 <span>Painel Administrativo Exclusivo</span>
                             </div>
-                            <h3 class="text-xl font-bold">Gestão Geral do Sistema</h3>
-                            <p class="text-xs text-slate-300 mt-1">Gerencie solicitações, usuários cadastrados e registros operacionais do sistema.</p>
+                            <h3 class="text-xl font-bold">Gestão Geral de Atendimentos</h3>
+                            <p class="text-xs text-slate-300 mt-1">Aprove, agende, reagende, inicie, conclua ou cancele solicitações em tempo real.</p>
                         </div>
                     </div>
-                    
-                    <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-700 pb-3">
-                            <h4 class="font-bold text-sm text-white">Usuários & Administradores do Sistema</h4>
-                        </div>
-                        <div id="adminUsersList" class="space-y-3 text-xs"></div>
+
+                    <!-- CARDS DE ESTATÍSTICAS REAIS -->
+                    <div id="adminStatsGrid" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3 text-xs">
+                        <!-- Renderizado via JS -->
                     </div>
+
+                    <!-- BARRA DE FILTROS E BUSCA -->
+                    <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 space-y-3">
+                        <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+                            <div class="relative w-full sm:w-72">
+                                <i class="fa-solid fa-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"></i>
+                                <input type="text" id="adminSearchInput" oninput="renderAdminView()" placeholder="Buscar protocolo, pessoa, serviço..." class="w-full bg-slate-700 pl-9 pr-3 py-2 rounded-xl border border-slate-600 outline-none text-xs text-white placeholder-slate-400">
+                            </div>
+                            <div class="flex items-center space-x-2 w-full sm:w-auto">
+                                <label for="adminStatusFilter" class="text-xs text-slate-400 shrink-0 font-semibold">Filtrar por Status:</label>
+                                <select id="adminStatusFilter" onchange="renderAdminView()" class="w-full sm:w-auto bg-slate-700 px-3 py-2 rounded-xl border border-slate-600 outline-none text-xs text-white">
+                                    <option value="TODOS">Todos os Status</option>
+                                    <option value="Em análise">Em análise</option>
+                                    <option value="Aguardando atendimento">Aguardando atendimento</option>
+                                    <option value="Agendada">Agendada</option>
+                                    <option value="Em atendimento">Em atendimento</option>
+                                    <option value="Atendida">Atendida</option>
+                                    <option value="Rejeitada">Rejeitada</option>
+                                    <option value="Cancelada">Cancelada</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- LISTA DE SOLICITAÇÕES REAIS COM AÇÕES ADMINISTRATIVAS -->
                     <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-700 pb-3">
-                            <h4 class="font-bold text-sm text-white">Solicitações Registradas no Sistema</h4>
+                        <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+                            <h4 class="font-bold text-sm text-white flex items-center space-x-2">
+                                <i class="fa-solid fa-list-check text-emerald-400"></i>
+                                <span>Solicitações no Sistema (Ordenadas por Prioridade Operacional)</span>
+                            </h4>
                         </div>
                         <div id="adminSolList" class="space-y-3 text-xs"></div>
+                    </div>
+
+                    <!-- USUÁRIOS E ADMINISTRADORES -->
+                    <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-4">
+                        <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+                            <h4 class="font-bold text-sm text-white flex items-center space-x-2">
+                                <i class="fa-solid fa-users text-blue-400"></i>
+                                <span>Usuários & Administradores Cadastrados</span>
+                            </h4>
+                        </div>
+                        <div id="adminUsersList" class="space-y-3 text-xs"></div>
                     </div>
                 </section>
             </main>
         </div>
     </div>
 
-    <!-- MODAL DE RECUPERAÇÃO -->
+    <!-- MODAIS DO SISTEMA -->
+
+    <!-- MODAL DE RECUPERAÇÃO DE SENHA -->
     <div id="recoveryDialog" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-sm w-full space-y-4 text-xs">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl p-6 max-w-sm w-full space-y-4 text-xs shadow-2xl">
             <div class="flex justify-between items-center border-b border-slate-700 pb-2">
                 <h3 class="font-bold text-white text-sm">Recuperar Senha</h3>
                 <button onclick="closeRecoveryDialog()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-base"></i></button>
@@ -695,15 +740,210 @@
         </div>
     </div>
 
+    <!-- MODAL DE DETALHES COMPLETO DA SOLICITAÇÃO (LINHA DO TEMPO, TRIAGEM, AGENDAMENTO) -->
+    <div id="solDetailModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
+        <div class="bg-slate-900 border border-slate-700 rounded-3xl p-5 sm:p-6 max-w-2xl w-full space-y-5 text-xs my-auto max-h-[90vh] overflow-y-auto shadow-2xl">
+            <div class="flex items-start justify-between border-b border-slate-700 pb-3 gap-2">
+                <div>
+                    <span id="solDetailProtocol" class="font-mono font-extrabold text-emerald-400 text-sm sm:text-base">SC-00000</span>
+                    <p class="text-[11px] text-slate-400 mt-0.5">Criada em: <span id="solDetailCreatedDate" class="text-slate-200">--</span> | ÚLTIMA ATUALIZAÇÃO: <span id="solDetailUpdatedDate" class="text-slate-200">--</span></p>
+                </div>
+                <button onclick="closeSolicitacaoDetailsModal()" class="text-slate-400 hover:text-white p-1 text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+
+            <!-- BARRA DE PROGRESSO VISUAL -->
+            <div class="bg-slate-800/80 p-4 rounded-2xl border border-slate-700 space-y-2">
+                <div class="flex justify-between items-center text-[11px] font-bold">
+                    <span class="text-slate-300">Progresso da Solicitação</span>
+                    <span id="solDetailStatusBadge" class="px-2.5 py-0.5 rounded text-[10px] font-extrabold">--</span>
+                </div>
+                <div id="solDetailProgressBarContainer"></div>
+            </div>
+
+            <!-- ENVOLVIDOS (SOLICITANTE x BENEFICIÁRIO) -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div class="p-3.5 bg-slate-800/80 rounded-2xl border border-slate-700 space-y-1">
+                    <p class="text-[10px] uppercase font-bold text-slate-400 flex items-center space-x-1">
+                        <i class="fa-solid fa-user-pen text-blue-400"></i><span>Solicitante (Quem pediu)</span>
+                    </p>
+                    <p id="solDetailSolicitanteName" class="font-bold text-white text-xs">--</p>
+                    <p id="solDetailSolicitanteEmail" class="text-slate-300 text-[11px]">--</p>
+                    <p id="solDetailSolicitantePhone" class="text-slate-400 text-[10px]">--</p>
+                </div>
+                <div class="p-3.5 bg-slate-800/80 rounded-2xl border border-slate-700 space-y-1">
+                    <p class="text-[10px] uppercase font-bold text-slate-400 flex items-center space-x-1">
+                        <i class="fa-solid fa-user-check text-emerald-400"></i><span>Beneficiário (Quem receberá)</span>
+                    </p>
+                    <p id="solDetailBeneficiarioName" class="font-bold text-white text-xs">--</p>
+                    <p id="solDetailBeneficiarioVinculo" class="text-emerald-400 text-[11px] font-semibold">--</p>
+                    <p id="solDetailBeneficiarioContato" class="text-slate-300 text-[10px]">--</p>
+                </div>
+            </div>
+
+            <!-- RESPOSTAS DA TRIAGEM E SERVIÇO -->
+            <div class="p-4 bg-slate-800/80 rounded-2xl border border-slate-700 space-y-2.5">
+                <h4 class="font-bold text-xs text-white border-b border-slate-700 pb-1.5 flex items-center space-x-1.5">
+                    <i class="fa-solid fa-clipboard-list text-teal-400"></i>
+                    <span>Serviço & Respostas da Triagem Automática</span>
+                </h4>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-[11px]">
+                    <div><span class="text-slate-400">Serviço:</span> <strong id="solDetailServico" class="text-white">--</strong></div>
+                    <div><span class="text-slate-400">Urgência:</span> <strong id="solDetailUrgencia" class="text-amber-400">--</strong></div>
+                    <div><span class="text-slate-400">Já atendeu antes?</span> <strong id="solDetailAnterior" class="text-white">--</strong></div>
+                </div>
+                <div class="text-[11px]"><span class="text-slate-400">Horário Preferencial:</span> <span id="solDetailHorarioPref" class="text-white font-medium">--</span></div>
+                <div class="p-2.5 bg-slate-900/60 rounded-xl border border-slate-700/60 space-y-1">
+                    <p class="text-[10px] text-slate-400 font-bold">Sintomas / Motivo do Atendimento:</p>
+                    <p id="solDetailSintomas" class="text-slate-200 leading-relaxed whitespace-pre-wrap">--</p>
+                </div>
+                <div id="solDetailObsBox" class="p-2.5 bg-slate-900/40 rounded-xl border border-slate-700/40 space-y-1">
+                    <p class="text-[10px] text-slate-400 font-bold">Observações Complementares:</p>
+                    <p id="solDetailObservacoes" class="text-slate-300">--</p>
+                </div>
+            </div>
+
+            <!-- DADOS DO AGENDAMENTO (SE HOUVER) -->
+            <div id="solDetailAgendaBox" class="hidden p-4 bg-purple-950/40 border border-purple-800/60 rounded-2xl space-y-2">
+                <h4 class="font-bold text-xs text-purple-300 flex items-center space-x-1.5">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span>Dados do Agendamento Confirmado</span>
+                </h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-slate-200">
+                    <p><strong>Profissional:</strong> <span id="solDetailProfissional">--</span></p>
+                    <p><strong>Data/Hora:</strong> <span id="solDetailDataHoraAgenda">--</span></p>
+                    <p><strong>Local:</strong> <span id="solDetailLocalAgenda">--</span></p>
+                </div>
+                <p class="text-[11px] text-purple-200 border-t border-purple-800/40 pt-1.5 mt-1">
+                    <strong>Observações / Instruções:</strong> <span id="solDetailObsAgenda">--</span>
+                </p>
+            </div>
+
+            <!-- LINHA DO TEMPO (HISTÓRICO COMPLETO) -->
+            <div class="p-4 bg-slate-800/80 rounded-2xl border border-slate-700 space-y-3">
+                <h4 class="font-bold text-xs text-white flex items-center space-x-1.5 border-b border-slate-700 pb-1.5">
+                    <i class="fa-solid fa-clock-rotate-left text-amber-400"></i>
+                    <span>Linha do Tempo & Histórico de Alterações</span>
+                </h4>
+                <div id="solDetailTimelineContainer" class="space-y-3 pl-2 border-l-2 border-slate-700"></div>
+            </div>
+
+            <!-- AÇÕES DO USUÁRIO NO MODAL -->
+            <div id="solDetailUserActions" class="flex justify-end space-x-2 border-t border-slate-700 pt-3">
+                <!-- Botão de cancelamento pelo usuário se elegível -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ADMIN: COLOCAR EM AGUARDANDO ATENDIMENTO -->
+    <div id="adminWaitModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl p-5 max-w-md w-full space-y-4 text-xs shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                <h3 class="font-bold text-white text-sm">Colocar em "Aguardando Atendimento"</h3>
+                <button onclick="closeAdminWaitModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="text-slate-300">Informe o motivo ou orientação para o usuário enquanto aguarda o agendamento:</p>
+            <textarea id="adminWaitReason" rows="3" placeholder="Ex: Solicitação aprovada na triagem. Aguardando disponibilidade na agenda..." class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 outline-none text-white"></textarea>
+            <div class="flex justify-end space-x-2">
+                <button onclick="closeAdminWaitModal()" class="px-4 py-2 bg-slate-800 text-slate-300 font-bold rounded-xl">Cancelar</button>
+                <button onclick="adminConfirmWait()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-xl shadow">Confirmar Status</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ADMIN: AGENDAR / REAGENDAR ATENDIMENTO -->
+    <div id="adminScheduleModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl p-5 max-w-md w-full space-y-4 text-xs shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                <h3 id="adminScheduleModalTitle" class="font-bold text-white text-sm">Agendar Atendimento</h3>
+                <button onclick="closeAdminScheduleModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form onsubmit="adminSaveSchedule(event)" class="space-y-3">
+                <div>
+                    <label class="block font-semibold mb-1 text-slate-300">Profissional Responsável *</label>
+                    <input type="text" id="adminSchedProf" required placeholder="Ex: Dra. Ana Paula (Psicóloga)" class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 outline-none text-white">
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-300">Data do Atendimento *</label>
+                        <input type="date" id="adminSchedDate" required class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 outline-none text-white">
+                    </div>
+                    <div>
+                        <label class="block font-semibold mb-1 text-slate-300">Horário *</label>
+                        <input type="time" id="adminSchedTime" required class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 outline-none text-white">
+                    </div>
+                </div>
+                <div>
+                    <label class="block font-semibold mb-1 text-slate-300">Local do Atendimento *</label>
+                    <input type="text" id="adminSchedLocal" required placeholder="Ex: Gabinete de Psicologia - Sala 12 (Bloco B)" class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 outline-none text-white">
+                </div>
+                <div>
+                    <label class="block font-semibold mb-1 text-slate-300">Observações / Recomendações ao Usuário</label>
+                    <textarea id="adminSchedObs" rows="2" placeholder="Ex: Chegar com 10 minutos de antecedência e trazer documento..." class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 outline-none text-white"></textarea>
+                </div>
+                <div class="flex justify-end space-x-2 pt-2">
+                    <button type="button" onclick="closeAdminScheduleModal()" class="px-4 py-2 bg-slate-800 text-slate-300 font-bold rounded-xl">Cancelar</button>
+                    <button type="submit" class="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-xl shadow">Salvar Agendamento</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL ADMIN: REJEITAR SOLICITAÇÃO (MOTIVO OBRIGATÓRIO) -->
+    <div id="adminRejectModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl p-5 max-w-md w-full space-y-4 text-xs shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                <h3 class="font-bold text-rose-400 text-sm">Rejeitar Solicitação</h3>
+                <button onclick="closeAdminRejectModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="text-slate-300">Descreva o motivo da rejeição. O motivo é <strong class="text-rose-400">obrigatório</strong> e será registrado no histórico e notificado ao usuário:</p>
+            <textarea id="adminRejectReason" rows="3" required placeholder="Motivo da rejeição..." class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 outline-none text-white"></textarea>
+            <div class="flex justify-end space-x-2">
+                <button onclick="closeAdminRejectModal()" class="px-4 py-2 bg-slate-800 text-slate-300 font-bold rounded-xl">Voltar</button>
+                <button onclick="adminConfirmReject()" class="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-xl shadow">Confirmar Rejeição</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ADMIN: CANCELAR SOLICITAÇÃO (MOTIVO OBRIGATÓRIO) -->
+    <div id="adminCancelModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl p-5 max-w-md w-full space-y-4 text-xs shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                <h3 class="font-bold text-slate-300 text-sm">Cancelar Solicitação</h3>
+                <button onclick="closeAdminCancelModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="text-slate-300">Descreva o motivo do cancelamento (<strong class="text-rose-400">obrigatório</strong>):</p>
+            <textarea id="adminCancelReason" rows="3" required placeholder="Motivo do cancelamento..." class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 outline-none text-white"></textarea>
+            <div class="flex justify-end space-x-2">
+                <button onclick="closeAdminCancelModal()" class="px-4 py-2 bg-slate-800 text-slate-300 font-bold rounded-xl">Voltar</button>
+                <button onclick="adminConfirmCancel()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-xl shadow">Confirmar Cancelamento</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL USUÁRIO: CANCELAR SOLICITAÇÃO PRÓPRIA -->
+    <div id="userCancelModal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-slate-900 border border-slate-700 rounded-2xl p-5 max-w-md w-full space-y-4 text-xs shadow-2xl">
+            <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                <h3 class="font-bold text-amber-400 text-sm">Cancelar Minha Solicitação</h3>
+                <button onclick="closeUserCancelModal()" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <p class="text-slate-300">Tem certeza que deseja cancelar esta solicitação? Informe o motivo do cancelamento:</p>
+            <textarea id="userCancelReason" rows="3" required placeholder="Motivo pelo qual está cancelando..." class="w-full bg-slate-800 p-2.5 rounded-xl border border-slate-700 outline-none text-white"></textarea>
+            <div class="flex justify-end space-x-2">
+                <button onclick="closeUserCancelModal()" class="px-4 py-2 bg-slate-800 text-slate-300 font-bold rounded-xl">Manter Solicitação</button>
+                <button onclick="confirmUserCancel()" class="px-4 py-2 bg-rose-600 hover:bg-rose-500 text-white font-bold rounded-xl shadow">Confirmar Cancelamento</button>
+            </div>
+        </div>
+    </div>
+
     <!-- SCRIPT PRINCIPAL DA APLICAÇÃO -->
     <script>
         // Chaves para LocalStorage
         const STORAGE_USERS = 'saude_conectada_users';
         const STORAGE_SESSION = 'saude_conectada_session';
-        const STORAGE_DATA = 'saude_conectada_data_v1';
-        
-        // CONTAS ADMINISTRATIVAS DEFINIDAS DIRETAMENTE NO CÓDIGO DO INDEX.HTML
-        // Estas contas funcionam diretamente no código, em qualquer dispositivo ou navegador.
+        const STORAGE_DATA = 'saude_conectada_data_v2';
+
+        // CONTAS ADMINISTRATIVAS DEFINIDAS DIRETAMENTE NO CÓDIGO
         const ADMIN_ACCOUNTS = Object.freeze([
             {
                 name: "Lucas Venâncio",
@@ -740,15 +980,32 @@
         let navigationHistory = [];
         let myChartInstance = null;
 
-        // Estruturas de Dados
+        // Estruturas de Dados do Sistema
         let mockSolicitacoes = [];
         let mockAvisos = [];
         let mockServices = [];
         let mockLocais = [];
         let mockFaqs = [];
-        let mockAgendamentos = [];
         let mockMensagens = [];
         let mockNotificacoes = [];
+
+        // Estado do Wizard de Solicitação de Atendimento (Com Triagem Integrada)
+        let solWizardState = {
+            step: 1,
+            paraQuem: 'si_mesmo', // 'si_mesmo' ou 'terceiro'
+            terceiroNome: '',
+            terceiroVinculo: '',
+            terceiroContato: '',
+            servico: '',
+            urgencia: 'Normal',
+            sintomas: '',
+            atendimentoAnterior: 'Não',
+            horarioPref: 'Qualquer horário',
+            observacoes: ''
+        };
+
+        // Variáveis temporárias de IDs para modais de ação
+        let activeAdminActionSolId = null;
 
         function safeStorage() {
             try {
@@ -768,7 +1025,7 @@
             const toast = document.createElement('div');
             const bgClass = type === 'success' ? 'bg-emerald-600' : (type === 'error' ? 'bg-rose-600' : 'bg-slate-700');
             const iconClass = type === 'success' ? 'fa-circle-check' : (type === 'error' ? 'fa-triangle-exclamation' : 'fa-circle-info');
-            toast.className = `${bgClass} text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold flex items-center space-x-2 transition-all duration-300 transform translate-y-2 opacity-0 pointer-events-auto border border-white/20`;
+            toast.className = `${bgClass} text-white px-4 py-3 rounded-xl shadow-2xl text-xs font-semibold flex items-center space-x-2 transition-all duration-300 transform translate-y-2 opacity-0 pointer-events-auto border border-white/20 z-50`;
             toast.innerHTML = `<i class="fa-solid ${iconClass}"></i><span>${message}</span>`;
             container.appendChild(toast);
             setTimeout(() => {
@@ -808,6 +1065,19 @@
             return `${prefix}_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
         }
 
+        function nowFormatted() {
+            const d = new Date();
+            const pad = n => String(n).padStart(2, '0');
+            return `${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
+        }
+
+        function generateProtocol() {
+            const d = new Date();
+            const dateStr = `${d.getFullYear()}${String(d.getMonth() + 1).padStart(2, '0')}${String(d.getDate()).padStart(2, '0')}`;
+            const rand = Math.floor(1000 + Math.random() * 9000);
+            return `SC-${dateStr}-${rand}`;
+        }
+
         function isCurrentUserAdmin() {
             if (!currentUser) return false;
             const normEmail = normalizeEmail(currentUser.email);
@@ -823,26 +1093,32 @@
                 mockServices = data.services || [];
                 mockLocais = data.locais || [];
                 mockFaqs = data.faqs || [];
-                mockAgendamentos = data.agendamentos || [];
                 mockMensagens = data.mensagens || [];
                 mockNotificacoes = data.notificacoes || [];
             } else {
                 mockServices = [
-                    { id: '1', nome: 'Psicologia Escolar', desc: 'Acolhimento emocional e escuta especializada.', icon: 'fa-brain', setor: 'Psicologia' },
-                    { id: '2', nome: 'Apoio Pedagógico', desc: 'Orientação de estudos e aprendizado.', icon: 'fa-book-open', setor: 'Pedagogia' },
-                    { id: '3', nome: 'Serviço Social', desc: 'Orientações sobre auxílios estudantis.', icon: 'fa-hand-holding-heart', setor: 'Assistência Estudantil' },
-                    { id: '4', nome: 'Enfermagem', desc: 'Apoiamento e triagem de saúde no campus.', icon: 'fa-user-nurse', setor: 'Saúde' }
+                    { id: '1', nome: 'Psicologia Escolar', desc: 'Acolhimento emocional, escuta especializada e suporte psicológico estudantil.', icon: 'fa-brain', setor: 'Psicologia' },
+                    { id: '2', nome: 'Apoio Pedagógico', desc: 'Orientação de rotina de estudos, adaptações pedagógicas e desenvolvimento acadêmico.', icon: 'fa-book-open', setor: 'Pedagogia' },
+                    { id: '3', nome: 'Serviço Social', desc: 'Orientações sobre auxílios estudantis, bolsas, programas sociais e vulnerabilidade.', icon: 'fa-hand-holding-heart', setor: 'Assistência Estudantil' },
+                    { id: '4', nome: 'Enfermagem & Triagem', desc: 'Acolhimento inicial, aferição de sinais vitais, orientações de saúde preventiva e encaminhamentos.', icon: 'fa-user-nurse', setor: 'Enfermagem' }
                 ];
                 mockAvisos = [
-                    { id: '1', titulo: 'Campanha de Saúde no Campus', data: '2026-10-10', conteudo: 'Atendimentos de orientação e saúde para alunos e servidores.', setor: 'Enfermagem' }
+                    { id: '1', titulo: 'Campanha de Saúde e Acolhimento no Campus', data: '10/10/2026', conteudo: 'Atendimentos de orientação e escuta para alunos e servidores.', setor: 'Enfermagem' },
+                    { id: '2', titulo: 'Prazo para Solicitação de Auxílios Estudantis', data: '08/10/2026', conteudo: 'Atendimento do Serviço Social disponível para dúvidas sobre editais ativos.', setor: 'Assistência Estudantil' }
                 ];
                 mockLocais = [
                     { id: '1', nome: 'Sala de Enfermagem', bloco: 'Bloco A - Térreo', resp: 'Equipe de Saúde', hor: '08h às 17h' },
-                    { id: '2', nome: 'Gabinete de Psicologia', bloco: 'Bloco B - Sala 12', resp: 'Psicologia', hor: '08h às 16h' }
+                    { id: '2', nome: 'Gabinete de Psicologia', bloco: 'Bloco B - Sala 12', resp: 'Psicologia Escolar', hor: '08h às 16h' },
+                    { id: '3', nome: 'Sala do Apoio Pedagógico', bloco: 'Bloco B - Sala 14', resp: 'Equipe Pedagógica', hor: '08h às 17h' }
                 ];
                 mockFaqs = [
-                    { id: '1', q: 'Como solicitar atendimento?', a: 'Acesse a guia Solicitar Atendimento, selecione a área e descreva seu pedido.' }
+                    { id: '1', q: 'Como solicitar um atendimento?', a: 'Acesse o menu "Solicitar Atendimento", escolha para quem é o atendimento, selecione o serviço e responda a rápida triagem automática.' },
+                    { id: '2', q: 'Como posso acompanhar o meu pedido?', a: 'Na aba "Minhas Solicitações", você pode verificar o status atualizado em tempo real, a barra de progresso visual e a linha do tempo de alterações.' },
+                    { id: '3', q: 'A triagem realiza diagnóstico médico?', a: 'Não. A triagem automática tem caráter exclusivamente orientativo e organizacional para triar a urgência e preparar o profissional para o atendimento presencial/remoto.' }
                 ];
+                mockSolicitacoes = [];
+                mockNotificacoes = [];
+                mockMensagens = [];
                 persistAllData();
             }
         }
@@ -854,7 +1130,6 @@
                 services: mockServices,
                 locais: mockLocais,
                 faqs: mockFaqs,
-                agendamentos: mockAgendamentos,
                 mensagens: mockMensagens,
                 notificacoes: mockNotificacoes
             });
@@ -892,9 +1167,10 @@
                 if (currentView === 'admin') currentView = 'dashboard';
             }
             
-            populateServicesDropdown();
+            resetSolWizard();
             renderCurrentView();
             updateDashboardMetrics();
+            updateNotificationUI();
         }
 
         function endAuthenticatedSession() {
@@ -941,40 +1217,35 @@
             }
         }
 
-        // AUTENTICAÇÃO DIRETA VIA LISTA JS (ADMIN_ACCOUNTS)
         function submitAccessCredentials(e) {
             e.preventDefault();
             const emailInput = document.getElementById('accessEmail').value;
             const passwordInput = document.getElementById('accessPassword').value;
             const msgEl = document.getElementById('accessMessage');
             if (msgEl) msgEl.textContent = '';
-
             const email = normalizeEmail(emailInput);
             const password = String(passwordInput || '').trim();
-
+            
             if (!email || !password) {
-                if (msgEl) msgEl.textContent = 'E-mail ou senha incorretos.';
+                if (msgEl) msgEl.textContent = 'E-mail e senha são obrigatórios.';
                 return;
             }
 
             setSubmitLoading('accessSubmit', 'accessSubmitIcon', 'accessSubmitLabel', true, 'Entrar no Sistema');
-
             setTimeout(() => {
-                // 1. Verificar contra a lista de administradores em ADMIN_ACCOUNTS
                 let matchedAccount = ADMIN_ACCOUNTS.find(acc => 
                     normalizeEmail(acc.email) === email && acc.password === password
                 );
-
                 let userRole = 'usuario';
                 let userName = '';
                 let userSector = 'IFAL Campus Benedito Bentes';
+                let userPhone = '';
 
                 if (matchedAccount) {
                     userRole = 'administrador';
                     userName = matchedAccount.name;
                     userSector = matchedAccount.sector || 'Administração IFAL';
                 } else {
-                    // 2. Verificar contas criadas no formulário de cadastro (localStorage)
                     const localUsers = readJSON(STORAGE_USERS, []);
                     const foundLocal = localUsers.find(u => normalizeEmail(u.email) === email);
                     if (foundLocal && foundLocal.senha === password) {
@@ -982,6 +1253,7 @@
                         userRole = isAdminByEmail || foundLocal.role === 'administrador' || foundLocal.tipo === 'administrador' ? 'administrador' : 'usuario';
                         userName = foundLocal.nome || foundLocal.name;
                         userSector = foundLocal.setor || foundLocal.sector || 'Estudante / Servidor';
+                        userPhone = foundLocal.telefone || foundLocal.phone || '';
                         matchedAccount = foundLocal;
                     }
                 }
@@ -992,16 +1264,15 @@
                     return;
                 }
 
-                // O localStorage é utilizado APENAS para manter a sessão ativa pós-login
                 const sessionObj = {
                     authenticated: true,
                     name: userName,
                     email: email,
                     role: userRole,
                     sector: userSector,
+                    phone: userPhone,
                     loginTime: new Date().toISOString()
                 };
-
                 writeJSON(STORAGE_SESSION, sessionObj);
                 currentUser = sessionObj;
                 setSubmitLoading('accessSubmit', 'accessSubmitIcon', 'accessSubmitLabel', false, 'Entrar no Sistema');
@@ -1010,7 +1281,6 @@
             }, 300);
         }
 
-        // CADASTRO DE NOVO USUÁRIO
         function submitNewAccount(e) {
             e.preventDefault();
             const name = document.getElementById('enrollName').value.trim();
@@ -1043,10 +1313,8 @@
             }
 
             setSubmitLoading('enrollSubmit', 'enrollSubmitIcon', 'enrollSubmitLabel', true, 'Concluir Cadastro');
-
             setTimeout(() => {
                 let users = readJSON(STORAGE_USERS, []);
-                
                 const existsInAdmin = ADMIN_ACCOUNTS.some(a => normalizeEmail(a.email) === email);
                 const existsInLocal = users.some(u => normalizeEmail(u.email) === email);
 
@@ -1078,9 +1346,9 @@
                     email: newUser.email,
                     role: 'usuario',
                     sector: newUser.setor,
+                    phone: newUser.telefone,
                     loginTime: new Date().toISOString()
                 };
-
                 writeJSON(STORAGE_SESSION, sessionObj);
                 currentUser = sessionObj;
                 setSubmitLoading('enrollSubmit', 'enrollSubmitIcon', 'enrollSubmitLabel', false, 'Concluir Cadastro');
@@ -1107,21 +1375,21 @@
                 return;
             }
             msgBox.className = 'p-2.5 rounded-xl font-semibold bg-emerald-950 text-emerald-300';
-            msgBox.textContent = 'Instruções para redefinição enviadas (simulação).';
+            msgBox.textContent = 'Instruções enviadas para o e-mail informado (simulação).';
             msgBox.classList.remove('hidden');
         }
 
         function switchTab(viewName) {
             if (viewName === 'admin' && !isCurrentUserAdmin()) {
-                showToast('Acesso restrito ao Painel Administrativo.', 'error');
+                showToast('Acesso exclusivo a administradores.', 'error');
                 return;
             }
 
             if (currentView !== viewName) {
                 navigationHistory.push(currentView);
             }
-
             currentView = viewName;
+
             document.querySelectorAll('.nav-btn').forEach(btn => {
                 if (btn.getAttribute('data-view') === viewName) {
                     btn.classList.add('bg-ifal-navy', 'text-white', 'shadow-sm', 'font-semibold');
@@ -1138,7 +1406,7 @@
 
             const titles = {
                 dashboard: 'Início • Saúde Conectada',
-                servicos: 'Serviços de Saúde & Acolhimento',
+                servicos: 'Serviços Ofertados no Campus',
                 solicitacoes: 'Solicitar Atendimento',
                 acompanhamento: 'Minhas Solicitações',
                 agendamentos: 'Meus Agendamentos',
@@ -1152,7 +1420,6 @@
                 ajuda: 'Central de Ajuda',
                 admin: 'Painel Administrativo'
             };
-
             document.getElementById('currentViewTitle').textContent = titles[viewName] || 'Saúde Conectada';
 
             if (navigationHistory.length > 0) {
@@ -1184,21 +1451,10 @@
             }
         }
 
-        function populateServicesDropdown() {
-            const select = document.getElementById('solEspecialidade');
-            if (!select) return;
-            select.innerHTML = '';
-            mockServices.forEach(s => {
-                const opt = document.createElement('option');
-                opt.value = s.nome;
-                opt.textContent = `${s.nome} (${s.setor})`;
-                select.appendChild(opt);
-            });
-        }
-
         function renderCurrentView() {
             if (currentView === 'dashboard') renderDashboardView();
             else if (currentView === 'servicos') renderServicosView();
+            else if (currentView === 'solicitacoes') renderSolWizardStep();
             else if (currentView === 'acompanhamento') renderUserSolicitacoesView();
             else if (currentView === 'agendamentos') renderUserAgendamentosView();
             else if (currentView === 'avisos') renderAvisosView();
@@ -1212,8 +1468,14 @@
 
         function updateDashboardMetrics() {
             if (!currentUser) return;
-            const mySols = mockSolicitacoes.filter(s => s.userEmail === currentUser.email);
+            const mySols = mockSolicitacoes.filter(s => s.solicitanteEmail === normalizeEmail(currentUser.email));
+            const myAgendas = mySols.filter(s => s.status === 'Agendada' || s.status === 'Em atendimento');
+            const myUnreadNotifs = mockNotificacoes.filter(n => n.userEmail === normalizeEmail(currentUser.email) && !n.lida);
+
             document.getElementById('dashUserSolCount').textContent = mySols.length;
+            document.getElementById('dashUserAgendaCount').textContent = myAgendas.length;
+            document.getElementById('dashUserNotifCount').textContent = myUnreadNotifs.length;
+            document.getElementById('dashUserMsgCount').textContent = mockMensagens.length;
             document.getElementById('dashUserServCount').textContent = mockServices.length;
             document.getElementById('badgeSolCount').textContent = mySols.length;
         }
@@ -1223,8 +1485,12 @@
             if (widget) {
                 widget.innerHTML = mockAvisos.slice(0, 3).map(a => `
                     <div class="p-3 bg-slate-700/60 rounded-xl border border-slate-600">
-                        <p class="font-bold text-white">${a.titulo}</p>
-                        <p class="text-slate-300 mt-1">${a.conteudo}</p>
+                        <div class="flex justify-between items-center text-[10px] text-emerald-400 font-bold mb-1">
+                            <span>${a.setor}</span>
+                            <span class="text-slate-400 font-normal">${a.data}</span>
+                        </div>
+                        <p class="font-bold text-white text-xs">${a.titulo}</p>
+                        <p class="text-slate-300 text-[11px] mt-1 leading-snug">${a.conteudo}</p>
                     </div>
                 `).join('');
             }
@@ -1235,20 +1501,45 @@
             const ctx = document.getElementById('dashboardChart');
             if (!ctx) return;
             if (myChartInstance) myChartInstance.destroy();
+
+            const serviceCounts = {};
+            mockServices.forEach(s => serviceCounts[s.nome] = 0);
+            mockSolicitacoes.forEach(s => {
+                if (serviceCounts[s.servico] !== undefined) {
+                    serviceCounts[s.servico]++;
+                } else {
+                    serviceCounts[s.servico] = 1;
+                }
+            });
+
             myChartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['Psicologia', 'Pedagogia', 'Serviço Social', 'Enfermagem'],
+                    labels: Object.keys(serviceCounts),
                     datasets: [{
-                        label: 'Atendimentos',
-                        data: [12, 19, 7, 15],
-                        backgroundColor: '#059669'
+                        label: 'Solicitações Registradas',
+                        data: Object.values(serviceCounts),
+                        backgroundColor: '#059669',
+                        borderRadius: 8
                     }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: { legend: { display: false } }
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: { precision: 0, color: '#94a3b8' },
+                            grid: { color: '#334155' }
+                        },
+                        x: {
+                            ticks: { color: '#94a3b8' },
+                            grid: { display: false }
+                        }
+                    }
                 }
             });
         }
@@ -1257,65 +1548,598 @@
             const grid = document.getElementById('servicesGrid');
             if (!grid) return;
             grid.innerHTML = mockServices.map(s => `
-                <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-3">
-                    <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl">
-                        <i class="fa-solid ${s.icon || 'fa-notes-medical'}"></i>
+                <div class="bg-slate-800 p-5 rounded-2xl border border-slate-700 space-y-3 flex flex-col justify-between">
+                    <div class="space-y-3">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xl">
+                            <i class="fa-solid ${s.icon || 'fa-notes-medical'}"></i>
+                        </div>
+                        <h4 class="font-bold text-white text-sm">${s.nome}</h4>
+                        <p class="text-xs text-slate-300 leading-relaxed">${s.desc}</p>
+                        <span class="inline-block px-2.5 py-0.5 bg-slate-700 text-emerald-400 text-[10px] rounded font-semibold">${s.setor}</span>
                     </div>
-                    <h4 class="font-bold text-white text-sm">${s.nome}</h4>
-                    <p class="text-xs text-slate-300">${s.desc}</p>
-                    <span class="inline-block px-2 py-0.5 bg-slate-700 text-emerald-400 text-[10px] rounded font-semibold">${s.setor}</span>
+                    <button onclick="startSolicitacaoComServico('${s.nome}')" class="w-full mt-2 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition cursor-pointer">
+                        Solicitar Este Serviço
+                    </button>
                 </div>
             `).join('');
         }
 
-        function handleNovaSolicitacao(e) {
-            e.preventDefault();
-            const esp = document.getElementById('solEspecialidade').value;
-            const mot = document.getElementById('solMotivo').value.trim();
-            const desc = document.getElementById('solDescricao').value.trim();
+        function startSolicitacaoComServico(servicoNome) {
+            resetSolWizard();
+            solWizardState.servico = servicoNome;
+            switchTab('solicitacoes');
+        }
 
-            if (!esp || !mot || !desc) {
-                showToast('Preencha todos os campos obrigatórios.', 'error');
+        // =========================================================================
+        // WIZARD DE SOLICITAÇÃO DE ATENDIMENTO (5 ETAPAS + CONCLUSÃO)
+        // =========================================================================
+
+        function resetSolWizard() {
+            solWizardState = {
+                step: 1,
+                paraQuem: 'si_mesmo',
+                terceiroNome: '',
+                terceiroVinculo: '',
+                terceiroContato: '',
+                servico: mockServices.length > 0 ? mockServices[0].nome : '',
+                urgencia: 'Normal',
+                sintomas: '',
+                atendimentoAnterior: 'Não',
+                horarioPref: 'Qualquer horário',
+                observacoes: ''
+            };
+        }
+
+        function setSolParaQuem(valor) {
+            solWizardState.paraQuem = valor;
+            renderSolWizardStep();
+        }
+
+        function renderSolWizardStep() {
+            const container = document.getElementById('solWizardStepContainer');
+            const badge = document.getElementById('solWizardStepBadge');
+            const progressBar = document.getElementById('solWizardProgressBar');
+            if (!container) return;
+
+            const step = solWizardState.step;
+            if (badge) badge.textContent = `Etapa ${step} de 5`;
+            if (progressBar) progressBar.style.width = `${(step / 5) * 100}%`;
+
+            if (step === 1) {
+                container.innerHTML = `
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-sm text-white">1. Para quem é o atendimento?</h4>
+                        <p class="text-slate-300">Selecione se você está solicitando o atendimento para si mesmo ou para outra pessoa (terceiro/dependente).</p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                            <label onclick="setSolParaQuem('si_mesmo')" class="p-4 rounded-2xl border ${solWizardState.paraQuem === 'si_mesmo' ? 'border-emerald-500 bg-emerald-950/40' : 'border-slate-700 bg-slate-700/40'} cursor-pointer transition flex items-start space-x-3">
+                                <input type="radio" name="solParaQuemRadio" ${solWizardState.paraQuem === 'si_mesmo' ? 'checked' : ''} class="mt-1 text-emerald-500 focus:ring-emerald-500">
+                                <div>
+                                    <p class="font-bold text-white text-xs">Para mim mesmo</p>
+                                    <p class="text-[11px] text-slate-400 mt-0.5">O atendimento será associado ao seu nome: <strong>${currentUser ? (currentUser.name || currentUser.nome) : ''}</strong></p>
+                                </div>
+                            </label>
+
+                            <label onclick="setSolParaQuem('terceiro')" class="p-4 rounded-2xl border ${solWizardState.paraQuem === 'terceiro' ? 'border-emerald-500 bg-emerald-950/40' : 'border-slate-700 bg-slate-700/40'} cursor-pointer transition flex items-start space-x-3">
+                                <input type="radio" name="solParaQuemRadio" ${solWizardState.paraQuem === 'terceiro' ? 'checked' : ''} class="mt-1 text-emerald-500 focus:ring-emerald-500">
+                                <div>
+                                    <p class="font-bold text-white text-xs">Para outra pessoa (Terceiro / Beneficiário)</p>
+                                    <p class="text-[11px] text-slate-400 mt-0.5">Solicitar atendimento para um estudante, colega ou dependente.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="flex justify-end pt-4">
+                            <button onclick="advanceSolWizardFromStep1()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow transition cursor-pointer flex items-center space-x-1.5">
+                                <span>Avançar</span><i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else if (step === 2) {
+                container.innerHTML = `
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-sm text-white">2. Dados do Beneficiário (Terceiro)</h4>
+                        <p class="text-slate-300">Informe os dados da pessoa que receberá o atendimento para validação:</p>
+                        
+                        <div class="space-y-3 pt-1">
+                            <div>
+                                <label class="block font-semibold text-slate-300 mb-1">Nome Completo do Beneficiário *</label>
+                                <input type="text" id="solTerceiroNome" value="${solWizardState.terceiroNome}" placeholder="Ex: Gabriel Alves Pereira" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                            </div>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block font-semibold text-slate-300 mb-1">Vínculo / Grau de Parentesco *</label>
+                                    <input type="text" id="solTerceiroVinculo" value="${solWizardState.terceiroVinculo}" placeholder="Ex: Filho(a), Colega de turma, Estudante" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                                </div>
+                                <div>
+                                    <label class="block font-semibold text-slate-300 mb-1">Telefone / WhatsApp do Beneficiário *</label>
+                                    <input type="text" id="solTerceiroContato" value="${solWizardState.terceiroContato}" placeholder="(82) 99999-0000" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between pt-4">
+                            <button onclick="prevSolStep()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold rounded-xl transition cursor-pointer">
+                                Voltar
+                            </button>
+                            <button onclick="advanceSolWizardFromStep2()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow transition cursor-pointer flex items-center space-x-1.5">
+                                <span>Avançar</span><i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else if (step === 3) {
+                container.innerHTML = `
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-sm text-white">3. Escolha do Serviço Desejado</h4>
+                        <p class="text-slate-300">Selecione o serviço do campus para o qual você deseja encaminhar a solicitação:</p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                            ${mockServices.map(s => `
+                                <div onclick="selectSolService('${s.nome}')" class="p-4 rounded-2xl border ${solWizardState.servico === s.nome ? 'border-emerald-500 bg-emerald-950/40' : 'border-slate-700 bg-slate-700/40'} cursor-pointer transition space-y-2">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center space-x-2">
+                                            <i class="fa-solid ${s.icon || 'fa-notes-medical'} text-emerald-400 text-base"></i>
+                                            <h5 class="font-bold text-white text-xs">${s.nome}</h5>
+                                        </div>
+                                        ${solWizardState.servico === s.nome ? '<i class="fa-solid fa-circle-check text-emerald-400"></i>' : ''}
+                                    </div>
+                                    <p class="text-[11px] text-slate-300 leading-snug">${s.desc}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+
+                        <div class="flex justify-between pt-4">
+                            <button onclick="prevSolStep()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold rounded-xl transition cursor-pointer">
+                                Voltar
+                            </button>
+                            <button onclick="advanceSolWizardFromStep3()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow transition cursor-pointer flex items-center space-x-1.5">
+                                <span>Avançar para Triagem</span><i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else if (step === 4) {
+                container.innerHTML = `
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-sm text-white">4. Triagem Automática de Atendimento</h4>
+                        
+                        <!-- AVISO EXPLÍCITO DE NÃO DIAGNÓSTICO -->
+                        <div class="p-3.5 bg-amber-950/60 border border-amber-600/60 rounded-2xl space-y-1 text-amber-200 text-[11px]">
+                            <p class="font-bold flex items-center space-x-1.5">
+                                <i class="fa-solid fa-triangle-exclamation text-amber-400"></i>
+                                <span>IMPORTANTE: AVISO SOBRE A TRIAGEM AUTOMÁTICA</span>
+                            </p>
+                            <p class="leading-relaxed">
+                                Esta triagem é uma etapa exclusivamente orientativa e organizacional para direcionamento e priorização da demanda pelo setor do IFAL. <strong>A triagem NÃO faz diagnóstico médico ou psicológico.</strong>
+                            </p>
+                        </div>
+
+                        <div class="space-y-3.5 pt-1">
+                            <div>
+                                <label class="block font-semibold text-slate-300 mb-1">Qual o nível de urgência percebido? *</label>
+                                <select id="solUrgencia" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                                    <option value="Baixa" ${solWizardState.urgencia === 'Baixa' ? 'selected' : ''}>Baixa - Orientação / Dúvida simples</option>
+                                    <option value="Normal" ${solWizardState.urgencia === 'Normal' ? 'selected' : ''}>Normal - Atendimento de rotina</option>
+                                    <option value="Alta" ${solWizardState.urgencia === 'Alta' ? 'selected' : ''}>Alta - Necessita de atenção em breve</option>
+                                    <option value="Urgente" ${solWizardState.urgencia === 'Urgente' ? 'selected' : ''}>Urgente - Situação de sofrimento / necessidade imediata</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block font-semibold text-slate-300 mb-1">Já realizou atendimento prévio neste setor? *</label>
+                                <select id="solAnterior" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                                    <option value="Não" ${solWizardState.atendimentoAnterior === 'Não' ? 'selected' : ''}>Não, é o primeiro atendimento</option>
+                                    <option value="Sim" ${solWizardState.atendimentoAnterior === 'Sim' ? 'selected' : ''}>Sim, já fui atendido anteriormente</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block font-semibold text-slate-300 mb-1">Descrição detalhada do motivo / sintomas / necessidade *</label>
+                                <textarea id="solSintomas" rows="3" placeholder="Descreva de forma clara o que está acontecendo ou o que necessita..." class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">${solWizardState.sintomas}</textarea>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block font-semibold text-slate-300 mb-1">Turno de preferência</label>
+                                    <select id="solHorarioPref" class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                                        <option value="Qualquer horário" ${solWizardState.horarioPref === 'Qualquer horário' ? 'selected' : ''}>Qualquer horário</option>
+                                        <option value="Manhã" ${solWizardState.horarioPref === 'Manhã' ? 'selected' : ''}>Manhã</option>
+                                        <option value="Tarde" ${solWizardState.horarioPref === 'Tarde' ? 'selected' : ''}>Tarde</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block font-semibold text-slate-300 mb-1">Observações adicionais (opcional)</label>
+                                    <input type="text" id="solObs" value="${solWizardState.observacoes}" placeholder="Ex: Medicações, horários de aula..." class="w-full bg-slate-700 p-2.5 rounded-xl border border-slate-600 outline-none text-white">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-between pt-4">
+                            <button onclick="prevSolStep()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold rounded-xl transition cursor-pointer">
+                                Voltar
+                            </button>
+                            <button onclick="advanceSolWizardFromStep4()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl shadow transition cursor-pointer flex items-center space-x-1.5">
+                                <span>Revisar Solicitação</span><i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else if (step === 5) {
+                const isTerceiro = solWizardState.paraQuem === 'terceiro';
+                container.innerHTML = `
+                    <div class="space-y-4">
+                        <h4 class="font-bold text-sm text-white">5. Revisão das Informações</h4>
+                        <p class="text-slate-300">Confira todos os dados antes de enviar a solicitação:</p>
+                        
+                        <div class="bg-slate-700/50 p-4 rounded-2xl border border-slate-600 space-y-3">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 border-b border-slate-600 pb-3">
+                                <div>
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase">Solicitante</p>
+                                    <p class="font-bold text-white text-xs">${currentUser ? (currentUser.name || currentUser.nome) : ''}</p>
+                                    <p class="text-slate-300 text-[11px]">${currentUser ? currentUser.email : ''}</p>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase">Beneficiário do Atendimento</p>
+                                    ${isTerceiro ? `
+                                        <p class="font-bold text-emerald-400 text-xs">${solWizardState.terceiroNome} (${solWizardState.terceiroVinculo})</p>
+                                        <p class="text-slate-300 text-[11px]">Contato: ${solWizardState.terceiroContato}</p>
+                                    ` : `
+                                        <p class="font-bold text-white text-xs">O próprio solicitante</p>
+                                    `}
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 border-b border-slate-600 pb-3 text-[11px]">
+                                <div>
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase">Serviço</p>
+                                    <p class="font-bold text-white">${solWizardState.servico}</p>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase">Nível de Urgência</p>
+                                    <p class="font-bold text-amber-400">${solWizardState.urgencia}</p>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase">Atendimento Anterior</p>
+                                    <p class="font-bold text-white">${solWizardState.atendimentoAnterior}</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <p class="text-[10px] text-slate-400 font-bold uppercase">Descrição da Demanda (Triagem)</p>
+                                <p class="text-slate-200 text-xs bg-slate-800/80 p-2.5 rounded-xl border border-slate-700 mt-1 whitespace-pre-wrap">${solWizardState.sintomas}</p>
+                            </div>
+
+                            ${solWizardState.observacoes ? `
+                                <div>
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase">Observações Complementares</p>
+                                    <p class="text-slate-300 text-xs mt-0.5">${solWizardState.observacoes}</p>
+                                </div>
+                            ` : ''}
+                        </div>
+
+                        <div class="flex justify-between pt-4">
+                            <button onclick="prevSolStep()" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold rounded-xl transition cursor-pointer">
+                                Voltar
+                            </button>
+                            <button onclick="submitFinalSolicitacao()" class="px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold rounded-xl shadow-lg transition cursor-pointer flex items-center space-x-2">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span>Confirmar e Enviar Solicitação</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else if (step === 6) {
+                // TELA DE CONCLUSÃO
+                container.innerHTML = `
+                    <div class="text-center space-y-4 py-6">
+                        <div class="w-16 h-16 bg-emerald-500/20 text-emerald-400 border-2 border-emerald-400 rounded-full flex items-center justify-center text-3xl mx-auto shadow-lg">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-bold uppercase tracking-wider bg-slate-700 text-slate-300 px-3 py-1 rounded-full">Solicitação Criada com Sucesso</span>
+                            <h4 class="text-2xl font-extrabold text-white mt-2">Protocolo Gerado</h4>
+                            <p class="text-xl font-mono font-bold text-emerald-400 mt-1">${solWizardState.generatedProtocol}</p>
+                        </div>
+                        <p class="text-xs text-slate-300 max-w-md mx-auto">
+                            Sua solicitação foi registrada no status <strong class="text-amber-400">Em análise</strong>. Acompanhe a tramitação, atualizações e agendamentos na sua área do usuário.
+                        </p>
+                        <div class="pt-4 flex flex-wrap justify-center gap-3">
+                            <button onclick="switchTab('acompanhamento')" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl shadow transition cursor-pointer">
+                                Ver Minhas Solicitações
+                            </button>
+                            <button onclick="resetAndStartNewSol()" class="px-5 py-2.5 bg-slate-700 hover:bg-slate-600 text-slate-200 font-bold text-xs rounded-xl transition cursor-pointer">
+                                Fazer Outra Solicitação
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function advanceSolWizardFromStep1() {
+            solWizardState.step = solWizardState.paraQuem === 'terceiro' ? 2 : 3;
+            renderSolWizardStep();
+        }
+
+        function advanceSolWizardFromStep2() {
+            const nome = document.getElementById('solTerceiroNome').value.trim();
+            const vinculo = document.getElementById('solTerceiroVinculo').value.trim();
+            const contato = document.getElementById('solTerceiroContato').value.trim();
+
+            if (!nome || !vinculo || !contato) {
+                showToast('Preencha todos os dados do beneficiário.', 'error');
                 return;
             }
 
+            solWizardState.terceiroNome = nome;
+            solWizardState.terceiroVinculo = vinculo;
+            solWizardState.terceiroContato = contato;
+            solWizardState.step = 3;
+            renderSolWizardStep();
+        }
+
+        function selectSolService(nome) {
+            solWizardState.servico = nome;
+            renderSolWizardStep();
+        }
+
+        function advanceSolWizardFromStep3() {
+            if (!solWizardState.servico) {
+                showToast('Selecione um serviço para continuar.', 'error');
+                return;
+            }
+            solWizardState.step = 4;
+            renderSolWizardStep();
+        }
+
+        function advanceSolWizardFromStep4() {
+            const urg = document.getElementById('solUrgencia').value;
+            const ant = document.getElementById('solAnterior').value;
+            const sint = document.getElementById('solSintomas').value.trim();
+            const hor = document.getElementById('solHorarioPref').value;
+            const obs = document.getElementById('solObs').value.trim();
+
+            if (!sint) {
+                showToast('A descrição da demanda é obrigatória na triagem.', 'error');
+                return;
+            }
+
+            solWizardState.urgencia = urg;
+            solWizardState.atendimentoAnterior = ant;
+            solWizardState.sintomas = sint;
+            solWizardState.horarioPref = hor;
+            solWizardState.observacoes = obs;
+
+            solWizardState.step = 5;
+            renderSolWizardStep();
+        }
+
+        function prevSolStep() {
+            if (solWizardState.step === 3 && solWizardState.paraQuem === 'si_mesmo') {
+                solWizardState.step = 1;
+            } else if (solWizardState.step > 1) {
+                solWizardState.step--;
+            }
+            renderSolWizardStep();
+        }
+
+        function submitFinalSolicitacao() {
+            const protocol = generateProtocol();
+            const isTerceiro = solWizardState.paraQuem === 'terceiro';
+
             const newSol = {
                 id: createLocalId('sol'),
-                protocolo: `SC-${Math.floor(100000 + Math.random() * 900000)}`,
-                userEmail: currentUser.email,
-                userName: currentUser.name || currentUser.nome,
-                especialidade: esp,
-                motivo: mot,
-                descricao: desc,
+                protocolo: protocol,
+                solicitanteName: currentUser.name || currentUser.nome || 'Usuário',
+                solicitanteEmail: normalizeEmail(currentUser.email),
+                solicitantePhone: currentUser.phone || currentUser.telefone || 'Não informado',
+                paraQuem: solWizardState.paraQuem,
+                beneficiario: isTerceiro ? {
+                    nome: solWizardState.terceiroNome,
+                    vinculo: solWizardState.terceiroVinculo,
+                    contato: solWizardState.terceiroContato
+                } : {
+                    nome: currentUser.name || currentUser.nome || 'Usuário',
+                    vinculo: 'Próprio Solicitante',
+                    contato: currentUser.phone || currentUser.telefone || 'Não informado'
+                },
+                servico: solWizardState.servico,
+                triagem: {
+                    urgencia: solWizardState.urgencia,
+                    sintomas: solWizardState.sintomas,
+                    atendimentoAnterior: solWizardState.atendimentoAnterior,
+                    horarioPref: solWizardState.horarioPref,
+                    observacoes: solWizardState.observacoes
+                },
                 status: 'Em análise',
-                data: new Date().toLocaleDateString('pt-BR')
+                agendamento: null,
+                motivoStatus: '',
+                criadoEm: nowFormatted(),
+                ultimaAtualizacao: nowFormatted(),
+                historico: [
+                    {
+                        dataHora: nowFormatted(),
+                        autor: currentUser.name || currentUser.nome || 'Usuário',
+                        acao: 'Solicitação Criada',
+                        detalhe: 'Solicitação registrada no sistema com status "Em análise".'
+                    }
+                ]
             };
 
             mockSolicitacoes.unshift(newSol);
+            addNotification(
+                newSol.solicitanteEmail,
+                'Solicitação Registrada',
+                `Sua solicitação (${newSol.protocolo}) foi registrada com sucesso e está Em análise.`,
+                newSol.id
+            );
             persistAllData();
             updateDashboardMetrics();
-            showToast('Solicitação enviada com sucesso.');
-            document.getElementById('formNovaSolicitacao').reset();
-            switchTab('acompanhamento');
+
+            solWizardState.generatedProtocol = protocol;
+            solWizardState.step = 6;
+            renderSolWizardStep();
+            showToast('Solicitação enviada com sucesso!');
+        }
+
+        function resetAndStartNewSol() {
+            resetSolWizard();
+            renderSolWizardStep();
+        }
+
+        // =========================================================================
+        // NOTIFICAÇÕES AUTOMÁTICAS E UI
+        // =========================================================================
+
+        function addNotification(userEmail, titulo, mensagem, solId = null) {
+            mockNotificacoes.unshift({
+                id: createLocalId('notif'),
+                userEmail: normalizeEmail(userEmail),
+                titulo: titulo,
+                mensagem: mensagem,
+                dataHora: nowFormatted(),
+                lida: false,
+                solId: solId
+            });
+            persistAllData();
+            updateNotificationUI();
+        }
+
+        function updateNotificationUI() {
+            if (!currentUser) return;
+            const myNotifs = mockNotificacoes.filter(n => n.userEmail === normalizeEmail(currentUser.email));
+            const unread = myNotifs.filter(n => !n.lida);
+
+            const dot = document.getElementById('notifBadgeDot');
+            if (dot) {
+                if (unread.length > 0) dot.classList.remove('hidden');
+                else dot.classList.add('hidden');
+            }
+
+            const list = document.getElementById('notifList');
+            if (list) {
+                if (myNotifs.length === 0) {
+                    list.innerHTML = `<p class="text-slate-400 text-xs py-2">Nenhuma notificação.</p>`;
+                } else {
+                    list.innerHTML = myNotifs.slice(0, 5).map(n => `
+                        <div class="p-2.5 rounded-xl border ${n.lida ? 'bg-slate-700/30 border-slate-700 text-slate-300' : 'bg-emerald-950/40 border-emerald-700/60 text-white'} space-y-1">
+                            <div class="flex justify-between items-center text-[10px]">
+                                <strong class="font-bold ${n.lida ? 'text-slate-300' : 'text-emerald-400'}">${n.titulo}</strong>
+                                <span class="text-slate-400">${n.dataHora}</span>
+                            </div>
+                            <p class="text-[11px] leading-snug">${n.mensagem}</p>
+                        </div>
+                    `).join('');
+                }
+            }
+        }
+
+        function toggleNotifMenu() {
+            const menu = document.getElementById('notifMenu');
+            if (menu) menu.classList.toggle('hidden');
+        }
+
+        function markAllNotificationsRead() {
+            if (!currentUser) return;
+            mockNotificacoes.forEach(n => {
+                if (n.userEmail === normalizeEmail(currentUser.email)) {
+                    n.lida = true;
+                }
+            });
+            persistAllData();
+            updateNotificationUI();
+            if (currentView === 'notificacoes') renderFullNotifView();
+            showToast('Notificações marcadas como lidas.');
+        }
+
+        function renderFullNotifView() {
+            const container = document.getElementById('fullNotifList');
+            if (!container) return;
+            const myNotifs = mockNotificacoes.filter(n => n.userEmail === normalizeEmail(currentUser.email));
+
+            if (myNotifs.length === 0) {
+                container.innerHTML = `<p class="text-slate-400 text-xs bg-slate-800 p-4 rounded-2xl border border-slate-700">Não há notificações no momento.</p>`;
+                return;
+            }
+
+            container.innerHTML = myNotifs.map(n => `
+                <div class="p-4 rounded-2xl border ${n.lida ? 'bg-slate-800 border-slate-700' : 'bg-slate-800 border-emerald-500/60 shadow-md'} space-y-1">
+                    <div class="flex justify-between items-center">
+                        <h4 class="font-bold text-xs ${n.lida ? 'text-white' : 'text-emerald-400'}">${n.titulo}</h4>
+                        <span class="text-[10px] text-slate-400 font-mono">${n.dataHora}</span>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">${n.mensagem}</p>
+                </div>
+            `).join('');
+        }
+
+        // =========================================================================
+        // ACOMPANHAMENTO DO USUÁRIO (MINHAS SOLICITAÇÕES & DETALHES)
+        // =========================================================================
+
+        function getStatusColorClass(status) {
+            switch (status) {
+                case 'Em análise': return 'bg-amber-900/60 text-amber-300 border-amber-700';
+                case 'Aguardando atendimento': return 'bg-blue-900/60 text-blue-300 border-blue-700';
+                case 'Agendada': return 'bg-purple-900/60 text-purple-300 border-purple-700';
+                case 'Em atendimento': return 'bg-teal-900/60 text-teal-300 border-teal-700';
+                case 'Atendida': return 'bg-emerald-900/60 text-emerald-300 border-emerald-700';
+                case 'Rejeitada': return 'bg-rose-900/60 text-rose-300 border-rose-700';
+                case 'Cancelada': return 'bg-slate-700 text-slate-300 border-slate-600';
+                default: return 'bg-slate-700 text-slate-300 border-slate-600';
+            }
         }
 
         function renderUserSolicitacoesView() {
             const container = document.getElementById('userSolicitacoesContainer');
             if (!container) return;
-            const mySols = mockSolicitacoes.filter(s => s.userEmail === currentUser.email);
+
+            const mySols = mockSolicitacoes.filter(s => s.solicitanteEmail === normalizeEmail(currentUser.email));
+
             if (mySols.length === 0) {
-                container.innerHTML = `<p class="text-xs text-slate-400 p-4 bg-slate-800 rounded-2xl">Nenhuma solicitação encontrada.</p>`;
+                container.innerHTML = `
+                    <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 text-center space-y-3">
+                        <i class="fa-solid fa-folder-open text-3xl text-slate-500"></i>
+                        <p class="text-xs text-slate-300 font-semibold">Você ainda não realizou nenhuma solicitação de atendimento.</p>
+                        <button onclick="switchTab('solicitacoes')" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl transition cursor-pointer">
+                            Solicitar Agora
+                        </button>
+                    </div>
+                `;
                 return;
             }
+
             container.innerHTML = mySols.map(s => `
-                <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 space-y-2">
-                    <div class="flex justify-between items-center text-xs">
-                        <span class="font-mono font-bold text-emerald-400">${s.protocolo}</span>
-                        <span class="px-2 py-0.5 bg-amber-900/60 text-amber-300 rounded font-semibold text-[10px]">${s.status}</span>
+                <div class="bg-slate-800 p-4 sm:p-5 rounded-2xl border border-slate-700 space-y-3 hover:border-slate-600 transition shadow-sm">
+                    <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-700 pb-2.5">
+                        <div class="flex items-center space-x-2">
+                            <span class="font-mono font-extrabold text-emerald-400 text-xs">${s.protocolo}</span>
+                            ${s.paraQuem === 'terceiro' ? '<span class="text-[9px] bg-amber-900/60 text-amber-300 px-2 py-0.5 rounded font-bold uppercase border border-amber-700">Para Terceiro</span>' : ''}
+                        </div>
+                        <span class="px-2.5 py-0.5 rounded text-[10px] font-extrabold border ${getStatusColorClass(s.status)}">${s.status}</span>
                     </div>
-                    <h4 class="font-bold text-white text-xs">${s.especialidade} — ${s.motivo}</h4>
-                    <p class="text-xs text-slate-300">${s.descricao}</p>
-                    <p class="text-[10px] text-slate-500">Data: ${s.data}</p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">Serviço Solicitado</p>
+                            <p class="font-bold text-white">${s.servico}</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">Beneficiário</p>
+                            <p class="font-semibold text-slate-200">${s.beneficiario ? s.beneficiario.nome : s.solicitanteName}</p>
+                        </div>
+                    </div>
+
+                    <p class="text-xs text-slate-300 line-clamp-2 bg-slate-900/50 p-2.5 rounded-xl border border-slate-700/60">${s.triagem ? s.triagem.sintomas : ''}</p>
+
+                    <div class="flex flex-wrap items-center justify-between text-[10px] text-slate-400 pt-1 gap-2">
+                        <span>Atualizado em: <strong class="text-slate-300">${s.ultimaAtualizacao || s.criadoEm}</strong></span>
+                        <button onclick="openSolicitacaoDetailsModal('${s.id}')" class="px-3.5 py-1.5 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-xl text-xs transition flex items-center space-x-1 cursor-pointer">
+                            <i class="fa-solid fa-eye"></i><span>Ver Detalhes & Histórico</span>
+                        </button>
+                    </div>
                 </div>
             `).join('');
         }
@@ -1323,18 +2147,682 @@
         function renderUserAgendamentosView() {
             const container = document.getElementById('userAgendamentosContainer');
             if (!container) return;
-            container.innerHTML = `<p class="text-xs text-slate-400 p-4 bg-slate-800 rounded-2xl">Nenhum agendamento ativo no momento.</p>`;
+
+            const mySols = mockSolicitacoes.filter(s => 
+                s.solicitanteEmail === normalizeEmail(currentUser.email) && 
+                s.agendamento && 
+                (s.status === 'Agendada' || s.status === 'Em atendimento')
+            );
+
+            if (mySols.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 text-center space-y-2">
+                        <p class="text-xs text-slate-400">Nenhum agendamento confirmado no momento.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = mySols.map(s => `
+                <div class="bg-slate-800 p-5 rounded-2xl border border-purple-800/60 space-y-3 shadow-md">
+                    <div class="flex justify-between items-center border-b border-slate-700 pb-2">
+                        <span class="font-mono font-bold text-purple-400 text-xs">${s.protocolo} — ${s.servico}</span>
+                        <span class="px-2.5 py-0.5 bg-purple-900/60 text-purple-300 border border-purple-700 rounded text-[10px] font-bold">${s.status}</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-slate-200">
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">Profissional Responsável</p>
+                            <p class="font-bold text-white text-sm">${s.agendamento.profissional}</p>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-slate-400 font-bold uppercase">Data & Horário</p>
+                            <p class="font-bold text-amber-400 text-sm">${s.agendamento.data} às ${s.agendamento.hora}</p>
+                        </div>
+                    </div>
+
+                    <div class="text-xs text-slate-300 bg-slate-900/60 p-3 rounded-xl border border-slate-700/60 space-y-1">
+                        <p><strong>Local:</strong> ${s.agendamento.local}</p>
+                        ${s.agendamento.observacoes ? `<p><strong>Recomendações:</strong> ${s.agendamento.observacoes}</p>` : ''}
+                    </div>
+
+                    <div class="flex justify-end pt-1">
+                        <button onclick="openSolicitacaoDetailsModal('${s.id}')" class="px-3.5 py-1.5 bg-slate-700 hover:bg-slate-600 text-white font-bold rounded-xl text-xs transition">
+                            Ver Solicitação Completa
+                        </button>
+                    </div>
+                </div>
+            `).join('');
         }
+
+        // =========================================================================
+        // MODAL DE DETALHES DA SOLICITAÇÃO (PROGRESSO VISUAL + LINHA DO TEMPO)
+        // =========================================================================
+
+        function openSolicitacaoDetailsModal(solId) {
+            const sol = mockSolicitacoes.find(s => s.id === solId);
+            if (!sol) return;
+
+            document.getElementById('solDetailProtocol').textContent = sol.protocolo;
+            document.getElementById('solDetailCreatedDate').textContent = sol.criadoEm;
+            document.getElementById('solDetailUpdatedDate').textContent = sol.ultimaAtualizacao || sol.criadoEm;
+
+            const badge = document.getElementById('solDetailStatusBadge');
+            badge.textContent = sol.status;
+            badge.className = `px-2.5 py-0.5 rounded text-[10px] font-extrabold border ${getStatusColorClass(sol.status)}`;
+
+            // BARRA DE PROGRESSO VISUAL
+            const progressBarContainer = document.getElementById('solDetailProgressBarContainer');
+            if (sol.status === 'Rejeitada' || sol.status === 'Cancelada') {
+                const isRej = sol.status === 'Rejeitada';
+                progressBarContainer.innerHTML = `
+                    <div class="p-3 ${isRej ? 'bg-rose-950/80 border-rose-800 text-rose-200' : 'bg-slate-900 border-slate-700 text-slate-300'} rounded-xl border text-xs space-y-1">
+                        <p class="font-bold">${isRej ? '🚫 Solicitação Rejeitada' : '⚠️ Solicitação Cancelada'}</p>
+                        <p class="text-[11px]">Motivo registrado: <strong>${sol.motivoStatus || 'Não informado'}</strong></p>
+                    </div>
+                `;
+            } else {
+                const steps = ['Em análise', 'Aguardando atendimento', 'Agendada', 'Em atendimento', 'Atendida'];
+                const currentIndex = steps.indexOf(sol.status);
+                
+                progressBarContainer.innerHTML = `
+                    <div class="grid grid-cols-5 gap-1 text-center text-[9px] font-bold py-2">
+                        ${steps.map((st, idx) => {
+                            const isPassed = idx <= currentIndex;
+                            const isCurrent = idx === currentIndex;
+                            return `
+                                <div class="space-y-1">
+                                    <div class="h-2 rounded-full ${isPassed ? 'bg-emerald-500' : 'bg-slate-700'} ${isCurrent ? 'ring-2 ring-emerald-300' : ''}"></div>
+                                    <span class="${isPassed ? 'text-emerald-400' : 'text-slate-500'} truncate block">${st}</span>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                `;
+            }
+
+            // ENVOLVIDOS
+            document.getElementById('solDetailSolicitanteName').textContent = sol.solicitanteName;
+            document.getElementById('solDetailSolicitanteEmail').textContent = sol.solicitanteEmail;
+            document.getElementById('solDetailSolicitantePhone').textContent = sol.solicitantePhone || 'Não informado';
+
+            if (sol.beneficiario) {
+                document.getElementById('solDetailBeneficiarioName').textContent = sol.beneficiario.nome;
+                document.getElementById('solDetailBeneficiarioVinculo').textContent = sol.beneficiario.vinculo || 'Beneficiário';
+                document.getElementById('solDetailBeneficiarioContato').textContent = sol.beneficiario.contato || 'Não informado';
+            } else {
+                document.getElementById('solDetailBeneficiarioName').textContent = sol.solicitanteName;
+                document.getElementById('solDetailBeneficiarioVinculo').textContent = 'Próprio Solicitante';
+                document.getElementById('solDetailBeneficiarioContato').textContent = sol.solicitantePhone || 'Não informado';
+            }
+
+            // TRIAGEM
+            document.getElementById('solDetailServico').textContent = sol.servico;
+            document.getElementById('solDetailUrgencia').textContent = sol.triagem ? sol.triagem.urgencia : 'Normal';
+            document.getElementById('solDetailAnterior').textContent = sol.triagem ? sol.triagem.atendimentoAnterior : 'Não';
+            document.getElementById('solDetailHorarioPref').textContent = sol.triagem ? sol.triagem.horarioPref : 'Qualquer';
+            document.getElementById('solDetailSintomas').textContent = sol.triagem ? sol.triagem.sintomas : 'Sem descrição.';
+            document.getElementById('solDetailObservacoes').textContent = (sol.triagem && sol.triagem.observacoes) ? sol.triagem.observacoes : 'Nenhuma observação complementar.';
+
+            // AGENDAMENTO
+            const agendaBox = document.getElementById('solDetailAgendaBox');
+            if (sol.agendamento) {
+                agendaBox.classList.remove('hidden');
+                document.getElementById('solDetailProfissional').textContent = sol.agendamento.profissional;
+                document.getElementById('solDetailDataHoraAgenda').textContent = `${sol.agendamento.data} às ${sol.agendamento.hora}`;
+                document.getElementById('solDetailLocalAgenda').textContent = sol.agendamento.local;
+                document.getElementById('solDetailObsAgenda').textContent = sol.agendamento.observacoes || 'Nenhuma instrução adicional.';
+            } else {
+                agendaBox.classList.add('hidden');
+            }
+
+            // LINHA DO TEMPO (HISTÓRICO COMPLETO)
+            const timelineContainer = document.getElementById('solDetailTimelineContainer');
+            if (sol.historico && sol.historico.length > 0) {
+                timelineContainer.innerHTML = sol.historico.map(h => `
+                    <div class="relative pl-4 space-y-0.5">
+                        <div class="absolute -left-[17px] top-1 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-4 ring-slate-800"></div>
+                        <div class="flex justify-between items-center text-[10px]">
+                            <strong class="text-white font-bold">${h.acao}</strong>
+                            <span class="text-slate-400 font-mono">${h.dataHora}</span>
+                        </div>
+                        <p class="text-[11px] text-slate-300">${h.detalhe}</p>
+                        <p class="text-[9px] text-slate-500">Por: ${h.autor}</p>
+                    </div>
+                `).join('');
+            } else {
+                timelineContainer.innerHTML = `<p class="text-slate-400 text-xs">Nenhum evento registrado.</p>`;
+            }
+
+            // BOTÃO DE CANCELAMENTO PELO USUÁRIO SE ELEGÍVEL
+            const userActions = document.getElementById('solDetailUserActions');
+            const canCancel = normalizeEmail(sol.solicitanteEmail) === normalizeEmail(currentUser.email) && 
+                              sol.status !== 'Atendida' && sol.status !== 'Rejeitada' && sol.status !== 'Cancelada';
+
+            if (canCancel) {
+                userActions.innerHTML = `
+                    <button onclick="openUserCancelModal('${sol.id}')" class="px-4 py-2 bg-rose-900/60 hover:bg-rose-700 text-rose-200 border border-rose-700 font-bold rounded-xl text-xs transition cursor-pointer">
+                        Cancelar Esta Solicitação
+                    </button>
+                `;
+            } else {
+                userActions.innerHTML = '';
+            }
+
+            document.getElementById('solDetailModal').classList.remove('hidden');
+        }
+
+        function closeSolicitacaoDetailsModal() {
+            document.getElementById('solDetailModal').classList.add('hidden');
+        }
+
+        function openUserCancelModal(solId) {
+            activeAdminActionSolId = solId;
+            document.getElementById('userCancelReason').value = '';
+            document.getElementById('userCancelModal').classList.remove('hidden');
+        }
+
+        function closeUserCancelModal() {
+            document.getElementById('userCancelModal').classList.add('hidden');
+        }
+
+        function confirmUserCancel() {
+            const reason = document.getElementById('userCancelReason').value.trim();
+            if (!reason) {
+                showToast('Informe o motivo do cancelamento.', 'error');
+                return;
+            }
+
+            const sol = mockSolicitacoes.find(s => s.id === activeAdminActionSolId);
+            if (!sol) return;
+
+            sol.status = 'Cancelada';
+            sol.motivoStatus = reason;
+            sol.ultimaAtualizacao = nowFormatted();
+            sol.historico.unshift({
+                dataHora: nowFormatted(),
+                autor: currentUser.name || currentUser.nome || 'Usuário',
+                acao: 'Solicitação Cancelada pelo Usuário',
+                detalhe: `Motivo: ${reason}`
+            });
+
+            addNotification(
+                sol.solicitanteEmail,
+                'Solicitação Cancelada',
+                `Sua solicitação (${sol.protocolo}) foi cancelada.`,
+                sol.id
+            );
+
+            persistAllData();
+            closeUserCancelModal();
+            closeSolicitacaoDetailsModal();
+            renderCurrentView();
+            updateDashboardMetrics();
+            showToast('Solicitação cancelada.');
+        }
+
+        // =========================================================================
+        // PAINEL ADMINISTRATIVO REESTRUTURADO (GESTAO REAL DE SOLICITAÇÕES)
+        // =========================================================================
+
+        function renderAdminView() {
+            if (!isCurrentUserAdmin()) return;
+
+            const search = document.getElementById('adminSearchInput') ? document.getElementById('adminSearchInput').value.toLowerCase().trim() : '';
+            const statusFilter = document.getElementById('adminStatusFilter') ? document.getElementById('adminStatusFilter').value : 'TODOS';
+
+            // ESTATÍSTICAS REAIS
+            const total = mockSolicitacoes.length;
+            const emAnalise = mockSolicitacoes.filter(s => s.status === 'Em análise').length;
+            const aguardando = mockSolicitacoes.filter(s => s.status === 'Aguardando atendimento').length;
+            const agendadas = mockSolicitacoes.filter(s => s.status === 'Agendada').length;
+            const emAtend = mockSolicitacoes.filter(s => s.status === 'Em atendimento').length;
+            const atendidas = mockSolicitacoes.filter(s => s.status === 'Atendida').length;
+            const rejCanc = mockSolicitacoes.filter(s => s.status === 'Rejeitada' || s.status === 'Cancelada').length;
+
+            const statsGrid = document.getElementById('adminStatsGrid');
+            if (statsGrid) {
+                statsGrid.innerHTML = `
+                    <div class="bg-slate-800 p-3 rounded-2xl border border-slate-700 text-center">
+                        <p class="text-[10px] text-slate-400 font-bold uppercase">Total</p>
+                        <p class="text-xl font-extrabold text-white">${total}</p>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-2xl border border-amber-700/60 text-center">
+                        <p class="text-[10px] text-amber-400 font-bold uppercase">Em Análise</p>
+                        <p class="text-xl font-extrabold text-amber-400">${emAnalise}</p>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-2xl border border-blue-700/60 text-center">
+                        <p class="text-[10px] text-blue-400 font-bold uppercase">Aguardando</p>
+                        <p class="text-xl font-extrabold text-blue-400">${aguardando}</p>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-2xl border border-purple-700/60 text-center">
+                        <p class="text-[10px] text-purple-400 font-bold uppercase">Agendadas</p>
+                        <p class="text-xl font-extrabold text-purple-400">${agendadas}</p>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-2xl border border-teal-700/60 text-center">
+                        <p class="text-[10px] text-teal-400 font-bold uppercase">Em Atendimento</p>
+                        <p class="text-xl font-extrabold text-teal-400">${emAtend}</p>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-2xl border border-emerald-700/60 text-center">
+                        <p class="text-[10px] text-emerald-400 font-bold uppercase">Atendidas</p>
+                        <p class="text-xl font-extrabold text-emerald-400">${atendidas}</p>
+                    </div>
+                    <div class="bg-slate-800 p-3 rounded-2xl border border-rose-700/60 text-center">
+                        <p class="text-[10px] text-rose-400 font-bold uppercase">Rej / Canc</p>
+                        <p class="text-xl font-extrabold text-rose-400">${rejCanc}</p>
+                    </div>
+                `;
+            }
+
+            // FILTRAGEM
+            let filtered = mockSolicitacoes.filter(s => {
+                const matchStatus = statusFilter === 'TODOS' || s.status === statusFilter;
+                const matchText = !search || 
+                    s.protocolo.toLowerCase().includes(search) || 
+                    s.solicitanteName.toLowerCase().includes(search) || 
+                    s.solicitanteEmail.toLowerCase().includes(search) || 
+                    (s.beneficiario && s.beneficiario.nome.toLowerCase().includes(search)) || 
+                    s.servico.toLowerCase().includes(search);
+                return matchStatus && matchText;
+            });
+
+            // PRIORIDADE OPERACIONAL (Demandas que exigem ação em primeiro lugar)
+            const priorityMap = {
+                'Em análise': 1,
+                'Aguardando atendimento': 2,
+                'Agendada': 3,
+                'Em atendimento': 4,
+                'Atendida': 5,
+                'Rejeitada': 6,
+                'Cancelada': 7
+            };
+            filtered.sort((a, b) => (priorityMap[a.status] || 99) - (priorityMap[b.status] || 99));
+
+            // RENDERIZAÇÃO DA LISTA ADMINISTRATIVA
+            const solListEl = document.getElementById('adminSolList');
+            if (solListEl) {
+                if (filtered.length === 0) {
+                    solListEl.innerHTML = `<p class="text-slate-400 text-xs py-3">Nenhuma solicitação encontrada com os filtros selecionados.</p>`;
+                } else {
+                    solListEl.innerHTML = filtered.map(s => `
+                        <div class="p-4 bg-slate-700/50 rounded-2xl border border-slate-600 space-y-3">
+                            <div class="flex flex-wrap justify-between items-center gap-2 border-b border-slate-600 pb-2">
+                                <div class="flex items-center space-x-2">
+                                    <span class="font-mono font-extrabold text-emerald-400 text-xs">${s.protocolo}</span>
+                                    <span class="text-slate-300 text-xs font-semibold">${s.servico}</span>
+                                    ${s.paraQuem === 'terceiro' ? '<span class="text-[9px] bg-amber-900/60 text-amber-300 px-2 py-0.5 rounded font-bold uppercase border border-amber-700">Para Terceiro</span>' : ''}
+                                </div>
+                                <span class="px-2.5 py-0.5 rounded text-[10px] font-extrabold border ${getStatusColorClass(s.status)}">${s.status}</span>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+                                <div>
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase">Solicitante</p>
+                                    <p class="font-semibold text-white">${s.solicitanteName} (${s.solicitanteEmail})</p>
+                                </div>
+                                <div>
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase">Beneficiário</p>
+                                    <p class="font-semibold text-emerald-400">${s.beneficiario ? `${s.beneficiario.nome} (${s.beneficiario.vinculo})` : s.solicitanteName}</p>
+                                </div>
+                            </div>
+
+                            <div class="p-2.5 bg-slate-800/80 rounded-xl border border-slate-700 text-xs space-y-1">
+                                <p class="text-[10px] text-slate-400 font-bold uppercase">Triagem - Demanda:</p>
+                                <p class="text-slate-200 line-clamp-2">${s.triagem ? s.triagem.sintomas : ''}</p>
+                            </div>
+
+                            ${s.agendamento ? `
+                                <div class="p-2.5 bg-purple-950/40 border border-purple-800/60 rounded-xl text-xs text-purple-200">
+                                    <strong>Agendado:</strong> ${s.agendamento.profissional} —${s.agendamento.data} às ${s.agendamento.hora} (${s.agendamento.local})
+                                </div>
+                            ` : ''}
+
+                            <!-- BOTOES DE AÇÃO ADMINISTRATIVA -->
+                            <div class="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-600/60">
+                                <span class="text-[10px] text-slate-400">Criado em: ${s.criadoEm}</span>
+                                <div class="flex flex-wrap gap-1.5">
+                                    <button onclick="openSolicitacaoDetailsModal('${s.id}')" title="Ver Triagem e Detalhes" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold rounded-lg text-[11px] transition">
+                                        <i class="fa-solid fa-eye mr-1"></i>Detalhes
+                                    </button>
+
+                                    ${s.status === 'Em análise' ? `
+                                        <button onclick="openAdminWaitModal('${s.id}')" class="px-2.5 py-1.5 bg-blue-600 hover:bg-blue-500 text-white font-bold rounded-lg text-[11px] transition shadow">
+                                            <i class="fa-solid fa-clock mr-1"></i>Aguardando
+                                        </button>
+                                    ` : ''}
+
+                                    ${s.status === 'Em análise' || s.status === 'Aguardando atendimento' || s.status === 'Agendada' ? `
+                                        <button onclick="openAdminScheduleModal('${s.id}')" class="px-2.5 py-1.5 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-lg text-[11px] transition shadow">
+                                            <i class="fa-solid fa-calendar-plus mr-1"></i>${s.agendamento ? 'Reagendar' : 'Agendar'}
+                                        </button>
+                                    ` : ''}
+
+                                    ${s.status === 'Agendada' ? `
+                                        <button onclick="adminStartAtendimento('${s.id}')" class="px-2.5 py-1.5 bg-teal-600 hover:bg-teal-500 text-white font-bold rounded-lg text-[11px] transition shadow">
+                                            <i class="fa-solid fa-play mr-1"></i>Iniciar
+                                        </button>
+                                    ` : ''}
+
+                                    ${s.status === 'Em atendimento' ? `
+                                        <button onclick="adminFinishAtendimento('${s.id}')" class="px-2.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-lg text-[11px] transition shadow">
+                                            <i class="fa-solid fa-check mr-1"></i>Concluir
+                                        </button>
+                                    ` : ''}
+
+                                    ${s.status !== 'Atendida' && s.status !== 'Rejeitada' && s.status !== 'Cancelada' ? `
+                                        <button onclick="openAdminRejectModal('${s.id}')" class="px-2.5 py-1.5 bg-rose-900/80 hover:bg-rose-700 text-rose-200 font-bold rounded-lg text-[11px] transition">
+                                            <i class="fa-solid fa-ban mr-1"></i>Rejeitar
+                                        </button>
+                                        <button onclick="openAdminCancelModal('${s.id}')" class="px-2.5 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold rounded-lg text-[11px] transition">
+                                            <i class="fa-solid fa-xmark mr-1"></i>Cancelar
+                                        </button>
+                                    ` : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            }
+
+            // LISTA DE USUÁRIOS
+            const userListEl = document.getElementById('adminUsersList');
+            if (userListEl) {
+                const localUsers = readJSON(STORAGE_USERS, []);
+                const combined = [];
+                const addedEmails = new Set();
+
+                ADMIN_ACCOUNTS.forEach(a => {
+                    const norm = normalizeEmail(a.email);
+                    if (!addedEmails.has(norm)) {
+                        addedEmails.add(norm);
+                        combined.push({ nome: a.name, email: a.email, tipo: 'administrador', setor: a.sector || 'Administração IFAL' });
+                    }
+                });
+
+                localUsers.forEach(u => {
+                    const norm = normalizeEmail(u.email);
+                    if (!addedEmails.has(norm)) {
+                        addedEmails.add(norm);
+                        combined.push({ nome: u.nome || u.name, email: u.email, tipo: u.role || 'usuario', setor: u.setor || 'N/A' });
+                    }
+                });
+
+                userListEl.innerHTML = combined.map(u => `
+                    <div class="p-3 bg-slate-700/60 rounded-xl flex items-center justify-between">
+                        <div>
+                            <p class="font-bold text-white text-xs">${u.nome} <span class="text-[10px] text-emerald-400 font-mono">(${u.tipo.toUpperCase()})</span></p>
+                            <p class="text-slate-300 text-[11px]">${u.email} — ${u.setor}</p>
+                        </div>
+                        <span class="px-2 py-0.5 bg-emerald-900/80 text-emerald-300 text-[10px] font-bold rounded border border-emerald-700">Ativo</span>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // --- AÇÕES DO PAINEL ADMINISTRATIVO ---
+
+        function openAdminWaitModal(solId) {
+            activeAdminActionSolId = solId;
+            document.getElementById('adminWaitReason').value = '';
+            document.getElementById('adminWaitModal').classList.remove('hidden');
+        }
+
+        function closeAdminWaitModal() {
+            document.getElementById('adminWaitModal').classList.add('hidden');
+        }
+
+        function adminConfirmWait() {
+            const reason = document.getElementById('adminWaitReason').value.trim() || 'Aprovado na triagem inicial. Aguardando disponibilidade de horário.';
+            const sol = mockSolicitacoes.find(s => s.id === activeAdminActionSolId);
+            if (!sol) return;
+
+            sol.status = 'Aguardando atendimento';
+            sol.motivoStatus = reason;
+            sol.ultimaAtualizacao = nowFormatted();
+            sol.historico.unshift({
+                dataHora: nowFormatted(),
+                autor: currentUser.name || currentUser.nome || 'Administrador',
+                acao: 'Colocada em Aguardando Atendimento',
+                detalhe: reason
+            });
+
+            addNotification(
+                sol.solicitanteEmail,
+                'Solicitação em Aguardando Atendimento',
+                `Sua solicitação (${sol.protocolo}) passou para o status "Aguardando atendimento".`,
+                sol.id
+            );
+
+            persistAllData();
+            closeAdminWaitModal();
+            renderAdminView();
+            showToast('Status atualizado para Aguardando Atendimento.');
+        }
+
+        function openAdminScheduleModal(solId) {
+            activeAdminActionSolId = solId;
+            const sol = mockSolicitacoes.find(s => s.id === solId);
+            if (!sol) return;
+
+            const modalTitle = document.getElementById('adminScheduleModalTitle');
+            const isResched = !!sol.agendamento;
+            if (modalTitle) modalTitle.textContent = isResched ? 'Reagendar Atendimento' : 'Agendar Atendimento';
+
+            document.getElementById('adminSchedProf').value = sol.agendamento ? sol.agendamento.profissional : '';
+            document.getElementById('adminSchedDate').value = sol.agendamento ? sol.agendamento.dataIso || '' : '';
+            document.getElementById('adminSchedTime').value = sol.agendamento ? sol.agendamento.hora : '';
+            document.getElementById('adminSchedLocal').value = sol.agendamento ? sol.agendamento.local : '';
+            document.getElementById('adminSchedObs').value = sol.agendamento ? sol.agendamento.observacoes : '';
+
+            document.getElementById('adminScheduleModal').classList.remove('hidden');
+        }
+
+        function closeAdminScheduleModal() {
+            document.getElementById('adminScheduleModal').classList.add('hidden');
+        }
+
+        function adminSaveSchedule(e) {
+            e.preventDefault();
+            const prof = document.getElementById('adminSchedProf').value.trim();
+            const dateIso = document.getElementById('adminSchedDate').value;
+            const time = document.getElementById('adminSchedTime').value;
+            const local = document.getElementById('adminSchedLocal').value.trim();
+            const obs = document.getElementById('adminSchedObs').value.trim();
+
+            if (!prof || !dateIso || !time || !local) {
+                showToast('Preencha todos os campos obrigatórios do agendamento.', 'error');
+                return;
+            }
+
+            const sol = mockSolicitacoes.find(s => s.id === activeAdminActionSolId);
+            if (!sol) return;
+
+            const dateParts = dateIso.split('-');
+            const dateFormatted = `${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`;
+            const isReschedule = !!sol.agendamento;
+
+            sol.agendamento = {
+                profissional: prof,
+                data: dateFormatted,
+                dataIso: dateIso,
+                hora: time,
+                local: local,
+                observacoes: obs
+            };
+
+            sol.status = 'Agendada';
+            sol.ultimaAtualizacao = nowFormatted();
+            sol.historico.unshift({
+                dataHora: nowFormatted(),
+                autor: currentUser.name || currentUser.nome || 'Administrador',
+                acao: isReschedule ? 'Atendimento Reagendado' : 'Atendimento Agendado',
+                detalhe: `Profissional: ${prof} | Data: ${dateFormatted} às ${time} | Local: ${local}`
+            });
+
+            addNotification(
+                sol.solicitanteEmail,
+                isReschedule ? 'Atendimento Reagendado' : 'Atendimento Agendado',
+                `Seu atendimento (${sol.protocolo}) foi ${isReschedule ? 'reagendado' : 'agendado'} para ${dateFormatted} às ${time} no local: ${local}.`,
+                sol.id
+            );
+
+            persistAllData();
+            closeAdminScheduleModal();
+            renderAdminView();
+            showToast(isReschedule ? 'Atendimento reagendado com sucesso.' : 'Atendimento agendado com sucesso.');
+        }
+
+        function adminStartAtendimento(solId) {
+            const sol = mockSolicitacoes.find(s => s.id === solId);
+            if (!sol) return;
+
+            sol.status = 'Em atendimento';
+            sol.ultimaAtualizacao = nowFormatted();
+            sol.historico.unshift({
+                dataHora: nowFormatted(),
+                autor: currentUser.name || currentUser.nome || 'Administrador',
+                acao: 'Atendimento Iniciado',
+                detalhe: 'Atendimento presencial/virtual iniciado pelo profissional responsável.'
+            });
+
+            addNotification(
+                sol.solicitanteEmail,
+                'Atendimento Iniciado',
+                `O seu atendimento referente ao protocolo ${sol.protocolo} foi iniciado.`,
+                sol.id
+            );
+
+            persistAllData();
+            renderAdminView();
+            showToast('Atendimento iniciado.');
+        }
+
+        function adminFinishAtendimento(solId) {
+            const sol = mockSolicitacoes.find(s => s.id === solId);
+            if (!sol) return;
+
+            sol.status = 'Atendida';
+            sol.ultimaAtualizacao = nowFormatted();
+            sol.historico.unshift({
+                dataHora: nowFormatted(),
+                autor: currentUser.name || currentUser.nome || 'Administrador',
+                acao: 'Atendimento Concluído',
+                detalhe: 'Atendimento finalizado com sucesso pelo setor.'
+            });
+
+            addNotification(
+                sol.solicitanteEmail,
+                'Atendimento Concluído',
+                `Sua solicitação (${sol.protocolo}) foi concluída com sucesso.`,
+                sol.id
+            );
+
+            persistAllData();
+            renderAdminView();
+            showToast('Atendimento concluído com sucesso.');
+        }
+
+        function openAdminRejectModal(solId) {
+            activeAdminActionSolId = solId;
+            document.getElementById('adminRejectReason').value = '';
+            document.getElementById('adminRejectModal').classList.remove('hidden');
+        }
+
+        function closeAdminRejectModal() {
+            document.getElementById('adminRejectModal').classList.add('hidden');
+        }
+
+        function adminConfirmReject() {
+            const reason = document.getElementById('adminRejectReason').value.trim();
+            if (!reason) {
+                showToast('O motivo da rejeição é OBRIGATÓRIO.', 'error');
+                return;
+            }
+
+            const sol = mockSolicitacoes.find(s => s.id === activeAdminActionSolId);
+            if (!sol) return;
+
+            sol.status = 'Rejeitada';
+            sol.motivoStatus = reason;
+            sol.ultimaAtualizacao = nowFormatted();
+            sol.historico.unshift({
+                dataHora: nowFormatted(),
+                autor: currentUser.name || currentUser.nome || 'Administrador',
+                acao: 'Solicitação Rejeitada',
+                detalhe: `Motivo: ${reason}`
+            });
+
+            addNotification(
+                sol.solicitanteEmail,
+                'Solicitação Rejeitada',
+                `Sua solicitação (${sol.protocolo}) foi rejeitada. Motivo: ${reason}`,
+                sol.id
+            );
+
+            persistAllData();
+            closeAdminRejectModal();
+            renderAdminView();
+            showToast('Solicitação rejeitada.');
+        }
+
+        function openAdminCancelModal(solId) {
+            activeAdminActionSolId = solId;
+            document.getElementById('adminCancelReason').value = '';
+            document.getElementById('adminCancelModal').classList.remove('hidden');
+        }
+
+        function closeAdminCancelModal() {
+            document.getElementById('adminCancelModal').classList.add('hidden');
+        }
+
+        function adminConfirmCancel() {
+            const reason = document.getElementById('adminCancelReason').value.trim();
+            if (!reason) {
+                showToast('O motivo do cancelamento é OBRIGATÓRIO.', 'error');
+                return;
+            }
+
+            const sol = mockSolicitacoes.find(s => s.id === activeAdminActionSolId);
+            if (!sol) return;
+
+            sol.status = 'Cancelada';
+            sol.motivoStatus = reason;
+            sol.ultimaAtualizacao = nowFormatted();
+            sol.historico.unshift({
+                dataHora: nowFormatted(),
+                autor: currentUser.name || currentUser.nome || 'Administrador',
+                acao: 'Solicitação Cancelada pelo Administrador',
+                detalhe: `Motivo: ${reason}`
+            });
+
+            addNotification(
+                sol.solicitanteEmail,
+                'Solicitação Cancelada',
+                `Sua solicitação (${sol.protocolo}) foi cancelada. Motivo: ${reason}`,
+                sol.id
+            );
+
+            persistAllData();
+            closeAdminCancelModal();
+            renderAdminView();
+            showToast('Solicitação cancelada.');
+        }
+
+        // =========================================================================
+        // OUTRAS VISTAS (AVISOS, LOCAIS, FAQ, CHAT, PERFIL)
+        // =========================================================================
 
         function renderAvisosView() {
             const container = document.getElementById('avisosContainer');
             if (!container) return;
             container.innerHTML = mockAvisos.map(a => `
                 <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 space-y-2">
-                    <span class="text-[10px] text-emerald-400 font-bold uppercase">${a.setor}</span>
+                    <div class="flex justify-between items-center">
+                        <span class="text-[10px] text-emerald-400 font-bold uppercase">${a.setor}</span>
+                        <span class="text-[10px] text-slate-400 font-mono">${a.data}</span>
+                    </div>
                     <h4 class="font-bold text-white text-xs">${a.titulo}</h4>
-                    <p class="text-xs text-slate-300">${a.conteudo}</p>
-                    <p class="text-[10px] text-slate-500">${a.data}</p>
+                    <p class="text-xs text-slate-300 leading-relaxed">${a.conteudo}</p>
                 </div>
             `).join('');
         }
@@ -1345,7 +2833,7 @@
             grid.innerHTML = mockLocais.map(l => `
                 <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 space-y-2">
                     <h4 class="font-bold text-white text-xs">${l.nome}</h4>
-                    <p class="text-xs text-slate-300"><i class="fa-solid fa-location-dot text-teal-400 mr-1"></i> ${l.bloco}</p>
+                    <p class="text-xs text-slate-300"><i class="fa-solid fa-location-dot text-teal-400 mr-1.5"></i>${l.bloco}</p>
                     <p class="text-xs text-slate-400">Responsável: ${l.resp}</p>
                     <p class="text-[10px] text-emerald-400 font-semibold">Horário: ${l.hor}</p>
                 </div>
@@ -1357,8 +2845,11 @@
             if (!list) return;
             list.innerHTML = mockFaqs.map(f => `
                 <div class="bg-slate-800 p-4 rounded-2xl border border-slate-700 space-y-1">
-                    <h4 class="font-bold text-white text-xs">${f.q}</h4>
-                    <p class="text-xs text-slate-300">${f.a}</p>
+                    <h4 class="font-bold text-white text-xs flex items-center space-x-1.5">
+                        <i class="fa-solid fa-circle-question text-emerald-400"></i>
+                        <span>${f.q}</span>
+                    </h4>
+                    <p class="text-xs text-slate-300 leading-relaxed pl-5">${f.a}</p>
                 </div>
             `).join('');
         }
@@ -1371,32 +2862,34 @@
 
             mockMensagens.unshift({
                 id: createLocalId('msg'),
-                user: currentUser.name || currentUser.nome,
+                user: currentUser.name || currentUser.nome || 'Usuário',
                 setor: setor,
                 texto: texto,
-                data: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })
+                data: nowFormatted()
             });
 
             persistAllData();
             document.getElementById('chatTexto').value = '';
             renderChatView();
-            showToast('Mensagem enviada.');
+            showToast('Mensagem enviada com sucesso.');
         }
 
         function renderChatView() {
             const list = document.getElementById('chatMessagesList');
             if (!list) return;
+
             if (mockMensagens.length === 0) {
-                list.innerHTML = `<p class="text-slate-400 text-xs">Nenhuma mensagem registrada.</p>`;
+                list.innerHTML = `<p class="text-slate-400 text-xs py-2">Nenhuma mensagem registrada.</p>`;
                 return;
             }
+
             list.innerHTML = mockMensagens.map(m => `
                 <div class="p-3 bg-slate-700/60 rounded-xl space-y-1">
-                    <div class="flex justify-between font-bold text-emerald-400">
-                        <span>${m.user} → ${m.setor}</span>
-                        <span class="text-slate-400 font-normal text-[10px]">${m.data}</span>
+                    <div class="flex justify-between items-center text-[10px]">
+                        <span class="font-bold text-emerald-400">${m.user} → ${m.setor}</span>
+                        <span class="text-slate-400 font-mono">${m.data}</span>
                     </div>
-                    <p class="text-slate-200">${m.texto}</p>
+                    <p class="text-slate-200 text-xs leading-relaxed">${m.texto}</p>
                 </div>
             `).join('');
         }
@@ -1414,6 +2907,7 @@
             const name = document.getElementById('profInputName').value.trim();
             const sector = document.getElementById('profInputSector').value.trim();
             const phone = document.getElementById('profInputPhone').value.trim();
+
             if (!name) return;
 
             currentUser.name = name;
@@ -1435,87 +2929,7 @@
             showToast('Perfil atualizado com sucesso.');
         }
 
-        function renderFullNotifView() {
-            const list = document.getElementById('fullNotifList');
-            if (!list) return;
-            list.innerHTML = `<p class="text-slate-400 text-xs bg-slate-800 p-4 rounded-2xl">Não há notificações no momento.</p>`;
-        }
-
-        function toggleNotifMenu() {
-            const menu = document.getElementById('notifMenu');
-            menu.classList.toggle('hidden');
-        }
-
-        function markAllNotificationsRead() {
-            document.getElementById('notifBadgeDot').classList.add('hidden');
-            showToast('Notificações marcadas como lidas.');
-        }
-
-        function renderAdminView() {
-            const localUsers = readJSON(STORAGE_USERS, []);
-            const userListEl = document.getElementById('adminUsersList');
-            const solListEl = document.getElementById('adminSolList');
-
-            const combinedUsers = [];
-            const addedEmails = new Set();
-
-            ADMIN_ACCOUNTS.forEach(a => {
-                const norm = normalizeEmail(a.email);
-                if (!addedEmails.has(norm)) {
-                    addedEmails.add(norm);
-                    combinedUsers.push({
-                        nome: a.name,
-                        email: a.email,
-                        tipo: a.role || 'administrador',
-                        setor: a.sector || 'Administração IFAL'
-                    });
-                }
-            });
-
-            localUsers.forEach(u => {
-                const norm = normalizeEmail(u.email);
-                if (!addedEmails.has(norm)) {
-                    addedEmails.add(norm);
-                    combinedUsers.push({
-                        nome: u.nome || u.name,
-                        email: u.email,
-                        tipo: u.role || u.tipo || 'usuario',
-                        setor: u.setor || u.sector || 'N/A'
-                    });
-                }
-            });
-
-            if (userListEl) {
-                userListEl.innerHTML = combinedUsers.map(u => `
-                    <div class="p-3 bg-slate-700/60 rounded-xl flex items-center justify-between">
-                        <div>
-                            <p class="font-bold text-white">${u.nome} <span class="text-[10px] text-emerald-400">(${u.tipo})</span></p>
-                            <p class="text-slate-300 text-[11px]">${u.email} — ${u.setor}</p>
-                        </div>
-                        <span class="px-2 py-0.5 bg-emerald-900/80 text-emerald-300 text-[10px] font-bold rounded">Ativo</span>
-                    </div>
-                `).join('');
-            }
-
-            if (solListEl) {
-                if (mockSolicitacoes.length === 0) {
-                    solListEl.innerHTML = `<p class="text-slate-400">Nenhuma solicitação no sistema.</p>`;
-                } else {
-                    solListEl.innerHTML = mockSolicitacoes.map(s => `
-                        <div class="p-3 bg-slate-700/60 rounded-xl space-y-1">
-                            <div class="flex justify-between">
-                                <span class="font-bold text-emerald-400 font-mono">${s.protocolo}</span>
-                                <span class="text-slate-400">${s.userName} (${s.userEmail})</span>
-                            </div>
-                            <p class="font-semibold text-white">${s.especialidade} — ${s.motivo}</p>
-                            <p class="text-slate-300">${s.descricao}</p>
-                        </div>
-                    `).join('');
-                }
-            }
-        }
-
-        // Inicialização do Sistema
+        // INICIALIZAÇÃO DA APLICAÇÃO
         document.addEventListener('DOMContentLoaded', () => {
             initAppSession();
         });
